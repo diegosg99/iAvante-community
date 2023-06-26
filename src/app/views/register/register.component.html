@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            <h5 class="card-title">Registro</h5>
+        </div>
+        <div class="card-body p-4">
+
+            <label style="float: left;margin-bottom: 1em;">Email:</label>
+            <input class="form-control my-3" type="text" placeholder="Email" #email [(ngModel)]="usuario.email">
+
+            <label style="float: left;;margin-bottom: 1em;">Contraseña:</label>
+            <input class="form-control my-3" type="password" placeholder="Contraseña" #password  [(ngModel)]="usuario.password">
+
+        <p>¿Ya tienes cuenta? <a href="">Acceder</a></p>
+        </div>
+    </div>
+</div>
