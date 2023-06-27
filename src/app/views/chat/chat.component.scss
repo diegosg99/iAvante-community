@@ -5,3 +5,31 @@
     width: 100vw;
     height: 100vh;
 }
+
+.card-header {
+    color: white;
+    background-color: rgb(75, 135, 255);
+    font-weight: 700;
+}
+
+.send-photo:active {
+    transform: scale(0.9);
+}
+
+.mostrar {
+    display: block;
+}
+
+.ocultar {
+    display: none;
+}
+
+.chatButton {
+    padding: 1em;
+    border-radius: 100%;
+    background-color: rgb(75, 135, 255);
+    color: white;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+}

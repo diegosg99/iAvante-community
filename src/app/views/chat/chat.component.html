@@ -1,18 +1,30 @@
-<div class="container">
-    <div class="card w-25 text-center" style="position: fixed; bottom: 2em; right: 2em;">
-        <div class="card-header d-inline-flex">
+
+    <div class="card w-25 text-center" style="position: fixed; bottom: 0.5rem; right: 0.5rem;" [ngClass]="mostrar ? 'card w-25 text-center mostrar' : 'ocultar'">
+        <div class="card-header d-inline-flex justify-content-center w-100" (click)="mostrarChat()">
             <i class="fa-regular fa-message m-2"></i>
-            <h5 class="card-title">Chat</h5>
+            <h5 class="card-title">CHAT</h5>
         </div>
-        <div class="card-body p-4">
-        
+        <div class="card-body p-4" style="max-height: 320px;overflow: auto;">
+            <div>
+                <p *ngFor="let mensaje of mensajes">
+                    {{mensaje.texto}}
+                </p>
+            </div>
         </div>
         <hr>
         <div class="d-flex justify-content-center">
-            <button class="btn btn-primary m-3">
-                Enviar
-            </button>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" style="font-size: 12px;" placeholder="Escribe un mensaje..." aria-describedby="basic-addon2" #mensaje>
+                <div class="input-group-append">
+                  <span class="input-group-text text-secondary" style="font-size: 12px;" id="basic-addon2">
+                    <i class="fa-solid fa-arrow-right send-photo" (click)="enviarMensaje()"></i>
+                </span>
+                </div>
+              </div>
         </div>
-
     </div>
+
+<div>
+    <i class="fa-solid fa-arrow-right send-photo" [ngClass]="mostrar ? 'ocultar' : 'mostrar chatButton fa-solid fa-comment send-photo'" (click)="mostrarChat()"></i>
 </div>
+
