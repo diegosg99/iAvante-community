@@ -27,10 +27,15 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+      </div>
+      <div class="d-flex">
+        <a class="navbar-brand me-2" href="#" *ngIf="userLogged|async as user">
+          <img *ngIf="user.photoURL" src="{{user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
+          <span style="font-size: medium;">{{user.email}}</span>
+        </a>
+        <button *ngIf="userLogged|async as user" class="btn btn-outline-success" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
       </div>
     </div>
   </nav>

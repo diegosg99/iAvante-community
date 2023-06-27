@@ -11,7 +11,12 @@
             <label style="float: left;;margin-bottom: 1em;">Contraseña:</label>
             <input class="form-control my-3" type="password" placeholder="Contraseña" #password  [(ngModel)]="usuario.password">
 
-        <p>¿Ya tienes cuenta? <a href="">Acceder</a></p>
+        <p>¿Ya tienes cuenta? <a href="login">Acceder</a></p>
+
+        <div class="row mx-3">
+            <div class="col-3"></div>
+            <button class="text-white btn btn-primary mb-3 col-6" (click)="register()">Registrarme</button>
+        </div>
         </div>
     </div>
 </div>

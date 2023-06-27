@@ -13,10 +13,10 @@
             <input class="form-control my-3" type="password" placeholder="Contraseña" #password  [(ngModel)]="usuario.password">
             
             <div class="row justify-content-center">
-                <a href="#" class="btn btn-primary ml-2 mb-2 mt-2 col-9" (click)="login()">Acceder</a>
-                <a href="#" class="btn btn-light m-2 col-2" (click)="loginGoogle()">
+                <a class="btn btn-primary ml-2 mb-2 mt-2 col-9" (click)="login()">Acceder</a>
+                <button class="btn btn-light m-2 col-2" (click)="loginGoogle()">
                     <i class="fa-brands fa-google"></i>
-                </a>
+                </button>
             </div>
 
         <p>¿Aún no tienes cuenta? <a href="register">Registrarse</a></p>

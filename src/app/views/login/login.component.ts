@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
+import { Router } from '@angular/router';
 import { OauthService } from 'src/app/services/oauth.service';
 
 @Component({
@@ -7,22 +8,25 @@ import { OauthService } from 'src/app/services/oauth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   usuario = {
     email: '',
     password: ''
   }
 
-  constructor(private oauth:OauthService){}
+  ngOnInit = async () =>{
+    //this.userInfo();
+  }
+
+  constructor(private oauth:OauthService, private router:Router){}
 
   login = async () => {
 
     const {email,password} = this.usuario;
 
     this.oauth.login(email,password).then(console.log);
-
-    //this.oauth.register(email,password).then(console.log);
+    this.userInfo();
   }
 
   loginGoogle = async () => {
@@ -30,6 +34,7 @@ export class LoginComponent {
     const {email,password} = this.usuario;
 
     this.oauth.loginWithGoogle(email,password).then(console.log);
+    this.userInfo();
 
     //this.oauth.register(email,password).then(console.log);
   }
@@ -37,7 +42,12 @@ export class LoginComponent {
   userInfo = () => {
     this.oauth.getUserLogged().subscribe(
       res => {
-        console.log(res?.email);
+        if (res?.email) {
+          this.router.navigate(['home']);
+        }else{
+          this.router.navigate(['login']);
+        }
+        return res?.email;
       }
     );
   }
@@ -45,5 +55,4 @@ export class LoginComponent {
   logout = () => {
     this.oauth.logout().then(console.log);
   }
- 
 }

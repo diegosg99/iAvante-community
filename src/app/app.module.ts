@@ -12,6 +12,7 @@ import { getAuth } from '@firebase/auth';
 import { OauthService } from './services/oauth.service';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { RegisterComponent } from './views/register/register.component';
+import { HomeComponent } from './views/home/home.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { RegisterComponent } from './views/register/register.component';
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
