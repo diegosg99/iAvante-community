@@ -12,7 +12,7 @@ export class NavbarComponent {
   userLogged = this.auth.getUserLogged();
 
   constructor(private auth:OauthService, private router:Router) {
-
+    this.auth.getUserLogged().subscribe(console.log);
   }
 
   logout = () => {

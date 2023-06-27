@@ -13,6 +13,9 @@ import { OauthService } from './services/oauth.service';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { RegisterComponent } from './views/register/register.component';
 import { HomeComponent } from './views/home/home.component';
+import { ChatComponent } from './views/chat/chat.component';
+import { ParallaxComponent } from './views/parallax/parallax.component';
+import { ParallaxDirective } from './parallax.directive';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { HomeComponent } from './views/home/home.component';
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ChatComponent,
+    ParallaxComponent,
+    ParallaxDirective,
   ],
   imports: [
     BrowserModule,
