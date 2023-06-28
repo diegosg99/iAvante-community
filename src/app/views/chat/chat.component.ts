@@ -63,6 +63,10 @@ export class ChatComponent implements OnInit {
     this.mensajes = [...this.mensajes,mensajeNuevo];
 
     this.mensaje = "";
+
+    setTimeout(()=> {
+      this.scrollToTheLastMesagge();
+    },20)
   }
 
   mostrarChat = () => {
@@ -80,5 +84,19 @@ export class ChatComponent implements OnInit {
     }else{
       this.mostrar = false;
     }
+  }
+
+  scrollToTheLastMesagge = () => {
+    let mensajes = document.getElementsByClassName('msj');
+
+    let ultimo: any = mensajes[(mensajes.length -1)];
+    let toppos = ultimo.offsetTop;
+
+    let mensajesChat:any = document.getElementById('mensajesChat');
+
+    console.log(toppos);
+
+    mensajesChat.scrollTop = toppos;
+
   }
 }

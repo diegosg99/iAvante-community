@@ -70,3 +70,7 @@
 .photoLeft {
     float: left;
 }
+
+.mensajesChat::-webkit-scrollbar {
+    display: none;
+}

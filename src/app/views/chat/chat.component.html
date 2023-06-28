@@ -4,13 +4,13 @@
             <i class="fa-regular fa-message m-2"></i>
             <h5 class="card-title">CHAT</h5>
         </div>
-        <div class="card-body p-3" style="max-height: 320px;overflow: auto;"  *ngIf="usuarioLogueado">
+        <div id="mensajesChat" class="card-body mensajesChat p-3" style="max-height: 320px;overflow: auto;scrollbar-width: thin;scrollbar-track-color: #197569;"  *ngIf="usuarioLogueado">
             <div>
                 <div *ngFor="let mensaje of mensajes" 
                 [ngClass]="(usuarioLogueado.uid==mensaje.emisor)?'justify-content-end':'justify-content-start'"
                 class="d-inline-flex w-100">
 
-                    <p class="p-2" style="margin-bottom: .4rem !important;"
+                    <p class="p-2 msj" style="margin-bottom: .4rem !important;"
                         [ngClass]="(usuarioLogueado.uid==mensaje.emisor)?'enviado':'recibido'">
                         {{mensaje.texto}}
                     </p>
