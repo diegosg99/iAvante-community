@@ -24,14 +24,14 @@
         </div>
         <hr>
         <div class="d-flex justify-content-center">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" style="font-size: 12px;" placeholder="Escribe un mensaje..." aria-describedby="basic-addon2" #mensaje>
+            <form class="input-group mb-3" (ngSubmit)="enviarMensaje()">
+                <input type="text" class="form-control" style="font-size: 12px;" placeholder="Escribe un mensaje..." aria-describedby="basic-addon2" [(ngModel)]="mensaje" [ngModelOptions]="{standalone: true}">
                 <div class="input-group-append d-flex">
-                  <span class="input-group-text text-secondary" style="font-size: 12px;" id="basic-addon2">
-                    <i class="fa-solid fa-arrow-right send-photo m-2" (click)="enviarMensaje()"></i>
-                </span>
+                  <button type="submit" class="input-group-text text-secondary" style="font-size: 12px;" id="basic-addon2">
+                    <i class="fa-solid fa-arrow-right send-photo m-2"></i>  
+                  </button>
                 </div>
-              </div>
+            </form>
         </div>
     </div>
 

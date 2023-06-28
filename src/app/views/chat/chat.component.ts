@@ -54,7 +54,15 @@ export class ChatComponent implements OnInit {
   }
 
   enviarMensaje = () => {
-    console.log(this.mensaje);
+
+    let mensajeNuevo = {
+      emisor:this.usuarioLogueado.uid,
+      texto:this.mensaje
+    }
+
+    this.mensajes = [...this.mensajes,mensajeNuevo];
+
+    this.mensaje = "";
   }
 
   mostrarChat = () => {
