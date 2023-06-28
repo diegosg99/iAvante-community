@@ -32,4 +32,41 @@
     position: fixed;
     bottom: 1em;
     right: 1em;
+    font-size: 16px;
+}
+
+.enviado {
+    display: block;
+    float: right;
+    background-color: #198754;
+    //min-width: 50.01%;
+    max-width: 70.01%;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 13px;
+    color: white;
+}
+
+.recibido {
+    display: block;
+    float: left;
+    background-color: rgb(158, 158, 158);
+    //min-width: 50.01%;
+    max-width: 80.01%;
+    border-radius: 10px;
+    text-align: left;
+    color: white;
+    font-size: 13px;
+}
+
+.chatPhoto {
+    min-width: none !important;
+}
+
+.photoRight {
+    float: right;
+}
+
+.photoLeft {
+    float: left;
 }

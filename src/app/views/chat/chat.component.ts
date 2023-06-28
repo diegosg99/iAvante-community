@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OauthService } from 'src/app/services/oauth.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,32 +11,46 @@ export class ChatComponent implements OnInit {
   mensaje:string = "";
   mensajes:any = [
     {
-      emisor:'id',
+      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
       texto:"¡Bienvenido a nuestra plataforma!"
     },
     {
-      emisor:'id',
+      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
       texto:"A traves de aquí puedes contactar con otros docentes o alumnos."
     },
     {
-      emisor:'id',
+      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
       texto:"Tambien puedes hacer preguntas en nuestro foro, o estar informado de las últimas noticias relacionadas con el mundo médico."
     },
     {
-      emisor:'id',
+      emisor:'HZvc0gbpm4cvUpSEg8uBcgkQ8QG3',
+      texto:"Gracias mi broder a ver klk pasa."
+    },
+    {
+      emisor:'HZvc0gbpm4cvUpSEg8uBcgkQ8QG3',
+      texto:"Estoy buscando cobre pa pagarlo."
+    },
+    {
+      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
       texto:"¡Esperemos que sea útil! Estamos a tu disposición."
     },
     {
-      emisor:'id',
+      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
       texto:"IAVANTE, Fundación progreso y salud."
     },
   ];
 
   mostrar:boolean = false;
 
+  usuarioLogueado:any;
 
-  ngOnInit = () => {
+  constructor(private auth:OauthService){}
 
+  ngOnInit = async () => {
+    // await this.auth.getUserLogged().subscribe(usuario => {
+    //   let multifactor:any = usuario?.multiFactor
+    //   this.usuarioLogueado = multifactor.user;
+    // });
   }
 
   enviarMensaje = () => {
@@ -43,11 +58,19 @@ export class ChatComponent implements OnInit {
   }
 
   mostrarChat = () => {
+    if (this.usuarioLogueado === null || this.usuarioLogueado === undefined) {
+      
+      this.auth.getUserLogged().subscribe(usuario => {
+        
+        let multifactor:any = usuario?.multiFactor
+        this.usuarioLogueado = multifactor.user;
+      });
+    }
+
     if (this.mostrar === false) {
       this.mostrar = true;
     }else{
       this.mostrar = false;
     }
-    console.log(this.mostrar);
   }
 }
