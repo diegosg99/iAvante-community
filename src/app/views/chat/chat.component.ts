@@ -94,8 +94,6 @@ export class ChatComponent implements OnInit {
 
     let mensajesChat:any = document.getElementById('mensajesChat');
 
-    console.log(toppos);
-
     mensajesChat.scrollTop = toppos;
 
   }
