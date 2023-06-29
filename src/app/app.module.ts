@@ -16,6 +16,7 @@ import { HomeComponent } from './views/home/home.component';
 import { ChatComponent } from './views/chat/chat.component';
 import { ParallaxComponent } from './views/parallax/parallax.component';
 import { ParallaxDirective } from './parallax.directive';
+import { FooterComponent } from './views/footer/footer.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ParallaxDirective } from './parallax.directive';
     ChatComponent,
     ParallaxComponent,
     ParallaxDirective,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
