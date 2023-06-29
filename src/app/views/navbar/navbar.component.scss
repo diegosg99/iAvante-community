@@ -29,6 +29,22 @@
     display: block;
   }
   
-  .dropdown-content a:hover {background-color: #f1f1f1}
+  .dropdown-content a:hover {
+    color: white;
+    background-color: #1c2331;
+    transition: all 0.3s ease;
+  }
+
+  ul > li>a:hover {
+    color: white;
+    background-color: #1c2331;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown:hover button {
+    color: white;
+    background-color: #1c2331;
+    transition: all 0.3s ease;
+  }
   
   .dropdown:focus-within .dropdown-content {display: block;}
