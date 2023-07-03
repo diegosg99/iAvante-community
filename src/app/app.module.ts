@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from './environments/environment';
@@ -17,6 +17,10 @@ import { ChatComponent } from './views/chat/chat.component';
 import { ParallaxComponent } from './views/parallax/parallax.component';
 import { ParallaxDirective } from './parallax.directive';
 import { FooterComponent } from './views/footer/footer.component';
+import { UploadPostComponent } from './views/upload-post/upload-post.component';
+import { ToastrModule } from 'ngx-toastr';
+import { LikeBookmarkComponent } from './views/like-bookmark/like-bookmark.component';
+import { PostComponent } from './views/post/post.component';
 
 
 @NgModule({
@@ -30,12 +34,17 @@ import { FooterComponent } from './views/footer/footer.component';
     ParallaxComponent,
     ParallaxDirective,
     FooterComponent,
+    UploadPostComponent,
+    LikeBookmarkComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     
   ],

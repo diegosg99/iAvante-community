@@ -1,6 +1,6 @@
 .dropbtn {
     user-select:none;
-    font-size: 16px;
+    font-size: 15px;
     border: none;
     cursor: pointer;
   }
@@ -8,6 +8,7 @@
   .dropdown {
     position: relative;
     display: inline-block;
+    font-size: 15px;
     //border_radius: .3rem;
   }
   
@@ -48,3 +49,7 @@
   }
   
   .dropdown:focus-within .dropdown-content {display: block;}
+
+  .nav-link {
+    font-size: 15px;
+  }

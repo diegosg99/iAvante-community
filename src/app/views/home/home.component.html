@@ -5,15 +5,41 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="logo mb-5 p-5">Últimas noticias</h1>
+            <h1 class="logo mb-5 p-5">Últimas publicaciones</h1>
         </div>
 
         <div class="col-1"></div>
 
         <div class="col-10 mt-3" id="posts">
             <ul style="list-style: none;padding:0px;">
-                <!-- <li *ngFor="let post of posts">
-                    <div class="card mb-5 mr-3">
+                <li *ngFor="let post of posts">
+
+                    <div class="container m-5">
+                        <div class="row d-flex post">
+
+                            <div class="col-4" style="padding-left: 0px;">
+                                <img class="w-100 post-image" src="{{post.photo}}" width="346px">
+                            </div>
+                            <div class="post-content col-8 p-3 row">
+                                <app-like-bookmark></app-like-bookmark>
+                                <div class="col-12">
+                                    <h1 class="">
+                                        <a href="post/{{post.id}}" style="font-size: 34px;text-decoration: none;color: black;">
+                                            {{post.titulo}} <i class="fa fa-link" style="font-size:14px;" aria-hidden="true"></i>
+                                        </a>
+                                    </h1>
+                                    <div class="mb-3">
+                                        {{post.categoria}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-12">
+                                    <p>{{post.descripcion}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card mb-5 mr-3">
                         <div class="card-body card-body-post" style="padding:0;">
                             <div class="row">
                                 <div class="col-4">
@@ -34,8 +60,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li> -->
+                    </div> -->
+                </li>
             </ul>
         </div>
         
