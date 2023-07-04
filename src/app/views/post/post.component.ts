@@ -17,23 +17,20 @@ export class PostComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.postId =  this._activatedroute.params;
+    this.postId = this._activatedroute.params;
 
-    this._postService.getPost(this.postId.value.id);
-    
-    // subscribe(posts=>{
+    this._postService.getPosts().subscribe(posts=>{
 
-    //   let processedPost: any[] = [];
+      let processedPosts: any[] = [];
 
-    //   posts.forEach((post: any)=>{
-    //     let arraySegments = post.payload.doc._delegate._key.path.segments;
-    //     let postId = arraySegments[arraySegments.length - 1];
+      posts.forEach((post: any)=>{
+        let arraySegments = post.payload.doc._delegate._key.path.segments;
+        let postId = arraySegments[arraySegments.length - 1];
 
-    //     processedPost = [...processedPost,{id: postId,...post.payload.doc.data()}];
-    //   })
-    //   this.post=processedPost;
-    //   console.log(this.post);
-    // });
+        processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
+      })
+
+      this.post = processedPosts.find(post => post.id === this.postId.value.id);
+    });
   }
-
 }

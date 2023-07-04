@@ -49,24 +49,17 @@ export class PostService {
 
   getPost = (id:string):any => {
 
-    console.log(id);
-
-    const db = getDatabase();
-    const postRef = dbRef(db, 'posts/' + id);
-    onValue(postRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      //updateStarCount(postElement, data);
+    let doc;
+    
+    this.firebase.collection('posts').snapshotChanges().subscribe(docs=>{
+      doc = docs;
+       console.log(doc);
     });
 
-
-    const postsRef = dbRef(db, 'posts/' + id);
-
-    // Create a query against the collection.
-    const q = query('posts', where("id", "==", id));
+    
 
 
-    return this.firebase.collection('posts').where('__name__', '==' ,'fK3ddutEpD2qQqRMXNW5').get();
+    // return this.firebase.collection('posts').where('__name__', '==' ,'6naHlNLYQUBUvlxrv99p').get();
   }
 }
 

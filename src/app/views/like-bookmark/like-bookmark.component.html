@@ -1,9 +1,16 @@
 <div class="row justify-content-end">
-    <div class="col-10"></div>
-    <div onclick="likePost()" class="col-1"><i class="fa fa-heart"></i></div>
-    <div onclick="bookmarkPost()" class="col-1"><i class="fa fa-bookmark"></i></div>
-    <!-- <div class="post-user col-4">
-        <img *ngIf="post.user.photoURL" src="{{post.user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
-        <span class="m-3 text-secondary" style="font-size: medium;">{{post.user.displayName?post.user.displayName:post.user.email}}</span>
-    </div> -->
+    <div class="col-9"></div>
+    <div class="col-2">
+        <div (click)="likePost()" style="text-align: center;"><i class="fa-heart"
+            [ngClass]="liked?'fa-solid red':'fa-regular black'"></i>
+        </div>
+        <div (click)="bookmarkPost()" style="text-align: center;"><i class="fa-bookmark"
+            [ngClass]="bookmarked?'fa-solid black':'fa-regular black'"></i>
+        </div>
+    </div>
+    
+    <div class="col-1" style="text-align: center;">
+        <img *ngIf="user.photoURL" src="{{user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
+        <!-- <span class="m-3 text-secondary" style="font-size: medium;">{{user.displayName?user.displayName:user.email}}</span> -->
+    </div>
 </div>
