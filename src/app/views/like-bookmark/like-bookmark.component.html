@@ -1,10 +1,11 @@
 <div class="row justify-content-end">
     <div class="col-9"></div>
-    <div class="col-2">
-        <div (click)="likePost()" style="text-align: center;"><i class="fa-heart"
+    <div class="col-2 row">
+        <div class="col-4"></div>
+        <div (click)="likePost()" style="text-align: center;"><i class="fa-heart col-4"
             [ngClass]="liked?'fa-solid red':'fa-regular black'"></i>
         </div>
-        <div (click)="bookmarkPost()" style="text-align: center;"><i class="fa-bookmark"
+        <div (click)="bookmarkPost()" style="text-align: center;"><i class="fa-bookmark col-4"
             [ngClass]="bookmarked?'fa-solid black':'fa-regular black'"></i>
         </div>
     </div>

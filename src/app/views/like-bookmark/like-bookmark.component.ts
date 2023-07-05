@@ -36,5 +36,4 @@ export class LikeBookmarkComponent implements OnInit{
   bookmarkPost = () => {
     this.bookmarked = this.bookmarked?false:true;
   }
-
 }

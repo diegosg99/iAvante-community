@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Storage,getDownloadURL,getStorage,ref,uploadBytes, uploadString } from '@angular/fire/storage';
-import { Observable, Subject } from 'rxjs';
+import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
 import { Post } from '../models/Post';
-
-import { getDatabase, ref as dbRef, onValue } from "firebase/database";
-import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  private post = new Subject<any>();
-
   private storage = getStorage();
-
-  private database = getDatabase();
-
 
   constructor(private firebase: AngularFirestore) { }
 
@@ -55,11 +47,6 @@ export class PostService {
       doc = docs;
        console.log(doc);
     });
-
-    
-
-
-    // return this.firebase.collection('posts').where('__name__', '==' ,'6naHlNLYQUBUvlxrv99p').get();
   }
 }
 

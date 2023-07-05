@@ -21,6 +21,11 @@ import { UploadPostComponent } from './views/upload-post/upload-post.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LikeBookmarkComponent } from './views/like-bookmark/like-bookmark.component';
 import { PostComponent } from './views/post/post.component';
+import { LikeService } from './services/like.service';
+import { PostService } from './services/post.service';
+import { NewsComponent } from './views/news/news.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NewsService } from './services/news.service';
 
 
 @NgModule({
@@ -37,6 +42,7 @@ import { PostComponent } from './views/post/post.component';
     UploadPostComponent,
     LikeBookmarkComponent,
     PostComponent,
+    NewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,12 +50,16 @@ import { PostComponent } from './views/post/post.component';
     FormsModule,
     AngularFireModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ToastrModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     
   ],
   providers: [OauthService,
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }],
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    LikeService,
+    NewsService,
+    PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
