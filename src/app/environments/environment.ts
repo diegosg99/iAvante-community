@@ -9,8 +9,9 @@ export const environment = {
     },
     news: {
       mediastack: {
-        science:'http://api.mediastack.com/v1/news?access_key=fd433c8f8de79f6cb56eb3f497994796&categories=science&keywords=simulation',
-        health:'http://api.mediastack.com/v1/news?access_key=fd433c8f8de79f6cb56eb3f497994796&categories=health&keywords=hospital',
+        science:'http://api.mediastack.com/v1/news?access_key=fd433c8f8de79f6cb56eb3f497994796&categories=science&languages=en',
+        health:'http://api.mediastack.com/v1/news?access_key=fd433c8f8de79f6cb56eb3f497994796&categories=health&keywords=hospital&languages=es,en',
+        simulation:'https://api.worldnewsapi.com/search-news?api-key=570532b4113a48dbaf5cba1f0909bef6&text=simulacion%20clinica&language=es&number=26'
       }
     }
 };

@@ -10,17 +10,16 @@ import { NewsService } from 'src/app/services/news.service';
 export class NewsComponent implements OnInit{
 
   news:any;
+  category:any;
 
   constructor(private newsService: NewsService,private router:Router,private _activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
 
     let category:any = this._activatedRoute.params;
+    this.category = category.value.category
 
-    console.log(category);
-    console.log(category.value.category);
-
-    this.newsService.getNews(category.value.category).subscribe(news => {
+    this.newsService.getNews(this.category).subscribe(news => {
       this.news = news;
       console.log(this.news);
     });
