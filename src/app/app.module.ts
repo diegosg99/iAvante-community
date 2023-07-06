@@ -26,6 +26,10 @@ import { PostService } from './services/post.service';
 import { NewsComponent } from './views/news/news.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NewsService } from './services/news.service';
+import { ForumComponent } from './views/forum/forum.component';
+import { ForumCategoriesComponent } from './views/forum-categories/forum-categories.component';
+import { ForumCommentComponent } from './views/forum-comment/forum-comment.component';
+import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-question.component';
 
 
 @NgModule({
@@ -43,6 +47,10 @@ import { NewsService } from './services/news.service';
     LikeBookmarkComponent,
     PostComponent,
     NewsComponent,
+    ForumComponent,
+    ForumCategoriesComponent,
+    ForumCommentComponent,
+    ForumNewQuestionComponent,
   ],
   imports: [
     BrowserModule,

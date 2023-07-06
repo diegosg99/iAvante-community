@@ -66,11 +66,19 @@
                         [class.red-icon]="this.form.get('descripcion')?.invalid && this.form.get('descripcion')?.touched"></i>
                       </span>
                     </div>
-                    <input type="textarea" rows="3" class="form-control" placeholder="Contenido" style="height: 9em;padding-bottom: 7em;" formControlName="descripcion">
+                    <textarea
+                        id="comments"
+                        class="input-textarea"
+                        name="comment"
+                        placeholder="Contenido" formControlName="descripcion">
+                    </textarea>
+
+
+                    <!-- <input type="textarea" rows="3" class="form-control" placeholder="Contenido"> -->
                 </div>
     
                 <div (click)="postArticle()" class="row d-grip gap-2">
-                    <button class="btn btn-success" type="submit" [disabled]="this.form.invalid">
+                    <button class="btn green-bomba" type="submit" [disabled]="this.form.invalid">
                         <i class="fa-solid fa-database"></i>&nbsp;Aceptar</button>
                 </div>
             </form>

@@ -6,6 +6,7 @@ import { HomeComponent } from './views/home/home.component';
 import { UploadPostComponent } from './views/upload-post/upload-post.component';
 import { PostComponent } from './views/post/post.component';
 import { NewsComponent } from './views/news/news.component';
+import { ForumComponent } from './views/forum/forum.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: "news/:category",
     component: NewsComponent
+  },
+  {
+    path: "foro",
+    component: ForumComponent
   }
 ];
 
