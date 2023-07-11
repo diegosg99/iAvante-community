@@ -1,21 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { Post } from '../models/Post';
+import { OauthService } from './oauth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ForumService {
+export class ForumService implements OnInit{
 
   private storage = getStorage();
+  userLogged = this.auth.getUserLogged();
+  userId;
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(private firebase: AngularFirestore,private auth:OauthService) { }
 
-  uploadQuestion = (forum): any => {
+  ngOnInit(): void {
+    if(this.userLogged){
+      this.userLogged.subscribe(user=>{this.userId = user});
+    }
+  }
 
-    this.firebase.collection('forums').add(forum)
+  uploadQuestion = (forum:any): any => {
+    console.log(forum);
+    return this.firebase.collection('forums').add(forum)
           .then(()=>{
             console.log('Pregunta subida con éxito.')
           }, error => {
@@ -25,7 +33,7 @@ export class ForumService {
 
   uploadResponse = (response): any => {
 
-    this.firebase.collection('forum-response').add(response)
+    return this.firebase.collection('forum-response').add(response)
       .then(()=>{
         console.log('Publicación subida con éxito.')
       }, error => {
@@ -33,18 +41,18 @@ export class ForumService {
     });
   }
 
-  getPosts = ():Observable<any> => {
-    return this.firebase.collection('forums',ref => ref.orderBy('fechaActualizacion','desc')).snapshotChanges();
+  getQuestions = ():Observable<any> => {
+    return this.firebase.collection('forums',ref => ref.orderBy('fechaCreacion','desc')).snapshotChanges();
   }
 
-  getPost = (id:string):any => {
+  updateQuestionViews = (id,data) => {
+    //TODO implementar actualización de preguntas en firestore
+    return this.firebase.collection('forums').doc(id).set({views:data['views']+1});
+  }
 
-    let doc;
-    
-    this.firebase.collection('forums').snapshotChanges().subscribe(docs=>{
-      doc = docs;
-       console.log(doc);
-    });
+  getQuestion = (id:string):any => {
+
+    return this.firebase.collection('forums',ref=>ref.where('id','==',id.toString()));
   }
 }
 

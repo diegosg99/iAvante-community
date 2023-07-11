@@ -21,12 +21,12 @@
         <div class="col-1"></div>
         <div class="col-1"></div>
         <section class="col-10">
-            <h2>Nuevas preguntas</h2>
+            <h2>Preguntas recientes</h2>
             <ul>
-            <li>
-                <a href="#">Configuración de simulador Rainbow-6</a>
-                <span class="mx-3"><i class="fa-regular fa-eye"></i> 100 visualizaciones</span>
-                <span class="mx-3"><i class="fa-regular fa-comment"></i> 10 comments</span>
+            <li *ngFor="let question of questions">
+                <a href="foro/{{question.id}}">{{question.titulo}}</a>
+                <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
+                <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
                 <span class="mx-3">Benjamin Button Heredia</span>
             </li>
             </ul>

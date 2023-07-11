@@ -7,6 +7,7 @@ import { UploadPostComponent } from './views/upload-post/upload-post.component';
 import { PostComponent } from './views/post/post.component';
 import { NewsComponent } from './views/news/news.component';
 import { ForumComponent } from './views/forum/forum.component';
+import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: "foro",
     component: ForumComponent
+  },
+  {
+    path: "foro/:id",
+    component: ForumQuestionComponent
   }
 ];
 

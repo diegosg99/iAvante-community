@@ -14,10 +14,10 @@ export class UploadPostComponent implements OnInit{
 
   form: FormGroup;
   loading:boolean = false;
-  //id: string | undefined;
+
   imageFile: { link: string; file: any; name: string; } | any;
   imageRaw: { link: string; file: any; name: string; } | any;
-  //userLogged = this.auth.getUserLogged();
+
   userUID:any = this.auth.getUserLogged().subscribe();
 
   constructor(

@@ -18,7 +18,7 @@ import { ParallaxComponent } from './views/parallax/parallax.component';
 import { ParallaxDirective } from './parallax.directive';
 import { FooterComponent } from './views/footer/footer.component';
 import { UploadPostComponent } from './views/upload-post/upload-post.component';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule,ToastrService } from 'ngx-toastr';
 import { LikeBookmarkComponent } from './views/like-bookmark/like-bookmark.component';
 import { PostComponent } from './views/post/post.component';
 import { LikeService } from './services/like.service';
@@ -30,6 +30,7 @@ import { ForumComponent } from './views/forum/forum.component';
 import { ForumCategoriesComponent } from './views/forum-categories/forum-categories.component';
 import { ForumCommentComponent } from './views/forum-comment/forum-comment.component';
 import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-question.component';
+import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-
     ForumCategoriesComponent,
     ForumCommentComponent,
     ForumNewQuestionComponent,
+    ForumQuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +69,7 @@ import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     LikeService,
     NewsService,
+    ToastrService,
     PostService],
   bootstrap: [AppComponent]
 })
