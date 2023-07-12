@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
 import { OauthService } from 'src/app/services/oauth.service';
 
@@ -18,16 +19,13 @@ export class ForumQuestionComponent implements OnInit{
 
   constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private auth: OauthService){}
 
-  ngOnInit(): void {
+  ngOnInit(): any {
 
     this.idQuestion = this._activatedroute.params;
 
     this.forumService.getQuestion(this.idQuestion.value.id).snapshotChanges().subscribe(question=>{
-      
-      this.question = {...question[0].payload.doc.data()};
+      this.question = {...question.payload.data()};
       this.userId = this.question.usuario;
-      console.log(this.question);
-      console.log(this.userId);
-    })
+    });
   }
 }

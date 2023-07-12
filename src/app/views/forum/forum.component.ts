@@ -19,10 +19,10 @@ export class ForumComponent implements OnInit{
       let processedQuestions: any[] = [];
 
       questions.forEach((question: any)=>{
-        //let arraySegments = question.payload.doc._delegate._key.path.segments;
-        // let questionId = arraySegments[arraySegments.length - 1];
+        let arraySegments = question.payload.doc._delegate._key.path.segments;
+        let questionId = arraySegments[arraySegments.length - 1];
 
-        processedQuestions = [...processedQuestions,{...question.payload.doc.data()}];
+        processedQuestions = [...processedQuestions,{id:questionId,...question.payload.doc.data()}];
       })
       this.questions=processedQuestions;
 
@@ -38,5 +38,10 @@ export class ForumComponent implements OnInit{
       console.log(this.questions);
       console.log(this.topQuestions);
     })
+  }
+
+  updateViews = (idQuestion) => {
+    let question = this.questions.find(q=>q.id===idQuestion);
+    this.forumService.updateQuestionViews(idQuestion,question).then(res=>console.log(res));
   }
 }

@@ -33,7 +33,7 @@ export class ForumNewQuestionComponent implements OnInit{
 
   uploadNewForum = () => {
     const QUESTION:any = {
-      id: this.uuidv4(),
+      //id: this.uuidv4(),
       usuario: this.userUID,
       titulo: this.form.value.title,
       descripcion: this.form.value.description,

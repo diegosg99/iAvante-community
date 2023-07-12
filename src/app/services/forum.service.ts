@@ -45,14 +45,13 @@ export class ForumService implements OnInit{
     return this.firebase.collection('forums',ref => ref.orderBy('fechaCreacion','desc')).snapshotChanges();
   }
 
-  updateQuestionViews = (id,data) => {
-    //TODO implementar actualización de preguntas en firestore
-    return this.firebase.collection('forums').doc(id).set({views:data['views']+1});
+  updateQuestionViews = (id,question) => {
+    question.views++
+    return this.firebase.collection("forums").doc(id).set({...question});
   }
 
   getQuestion = (id:string):any => {
-
-    return this.firebase.collection('forums',ref=>ref.where('id','==',id.toString()));
+    return this.firebase.collection("forums").doc(id);
   }
 }
 
