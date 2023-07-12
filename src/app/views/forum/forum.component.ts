@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ForumService } from 'src/app/services/forum.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ForumComponent implements OnInit{
   questions:any;
   topQuestions:any;
 
-  constructor(private forumService: ForumService){}
+  constructor(private forumService: ForumService,private router:Router){}
 
   ngOnInit(): void {
     this.forumService.getQuestions().subscribe(questions => {
@@ -28,12 +29,12 @@ export class ForumComponent implements OnInit{
 
 
 //----------------------- TODO para traer los foros más top ---------------------------
-    //   this.topQuestions = this.questions.reduce(function(prev, current) {
-    //     console.log(prev);
-    //     console.log(current);
+      this.topQuestions = this.questions.reduce(function(prev, current) {
+        console.log(prev);
+        console.log(current);
         
-    //     return (prev.views > current.views) ? prev : current;
-    // })
+        return (prev.views > current.views) ? prev : current;
+    })
 //-------------------------------------------------------------------------------------
       console.log(this.questions);
       console.log(this.topQuestions);
@@ -42,6 +43,12 @@ export class ForumComponent implements OnInit{
 
   updateViews = (idQuestion) => {
     let question = this.questions.find(q=>q.id===idQuestion);
-    this.forumService.updateQuestionViews(idQuestion,question).then(res=>console.log(res));
+    console.log(question);
+    console.log(idQuestion);
+    this.forumService.updateQuestionViews(idQuestion,question).then(res=>
+      {
+        console.log(res);
+        this.router.navigate(["foro/"+idQuestion]);
+      });
   }
 }

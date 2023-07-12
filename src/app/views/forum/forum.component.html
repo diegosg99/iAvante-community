@@ -24,7 +24,7 @@
             <h2>Preguntas recientes</h2>
             <ul>
             <li *ngFor="let question of questions">
-                <a (click)="updateViews(question.id)" href="foro/{{question.id}}">{{question.titulo}}</a>
+                <a (click)="updateViews(question.id)">{{question.titulo}}</a>
                 <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
                 <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
                 <span class="mx-3">Benjamin Button Heredia</span>
