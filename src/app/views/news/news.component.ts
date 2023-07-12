@@ -21,7 +21,6 @@ export class NewsComponent implements OnInit{
 
     this.newsService.getNews(this.category).subscribe(news => {
       this.news = news;
-      console.log(this.news);
     });
   }
 

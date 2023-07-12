@@ -10,12 +10,12 @@
         <section class="col-10">
             <h2>Preguntas más frecuentadas</h2>
             <ul>
-            <li>
-                <a href="#">¿Cómo me limpio el culo sin mancharme?</a>
-                <span class="mx-3"><i class="fa-regular fa-eye"></i> 1000</span>
-                <span class="mx-3"><i class="fa-regular fa-comment"></i> 10</span>
-                <span class="mx-3">Rodrigo Macías Medina</span>
-            </li>
+                <li *ngFor="let question of topQuestions">
+                    <a (click)="updateViews(question.id)">{{question.titulo}}</a>
+                    <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
+                    <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
+                    <span class="mx-3">Benjamin Button Heredia</span>
+                </li>
             </ul>
         </section>
         <div class="col-1"></div>

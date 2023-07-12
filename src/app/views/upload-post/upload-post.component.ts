@@ -51,8 +51,6 @@ export class UploadPostComponent implements OnInit{
 
   uploadPost = () => {
 
-    console.log();
-
     const POST: any = {
       titulo: this.form.value.titulo,
       descripcion: this.form.value.descripcion,

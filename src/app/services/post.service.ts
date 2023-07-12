@@ -21,7 +21,7 @@ export class PostService {
     let imageRef = ref(this.storage,imagePath);
 
     return uploadBytes(imagesRef, image).then((snapshot) => {
-      console.log(snapshot);
+
       getDownloadURL(imageRef).then((downloadURL) => {
 
         post.photo = downloadURL;

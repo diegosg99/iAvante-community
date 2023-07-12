@@ -23,31 +23,30 @@ export class ForumComponent implements OnInit{
         let arraySegments = question.payload.doc._delegate._key.path.segments;
         let questionId = arraySegments[arraySegments.length - 1];
 
-        processedQuestions = [...processedQuestions,{id:questionId,...question.payload.doc.data()}];
+        processedQuestions.push({id:questionId,...question.payload.doc.data()});
       })
+
       this.questions=processedQuestions;
 
-
 //----------------------- TODO para traer los foros más top ---------------------------
-      this.topQuestions = this.questions.reduce(function(prev, current) {
-        console.log(prev);
-        console.log(current);
-        
-        return (prev.views > current.views) ? prev : current;
-    })
+      this.topQuestions = this.questions;
+      this.topQuestions.sort((a, b) => a.views < b.views);
+      this.topQuestions = this.topQuestions.slice(0,3);
 //-------------------------------------------------------------------------------------
-      console.log(this.questions);
-      console.log(this.topQuestions);
+//----------------------- TODO ordenar por reciente ---------------------------
+
+this.questions.sort((a, b) => a.fechaCreacion < b.fechaCreacion);
+
+//-------------------------------------------------------------------------------------
+
     })
   }
 
   updateViews = (idQuestion) => {
     let question = this.questions.find(q=>q.id===idQuestion);
-    console.log(question);
-    console.log(idQuestion);
+
     this.forumService.updateQuestionViews(idQuestion,question).then(res=>
       {
-        console.log(res);
         this.router.navigate(["foro/"+idQuestion]);
       });
   }

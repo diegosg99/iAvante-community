@@ -21,24 +21,15 @@ export class ForumService implements OnInit{
     }
   }
 
+  //-------------------------------- QUESTIONS -----------------------------
+
   uploadQuestion = (forum:any): any => {
-    console.log(forum);
     return this.firebase.collection('forums').add(forum)
           .then(()=>{
             console.log('Pregunta subida con éxito.')
           }, error => {
             console.log(error);
           });
-  }
-
-  uploadResponse = (response): any => {
-
-    return this.firebase.collection('forum-response').add(response)
-      .then(()=>{
-        console.log('Publicación subida con éxito.')
-      }, error => {
-        console.log(error);
-    });
   }
 
   getQuestions = ():Observable<any> => {
@@ -52,6 +43,26 @@ export class ForumService implements OnInit{
 
   getQuestion = (id:string):any => {
     return this.firebase.collection("forums").doc(id);
+  }
+
+  //-------------------------------- QUESTIONS -----------------------------
+ 
+  //-------------------------------- RESPONSES -----------------------------
+
+  uploadResponse = (response): any => {
+
+    return this.firebase.collection('forum-response').add(response)
+      .then(()=>{
+        console.log('Publicación subida con éxito.')
+      }, error => {
+        console.log(error);
+    });
+  }
+
+  getResponses = (idQuestion):any => {
+
+    return this.firebase.collection("forum-response",ref=>ref.where('preguntaId','==',idQuestion.toString())).snapshotChanges();
+    //return this.firebase.collection('forum-response',ref => ref.orderBy('fechaCreacion','desc')).snapshotChanges();
   }
 }
 

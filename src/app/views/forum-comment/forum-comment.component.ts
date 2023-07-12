@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ForumService } from 'src/app/services/forum.service';
@@ -11,6 +11,8 @@ import { OauthService } from 'src/app/services/oauth.service';
 })
 export class ForumCommentComponent implements OnInit{
   
+  @Input() questionId;
+  @Input() divComments;
   form: FormGroup;
 
   userUID:any = this.auth.getUserLogged().subscribe();
@@ -26,21 +28,25 @@ export class ForumCommentComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
+    console.log(this.divComments);
   }
 
-  uploadNewForum = () => {
+  uploadResponse = () => {
     const RESPONSE: any = {
       respuesta: this.form.value.response,
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
-      usuario: this.userUID
+      usuario: this.userUID,
+      preguntaId: this.questionId.value.id
     }
 
-    this.forumService.uploadQuestion(RESPONSE).then(()=> {
+    //this.divComments.innerHTML = '';
+
+    this.forumService.uploadResponse(RESPONSE).then(()=> {
       
       this.toastr.success('Tu respuesta se ha publicado con éxito.','¡Genial!',{ progressBar: true,positionClass: 'toast-bottom-right'});
       this.form.reset();
+
     },(error: any) => {
       this.toastr.error('Oops.. Ha habido un problema al responder la pregunta ¡Intentalo más tarde!','Error!',{ progressBar: true,positionClass: 'toast-bottom-right'});
     });
