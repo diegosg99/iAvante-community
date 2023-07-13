@@ -36,7 +36,7 @@ export class ForumQuestionComponent implements OnInit{
 
       let formatDate = this.formatDate(this.question.fechaCreacion);
 
-      this.question.fechaCreacion = formatDate;
+      this.question.fechaCreacionFormat = formatDate;
     });
   }
 

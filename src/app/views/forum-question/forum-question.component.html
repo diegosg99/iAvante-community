@@ -7,28 +7,52 @@
         <h1 *ngIf="question" class="logo mb-5 p-5">Foro cuestiones generales</h1>
     </div>
 
-    <div class="col-1"></div>
-    <div class="col-1">
-        <div class="d-flex justify-content-between w-10 text-center">
-            <a class="navbar-brand me-2" href="#" *ngIf="userLogged|async as user">
-              <img *ngIf="user.photoURL" src="{{user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
-              <span class="m-3 text-secondary" style="font-size: medium;">{{user.displayName?user.displayName:user.email}}</span>
-            </a>
-          </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <h1 class="title col-8 mb-5">
+            <span>*</span>
+            <span>*</span>
+            {{question.titulo}}
+            <span>*</span>
+            <span>*</span>
+          </h1>
+        <div class="col-2"></div>
     </div>
-    <div *ngIf="question" class="col-lg-9">
-        <p>{{question.titulo}}</p>
-        <hr>
-        <p class="mb-5 p-5">{{question.descripcion}}</p>
+    
+
+    <div #questionDiv class="mx-3">
+        <div class="mx-3 mb-5 msg col-11">
+            <span class="">
+                <span class="msg-header row">
+                    <span class="col-1">
+                        <a class="navbar-brand me-2" href="perfil/usuario" *ngIf="userLogged|async as user">
+                            <img *ngIf="user.photoURL" src="{{user.photoURL}}" class="msg-img" alt="" data-loaded="true">
+                            <span class="m-3 text-secondary" style="font-size: medium;">{{user.displayName?user.displayName:user.email}}</span>
+                        </a>
+                    </span>
+                    <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
+                    <div class="col-1"></div>                        
+                        <span class="col-3" style="text-align: right;">
+                            <span class="hace" style="font-size: 12px;">{{question.fechaCreacionFormat}}</span>
+                        </span>
+                    </div>
+                </span>
+                <hr>
+            </span>
+            <div class="question-content p-3">
+                <div *ngIf="question" class="col-lg-12">
+                    <p class="mb-3 p-1">{{question.descripcion}}</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-1"></div>
 </div>
 
 <!-- ----------------------------MAIN QUESTION----------------------------------- -->
 
 <!-- -----------------------------RESPONSES------------------------------------ -->
 <div #commentsDiv>
-    <div *ngFor="let comment of comments" class="mx-3 mb-5 msg w-75">
+    <div *ngFor="let comment of comments" class="mx-5 mb-5 msg w-75">
         <span class="">
             <span class="msg-header row">
                 <span class="col-1">
@@ -53,10 +77,11 @@
             <hr>
         </span>
         <div class="msg-content p-3">
-            <pre class="">{{comment.respuesta}}</pre>
-            <span class="">
+            <p class="mb-3">{{comment.respuesta}}</p>
+            <hr>
+            <div class="mt-2">
                 <span class="" id="usu_votos_2">
-                    <span class="p">
+                    <span class="p" style="font-size: 14px; color: #6f6f6f;">
                         <b>{{comment.votos}}</b> Votos 
                     </span>
                     <span class="mx-2" onclick="voto_positivo()">
@@ -67,12 +92,11 @@
                     </span>
                 </span>
                 <span class="cb db"></span>
-            </span>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- -----------------------------RESPONSES------------------------------------ -->
-
 
 <app-forum-comment [questionId]='idQuestion' [divComments]='commentsDiv'></app-forum-comment>
