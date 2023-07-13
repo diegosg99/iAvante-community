@@ -92,3 +92,17 @@ p {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+}
+nav a:hover {
+  background-color: #ccc;
+}

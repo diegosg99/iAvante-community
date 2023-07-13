@@ -36,6 +36,10 @@ export class ForumService implements OnInit{
     return this.firebase.collection('forums',ref => ref.orderBy('fechaCreacion','desc')).snapshotChanges();
   }
 
+  getCategoryQuestions = (category):Observable<any> => {
+    return this.firebase.collection('forums',ref => ref.where('categoria','==',category)).snapshotChanges();
+  }
+
   updateQuestionViews = (id,question) => {
     question.views++
     return this.firebase.collection("forums").doc(id).set({...question});

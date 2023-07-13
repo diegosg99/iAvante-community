@@ -41,7 +41,7 @@
                         <a href="perfil/usuario" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">Jaimito Butifarras</a>
                     </span>
                     <span class="col-3" style="text-align: right;">
-                        <span class="hace" style="font-size: 12px;">Hace 16 horas</span>
+                        <span class="hace" style="font-size: 12px;">{{comment.fechaCreacion}}</span>
                         <span class="interactions">
                             <!-- <span class="ico_msg_mp"></span>
                             <span class="ico_msg_ocultar"></span>
@@ -54,10 +54,10 @@
         </span>
         <div class="msg-content p-3">
             <pre class="">{{comment.respuesta}}</pre>
-            <!-- <span class="">
+            <span class="">
                 <span class="" id="usu_votos_2">
-                    <span class="p" onclick="ver_votos(54275910)">
-                        <b>4</b> Votos 
+                    <span class="p">
+                        <b>{{comment.votos}}</b> Votos 
                     </span>
                     <span class="mx-2" onclick="voto_positivo()">
                         <i class="fa-regular fa-thumbs-up"></i> 
@@ -67,7 +67,7 @@
                     </span>
                 </span>
                 <span class="cb db"></span>
-            </span> -->
+            </span>
         </div>
     </div>
 </div>

@@ -33,16 +33,33 @@ export class ForumQuestionComponent implements OnInit{
     this.forumService.getQuestion(this.idQuestion.value.id).snapshotChanges().subscribe(question=>{
       this.question = {...question.payload.data()};
       this.userId = this.question.usuario;
+
+      let formatDate = this.formatDate(this.question.fechaCreacion);
+
+      this.question.fechaCreacion = formatDate;
     });
   }
 
   getQuestionComments = () => {
     this.forumService.getResponses(this.idQuestion.value.id).subscribe(comments=>{
-      console.log(comments);
       comments.forEach(comment => {
-        this.comments = [...this.comments,comment.payload.doc.data()];
+        let processedComment = comment.payload.doc.data();
+        processedComment.fechaCreacion = this.formatDate(processedComment.fechaCreacion);
+        this.comments = [...this.comments,processedComment];
       });
-      this.comments.sort((a,b)=>{a.fechaCreacion<b.fechaCreacion});
+      this.comments.sort((a,b)=>{a.fechaCreacion+b.fechaCreacion});
     });
   };
+
+  formatDate = (date) => {
+    let fullDate = date.toDate();
+      let day = fullDate.getDate();
+      let month = fullDate.getMonth();
+      let year = fullDate.getFullYear();
+      let hour = fullDate.getHours();
+      let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
+
+      return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
+
+  }
 }
