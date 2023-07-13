@@ -43,6 +43,8 @@ export class ForumComponent implements OnInit{
       let arraySegments = question.payload.doc._delegate._key.path.segments;
       let questionId = arraySegments[arraySegments.length - 1];
 
+      this.getQuestionComments(questionId);
+
       processedQuestions.push({id:questionId,...question.payload.doc.data()});
     })
 
@@ -66,5 +68,15 @@ export class ForumComponent implements OnInit{
       {
         this.router.navigate(["foro/"+idQuestion]);
       });
+  }
+
+  getQuestionComments = (idQuestion) => {
+    this.forumService.getResponses(idQuestion).subscribe(comments=>{
+
+      let selectedQuestion = this.questions.find(q => {
+        return q.id ===idQuestion;
+      })
+      selectedQuestion.comments = comments.length;
+    })
   }
 }
