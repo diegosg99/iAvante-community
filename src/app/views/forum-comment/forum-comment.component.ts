@@ -38,13 +38,12 @@ export class ForumCommentComponent implements OnInit{
       fechaActualizacion: new Date(),
       usuario: this.userUID,
       preguntaId: this.questionId.value.id
-    }
-
-    //this.divComments.innerHTML = '';
+    };
 
     this.forumService.uploadResponse(RESPONSE).then(()=> {
       
       this.toastr.success('Tu respuesta se ha publicado con éxito.','¡Genial!',{ progressBar: true,positionClass: 'toast-bottom-right'});
+      //this.divComments.innerHTML += ''; 
       this.form.reset();
 
     },(error: any) => {

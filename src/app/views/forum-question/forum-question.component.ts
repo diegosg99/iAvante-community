@@ -42,12 +42,15 @@ export class ForumQuestionComponent implements OnInit{
 
   getQuestionComments = () => {
     this.forumService.getResponses(this.idQuestion.value.id).subscribe(comments=>{
+    this.comments = [];
+
       comments.forEach(comment => {
         let processedComment = comment.payload.doc.data();
-        processedComment.fechaCreacion = this.formatDate(processedComment.fechaCreacion);
-        this.comments = [...this.comments,processedComment];
+        processedComment.fechaCreacionFormat = this.formatDate(processedComment.fechaCreacion);
+        this.comments.push(processedComment);
       });
-      this.comments.sort((a,b)=>{a.fechaCreacion+b.fechaCreacion});
+
+      this.comments.sort((a,b)=>{return a.fechaCreacion-b.fechaCreacion});
     });
   };
 
@@ -60,6 +63,5 @@ export class ForumQuestionComponent implements OnInit{
       let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
 
       return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
-
   }
 }
