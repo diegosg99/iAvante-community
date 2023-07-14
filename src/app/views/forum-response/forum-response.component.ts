@@ -11,7 +11,7 @@ export class ForumResponseComponent implements OnInit{
 
   commentId:any;
   @Input() comment:any;
-  clickedComment = false;
+  clickedComment:boolean;
   userLogged = this.auth.getUserLogged();
   userUID;
   numLikes;
@@ -44,7 +44,7 @@ export class ForumResponseComponent implements OnInit{
       })
 
       this.forumService.removeLikeResponse(deletedLike.id);
-      
+
     }else{
       this.clickedComment = true;
       this.forumService.likeResponse(COMMENT_LIKE);
@@ -65,6 +65,15 @@ export class ForumResponseComponent implements OnInit{
       })
 
       this.numLikes = this.likes.length;
+      this.isLiked();
     });
+  }
+
+  isLiked = () => {
+
+    let myLike = this.likes.find((like) => {
+      return (like.usuario === this.userUID)
+    });
+    this.clickedComment= myLike === null||myLike===undefined?false:true;
   }
 }
