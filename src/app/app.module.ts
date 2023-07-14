@@ -31,6 +31,7 @@ import { ForumCategoriesComponent } from './views/forum-categories/forum-categor
 import { ForumCommentComponent } from './views/forum-comment/forum-comment.component';
 import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-question.component';
 import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
+import { ForumResponseComponent } from './views/forum-response/forum-response.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { ForumQuestionComponent } from './views/forum-question/forum-question.co
     ForumCommentComponent,
     ForumNewQuestionComponent,
     ForumQuestionComponent,
+    ForumResponseComponent,
   ],
   imports: [
     BrowserModule,

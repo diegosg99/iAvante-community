@@ -67,5 +67,34 @@ export class ForumService implements OnInit{
 
     return this.firebase.collection("forum-response",ref=>ref.where('preguntaId','==',idQuestion.toString())).snapshotChanges();
   }
+
+  //--------------------------------- NO CREO QUE HAGA FALTA ---------------------------
+  // getComment = (commentId) => {
+  //   return this.firebase.collection("forums-response").doc(commentId).get();
+  // }
+
+  likeResponse = (commentLike) => {
+
+    return this.firebase.collection('forums-response-likes').add(commentLike)
+    .then(()=>{
+      console.log('Like con éxito.')
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  removeLikeResponse = (commentLikeId) => {
+    return this.firebase.collection('forums-response-likes').doc(commentLikeId).delete()
+    .then(()=>{
+      console.log('Like eliminado con éxito.')
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getLikesResponse = (commentId) => {
+
+    return this.firebase.collection('forums-response-likes',ref=>ref.where('comment','==',commentId)).snapshotChanges();
+  }
 }
 

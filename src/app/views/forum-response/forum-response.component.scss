@@ -1,0 +1,30 @@
+.msg {
+    border: solid 1px #a9a9a961;
+    border-top-left-radius: 39px;
+    border-top-right-radius: 39px;
+  }
+  
+  .msg .msg-header {
+    width: 100%;
+    border-radius: 29px 4px 4px 29px;
+    background: -webkit-linear-gradient(top,#f2f2f2 15%,#fff);
+    font-size: 10px;
+    text-shadow: 1px 1px 0 #FFF;
+    font-family: Roboto,Arial;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+  }
+  
+  .msg-img {
+    width: 60px;
+    padding: 1px;
+    border-radius: 30px;
+  }
+
+  .red-heart {
+    color: rgb(208, 0, 0);
+  }
+
+  .black {
+    color: rgb(23, 23, 23);
+  }

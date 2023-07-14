@@ -17,6 +17,7 @@ export class ForumQuestionComponent implements OnInit{
   userId:any;
   userLogged = this.auth.getUserLogged();
   comments:any = [];
+  clickedComment = false;
 
   constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private auth: OauthService){}
 
@@ -45,7 +46,11 @@ export class ForumQuestionComponent implements OnInit{
     this.comments = [];
 
       comments.forEach(comment => {
-        let processedComment = comment.payload.doc.data();
+
+        let arraySegments = comment.payload.doc._delegate._key.path.segments;
+        let commentId = arraySegments[arraySegments.length - 1];
+
+        let processedComment = {id:commentId,...comment.payload.doc.data()};
         processedComment.fechaCreacionFormat = this.formatDate(processedComment.fechaCreacion);
         this.comments.push(processedComment);
       });

@@ -28,7 +28,6 @@ export class ForumCommentComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.divComments);
   }
 
   uploadResponse = () => {
@@ -37,7 +36,8 @@ export class ForumCommentComponent implements OnInit{
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
       usuario: this.userUID,
-      preguntaId: this.questionId.value.id
+      preguntaId: this.questionId.value.id,
+      likes: 0
     };
 
     this.forumService.uploadResponse(RESPONSE).then(()=> {
