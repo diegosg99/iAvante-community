@@ -44,7 +44,7 @@
         </ul>
       </div>
       <div class="d-flex justify-content-between w-10 text-center">
-        <a class="navbar-brand me-2" href="#" *ngIf="userLogged|async as user">
+        <a class="navbar-brand me-2" *ngIf="userLogged|async as user" href="profile/{{user.uid}}">
           <img *ngIf="user.photoURL" src="{{user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
           <span class="m-3 text-secondary" style="font-size: medium;">{{user.displayName?user.displayName:user.email}}</span>
         </a>
