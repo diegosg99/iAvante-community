@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit{
 
   userLogged = this.auth.getUserLogged();
-  userForm: FormGroup;
+  //userForm: FormGroup;
 
   formEdit = {
     realName:false,
@@ -21,18 +21,33 @@ export class ProfileComponent implements OnInit{
     desc:false
   }
 
-  constructor(private auth:OauthService,private userService:UserService,private router:Router,private _activatedroute:ActivatedRoute){
-    this.userForm = new FormGroup({
-      photo: new FormControl(),
-      realName: new FormControl(),
-      userName: new FormControl(),
-      userJob: new FormControl(),
-      userDesc: new FormControl()
+  userForm = {
+    username: '',
+    fullName: '',
+    photo: '',
+    age: '',
+    instagram: '',
+    facebook: '',
+    twitter: '',
+    linkedin: ''
+  }
 
-  });
+  constructor(private auth:OauthService,private userService:UserService,private router:Router,private _activatedroute:ActivatedRoute){
+  //   this.userForm = new FormGroup({
+  //     photo: new FormControl(),
+  //     realName: new FormControl(),
+  //     userName: new FormControl(),
+  //     userJob: new FormControl(),
+  //     userDesc: new FormControl()
+
+  // });
   }
 
   ngOnInit(): void {
+    
+  }
+
+  updateProfile = () => {
     
   }
 }

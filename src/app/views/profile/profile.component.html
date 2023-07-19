@@ -1,9 +1,8 @@
 <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6 row justify-content-center">
+    <div class="col-6 row justify-content-center mb-auto mt-5">
 
         <div class="box1 box" *ngIf="userLogged|async as user">
-        <form [formGroup]="userForm">
+        <form><!-- [formGroup]="userForm" -->
           <div class="content">
             <div class="image">
               <img *ngIf="user.photoURL" src="{{user.photoURL}}" alt="Profile Image">
@@ -48,37 +47,80 @@
           </div>
         </form>
         </div>
-      
-        <!-- <div class="box2 box">
-          <div class="content">
-            <div class="row">
-              <div class="image">
-                <img *ngIf="user.photoURL" src="{{user.photoURL}}" alt="Profile Image">
-              </div>
-              <div class="post">
-                <p>Post</p>
-                <h5>28</h5>
-              </div>
-              <div class="followers">
-                <p>Followers</p>
-                <h5>678</h5>
-              </div>
-              <div class="following">
-                <p>Following</p>
-                <h5>120</h5>
-              </div>
-            </div>
-            <div class="text">
-              <p class="name">{{user.displayName}}</p>
-              <p class="job_title">UI / UX Designer</p>
-              <p class="about">About</p>
-              <p class="job_discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, placeat obcaecati. Eaque fugit eveniet error voluptates totam enim molestias vitae, amet aliquid deleniti ipsa ea.</p>
-            </div>
-          </div>
-        </div> -->
-      
+
     </div>
-    <div class="col-3"></div>
+    <div class="col-6 row">
+
+      <div class="col-1"></div>
+      <div class="container col-10 m-5">
+        <div class="card text-center">
+            <div class="card-header">
+                <h5 class="card-title m-3">Registro</h5>
+            </div>
+            <div class="card-body p-4 row">
+
+              <div class="col-2"></div>
+
+              <div class="col-8">
+
+              <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+                <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
+                
+                <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+                <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
+
+                <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+                <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
+
+              </div>
+
+                <div class="col-2"></div>
+                
+                <hr>
+
+                <div class="col-2"></div>
+
+                <div class="col-8 my-3">
+                <div class="row mb-3">
+                  <div class="col-6">
+                      <label style="float: left;;margin-bottom: 1em;">Foto:</label>
+                      <input class="form-control my-3" type="text" placeholder="Foto de perfil" #photo  [(ngModel)]="userForm.photo">    
+                  </div>
+                  <div class="col-6">
+                      <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
+                      <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
+                  </div>
+                </div>
+              </div>
+
+                <div class="col-2"></div>
+
+
+                <hr>
+
+                <div class="col-2"></div>
+
+                <div class="col-8 my-3">
+                  <label style="float: left;;margin-bottom: 1em;">Instagram:</label>
+                  <input class="form-control my-3" type="text" placeholder="Instagram" #fullName  [(ngModel)]="userForm.instagram">
+                  <label style="float: left;;margin-bottom: 1em;">Twitter:</label>
+                  <input class="form-control my-3" type="text" placeholder="Twitter" #fullName  [(ngModel)]="userForm.twitter">
+                  <label style="float: left;;margin-bottom: 1em;">Facebook:</label>
+                  <input class="form-control my-3" type="text" placeholder="Facebook" #fullName  [(ngModel)]="userForm.facebook">
+                  <label style="float: left;;margin-bottom: 1em;">LinkedIn:</label>
+                  <input class="form-control my-3" type="text" placeholder="LinkedIn" #fullName  [(ngModel)]="userForm.linkedin">
+                </div>
+                <div class="col-2"></div>
+
+                    
+            <div class="row mx-3">
+                <div class="col-3"></div>
+                <button class="text-white btn btn-primary mb-3 col-6" (click)="updateProfile()">Actualizar perfil</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
 </div>
   

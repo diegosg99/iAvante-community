@@ -20,4 +20,37 @@ export class UserService implements OnInit{
       this.userLogged.subscribe(user=>{this.userId = user});
     }
   }
+
+  uploadUser = (user:any): any => {
+
+    let fullUser:any = {...user};
+
+    return this.firebase.collection('users').doc(fullUser.uid).set(fullUser)
+          .then(()=>{
+            console.log('Usuario registrado con éxito.')
+          }, error => {
+            console.log(error);
+          });
+  }
+
+  getUser = (id = null):Observable<any> => {
+    return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
+  }
+
+  getUsers = ():Observable<any> => {
+    return this.firebase.collection('users').snapshotChanges();
+  }
+
+  getCategoryQuestions = (category):Observable<any> => {
+    return this.firebase.collection('users',ref => ref.where('categoria','==',category)).snapshotChanges();
+  }
+
+  updateQuestionViews = (id,question) => {
+    question.views++
+    return this.firebase.collection("users").doc(id).set({...question});
+  }
+
+  getQuestion = (id:string):any => {
+    return this.firebase.collection("forums").doc(id);
+  }
 }

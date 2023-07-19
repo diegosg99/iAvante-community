@@ -1,7 +1,47 @@
 <app-chat></app-chat>
 
-<div class="row" *ngIf="userLogged|async as user">
-    <div class="row col-3 justify-content-center">
+<div class="d-flex justify-content-center flex-wrap" *ngIf="userLogged|async as user">
+    <div *ngFor="let user of members" class="row col-3 justify-content-center">
+        <div class="box2 box">
+            <div class="content">
+              <div class="row">
+                <div class="image">
+                  <img *ngIf="user.photoURL" src="{{user.photo}}" alt="Profile Image">
+                </div>
+                <div class="post">
+                  <p>Posts</p>
+                  <h5>28</h5>
+                </div>
+                <div class="followers">
+                  <p>Followers</p>
+                  <h5>678</h5>
+                </div>
+                <div class="following">
+                  <p>Following</p>
+                  <h5>120</h5>
+                </div>
+              </div>
+              <div class="text">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="name">{{user.fullName}}</p>
+                        <p class="job_title">{{user.profession}}</p>
+                    </div>
+                    <div class="col-4">
+                        <div class="button my-0">
+                            <div>
+                              <button class="message" style="margin-right: .75rem;" type="button">Abrir chat</button>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <p class="about">About</p>
+                <p class="job_discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, placeat obcaecati. Eaque fugit eveniet error voluptates totam enim molestias vitae, amet aliquid deleniti ipsa ea.</p>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row col-3 justify-content-center">
         <div class="box2 box">
             <div class="content">
               <div class="row">
@@ -279,46 +319,5 @@
                 <p class="job_discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, placeat obcaecati. Eaque fugit eveniet error voluptates totam enim molestias vitae, amet aliquid deleniti ipsa ea.</p>
               </div>
             </div>
-        </div>
-    </div>
-    <div class="row col-3 justify-content-center">
-        <div class="box2 box">
-            <div class="content">
-              <div class="row">
-                <div class="image">
-                  <img *ngIf="user.photoURL" src="{{user.photoURL}}" alt="Profile Image">
-                </div>
-                <div class="post">
-                  <p>Post</p>
-                  <h5>28</h5>
-                </div>
-                <div class="followers">
-                  <p>Followers</p>
-                  <h5>678</h5>
-                </div>
-                <div class="following">
-                  <p>Following</p>
-                  <h5>120</h5>
-                </div>
-              </div>
-              <div class="text">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="name">{{user.displayName}}</p>
-                        <p class="job_title">UI / UX Designer</p>
-                    </div>
-                    <div class="col-4">
-                        <div class="button my-0">
-                            <div>
-                              <button class="message" style="margin-right: .75rem;" type="button">Abrir chat</button>
-                            </div>
-                          </div>
-                    </div>
-                </div>
-                <p class="about">About</p>
-                <p class="job_discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, placeat obcaecati. Eaque fugit eveniet error voluptates totam enim molestias vitae, amet aliquid deleniti ipsa ea.</p>
-              </div>
-            </div>
-        </div>
-    </div>
+        </div> -->
 </div>

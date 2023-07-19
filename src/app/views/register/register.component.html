@@ -11,6 +11,24 @@
             <label style="float: left;;margin-bottom: 1em;">Contraseña:</label>
             <input class="form-control my-3" type="password" placeholder="Contraseña" #password  [(ngModel)]="usuario.password">
 
+            
+            <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+            <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
+            
+            <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+            <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
+            
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label style="float: left;;margin-bottom: 1em;">Foto:</label>
+                    <input class="form-control my-3" type="text" placeholder="Foto de perfil" #photo  [(ngModel)]="userForm.photo">    
+                </div>
+                <div class="col-6">
+                    <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
+                    <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
+                </div>
+            </div>
+            
         <p>¿Ya tienes cuenta? <a href="login">Acceder</a></p>
 
         <div class="row mx-3">
