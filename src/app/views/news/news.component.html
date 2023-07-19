@@ -12,12 +12,12 @@
 
         <div class="col-10 mt-3" id="posts">
             <ul *ngIf="category!='simulation'" style="list-style: none;padding:0px;" class="row">
-                <li *ngFor="let noticia of news.data" class="col-6">
+                <li *ngFor="let noticia of news.data" class="col-4">
                     <div class="container m-2">
-                        <div class="d-flex post">
+                        <div class="d-flex box w-100">
                             <div class="post-content px-3 row">
                                 <div class="col-4" style="padding-left: 0px;">
-                                    <img class="post-image" src="{{noticia.image}}" style="height: calc(100%);">
+                                    <img class="post-image" src="{{noticia.image}}" style="min-height:150px;width: auto;">
                                 </div>
 
                                 <div class="col-8">
@@ -41,16 +41,16 @@
             </ul>
 
             <ul *ngIf="category=='simulation'" style="list-style: none;padding:0px;" class="row">
-                <li *ngFor="let noticia of news.news" class="col-6">
-                    <div class="container m-2">
-                        <div class="d-flex post">
+                <li *ngFor="let noticia of news.news" class="col-4">
+                    <div class="m-2">
+                        <div class="d-flex box w-100">
                             <div class="post-content px-3 row">
                                 <div class="col-4" style="padding-left: 0px;">
-                                    <img class="post-image" src="{{noticia.image}}" style="height: 6em;">
+                                    <img class="post-image" src="{{noticia.image}}" style="height: 7em;">
                                 </div>
 
                                 <div class="col-8">
-                                <h1 class="" style="line-height:16px !important;background-color: rgba(193, 193, 193, 0.7098039216);">
+                                <h1 class="" style="line-height:16px !important;">
                                         <a href="{{noticia.url}}" style="font-size: 18px !important;text-decoration: none;color: black;">
                                             {{noticia.title}} <i class="fa fa-link" style="font-size:14px;" aria-hidden="true"></i>
                                         </a>

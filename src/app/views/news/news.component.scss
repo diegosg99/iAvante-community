@@ -23,7 +23,7 @@
 }
 
 .post-title {
-  color: #555555;
+  //color: #555555;
   font-size: 28px;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
@@ -58,4 +58,22 @@ p {
 .post-image {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+.box {
+  width: 350px;
+  height: fit-content;
+  border-radius: 20px;
+  padding: 10px;
+  text-align: center;
+  background: #ededed;
+}
+
+.box2 {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.box2 img {
+  width: 80px;
 }

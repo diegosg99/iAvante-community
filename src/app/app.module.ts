@@ -33,6 +33,7 @@ import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-
 import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
 import { ForumResponseComponent } from './views/forum-response/forum-response.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import { MembersComponent } from './views/members/members.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ProfileComponent } from './views/profile/profile.component';
     ForumQuestionComponent,
     ForumResponseComponent,
     ProfileComponent,
+    MembersComponent,
   ],
   imports: [
     BrowserModule,
