@@ -1,33 +1,35 @@
 <div class="row">
+
+  <div class="col-lg-12">
+    <h1 class="logo mb-5 p-5">Modifica tu perfil</h1>
+  </div>
+
     <div class="col-6 row justify-content-center mb-auto mt-5">
 
-        <div class="box1 box" *ngIf="userLogged|async as user">
+        <div class="box1 box" *ngIf="userLogged|async as userLog">
         <form><!-- [formGroup]="userForm" -->
           <div class="content">
             <div class="image">
-              <img *ngIf="user.photoURL" src="{{user.photoURL}}" alt="Profile Image">
+              <img src="{{user.photo.stringValue}}" style="max-height: 120px;">
             </div>
             <div class="level">
                 <!-- <input class="form-control" formControlName> -->
-              <p>ADMIN</p>
+              <p>{{user.role.stringValue}}</p>
             </div>
             <div class="text">
-                <div class="d-flex m-3">
-                    <input class="form-control mr-3" placeholder="Nombre completo" formControlName="realName" [readonly]="this.formEdit.username"><i class="fa fa-edit my-auto" style="margin-left: 1rem;"></i>
+                <div class="d-flex m-3" style="font-size: 20px;">
+                  <p>{{user.fullName.stringValue}}</p>  
                 </div>
-                <div class="d-flex m-3">
-                    <input class="form-control mr-3" placeholder="Nombre de usuario" formControlName="userName" [readonly]="this.formEdit.username"><i class="fa fa-edit my-auto" style="margin-left: 1rem;"></i>
+                <div class="d-flex m-3" style="font-size: 16px;">
+                  <p>@{{user.username.stringValue}}</p>
                 </div>
-              <div class="d-flex m-3">
-                <input class="form-control" placeholder="Profesión" formControlName="userJob" [readonly]="this.formEdit.job"><i class="fa fa-edit my-auto" style="margin-left: 1rem;"></i>
-              </div>
-              <div class="d-flex m-3">
-                <input class="form-control" placeholder="Datos de interés" formControlName="userDesc" [readonly]="this.formEdit.desc"><i class="fa fa-edit my-auto" style="margin-left: 1rem;"></i>
+              <div class="d-flex m-3" style="font-size: 16px;">
+                  <p>{{user.proffesion.stringValue}}</p>
               </div>
             </div>
             <div class="icons">
               <button>
-                <i class="fa fa-instagram" href="user.instagram"></i>
+                <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{user.instagram.stringValue}}"></a>
               </button>
               <button>
                 <i class="fa fa-twitter" href="user.twitter"></i>
@@ -63,37 +65,37 @@
 
               <div class="col-8">
 
-              <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+                <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
                 <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
                 
                 <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
                 <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
-
-                <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
-                <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
-
+                
+                <label style="float: left;;margin-bottom: 1em;">Profesión:</label>
+                <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
+                
               </div>
 
                 <div class="col-2"></div>
                 
                 <hr>
 
-                <div class="col-2"></div>
+                <div class="col-1"></div>
 
-                <div class="col-8 my-3">
+                <div class="col-10 my-3">
                 <div class="row mb-3">
-                  <div class="col-6">
+                  <div class="col-6 p-2">
                       <label style="float: left;;margin-bottom: 1em;">Foto:</label>
-                      <input class="form-control my-3" type="text" placeholder="Foto de perfil" #photo  [(ngModel)]="userForm.photo">    
+                      <input class="form-control my-3" type="file" (change)="imagePreview($event)" placeholder="Foto de perfil" #photo  [(ngModel)]="userForm.photo">    
                   </div>
-                  <div class="col-6">
+                  <div class="col-6 p-2">
                       <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
                       <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
                   </div>
                 </div>
               </div>
 
-                <div class="col-2"></div>
+                <div class="col-1"></div>
 
 
                 <hr>
@@ -116,7 +118,8 @@
             <div class="row mx-3">
                 <div class="col-3"></div>
                 <button class="text-white btn btn-primary mb-3 col-6" (click)="updateProfile()">Actualizar perfil</button>
-            </div>
+                <div class="col-3"></div>
+              </div>
             </div>
         </div>
     </div>

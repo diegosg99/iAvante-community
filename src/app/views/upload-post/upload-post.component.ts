@@ -64,11 +64,11 @@ export class UploadPostComponent implements OnInit{
     this.loading = true;
 
     this._postService.uploadPost(POST,this.imageRaw).then(()=> {
-      //this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+      this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
       this.form.reset();
       this.loading = false;
     },(error: any) => {
-      //this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
+      this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
       console.log(error);
       this.loading = false;
     });

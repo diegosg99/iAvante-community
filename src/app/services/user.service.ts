@@ -21,16 +21,56 @@ export class UserService implements OnInit{
     }
   }
 
-  uploadUser = (user:any): any => {
+  // uploadUser = (user:any,image:any): any => {
 
-    let fullUser:any = {...user};
+  //   let imagePath = 'images/userProfile/'+image.name;
 
-    return this.firebase.collection('users').doc(fullUser.uid).set(fullUser)
-          .then(()=>{
-            console.log('Usuario registrado con éxito.')
-          }, error => {
-            console.log(error);
-          });
+  //   let imagesRef = ref(this.storage, imagePath);
+  //   let imageRef = ref(this.storage,imagePath);
+
+  //   return uploadBytes(imagesRef, image).then((snapshot) => {
+
+  //     getDownloadURL(imageRef).then((downloadURL) => {
+
+  //       user.photo = downloadURL;
+
+  //       let fullUser:any = {...user};
+  //       console.log(user);
+  //       console.log(image);
+
+  //       return this.firebase.collection('users').add(fullUser)
+  //             .then(()=>{
+  //               console.log('Usuario creado con éxito.')
+  //             }, error => {
+  //               console.log(error);
+  //             });
+  //       })
+  //     })
+  // }
+
+  uploadUser = (user:any,image:any): any => {
+
+    let imagePath = 'images/userProfile/'+image.name;
+
+    let imagesRef = ref(this.storage, imagePath);
+    let imageRef = ref(this.storage,imagePath);
+
+    return uploadBytes(imagesRef, image).then(() => {
+      getDownloadURL(imageRef).then((downloadURL) => {
+
+        user.photo = downloadURL;
+
+        let fullUser:any = {...user};
+        console.log(fullUser);
+
+        return this.firebase.collection('users').doc(fullUser.uid).set(fullUser)
+              .then((res)=>{
+                console.log('Usuario actulizado con éxito.')
+              }, error => {
+                console.log(error);
+              });
+        })
+      })
   }
 
   getUser = (id = null):Observable<any> => {

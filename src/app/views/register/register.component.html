@@ -21,8 +21,9 @@
             <div class="row mb-3">
                 <div class="col-6">
                     <label style="float: left;;margin-bottom: 1em;">Foto:</label>
-                    <input class="form-control my-3" type="text" placeholder="Foto de perfil" #photo  [(ngModel)]="userForm.photo">    
+                    <input class="form-control my-3" type="file" (change)="imagePreview($event)" placeholder="Foto de perfil" #photo  [(ngModel)]="userForm.photo">    
                 </div>
+
                 <div class="col-6">
                     <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
                     <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
