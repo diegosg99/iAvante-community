@@ -11,6 +11,7 @@ export class ForumComponent implements OnInit{
 
   questions:any;
   topQuestions:any;
+  p = 1;
 
   constructor(private forumService: ForumService,private _activatedroute:ActivatedRoute,private router:Router){}
 

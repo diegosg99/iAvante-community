@@ -34,6 +34,7 @@ import { ForumQuestionComponent } from './views/forum-question/forum-question.co
 import { ForumResponseComponent } from './views/forum-response/forum-response.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { MembersComponent } from './views/members/members.component';
     AngularFireModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     ToastrModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     
