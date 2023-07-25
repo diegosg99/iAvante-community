@@ -1,0 +1,4 @@
+- Hacer view/profile para ver la ficha de un usuario
+- Poder seguir usuarios
+- Hacer la lista de publicaciones solo para os usuarios que sigues?
+- Abrir chat con diferentes usuarios

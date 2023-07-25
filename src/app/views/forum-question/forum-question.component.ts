@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
 import { OauthService } from 'src/app/services/oauth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-forum-question',
@@ -15,11 +16,13 @@ export class ForumQuestionComponent implements OnInit{
   @Output() commentsDiv:any = new EventEmitter<string>();
   question:any;
   userId:any;
+  userQuestion;
+  usersComments;
   userLogged = this.auth.getUserLogged();
   comments:any = [];
   clickedComment = false;
 
-  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private auth: OauthService){}
+  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private auth: OauthService,private userService:UserService){}
 
   ngOnInit(): any {
 
@@ -35,8 +38,11 @@ export class ForumQuestionComponent implements OnInit{
       this.question = {...question.payload.data()};
       this.userId = this.question.usuario;
 
+      this.userService.getUser(this.userId).subscribe(user=>{
+        this.userQuestion = {...user.payload._delegate._document.data.value.mapValue.fields};
+      });
+      
       let formatDate = this.formatDate(this.question.fechaCreacion);
-
       this.question.fechaCreacionFormat = formatDate;
     });
   }

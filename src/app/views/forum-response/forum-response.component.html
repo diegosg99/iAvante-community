@@ -2,12 +2,12 @@
     <span class="msg-header row">
         <span class="col-1">
             <a class="navbar-brand me-2" href="perfil/usuario" *ngIf="userLogged|async as user">
-                <img *ngIf="user.photoURL" src="{{user.photoURL}}" class="msg-img" alt="" data-loaded="true">
+                <img src="{{commentedUserData.photo.stringValue}}" class="msg-img" alt="" data-loaded="true" width="60px" height="60px">
             </a>
         </span>
         <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
             <span class="msg-username col-3">
-                <a href="perfil/usuario" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">Jaimito Butifarras</a>
+                <a href="perfil/usuario" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{commentedUserData.fullName.stringValue}}</a>
             </span>
             <span class="col-3" style="text-align: right;">
                 <span class="hace" style="font-size: 12px;">{{comment.fechaCreacionFormat}}</span>

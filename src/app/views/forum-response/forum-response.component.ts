@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ForumService } from 'src/app/services/forum.service';
 import { OauthService } from 'src/app/services/oauth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-forum-response',
@@ -16,14 +17,16 @@ export class ForumResponseComponent implements OnInit{
   userUID;
   numLikes;
   likes = [];
+  commentedUserData;
 
-  constructor(private forumService:ForumService, private auth:OauthService) {}
+  constructor(private forumService:ForumService, private auth:OauthService,private userService: UserService) {}
 
   ngOnInit(): void {
     this.commentId = this.comment.id;
     this.userLogged.subscribe(user => {
       this.userUID = user.uid;
     })
+    this.getCommentedUserData();
     this.getLikes();
   }
 
@@ -75,5 +78,12 @@ export class ForumResponseComponent implements OnInit{
       return (like.usuario === this.userUID)
     });
     this.clickedComment= myLike === null||myLike===undefined?false:true;
+  }
+
+  getCommentedUserData = () => {
+    this.userService.getUser(this.comment.usuario).subscribe(user => {
+      this.commentedUserData = {...user.payload._delegate._document.data.value.mapValue.fields};
+      console.log(this.commentedUserData);
+    });
   }
 }
