@@ -3,3 +3,9 @@
 - Hacer la lista de publicaciones solo para os usuarios que sigues?
 - Abrir chat con diferentes usuarios
 - Recortar fotos y subirlas más ligeras
+
+
+
+- API Youtube
+
+    key: AIzaSyDApSviRT9gGloCgE2tJvonBRGRlu0NHS8

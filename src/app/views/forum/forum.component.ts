@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ForumService } from 'src/app/services/forum.service';
+import { OauthService } from 'src/app/services/oauth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-forum',
@@ -13,10 +15,31 @@ export class ForumComponent implements OnInit{
   topQuestions:any;
   p = 1;
 
-  constructor(private forumService: ForumService,private _activatedroute:ActivatedRoute,private router:Router){}
+  ROLES = {
+    user: 'USUARIO',
+    admin: 'ADMIN',
+    docent: 'DOCENTE'
+  }
+
+  userLogged = this.auth.getUserLogged();
+  userID;
+  user;
+
+  constructor(private forumService: ForumService,private _activatedroute:ActivatedRoute,private router:Router,private userService:UserService, private auth: OauthService){}
 
   ngOnInit(): void {
     this.getAllQuestions();
+    this.userLogged.subscribe(user=>{
+      this.userID=user.uid;
+
+      console.log(this.userID);
+      
+      this.userService.getUser(this.userID).subscribe(user=>{
+        this.user = {...user.payload._delegate._document.data.value.mapValue.fields};
+        console.log(this.user);
+      })
+    });
+    
   }
 
   getAllQuestions = () => {
@@ -79,5 +102,9 @@ export class ForumComponent implements OnInit{
       })
       selectedQuestion.comments = comments.length;
     })
+  }
+
+  removeQuestion = (idQuestion) => {
+    this.forumService.removeQuestion(idQuestion);
   }
 }

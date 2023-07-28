@@ -17,10 +17,17 @@
             <ul>
                 <li *ngFor="let question of topQuestions">
                     <a (click)="updateViews(question.id)">{{question.titulo}}</a>
-                    <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
-                    <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
-                    <span class="mx-3">Benjamin Button Heredia</span>
-                </li>
+                    <div class="row pb-3">
+                        <div class="col-6">
+                            <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
+                            <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
+                            <span class="mx-3">Benjamin Button Heredia</span>
+                        </div>
+                        <div class="col-6" style="text-align: right;">
+                            <i class="fa fa-trash delete-button px-5" style="font-size: 14px;text-align: right;" *ngIf="user.role.stringValue == 'admin'" (click)="removeQuestion(question.id)"></i>    
+                        </div>
+                    </div>
+                    </li>
             </ul>
         </section>
         <div class="col-1"></div>
@@ -30,10 +37,16 @@
             <ul class="mb-5">
             <li *ngFor="let question of questions | paginate: { itemsPerPage: 10, currentPage: p}">
                 <a (click)="updateViews(question.id)">{{question.titulo}}</a>
-                <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
-                <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
-                <span class="mx-3">Benjamin Button Heredia</span>
-            </li>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
+                        <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
+                        <span class="mx-3">Benjamin Button Heredia</span>
+                    </div>
+                    <div class="col-6 text-right" style="text-align: right;">
+                        <i class="fa fa-trash delete-button px-5" style="font-size: 14px;" *ngIf="user.role.stringValue == 'admin'" (click)="removeQuestion(question.id)"></i>    
+                    </div>
+                </div></li>
             </ul>
             <pagination-controls class="mt-3" (pageChange)="p = $event"></pagination-controls>
         </section>

@@ -13,6 +13,12 @@ export class MembersComponent implements OnInit{
   
   members:any = [];
 
+  ROLES = {
+    user: 'USUARIO',
+    admin: 'ADMIN',
+    docent: 'DOCENTE'
+  }
+
   constructor(private auth:OauthService, private userService: UserService){
 
   }
@@ -32,7 +38,10 @@ export class MembersComponent implements OnInit{
       let arraySegments = question.payload.doc._delegate._key.path.segments;
       let questionId = arraySegments[arraySegments.length - 1];
 
-      processedUsers.push({id:questionId,...question.payload.doc.data()});
+      let processedUser = {...question.payload.doc.data()}
+      processedUser.role = this.ROLES[processedUser.role];
+
+      processedUsers.push({id:questionId,...processedUser});
     })
 
     return processedUsers;

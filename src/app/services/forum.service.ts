@@ -45,6 +45,10 @@ export class ForumService implements OnInit{
     return this.firebase.collection("forums").doc(id).set({...question});
   }
 
+  removeQuestion = (id) => {
+    return this.firebase.collection("forums").doc(id).delete();
+  }
+
   getQuestion = (id:string):any => {
     return this.firebase.collection("forums").doc(id);
   }

@@ -21,6 +21,12 @@ export class ProfileComponent implements OnInit{
   imageFile: { link: string; file: any; name: string; } | any;
   imageRaw: { link: string; file: any; name: string; } | any;
 
+  ROLES = {
+    user: 'USUARIO',
+    admin: 'ADMIN',
+    docent: 'DOCENTE'
+  }
+
   formEdit = {
     realName:false,
     username:false,
@@ -48,7 +54,15 @@ export class ProfileComponent implements OnInit{
         
         this.userId = data['id'];
         this.userService.getUser(this.userId).subscribe(user=>{
+
+          console.log(user);
+
           this.user = {...user.payload._delegate._document.data.value.mapValue.fields};
+
+          console.log(this.user.role.stringValue);
+
+          this.user.role = this.ROLES[this.user.role.stringValue];
+
           console.log(this.user);
         })
       });
