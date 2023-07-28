@@ -35,6 +35,7 @@ import { ForumResponseComponent } from './views/forum-response/forum-response.co
 import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { QuestionListComponent } from './views/question-list/question-list.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ForumResponseComponent,
     ProfileComponent,
     MembersComponent,
+    QuestionListComponent,
   ],
   imports: [
     BrowserModule,
