@@ -53,6 +53,10 @@ export class ForumService implements OnInit{
     return this.firebase.collection("forums").doc(id);
   }
 
+  getQuestionBy = (id:string,key:string):any => {
+    return this.firebase.collection("forums",ref=>ref.where(key,'==',id)).snapshotChanges();
+  }
+
   //-------------------------------- QUESTIONS -----------------------------
  
   //-------------------------------- RESPONSES -----------------------------
@@ -70,6 +74,11 @@ export class ForumService implements OnInit{
   getResponses = (idQuestion):any => {
 
     return this.firebase.collection("forum-response",ref=>ref.where('preguntaId','==',idQuestion.toString())).snapshotChanges();
+  }
+
+  getResponsesBy = (id:string,key:string):any => {
+    console.log(id);
+    return this.firebase.collection("forum-response",ref=>ref.where(key,'==',id)).snapshotChanges();
   }
 
   //--------------------------------- NO CREO QUE HAGA FALTA ---------------------------
