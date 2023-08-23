@@ -1,13 +1,18 @@
 <div class="row"  *ngFor="let video of videos">
         <div class="col-1"></div>
-        <div class="col-10">
-            <div class="card">
-                <a href="{{video.id.videoId}}">{{video.snippet.title}}
-                    <img width="300px" [src]="video.snippet.thumbnails.medium.url" class="">
+        <div class="col-10 my-3">
+            <div class="card row pl-3 pb-3">
+                <a class="col-12 d-flex justify-content-between px-0 ml-3" style="text-decoration: none; color: rgba(0, 0, 0, 0.604);" href="https://www.youtube.com/watch?v={{video.id.videoId}}">
+                    <p class="my-auto ml-1" style="padding-left: 1rem;font-size: 22px;">{{video.snippet.title}}</p>
+                    <img width="400px" height="max-height" [src]="video.snippet.thumbnails.medium.url" class="">
                 </a>
-                <span>{{video.snippet.channelTitle}}</span>
-                <p>{{video.snippet.description}}</p>
-                <span>{{video.snippet.publishedAt | date:'dd/MM/yyyy hh:mm:ss'}}</span>
+                <hr>
+                <a href="https://www.youtube.com/channel/{{video.snippet.channelId}}" style="text-decoration: none; color: rgba(0, 0, 0, 0.604);">
+                    <div class="my-3"><i class="fa fa-youtube"></i> {{video.snippet.channelTitle}}</div>
+                </a>
+                <br>
+                <p style="font-size: 16px; color: rgba(0, 0, 0, 0.751);">{{video.snippet.description}}</p>
+                <span style="font-size: 14px; color: rgba(0, 0, 0, 0.576);">{{video.snippet.publishedAt | date:'dd/MM/yyyy hh:mm:ss'}}</span>
             </div>
         </div>
         <div class="col-1"></div>
