@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FollowService } from 'src/app/services/follow.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class MembersComponent implements OnInit{
   
   userLogged = this.auth.getUserLogged();
-  
+  userId;
   members:any = [];
 
   ROLES = {
@@ -19,16 +20,18 @@ export class MembersComponent implements OnInit{
     docent: 'DOCENTE'
   }
 
-  constructor(private auth:OauthService, private userService: UserService){
+  constructor(private auth:OauthService, private userService: UserService, private followService: FollowService){
 
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(members=>{
+    this.userLogged.subscribe(user=>{
+      this.userId = user.uid;
+    });
 
+    this.userService.getUsers().subscribe(members=>{
       this.members = this.processUsers(members);
-      console.log(this.members);
-    })
+    })   
   }
 
   processUsers = (users) => {
@@ -46,5 +49,4 @@ export class MembersComponent implements OnInit{
 
     return processedUsers;
   }
-
 }

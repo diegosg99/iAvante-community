@@ -1,0 +1,71 @@
+<div class="box2 box">
+    <div class="content">
+      <div class="row">
+        <div class="image">
+          <img src="{{user.photo}}" style="max-height: 80px;" alt="Profile Image">
+        </div>
+        <div class="row">
+          <div class="post col-4">
+            <p>Posts</p>
+            <h5>28</h5>
+          </div>
+          <div class="followers col-4">
+            <p>Followers</p>
+            <h5>678</h5>
+          </div>
+          <div class="following col-4">
+            <p>Following</p>
+            <h5>120</h5>
+          </div>
+        </div>              
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="button my-0">
+            <div>
+              <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Dejar de seguir</button>
+              <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Seguir</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="button my-0">
+            <div>
+              <button class="message" style="margin-right: .75rem;" type="button">Abrir chat</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text">
+        <div class="row">
+            <div class="col-12">
+                <p class="name">{{user.fullName}}</p>
+            </div>
+            <div class="col-8">
+              <p class="job_title">{{user.proffesion}}</p>
+            </div>
+            <div class="col-4">
+              <p class="job_title">@{{user.username}}</p>
+            </div>
+        </div>
+        <div *ngIf="user.description">
+          <p class="about">About</p>
+          <p class="job_discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, placeat obcaecati. Eaque fugit eveniet error voluptates totam enim molestias vitae, amet aliquid deleniti ipsa ea.</p>
+        </div>
+      </div>
+      <div class="icons">
+        <button>
+          <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{user.instagram.stringValue}}"></a>
+        </button>
+        <button>
+          <i class="fa fa-twitter" href="user.twitter"></i>
+        </button>
+        <button>
+          <i class="fa fa-linkedin" href="user.linkedin"></i>
+        </button>
+        <button>
+          <i class="fa fa-facebook" href="user.facebook"></i>
+        </button>
+      </div>
+    </div>
+</div>

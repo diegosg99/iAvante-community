@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-center flex-wrap" *ngIf="userLogged|async as user">
     <div *ngFor="let user of members" class="row col-3 justify-content-center">
-        <div class="box2 box">
+        <!-- <div class="box2 box">
             <div class="content">
               <div class="row">
                 <div class="image">
@@ -27,7 +27,8 @@
                 <div class="col-6">
                   <div class="button my-0">
                     <div>
-                      <button class="message" style="margin-right: .75rem;" type="button">Seguir</button>
+                      <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Dejar de seguir</button>
+                      <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Seguir</button>
                     </div>
                   </div>
                 </div>
@@ -71,6 +72,7 @@
                 </button>
               </div>
             </div>
-        </div>
+        </div> -->
+        <app-user-card [user]="user"></app-user-card>
     </div> 
 </div>
