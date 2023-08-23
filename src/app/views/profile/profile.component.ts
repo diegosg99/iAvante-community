@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/User';
+import { ForumService } from 'src/app/services/forum.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,9 +19,15 @@ export class ProfileComponent implements OnInit{
   userId;
   user;
   //userForm: FormGroup;
+  edit:boolean = false;
+  payload;
+  p;
 
   imageFile: { link: string; file: any; name: string; } | any;
   imageRaw: { link: string; file: any; name: string; } | any;
+
+  factory;
+  category;
 
   ROLES = {
     user: 'USUARIO',
@@ -38,6 +46,7 @@ export class ProfileComponent implements OnInit{
     username: '',
     fullName: '',
     proffesion: '',
+    jobCentre: '',
     photo: '',
     age: '',
     instagram: '',
@@ -46,27 +55,30 @@ export class ProfileComponent implements OnInit{
     linkedin: ''
   }
 
-  constructor(private auth:OauthService,private userService:UserService,private toastr: ToastrService,private router:Router,private _activatedroute:ActivatedRoute){}
-
-  ngOnInit(): void {
-    this.userId = this._activatedroute.params.subscribe(data=>
+  constructor(private auth:OauthService,private userService:UserService,private toastr: ToastrService,private router:Router,private _activatedroute:ActivatedRoute,private forumService: ForumService){
+    this.factory = {
+      posts: this.getUserPosts,
+      questions: this.getUserQuestions,
+      responses: this.getUserResponses,
+      following: this.getUserFollowing,
+      followers: this.getUserFollowers
+    }
+    
+    this._activatedroute.params.subscribe(data=>
       {
         
         this.userId = data['id'];
+
         this.userService.getUser(this.userId).subscribe(user=>{
 
-          console.log(user);
-
           this.user = {...user.payload._delegate._document.data.value.mapValue.fields};
-
-          console.log(this.user.role.stringValue);
-
           this.user.role = this.ROLES[this.user.role.stringValue];
-
-          console.log(this.user);
         })
       });
-    
+  }
+
+  ngOnInit(): void {
+    this.payloadFactory('questions');
   }
 
   updateProfile = () => {
@@ -80,6 +92,7 @@ export class ProfileComponent implements OnInit{
         username: this.userForm.username,
         fullName: this.userForm.fullName,
         proffesion: this.userForm.proffesion,
+        jobCentre: this.userForm.jobCentre,
         role: 'USUARIO',
         photo: this.imageFile.link,
         age: this.userForm.age,
@@ -114,5 +127,50 @@ export class ProfileComponent implements OnInit{
       };
       reader.readAsDataURL(event.target.files[0]);
   }
+  }
+
+  hide = () => {
+    this.edit = this.edit?false:true;
+  }
+
+  payloadFactory = (category) => {
+    this.payload = [];
+    this.category = category;
+    this.factory[category]();
+  }
+
+  getUserPosts = () => {
+
+  }
+ 
+  getUserQuestions = () => {
+    this.forumService.getQuestionBy(this.userId,'usuario').subscribe(data=>{
+      data.forEach(item => {
+        let processedItem = item.payload._delegate.doc._document.data.value.mapValue.fields;
+        this.payload = [{...this.payload,...processedItem}];
+      });
+    })
+  }
+
+  getUserResponses = () => {
+    this.forumService.getResponsesBy(this.userId,'usuario').subscribe(data=>{
+
+      data.forEach(item => {
+        let processedItem = item.payload._delegate.doc._document.data.value.mapValue.fields;
+        this.payload = [...this.payload,{...processedItem}];
+
+        // let responseId = item.payload._delegate.doc._document.key.path.segments[6];
+        // this.forumService.getLikesResponse(responseId).subscribe(data => processedItem.likes = data.length);
+        // console.log(processedItem);
+      });
+      console.log(this.payload);
+    })
+  }
+
+  getUserFollowing = () => {
+
+  }
+
+  getUserFollowers = () => {
   }
 }

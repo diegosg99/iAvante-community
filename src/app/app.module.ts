@@ -36,6 +36,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { QuestionListComponent } from './views/question-list/question-list.component';
+import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { QuestionListComponent } from './views/question-list/question-list.compo
     ProfileComponent,
     MembersComponent,
     QuestionListComponent,
+    LearnWithUsComponent,
   ],
   imports: [
     BrowserModule,

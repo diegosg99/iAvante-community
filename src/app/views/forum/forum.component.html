@@ -15,7 +15,6 @@
         <section class="col-10">
             <h2>Preguntas más frecuentadas</h2>
             <ul>
-
                 <li *ngFor="let question of topQuestions" class="p-3">
                     <app-question-list [question]="question" [user]="user"></app-question-list>
                 </li>
@@ -37,3 +36,4 @@
 </div>
 
 <app-forum-new-question></app-forum-new-question>
+

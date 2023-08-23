@@ -10,6 +10,7 @@ import { ForumComponent } from './views/forum/forum.component';
 import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
+import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: "miembros",
     component: MembersComponent
+  },
+  {
+    path: "learn",
+    component: LearnWithUsComponent
   }
 ];
 

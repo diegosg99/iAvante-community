@@ -1,6 +1,6 @@
 - Hacer view/profile para ver la ficha de un usuario
 - Poder seguir usuarios
-- Hacer la lista de publicaciones solo para os usuarios que sigues?
+- Hacer la lista de publicaciones solo para los usuarios que sigues?
 - Abrir chat con diferentes usuarios
 - Recortar fotos y subirlas más ligeras
 
@@ -9,3 +9,13 @@
 - API Youtube
 
     key: AIzaSyDApSviRT9gGloCgE2tJvonBRGRlu0NHS8
+
+
+- nombre completo, email, profesion, centro de trabajo, provincia
+- separacion alumnos docentes
+- quienes somos
+- rising stars
+
+wenceslao.vereda@juntadeandalucia.es
+
+luz.liebana@juntadeandalucia.es

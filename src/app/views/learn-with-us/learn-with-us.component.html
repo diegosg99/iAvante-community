@@ -1,0 +1,14 @@
+<div class="row"  *ngFor="let video of videos">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="card">
+                <a href="{{video.id.videoId}}">{{video.snippet.title}}
+                    <img width="300px" [src]="video.snippet.thumbnails.medium.url" class="">
+                </a>
+                <span>{{video.snippet.channelTitle}}</span>
+                <p>{{video.snippet.description}}</p>
+                <span>{{video.snippet.publishedAt | date:'dd/MM/yyyy hh:mm:ss'}}</span>
+            </div>
+        </div>
+        <div class="col-1"></div>
+</div>
