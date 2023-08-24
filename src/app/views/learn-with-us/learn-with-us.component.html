@@ -1,14 +1,44 @@
+<div class="col-lg-12">
+    <h1 class="logo mb-5 p-5">Aprende con nosotros</h1>
+</div>
+
+<div class="row w-75 mx-auto my-3">
+    <div class="col-12">
+        <p>Bienvenido a nuestra zona docente online, aquí trataremos de que puedas encontrar facilmente nuestro contenido multimedia,
+            tanto de información sobre nuevos eventos o tecnologías y tambien aprender técnicas de cirugía con nosotros.</p>       
+    </div>
+    <div class="col-3"></div>
+    <div class="col-3">Elige la plataforma:</div>
+    <div class="col-3">
+        <select class="form-control">
+            <option>Youtube</option>
+            <option>Vimeo</option>
+            <option>Otros</option>
+        </select>
+    </div>
+    <div class="col-3"></div>
+</div>
+
+<hr>
+
 <div class="row"  *ngFor="let video of videos">
         <div class="col-1"></div>
         <div class="col-10 my-3">
             <div class="card row pl-3 pb-3">
-                <a class="col-12 d-flex justify-content-between px-0 ml-3" style="text-decoration: none; color: rgba(0, 0, 0, 0.604);" href="https://www.youtube.com/watch?v={{video.id.videoId}}">
-                    <p class="my-auto ml-1" style="padding-left: 1rem;font-size: 22px;">{{video.snippet.title}}</p>
-                    <img width="400px" height="max-height" [src]="video.snippet.thumbnails.medium.url" class="">
-                </a>
+                <div class="col-12 d-flex justify-content-between px-0 ml-3" style="text-decoration: none; color: rgba(0, 0, 0, 0.604);">
+                    <div class="col-8 row">
+                        <p class="my-auto ml-1 col-12" style="padding-left: 1rem;font-size: 22px;">{{video.snippet.title}}</p>
+                        <div class="col-4"></div>
+                        <a class="watch col-4 my-auto text-center" href="https://www.youtube.com/watch?v={{video.id.videoId}}" style="text-decoration: none;">Ver vídeo</a>
+                        <div class="col-4"></div>
+                    </div>
+                    <a class="col-4" href="https://www.youtube.com/watch?v={{video.id.videoId}}">
+                        <img width="100%" height="max-height" [src]="video.snippet.thumbnails.medium.url" class="">
+                    </a>
+                </div>
                 <hr>
                 <a href="https://www.youtube.com/channel/{{video.snippet.channelId}}" style="text-decoration: none; color: rgba(0, 0, 0, 0.604);">
-                    <div class="my-3"><i class="fa fa-youtube"></i> {{video.snippet.channelTitle}}</div>
+                    <div class="my-3"><i class="fa fa-youtube" style="color: red;"></i> {{video.snippet.channelTitle}}</div>
                 </a>
                 <br>
                 <p style="font-size: 16px; color: rgba(0, 0, 0, 0.751);">{{video.snippet.description}}</p>
