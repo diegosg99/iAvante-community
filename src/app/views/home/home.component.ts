@@ -24,20 +24,10 @@ export class HomeComponent implements OnInit{
         let arraySegments = post.payload.doc._delegate._key.path.segments;
         let postId = arraySegments[arraySegments.length - 1];
 
-        // let postUser = this.getPostUser(post.usuario);
-
         processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
       })
       this.posts=processedPosts;
     });
   }
 
-  // getPostUser = (usuario) => {
-  //   this.userService.getUser(usuario).subscribe((user:any)=>{
-
-  //     console.log(user);
-
-  //     return {...user.payload._delegate._document.data.value.mapValue.fields};
-  //   })
-  // }
 }

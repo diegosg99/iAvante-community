@@ -38,6 +38,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { QuestionListComponent } from './views/question-list/question-list.component';
 import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
 import { UserCardComponent } from './views/members/user-card/user-card.component';
+import { FullPostComponent } from './views/post/full-post/full-post.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { UserCardComponent } from './views/members/user-card/user-card.component
     QuestionListComponent,
     LearnWithUsComponent,
     UserCardComponent,
+    FullPostComponent,
   ],
   imports: [
     BrowserModule,

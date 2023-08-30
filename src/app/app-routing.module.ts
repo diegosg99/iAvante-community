@@ -11,6 +11,7 @@ import { ForumQuestionComponent } from './views/forum-question/forum-question.co
 import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
 import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
+import { FullPostComponent } from './views/post/full-post/full-post.component';
 
 const routes: Routes = [
   {
@@ -35,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: "post/:id",
-    component: PostComponent
+    component: FullPostComponent
   },
   {
     path: "news/:category",
