@@ -20,21 +20,24 @@
         </div>              
       </div>
       <div class="row">
+        <div class="col-3"></div>
         <div class="col-6">
           <div class="button my-0">
-            <div>
+            <div *ngIf="user.uid !== userId">
               <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Dejar de seguir</button>
               <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Seguir</button>
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-3"></div>
+
+        <!-- <div class="col-6">
           <div class="button my-0">
             <div>
               <button class="message" style="margin-right: .75rem;" type="button">Abrir chat</button>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="text">
         <div class="row">
