@@ -14,21 +14,12 @@ export class FollowService {
   ngOnInit(): void {}
 
   getUserFollows = (userId) => {
-    const FOLLOW = {
-      userId: userId,
-      follower: this.userId,
-      both: userId+'&union&'+this.userId
-    }
-
-    return this.firebase.collection("follow",ref=>ref.where('followed','==',userId)).snapshotChanges();
+    console.log(userId);
+    return this.firebase.collection("follow",ref=>ref.where('follower','==',userId)).snapshotChanges();
   }
 
   getUserFollowers = (userId) => {
-    const FOLLOW = {
-      userId: userId,
-      follower: this.userId
-    }
-
+    console.log(userId);
     return this.firebase.collection("follow",ref=>ref.where('userId','==',userId)).snapshotChanges();
   }
 
@@ -57,6 +48,13 @@ export class FollowService {
     });
   }
 
+  checkFollow = (followed,follower) => {
+    return this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges();
+  }
+
+
+
+  
   // getFollowers = () => {
   //   return this.firebase.collection('follow',ref => ref.where('categoria','==',category)).snapshotChanges();
   // }
@@ -67,8 +65,4 @@ export class FollowService {
   // processFollows = (user) => {
   //   return {docId:user.payload.doc._delegate._key.path.segments[user.payload.doc._delegate._key.path.segments.length -1],...user.payload.doc.data()};
   // }
-
-  checkFollow = (followed,follower) => {
-    return this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges();
-  }
 }
