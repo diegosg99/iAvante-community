@@ -40,7 +40,6 @@ export class PostService {
   }
 
   getUserPosts = (userId):Observable<any> => {
-    console.log(userId);
     return this.firebase.collection("posts",ref=>ref.where('usuario','==',userId)).snapshotChanges();
   }
 
@@ -50,7 +49,6 @@ export class PostService {
     
     this.firebase.collection('posts').snapshotChanges().subscribe(docs=>{
       doc = docs;
-       console.log(doc);
     });
   }
 }

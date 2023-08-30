@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-post',
@@ -9,28 +10,24 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostComponent implements OnInit{
 
-  post:any;
+  @Input() post:any;
   postId:any;
+  postUser:any;
 
-  constructor(private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute){
-
+  constructor(private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute, private userService: UserService){
   }
 
   ngOnInit(): void {
     this.postId = this._activatedroute.params;
+    this.getPostUser();
+  }
 
-    this._postService.getPosts().subscribe(posts=>{
+  getPostUser = () => {
+    this.userService.getUser(this.post.usuario).subscribe((user:any)=>{
 
-      let processedPosts: any[] = [];
+      console.log(user);
 
-      posts.forEach((post: any)=>{
-        let arraySegments = post.payload.doc._delegate._key.path.segments;
-        let postId = arraySegments[arraySegments.length - 1];
-
-        processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
-      })
-
-      this.post = processedPosts.find(post => post.id === this.postId.value.id);
-    });
+      this.postUser = {...user.payload._delegate._document.data.value.mapValue.fields};
+    })
   }
 }

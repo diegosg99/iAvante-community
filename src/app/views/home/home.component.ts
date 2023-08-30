@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +24,20 @@ export class HomeComponent implements OnInit{
         let arraySegments = post.payload.doc._delegate._key.path.segments;
         let postId = arraySegments[arraySegments.length - 1];
 
+        // let postUser = this.getPostUser(post.usuario);
+
         processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
       })
       this.posts=processedPosts;
-      console.log(this.posts);
     });
   }
+
+  // getPostUser = (usuario) => {
+  //   this.userService.getUser(usuario).subscribe((user:any)=>{
+
+  //     console.log(user);
+
+  //     return {...user.payload._delegate._document.data.value.mapValue.fields};
+  //   })
+  // }
 }
