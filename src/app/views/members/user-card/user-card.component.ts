@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FollowService } from 'src/app/services/follow.service';
 import { OauthService } from 'src/app/services/oauth.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-user-card',
@@ -14,23 +15,23 @@ export class UserCardComponent implements OnInit{
   userLogged = this.auth.getUserLogged();
   userId;
 
-  constructor(private auth:OauthService, private followService:FollowService){}
+  constructor(private auth:OauthService, private followService:FollowService,private postService: PostService){}
 
   ngOnInit(): void {
     this.userLogged.subscribe(user=>{
       this.userId = user.uid;
+
+      this.followed = this.checkFollowed();
     }); 
-
-
   }
 
   followUser = (userId) => {
-    console.log(userId);
-    this.followService.followUser(userId,this.userId);
-
-
+    this.followed?this.followService.unfollowUser(userId,this.userId):this.followed = this.followService.followUser(userId,this.userId);
   }
+
   checkFollowed = () => {
-    this.followService.checkFollow(this.userId);
+    this.followService.checkFollow(this.user.uid,this.userId).subscribe(res=>{
+      res.length == 0 ? this.followed = false : this.followed = true;
+    });
   }
 }

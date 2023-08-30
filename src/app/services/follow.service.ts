@@ -16,28 +16,45 @@ export class FollowService {
   getUserFollows = (userId) => {
     const FOLLOW = {
       userId: userId,
+      follower: this.userId,
+      both: userId+'&union&'+this.userId
+    }
+
+    return this.firebase.collection("follow",ref=>ref.where('followed','==',userId)).snapshotChanges();
+  }
+
+  getUserFollowers = (userId) => {
+    const FOLLOW = {
+      userId: userId,
       follower: this.userId
     }
 
     return this.firebase.collection("follow",ref=>ref.where('userId','==',userId)).snapshotChanges();
   }
 
-  followUser = (userId,userLogged) => {
+  followUser = (followed,follower) => {
     const FOLLOW = {
-      userId: userId,
-      follower: userLogged
+      userId: followed,
+      follower: follower,
+      both: followed+'&union&'+follower
     }
 
-    let processedFollows = [];
+    this.firebase.collection("follow").add({...FOLLOW});
 
-    
-    return processedFollows.find(data=>{
-      data.follower === this.userId;
-    })?this.unfollowUser(processedFollows[0].userId):this.firebase.collection("follow").add({...FOLLOW});
+    return true;
   }
-  unfollowUser = (data) => {
 
-    return this.firebase.collection("follow").doc(data.docId).delete();
+  unfollowUser = (followed,follower) => {
+
+    let docId;
+
+    return this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges().subscribe((user:any)=> {
+      docId = user[0].payload.doc._delegate._key.path.segments[user[0].payload.doc._delegate._key.path.segments.length -1];
+    
+      this.firebase.collection("follow").doc(docId).delete().then(()=>{
+        console.log('Dejaste de seguir a '+followed);
+      });
+    });
   }
 
   // getFollowers = () => {
@@ -47,19 +64,11 @@ export class FollowService {
 
   // }
 
-  processFollows = (user) => {
-    return {docId:user.payload.doc._delegate._key.path.segments[user.payload.doc._delegate._key.path.segments.length -1],...user.payload.doc.data()};
-  }
+  // processFollows = (user) => {
+  //   return {docId:user.payload.doc._delegate._key.path.segments[user.payload.doc._delegate._key.path.segments.length -1],...user.payload.doc.data()};
+  // }
 
-  checkFollow = (userId) => {
-    let processedFollows;
-    this.getUserFollows(userId).subscribe(userFollows => {
-
-      userFollows.forEach(user => {
-        processedFollows = [...processedFollows,this.processFollows(user)];
-      });
-
-      console.log(processedFollows);
-    });
+  checkFollow = (followed,follower) => {
+    return this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges();
   }
 }
