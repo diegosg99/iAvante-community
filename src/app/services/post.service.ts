@@ -39,6 +39,11 @@ export class PostService {
     return this.firebase.collection('posts',ref => ref.orderBy('fechaActualizacion','desc')).snapshotChanges();
   }
 
+  getUserPosts = (userId):Observable<any> => {
+    console.log(userId);
+    return this.firebase.collection("posts",ref=>ref.where('usuario','==',userId)).snapshotChanges();
+  }
+
   getPost = (id:string):any => {
 
     let doc;

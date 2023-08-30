@@ -14,8 +14,10 @@ export class UserCardComponent implements OnInit{
   @Input() user;
   userLogged = this.auth.getUserLogged();
   userId;
+
   followers;
   following;
+  posts;
 
   constructor(private auth:OauthService, private followService:FollowService,private postService: PostService){}
 
@@ -28,10 +30,12 @@ export class UserCardComponent implements OnInit{
       this.followService.getUserFollows(this.user.uid).subscribe((data:any)=>{
         this.following = data.length;
       });
-      
+
       this.followService.getUserFollowers(this.user.uid).subscribe((data:any)=>{
         this.followers = data.length;
       });
+
+      this.getPosts();
     }); 
   }
 
@@ -42,6 +46,13 @@ export class UserCardComponent implements OnInit{
   checkFollowed = () => {
     this.followService.checkFollow(this.user.uid,this.userId).subscribe(res=>{
       res.length == 0 ? this.followed = false : this.followed = true;
+    });
+  }
+
+  getPosts = () => {
+    this.postService.getUserPosts(this.user.uid).subscribe((res:any) => {
+      console.log(res);
+      this.posts = res.length;
     });
   }
 }
