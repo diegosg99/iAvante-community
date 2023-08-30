@@ -9,7 +9,8 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class HomeComponent implements OnInit{
   
-  posts:any = [1,2,3,4,5,6];
+  posts:any = [];
+  p = 1;
   
   constructor(private _postservice: PostService,private router:Router){}
 
