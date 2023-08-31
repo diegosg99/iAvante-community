@@ -40,7 +40,12 @@ export class UserCardComponent implements OnInit{
   }
 
   followUser = (userId) => {
-    this.followed?this.followService.unfollowUser(userId,this.userId):this.followed = this.followService.followUser(userId,this.userId);
+    console.log('Previo:')
+    console.log(this.followed);
+    this.followed?
+      this.followed = this.followService.unfollowUser(userId,this.userId):
+      this.followed = this.followService.followUser(userId,this.userId);
+    console.log(this.followed);
   }
 
   checkFollowed = () => {

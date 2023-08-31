@@ -36,14 +36,16 @@ export class FollowService {
   unfollowUser = (followed,follower) => {
 
     let docId;
-
-    return this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges().subscribe((user:any)=> {
+    
+    this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges().subscribe((user:any)=> {
       docId = user[0].payload.doc._delegate._key.path.segments[user[0].payload.doc._delegate._key.path.segments.length -1];
     
       this.firebase.collection("follow").doc(docId).delete().then(()=>{
         console.log('Dejaste de seguir a '+followed);
       });
-    });
+    }).unsubscribe();
+
+    return false;
   }
 
   checkFollow = (followed,follower) => {

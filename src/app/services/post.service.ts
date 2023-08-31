@@ -43,6 +43,11 @@ export class PostService {
     return this.firebase.collection("posts",ref=>ref.where('usuario','==',userId)).snapshotChanges();
   }
 
+  getFollowedPosts = (followeds) => {
+
+    return this.firebase.collection('posts',ref=>ref.where('usuario', 'in', followeds)).snapshotChanges();
+  }
+
   getPost = (id:string):any => {
 
     let doc;
