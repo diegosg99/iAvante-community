@@ -6,23 +6,31 @@
         </div>
         <div class="post-content col-8 p-3 row">
             <!-- <app-like-bookmark></app-like-bookmark> -->
-            <div class="col-8">
-                <h1 class="">
-                    <a href="post/{{post.id}}" style="font-size: 30px;text-decoration: none;color: black;">
+            <div class="col-12 row">
+                <h1 class="col-8">
+                    <a href="post/{{post.id}}" style="font-size: 26px;text-decoration: none;color: black;">
                         {{post.titulo}} <i class="fa fa-link" style="font-size:14px;" aria-hidden="true"></i>
                     </a>
                 </h1>
-                <div class="mb-3">
+                <span *ngIf="postUser" class="col-4 d-flex justify-content-between" style="padding: 0px;">
+                    <p>{{postUser.fullName.stringValue}}</p>
+                    <a class="navbar-brand me-2">
+                        <img src="{{postUser.photo.stringValue}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="60px" height="60px">
+                    </a>
+                </span>
+            </div>
+
+            <div class="row col-12">
+                <div class="mb-3 col-3">
                     {{post.categoria}}
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3">
+                    <p style="text-align: right;font-size: 14px;">{{post.fechaActualizacionFormat}}</p>
                 </div>
             </div>
 
-            <span *ngIf="postUser" class="col-4 d-flex justify-content-between" style="padding: 0px;">
-                <p>{{postUser.fullName.stringValue}}</p>
-                <a class="navbar-brand me-2">
-                    <img src="{{postUser.photo.stringValue}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="60px" height="60px">
-                </a>
-            </span>
+            
             <hr>
             <div class="col-12">
                 <p>{{post.descripcion}}</p>

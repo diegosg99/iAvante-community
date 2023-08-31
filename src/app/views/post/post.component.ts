@@ -25,8 +25,6 @@ export class PostComponent implements OnInit{
   getPostUser = () => {
     this.userService.getUser(this.post.usuario).subscribe((user:any)=>{
 
-      console.log(user);
-
       this.postUser = {...user.payload._delegate._document.data.value.mapValue.fields};
     })
   }

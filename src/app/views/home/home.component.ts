@@ -21,9 +21,14 @@ export class HomeComponent implements OnInit{
   constructor(private _postservice: PostService,private router:Router, private followService: FollowService, private auth: OauthService){}
 
   ngOnInit(): void {
+    this.manageFollowedPosts();
+  }
 
-    //this.oldBringPosts();
+  getUserFollows = (userId) => {
+    return this.followService.getUserFollows(userId);
+  }
 
+  manageFollowedPosts = () => {
     this.userLogged.subscribe(user=>{
       this.userId = user.uid;
           this.getUserFollows(this.userId).subscribe(followeds => {
@@ -34,34 +39,39 @@ export class HomeComponent implements OnInit{
 
               this._postservice.getFollowedPosts(this.followeds).subscribe(posts=>{
                 
-                console.log(posts);
+                posts.forEach((post:any)=>{
+                  this.posts = [...this.posts,{...post.payload.doc.data(),fechaActualizacionFormat: this.formatDate(post.payload.doc.data().fechaActualizacion)}];
+                });
 
-                posts.forEach(post=>{
-                  this.posts = [...this.posts,post.payload.doc.data()];
-                })
+                this.posts.sort((a,b) => (a.fechaActualizacion < b.fechaActualizacion) ? 1 : ((b.fechaActualizacion < a.fechaActualizacion) ? -1 : 0))              
               });
           });
     });
   }
 
-  getUserFollows = (userId) => {
-    return this.followService.getUserFollows(userId);
+  formatDate = (date) => {
+    let fullDate = date.toDate();
+      let day = fullDate.getDate();
+      let month = fullDate.getMonth();
+      let year = fullDate.getFullYear();
+      let hour = fullDate.getHours();
+      let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
+
+      return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
   }
 
+  // oldBringPosts = () => {
+  //     this._postservice.getPosts().subscribe(posts=>{
 
-  oldBringPosts = () => {
-      this._postservice.getPosts().subscribe(posts=>{
+  //     let processedPosts: any[] = [];
 
-      let processedPosts: any[] = [];
+  //     posts.forEach((post: any)=>{
+  //       let arraySegments = post.payload.doc._delegate._key.path.segments;
+  //       let postId = arraySegments[arraySegments.length - 1];
 
-      posts.forEach((post: any)=>{
-        let arraySegments = post.payload.doc._delegate._key.path.segments;
-        let postId = arraySegments[arraySegments.length - 1];
-
-        processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
-      })
-      this.posts=processedPosts;
-    });
-  }
-
+  //       processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
+  //     })
+  //     this.posts=processedPosts;
+  //   });
+  // }
 }
