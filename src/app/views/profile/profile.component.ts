@@ -4,8 +4,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/User';
+import { FollowService } from 'src/app/services/follow.service';
 import { ForumService } from 'src/app/services/forum.service';
 import { OauthService } from 'src/app/services/oauth.service';
+import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -55,7 +57,11 @@ export class ProfileComponent implements OnInit{
     linkedin: ''
   }
 
-  constructor(private auth:OauthService,private userService:UserService,private toastr: ToastrService,private router:Router,private _activatedroute:ActivatedRoute,private forumService: ForumService){
+  constructor(
+      private auth:OauthService,private userService:UserService,private toastr: ToastrService,
+      private router:Router,private _activatedroute:ActivatedRoute,private forumService: ForumService,
+      private _postService:PostService, private followService: FollowService){
+    
     this.factory = {
       posts: this.getUserPosts,
       questions: this.getUserQuestions,
@@ -78,7 +84,7 @@ export class ProfileComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.payloadFactory('questions');
+    this.payloadFactory('posts');
   }
 
   updateProfile = () => {
@@ -137,18 +143,27 @@ export class ProfileComponent implements OnInit{
     this.payload = [];
     this.category = category;
     this.factory[category]();
+    console.log(this.payload);
   }
 
   getUserPosts = () => {
-
+    this.payload = [];
+    this._postService.getUserPosts(this.userId).subscribe(data=>{
+      data.forEach(item => {
+        let processedItem = item.payload.doc.data();
+        this.payload = [...this.payload,processedItem];
+      });
+    })
   }
  
   getUserQuestions = () => {
     this.forumService.getQuestionBy(this.userId,'usuario').subscribe(data=>{
+
       data.forEach(item => {
-        let processedItem = item.payload._delegate.doc._document.data.value.mapValue.fields;
-        this.payload = [{...this.payload,...processedItem}];
+        let processedItem = item.payload.doc.data();
+        this.payload = [...this.payload,processedItem];
       });
+      console.log(this.payload);
     })
   }
 
@@ -168,9 +183,24 @@ export class ProfileComponent implements OnInit{
   }
 
   getUserFollowing = () => {
-
+    this.payload = [];
+    this.followService.getUserFollows(this.userId).subscribe(data=>{
+      data.forEach(item => {
+        let processedItem = item.payload.doc.data();
+        this.payload = [...this.payload,processedItem];
+      });
+      console.log(this.payload);
+    })
   }
 
   getUserFollowers = () => {
+    this.payload = [];
+    this.followService.getUserFollowers(this.userId).subscribe(data=>{
+      data.forEach(item => {
+        let processedItem = item.payload.doc.data();
+        this.payload = [...this.payload,processedItem];
+      });
+      console.log(this.payload);
+    })
   }
 }

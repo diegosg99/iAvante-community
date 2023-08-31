@@ -43,7 +43,7 @@ export class FollowService {
       this.firebase.collection("follow").doc(docId).delete().then(()=>{
         console.log('Dejaste de seguir a '+followed);
       });
-    }).unsubscribe();
+    })
 
     return false;
   }

@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit{
   }
 
   getIdPost = (post) => {
-        console.log(post);
+
         let arraySegments = post.payload.doc._delegate._key.path.segments;
         let postId = arraySegments[arraySegments.length - 1];
 

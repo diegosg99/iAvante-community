@@ -4,7 +4,7 @@
     <h1 class="logo mb-5 p-5">Tu perfil</h1>
   </div>
 
-    <div class="col-6 row justify-content-center mb-auto mt-5">
+    <div class="col-5 row justify-content-center mb-auto mt-5">
 
         <div class="box1 box" *ngIf="userLogged|async as userLog">
         <form><!-- [formGroup]="userForm" -->
@@ -58,7 +58,7 @@
 
               <div class="col-2"></div>
 
-              <div class="col-8">
+              <div class="col-12">
 
                 <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
                 <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
@@ -124,7 +124,7 @@
         </div>
 
     </div>
-    <div class="col-6 row">
+    <div class="col-7 row">
       <ul class="row" style="list-style: none;">
         <li class="col p-3 text-center profile-nav" (click)="payloadFactory('posts')">
           Publicaciones
@@ -150,7 +150,25 @@
 
         <ul style="list-style: none;" *ngIf="payload[0] && category =='posts'">
           <li *ngFor="let item of payload">
-            
+            <div class="row profile-nav-small">
+              <div class="col-2 row">
+                <img src="{{item.photo}}" class="col-12">
+              </div>
+              <div class="col-6">
+                <div class="d-flex" style="flex-grow: column;">
+                  <p class="mx-auto">{{item.titulo}}</p>
+                  <p>{{item.fechaActualizacionFormat}}</p>
+                </div>
+              </div>
+              <div class="col-3">
+                <span class="mx-3">Benjamin Button Heredia</span>
+            </div>
+            <div class="col-1">
+              <span class="mx-3">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </span>
+          </div>
+            </div>
           </li>
         </ul>
 
@@ -158,13 +176,17 @@
           <li *ngFor="let item of payload">
             <div class="row profile-nav-small">
               <div class="col-6">
-                {{item.titulo.stringValue}}
+                {{item.titulo}}
               </div>
-              <div class="col-6">
-                <span class="mx-3"><i class="fa-regular fa-eye"></i> {{item.views.stringValue}}</span>
-                <span class="mx-3"><i class="fa-regular fa-comment"></i> {{item.comments.stringValue}}</span>
-                <span class="mx-3">Benjamin Button Heredia</span>
+              <div class="col-5" style="text-align: right;">
+                <span class="mx-3" style="text-align: right;"><i class="fa fa-eye" aria-hidden="true"></i> {{item.views}}</span>
+                <span class="mx-3" style="text-align: right;"><i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
             </div>
+            <div class="col-1">
+              <span class="mx-3">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </span>
+          </div>
             </div>
           </li>
 
