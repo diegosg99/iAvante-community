@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit{
               this._postservice.getFollowedPosts(this.followeds).subscribe(posts=>{
                 
                 posts.forEach((post:any)=>{
-                  this.posts = [...this.posts,{...post.payload.doc.data(),fechaActualizacionFormat: this.formatDate(post.payload.doc.data().fechaActualizacion)}];
+                  this.posts = [...this.posts,{id:this.getIdPost(post),...post.payload.doc.data(),fechaActualizacionFormat: this.formatDate(post.payload.doc.data().fechaActualizacion)}];
                 });
 
                 this.posts.sort((a,b) => (a.fechaActualizacion < b.fechaActualizacion) ? 1 : ((b.fechaActualizacion < a.fechaActualizacion) ? -1 : 0))              
@@ -60,18 +60,11 @@ export class HomeComponent implements OnInit{
       return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
   }
 
-  // oldBringPosts = () => {
-  //     this._postservice.getPosts().subscribe(posts=>{
+  getIdPost = (post) => {
+        console.log(post);
+        let arraySegments = post.payload.doc._delegate._key.path.segments;
+        let postId = arraySegments[arraySegments.length - 1];
 
-  //     let processedPosts: any[] = [];
-
-  //     posts.forEach((post: any)=>{
-  //       let arraySegments = post.payload.doc._delegate._key.path.segments;
-  //       let postId = arraySegments[arraySegments.length - 1];
-
-  //       processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
-  //     })
-  //     this.posts=processedPosts;
-  //   });
-  // }
+        return postId;
+  }
 }
