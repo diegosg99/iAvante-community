@@ -1,11 +1,12 @@
-<div class="container">
-    <div class="card text-center">
+<app-parallax></app-parallax>
+<div class="container row mx-auto" style="margin-top: -8rem;">
+    <div class="col-3"></div>
+    <div class="col-6 card text-center" style="padding-left: 0px;padding-right: 0px;">
         <div class="card-header">
-            <h5 class="card-title">Login</h5>
+            <h5 class="card-title p-3 login-title">INICIAR SESIÓN</h5>
         </div>
-        <div class="card-body p-4">
+        <div class="card-body p-5">
         
-
             <label style="float: left;margin-bottom: 1em;">Email:</label>
             <input class="form-control my-3" type="text" placeholder="Email" #email [(ngModel)]="usuario.email">
 
@@ -19,7 +20,7 @@
                 </button>
             </div>
 
-        <p>¿Aún no tienes cuenta? <a href="register">Registrarse</a></p>
+        <p>¿Aún no tienes cuenta? <a href="#/register">Registrarse</a></p>
         </div>
 
         <!-- <div class="row mx-3">
@@ -28,4 +29,6 @@
             <button class="text-white btn btn-info mb-3 col-5" (click)="logout()">Salir</button>
         </div> -->
     </div>
+    <div class="col-3"></div>
+
 </div>

@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit{
   }
 
   manageFollowedPosts = () => {
+
+    this.posts = [];
+
     this.userLogged.subscribe(user=>{
       this.userId = user.uid;
           this.getUserFollows(this.userId).subscribe(followeds => {
@@ -43,7 +46,8 @@ export class HomeComponent implements OnInit{
                   this.posts = [...this.posts,{id:this.getIdPost(post),...post.payload.doc.data(),fechaActualizacionFormat: this.formatDate(post.payload.doc.data().fechaActualizacion)}];
                 });
 
-                this.posts.sort((a,b) => (a.fechaActualizacion < b.fechaActualizacion) ? 1 : ((b.fechaActualizacion < a.fechaActualizacion) ? -1 : 0))              
+                this.posts.sort((a,b) => (a.fechaActualizacion < b.fechaActualizacion) ? 1 : ((b.fechaActualizacion < a.fechaActualizacion) ? -1 : 0))          
+                console.log(this.posts);    
               });
           });
     });

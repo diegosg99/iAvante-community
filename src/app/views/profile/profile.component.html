@@ -195,15 +195,20 @@
         <ul style="list-style: none;" *ngIf="payload[0] && category =='responses'">
           <li *ngFor="let item of payload | paginate: { itemsPerPage: 10, currentPage: p}">
             <div class="row profile-nav-small mb-0">
-              <div class="col-8" style="font-size: 11px;">
+              <div class="col-8" style="font-size: 14px;">
                 {{item.respuesta.stringValue}}
               </div>
               <!-- <div class="col-1">
                 <p style="font-size: 11px;">{{item.likes.integerValue}}<i class="fa fa-heart"></i></p>
               </div> -->
-              <div class="col-4">
-                <p style="font-size: 9px;color: gray;">{{item.fechaCreacion.timestampValue | date:'dd/MM/yyyy hh:mm:ss'}}</p>
+              <div class="col-3">
+                <p style="font-size: 12px;color: gray;">{{item.fechaCreacion.timestampValue | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
               </div>
+              <div class="col-1">
+                <span class="mx-3">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </span>
+            </div>
             </div>
           </li>
         </ul>

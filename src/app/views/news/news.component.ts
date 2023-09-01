@@ -11,6 +11,7 @@ export class NewsComponent implements OnInit{
 
   news:any;
   category:any;
+  p = 1;
 
   constructor(private newsService: NewsService,private router:Router,private _activatedRoute:ActivatedRoute){}
 

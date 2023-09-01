@@ -39,6 +39,7 @@ import { QuestionListComponent } from './views/question-list/question-list.compo
 import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
 import { UserCardComponent } from './views/members/user-card/user-card.component';
 import { FullPostComponent } from './views/post/full-post/full-post.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -82,7 +83,7 @@ import { FullPostComponent } from './views/post/full-post/full-post.component';
     
   ],
   providers: [OauthService,
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },{provide: LocationStrategy, useClass: HashLocationStrategy},
     LikeService,
     NewsService,
     ToastrService,
