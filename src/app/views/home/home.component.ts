@@ -40,6 +40,8 @@ export class HomeComponent implements OnInit{
                 return follow.payload.doc.data().userId;
               });
 
+              this.followeds;
+
               this._postservice.getFollowedPosts(this.followeds).subscribe(posts=>{
                 
                 posts.forEach((post:any)=>{

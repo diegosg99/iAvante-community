@@ -11,7 +11,7 @@
         <div class="col-1"></div>
 
         <div class="col-10 mt-3" id="posts">
-            <ul style="list-style: none;padding:0px;">
+            <ul style="list-style: none;padding:0px;" class="mx-auto">
                 <li *ngFor="let post of posts | paginate: { itemsPerPage: 10, currentPage: p}">
                     <app-post [post]="post"></app-post>
                 </li>
