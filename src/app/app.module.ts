@@ -40,6 +40,7 @@ import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.compon
 import { UserCardComponent } from './views/members/user-card/user-card.component';
 import { FullPostComponent } from './views/post/full-post/full-post.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AboutUsComponent } from './views/about-us/about-us.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     LearnWithUsComponent,
     UserCardComponent,
     FullPostComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/User';
 import { FollowService } from 'src/app/services/follow.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,7 +13,8 @@ export class MembersComponent implements OnInit{
   
   userLogged = this.auth.getUserLogged();
   userId;
-  members:any = [];
+  members:User[] = [];
+  p = 1;
 
   ROLES = {
     user: 'USUARIO',
@@ -29,13 +31,13 @@ export class MembersComponent implements OnInit{
       this.userId = user.uid;
     });
 
-    this.userService.getUsers().subscribe(members=>{
+    this.userService.getUsers().subscribe((members: User)=>{
       this.members = this.processUsers(members);
     })   
   }
 
   processUsers = (users) => {
-    let processedUsers: any[] = [];
+    let processedUsers: User[] = [];
 
     users.forEach((question: any)=>{
       let arraySegments = question.payload.doc._delegate._key.path.segments;

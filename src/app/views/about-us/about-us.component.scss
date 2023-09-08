@@ -1,0 +1,50 @@
+.quienes-somos {
+    display: flex;
+    justify-content: center;
+    padding-top: 4%;
+    margin-top: 0;
+    padding-right: 30px;
+    padding-bottom: 4%;
+    margin-bottom: 0;
+    padding-left: 30px;
+
+    margin-left: var(--hundredp_padding-hundred_percent_negative_margin);
+    margin-right: var(--hundredp_padding-hundred_percent_negative_margin);
+
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.quienes-somos-text {
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    
+    font-weight: var(--body_typography-font-weight);
+    // letter-spacing: var(--body_typography-letter-spacing);
+    font-style: var(--body_typography-font-style,normal);
+}
+
+.courier {
+    //font-family: 'Lucida', monospace;
+}
+
+.quienes-somos-text p,h1,span{
+    font-family: 'Nixie One', cursive;
+}
+
+.weight-700 {
+    font-weight: 700;
+}
+.weight-500 {
+    font-weight: 500;
+}
+.weight-300 {
+    font-weight: 300;
+}

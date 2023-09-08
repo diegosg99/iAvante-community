@@ -12,6 +12,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
 import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
 import { FullPostComponent } from './views/post/full-post/full-post.component';
+import { AboutUsComponent } from './views/about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: "learn",
     component: LearnWithUsComponent
+  },
+  {
+    path: "about-us",
+    component: AboutUsComponent
   }
 ];
 

@@ -1,8 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { OauthService } from './oauth.service';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
