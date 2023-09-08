@@ -61,3 +61,43 @@
 .section-4 {
     color: white;
 }
+
+.hidden {
+    display: none;
+    transition: .2s;
+}
+.visible {
+    display: inherit;
+    transition: .2s;
+}
+
+.collapse-icon {
+    background-color: #212934 !important;
+    border-color: #212934 !important;
+    color: #ffffff;
+    padding: .3rem;
+    margin-right: 1rem;
+}
+
+.collapse-row:hover > .collapse-icon{
+    background-color: #99cc00 !important;
+    border-color: #99cc00 !important;
+    color: #ffffff;
+    transition: .2s;
+}
+
+.collapse-row:hover > .collapse-title {
+    color: #99cc00;
+    transition: .2s;
+}
+
+.collapse-title {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: -1px;
+    color: rgba(19, 22, 24, 0.701);
+}
+
+.panel-body {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
