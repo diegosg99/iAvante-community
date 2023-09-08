@@ -8,9 +8,6 @@
     margin-bottom: 0;
     padding-left: 30px;
 
-    margin-left: var(--hundredp_padding-hundred_percent_negative_margin);
-    margin-right: var(--hundredp_padding-hundred_percent_negative_margin);
-
     display: flex;
     justify-content: center;
     position: relative;
@@ -31,20 +28,32 @@
     font-style: var(--body_typography-font-style,normal);
 }
 
-.courier {
-    //font-family: 'Lucida', monospace;
+.open-sans {
+    font-family: 'Open Sans', sans-serif;
 }
 
 .quienes-somos-text p,h1,span{
     font-family: 'Nixie One', cursive;
 }
 
-.weight-700 {
-    font-weight: 700;
+.weight-600 {
+    font-weight: 600;
 }
 .weight-500 {
     font-weight: 500;
 }
 .weight-300 {
     font-weight: 300;
+}
+
+.ap-2 {
+    background-position: left top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(63,72,100,0);
+  border-width: 0 0 0 0;
+  border-color: rgba(96,125,139,0.2);
+  border-style: solid;
+  flex-direction: column;
+  display: flex;
 }
