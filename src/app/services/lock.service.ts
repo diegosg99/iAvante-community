@@ -1,8 +1,12 @@
 import { HttpClient } from "@angular/common/http";
-import { OnInit } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-class lockService implements OnInit{
+@Injectable({
+    providedIn: 'root'
+  })
+
+export class LockService implements OnInit{
 
     private key;
 
@@ -10,22 +14,23 @@ class lockService implements OnInit{
     }
 
     ngOnInit(): void {
-        this.checkToken();
+        //this.checkToken();
     }
 
-    checkToken = async () => {
-        if (localStorage.getItem('token')){
-            const token = localStorage.getItem('token');
+    checkToken = async (email) => {
+        
+        const token = this.getToken();
 
-            const json = await this.httpService.post("http://127.0.0.1:3003/verify",{token:token});
-            const data = JSON.parse(json);
-            if (data.sub){
-                this.key = data.sub;
-                return this.key;
-            }
-        }    
-        else{
-            window.location.hash = 'login';
-        }
+        this.httpService.post("http://127.0.0.1:3003/api/users/verifyToken",{token:token,email:email}).subscribe(data=>{
+            console.log(data);
+        });
+    }
+
+    getToken = () => {
+        return sessionStorage.getItem('jwtToken');
+     }
+
+    setToken = (token) => {
+       return sessionStorage.setItem('jwtToken', token);
     }
 }

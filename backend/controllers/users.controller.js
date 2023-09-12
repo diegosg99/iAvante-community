@@ -35,6 +35,12 @@ exports.loginUser = async (req, res) => {
     }
 };
 
+exports.verifyToken = (req, res) => {
+    const token = req.body.token;
+    const decoded = jwt.verify(token,req.body.email); //Asegurarse de que funciona
+    return res.status(200).send(decoded);
+}
+
 // Controlador para registrar un nuevo usuario
 exports.registerUser = async (req, res) => {
     let data = req.body;

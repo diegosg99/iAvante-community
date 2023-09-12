@@ -5,6 +5,9 @@ const usersController = require('../controllers/users.controller');
 // Ruta para obtener todos los usuarios
 router.post('/user/login', usersController.loginUser);
 
+router.post('/user/verifyToken', usersController.verifyToken);
+
+
 // Ruta para obtener todos los usuarios
 router.post('/user/register', usersController.registerUser);
 

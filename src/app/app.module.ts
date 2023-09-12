@@ -10,6 +10,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from './environments/environment';
 import { getAuth } from '@firebase/auth';
 import { OauthService } from './services/oauth.service';
+import { LockService } from './services/lock.service';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { RegisterComponent } from './views/register/register.component';
 import { HomeComponent } from './views/home/home.component';
@@ -89,6 +90,7 @@ import { AboutUsComponent } from './views/about-us/about-us.component';
     LikeService,
     NewsService,
     ToastrService,
+    LockService,
     PostService],
   bootstrap: [AppComponent]
 })

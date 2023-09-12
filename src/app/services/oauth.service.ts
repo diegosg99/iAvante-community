@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import { LockService } from './lock.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class OauthService {
 
   private baseUrl = 'http://localhost:3003/api';
 
-  constructor(private auth: AngularFireAuth,private http: HttpClient,private router:Router) { }
+  constructor(private auth: AngularFireAuth,private http: HttpClient,private router:Router, private lockService: LockService) { }
 
   register = (user:any): any => {
 
@@ -33,16 +34,6 @@ export class OauthService {
       return this.http.post(`${this.baseUrl}/user/login`, data).subscribe((res):any=>{
         console.log(res);
       });
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  }
-
-  loginWithGoogle = async (email:string, password: string) => {
-
-    try {
-      return await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     } catch (error) {
       console.log(error);
       return error;

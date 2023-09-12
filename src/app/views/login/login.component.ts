@@ -25,7 +25,14 @@ export class LoginComponent implements OnInit{
 
     console.log(email,password);
 
-    this.oauth.login(email,password).then(console.log);
+    this.oauth.login(email,password).then(res => {
+      console.log(res);
+      if (res.code === 201) {
+        this.router.navigate(['../home']);
+      }else{
+        this.router.navigate(['../login']);
+      }
+    });
   }
 
   userInfo = () => {
