@@ -4,6 +4,8 @@ import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage
 import { Observable } from 'rxjs';
 import { OauthService } from './oauth.service';
 import { User } from '../models/User';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,9 @@ export class UserService implements OnInit{
   userLogged = this.auth.getUserLogged();
   userId;
 
-  constructor(private firebase: AngularFirestore,private auth:OauthService) { }
+  private baseUrl = 'http://localhost:3003/api';
+
+  constructor(private firebase: AngularFirestore,private auth:OauthService,private http: HttpClient,private router:Router) { }
 
   ngOnInit(): void {
     if(this.userLogged){
@@ -22,56 +26,13 @@ export class UserService implements OnInit{
     }
   }
 
-  // uploadUser = (user:any,image:any): any => {
+  uploadUser = (user:any): any => {
 
-  //   let imagePath = 'images/userProfile/'+image.name;
-
-  //   let imagesRef = ref(this.storage, imagePath);
-  //   let imageRef = ref(this.storage,imagePath);
-
-  //   return uploadBytes(imagesRef, image).then((snapshot) => {
-
-  //     getDownloadURL(imageRef).then((downloadURL) => {
-
-  //       user.photo = downloadURL;
-
-  //       let fullUser:any = {...user};
-  //       console.log(user);
-  //       console.log(image);
-
-  //       return this.firebase.collection('users').add(fullUser)
-  //             .then(()=>{
-  //               console.log('Usuario creado con éxito.')
-  //             }, error => {
-  //               console.log(error);
-  //             });
-  //       })
-  //     })
-  // }
-
-  uploadUser = (user:any,image:any): any => {
-
-    let imagePath = 'images/userProfile/'+image.name;
-
-    let imagesRef = ref(this.storage, imagePath);
-    let imageRef = ref(this.storage,imagePath);
-
-    return uploadBytes(imagesRef, image).then(() => {
-      getDownloadURL(imageRef).then((downloadURL) => {
-
-        user.photo = downloadURL;
-
-        let fullUser:any = {...user};
-        console.log(fullUser);
-
-        return this.firebase.collection('users').doc(fullUser.uid).set(fullUser)
-              .then((res)=>{
-                console.log('Usuario actulizado con éxito.')
-              }, error => {
-                console.log(error);
-              });
-        })
-      })
+    return this.http.post(`${this.baseUrl}/user/register`, user).subscribe(res=> {
+      console.log(res);
+      console.log('Usuario actulizado con éxito.');
+      this.router.navigate(['../login']);
+    });
   }
 
   getUser = (id = null):Observable<any> => {

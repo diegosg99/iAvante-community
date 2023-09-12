@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit{
 
   imageFile: { link: string; file: any; name: string; } | any;
   imageRaw: { link: string; file: any; name: string; } | any;
+  imageBase64:any;
 
   usuario = {
     email: '',
@@ -35,48 +36,51 @@ export class RegisterComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  register = () => {
+  register = async () => {
     const {email,password} = this.usuario;
-    const {username,fullName,photo,age} = this.userForm;
-    
-    this.oauth.register(email,password).then(
+    const {username,fullName,age} = this.userForm;
 
-      (response:any) => {
+    console.log(this.imageBase64);
 
-        console.log(response);
+    this.userData = new User(this.generateUid(),email,password,username,fullName,age,this.imageBase64);
 
-        this.userData = new User(response.user.multiFactor.user.uid,email,username,fullName,age,photo);
-
-        console.log(this.userData)
-        this.userService.uploadUser(this.userData,this.imageRaw).then(res=>{
-
-          this.oauth.logout();
-          this.router.navigate(['login']);
-          console.log(response.user.multiFactor.user.email);
-        });
-        }
-      //}
-    );
+    console.log(this.userData)
+    this.userService.uploadUser(this.userData).then(res=>{
+      console.log(res);
+      if (res.code === 201) {
+        console.log('Buen día');
+        this.router.navigate(['#/login']);
+      }
+    });
   }
 
   createUserDB = () => {
   }
 
-  imagePreview = (event: any) => {
+  imagePreview = (event):any => {
 
-    if (event.target.files && event.target.files[0]) {
-      this.imageRaw = event.target.files[0];
+    let imageElement:any = document.getElementById('photo');
+    
+    this.imageRaw =event.target.files[0];
+    //this.imageRaw =imageElement.files[0];
 
+    if (this.imageRaw) {
       const reader = new FileReader();
 
       reader.onload = (_event: any) => {
-          this.imageFile = {
-              link: _event.target.result,
-              file: event.srcElement.files[0],
-              name: event.srcElement.files[0].name
-          };
+        this.imageBase64 = _event.target.result; // Aquí tienes la imagen en formato Base64
+        console.log(this.imageBase64);
       };
-      reader.readAsDataURL(event.target.files[0]);
+      
+      reader.readAsDataURL(this.imageRaw);
   }
+  }
+
+  generateUid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 }

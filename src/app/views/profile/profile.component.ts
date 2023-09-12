@@ -108,7 +108,7 @@ export class ProfileComponent implements OnInit{
         linkedin: this.userForm.linkedin
       }
     
-        this.userService.uploadUser(USER,this.imageRaw).then(()=> {
+        this.userService.uploadUser(USER).then(()=> {
           this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
         },(error: any) => {
           this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
