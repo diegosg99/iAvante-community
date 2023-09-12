@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireModule } from '@angular/fire/compat';
 import { Router } from '@angular/router';
 import { OauthService } from 'src/app/services/oauth.service';
 
@@ -16,7 +15,6 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit = async () =>{
-    //this.userInfo();
   }
 
   constructor(private oauth:OauthService, private router:Router){}
@@ -25,18 +23,9 @@ export class LoginComponent implements OnInit{
 
     const {email,password} = this.usuario;
 
+    console.log(email,password);
+
     this.oauth.login(email,password).then(console.log);
-    this.userInfo();
-  }
-
-  loginGoogle = async () => {
-
-    const {email,password} = this.usuario;
-
-    this.oauth.loginWithGoogle(email,password).then(console.log);
-    this.userInfo();
-
-    //this.oauth.register(email,password).then(console.log);
   }
 
   userInfo = () => {

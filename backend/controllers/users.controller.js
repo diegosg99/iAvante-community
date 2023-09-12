@@ -1,5 +1,39 @@
 const connection = require('../database');
 const authService = require('../services/auth.service');
+const jwt = require("jsonwebtoken");
+
+// Controlador para loguear un usuario
+exports.loginUser = async (req, res) => {
+    let data = req.body;
+
+    const payload = {
+        sub: data.email,
+    }
+      
+    console.log(data);
+
+    const token = jwt.sign(payload,'Bearer');
+    
+    try {
+        let sql = `SELECT password FROM users WHERE email = '${data.email}'`;
+
+        if (data.email && data.password){
+            connection.query(sql, function(err, rows, fields) {
+                
+                if (err) throw err;
+
+                authService.comparePassword(data.password,rows[0].password).then(logged => {
+                    return logged?
+                    res.status(201).json({ message: 'Usuario logueado exitosamente',token,code:201 }):
+                    res.status(301).json({ message: 'Credenciales incorrectas',code:301 });
+                })
+            });
+        }
+    } catch (error) {
+        console.error('Credenciales incorrectas:', error);
+        res.status(500).json({ error: 'Credenciales incorrectas' });
+    }
+};
 
 // Controlador para registrar un nuevo usuario
 exports.registerUser = async (req, res) => {

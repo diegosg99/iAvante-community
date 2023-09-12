@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 
 @Injectable({
@@ -7,22 +9,30 @@ import firebase from 'firebase/compat/app';
 })
 export class OauthService {
 
-  constructor(private auth: AngularFireAuth) { }
+  private baseUrl = 'http://localhost:3003/api';
 
-  register = async (email:string, password: string) => {
+  constructor(private auth: AngularFireAuth,private http: HttpClient,private router:Router) { }
 
-    try {
-      return await this.auth.createUserWithEmailAndPassword(email,password);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
+  register = (user:any): any => {
+
+    return this.http.post(`${this.baseUrl}/user/register`, user).subscribe(res=> {
+      console.log(res);
+      console.log('Usuario actulizado con éxito.');
+      this.router.navigate(['../login']);
+    });
   }
 
   login = async (email:string, password: string) => {
 
+    let data:any = {
+      email: email,
+      password:password
+    }
+
     try {
-      return await this.auth.signInWithEmailAndPassword(email,password);
+      return this.http.post(`${this.baseUrl}/user/login`, data).subscribe((res):any=>{
+        console.log(res);
+      });
     } catch (error) {
       console.log(error);
       return error;

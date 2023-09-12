@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -29,7 +28,7 @@ export class RegisterComponent implements OnInit{
 
   userData:User;
 
-  constructor (private oauth:OauthService,private userService: UserService,private router:Router) {
+  constructor (private oauth:OauthService) {
     
   }
 
@@ -40,40 +39,22 @@ export class RegisterComponent implements OnInit{
     const {email,password} = this.usuario;
     const {username,fullName,age} = this.userForm;
 
-    console.log(this.imageBase64);
-
     this.userData = new User(this.generateUid(),email,password,username,fullName,age,this.imageBase64);
 
-    console.log(this.userData)
-    this.userService.uploadUser(this.userData).then(res=>{
-      console.log(res);
-      if (res.code === 201) {
-        console.log('Buen día');
-        this.router.navigate(['#/login']);
-      }
-    });
+    this.oauth.register(this.userData);
   }
 
-  createUserDB = () => {
-  }
-
-  imagePreview = (event):any => {
-
-    let imageElement:any = document.getElementById('photo');
-    
+  imagePreview = (event):any => {    
     this.imageRaw =event.target.files[0];
-    //this.imageRaw =imageElement.files[0];
 
-    if (this.imageRaw) {
-      const reader = new FileReader();
+      if (this.imageRaw) {
+        const reader = new FileReader();
 
-      reader.onload = (_event: any) => {
-        this.imageBase64 = _event.target.result; // Aquí tienes la imagen en formato Base64
-        console.log(this.imageBase64);
-      };
-      
-      reader.readAsDataURL(this.imageRaw);
-  }
+        reader.onload = (_event: any) => {
+          this.imageBase64 = _event.target.result;
+        };
+        reader.readAsDataURL(this.imageRaw);
+      }
   }
 
   generateUid(): string {

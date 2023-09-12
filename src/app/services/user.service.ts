@@ -35,6 +35,8 @@ export class UserService implements OnInit{
     });
   }
 
+  
+
   getUser = (id = null):Observable<any> => {
     return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
   }
