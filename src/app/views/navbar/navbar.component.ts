@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit{
   userID;
   user;
 
-  constructor(private auth:OauthService, private router:Router,private userService: UserService) {
+  constructor(private auth:OauthService, private router:Router,private userService: UserService,private oauth: OauthService) {
     this.auth.getUserLogged().subscribe(console.log);
   }
 
@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit{
   }
 
   logout = () => {
-    this.auth.logout();
-    this.router.navigate(['login']);
+    this.oauth.logout();
   }
 }

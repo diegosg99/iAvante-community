@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 export class UserService implements OnInit{
   
   private storage = getStorage();
-  userLogged = this.auth.getUserLogged();
   userId;
+  userLogged;
 
   private baseUrl = 'http://localhost:3003/api';
 
@@ -34,10 +34,13 @@ export class UserService implements OnInit{
       this.router.navigate(['../login']);
     });
   }
-
   
 
   getUser = (id = null):Observable<any> => {
+    return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
+  }
+
+  getUserByEmail = (id = null):Observable<any> => {
     return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
   }
 

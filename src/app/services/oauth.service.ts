@@ -10,30 +10,32 @@ import { LockService } from './lock.service';
 })
 export class OauthService {
 
-  private baseUrl = 'http://localhost:3003/api';
+  private baseUrl = 'http://127.0.0.1:3003/api';
 
   constructor(private auth: AngularFireAuth,private http: HttpClient,private router:Router, private lockService: LockService) { }
 
   register = (user:any): any => {
-
-    return this.http.post(`${this.baseUrl}/user/register`, user).subscribe(res=> {
+-
+    this.http.post(`${this.baseUrl}/user/register`, user).subscribe(res=> {
       console.log(res);
       console.log('Usuario actulizado con éxito.');
       this.router.navigate(['../login']);
     });
   }
 
-  login = async (email:string, password: string) => {
+  login = (email:string, password: string) => {
 
     let data:any = {
       email: email,
       password:password
     }
 
+    console.log(data);
+
     try {
-      return this.http.post(`${this.baseUrl}/user/login`, data).subscribe((res):any=>{
-        console.log(res);
-      });
+
+      return this.http.post(`${this.baseUrl}/user/login`, data);
+    
     } catch (error) {
       console.log(error);
       return error;
@@ -45,6 +47,6 @@ export class OauthService {
   }
 
   logout = () => {
-    return this.auth.signOut();
-  }
+    this.lockService.removeToken();
+    this.router.navigate(['../login']);  }
 }

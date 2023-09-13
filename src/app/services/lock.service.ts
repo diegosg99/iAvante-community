@@ -23,6 +23,7 @@ export class LockService implements OnInit{
 
         this.httpService.post("http://127.0.0.1:3003/api/users/verifyToken",{token:token,email:email}).subscribe(data=>{
             console.log(data);
+            this.router.navigate['']
         });
     }
 
@@ -31,6 +32,11 @@ export class LockService implements OnInit{
      }
 
     setToken = (token) => {
+        console.log(token);
        return sessionStorage.setItem('jwtToken', token);
+    }
+
+    removeToken = () => {
+       return sessionStorage.setItem('jwtToken', "");
     }
 }

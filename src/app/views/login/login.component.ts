@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,41 +16,36 @@ export class LoginComponent implements OnInit{
     password: ''
   }
 
-  ngOnInit = async () =>{
+  token;
+
+  ngOnInit = () =>{
+    this.token = this.lockService.getToken();
+    if (this.token!==""){
+      this.router.navigate(['../#/home']);
+    }
   }
 
-  constructor(private oauth:OauthService, private router:Router){}
+  constructor(private oauth:OauthService, private router:Router, private lockService: LockService,private userService: UserService){}
 
-  login = async () => {
+  login = () => {
 
     const {email,password} = this.usuario;
 
-    console.log(email,password);
-
-    this.oauth.login(email,password).then(res => {
-      console.log(res);
+    this.oauth.login(email,password).subscribe(res => {
       if (res.code === 201) {
-        this.router.navigate(['../home']);
+        this.lockService.setToken(res.token);
+        this.router.navigate(['/home']);
       }else{
-        this.router.navigate(['../login']);
-      }
-    });
+        this.lockService.removeToken();
+        }
+    });   
   }
 
   userInfo = () => {
-    this.oauth.getUserLogged().subscribe(
-      res => {
-        if (res?.email) {
-          this.router.navigate(['home']);
-        }else{
-          this.router.navigate(['login']);
-        }
-        return res?.email;
-      }
-    );
+    
   }
 
   logout = () => {
-    this.oauth.logout().then(console.log);
+    this.oauth.logout();
   }
 }
