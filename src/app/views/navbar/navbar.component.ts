@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,18 +15,27 @@ export class NavbarComponent implements OnInit{
   userID;
   user;
 
-  constructor(private auth:OauthService, private router:Router,private userService: UserService,private oauth: OauthService) {
+  constructor(private auth:OauthService, private router:Router,private userService: UserService,private oauth: OauthService,private lockService: LockService) {
     this.auth.getUserLogged().subscribe(console.log);
   }
 
   ngOnInit(): void {
-    this.userLogged.subscribe(user=> {
-      this.userID = user.uid;
+    //this.getUserData();
+  }
 
-      this.userService.getUser(this.userID).subscribe(user => {
-        this.user = {...user.payload._delegate._document.data.value.mapValue.fields};
-      });
-    });
+  getUserData = () => {
+    console.log('Checkeando')
+
+    this.lockService.checkToken().subscribe(
+      result => {
+        console.log(result)
+      },
+      error => {
+        console.log(error);
+        this.router.navigateByUrl('/login');
+      },
+      () => {
+      })
   }
 
   logout = () => {

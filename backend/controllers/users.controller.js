@@ -2,6 +2,8 @@ const connection = require('../database');
 const authService = require('../services/auth.service');
 const jwt = require("jsonwebtoken");
 
+const secret = "Bearer";
+
 // Controlador para loguear un usuario
 exports.loginUser = async (req, res) => {
     let data = req.body;
@@ -12,7 +14,7 @@ exports.loginUser = async (req, res) => {
       
     console.log(data);
 
-    const token = jwt.sign(payload,'Bearer');
+    const token = jwt.sign(payload,secret,{expiresIn: "1hr"});
     
     try {
         let sql = `SELECT password FROM users WHERE email = '${data.email}'`;
@@ -37,8 +39,17 @@ exports.loginUser = async (req, res) => {
 
 exports.verifyToken = (req, res) => {
     const token = req.body.token;
-    const decoded = jwt.verify(token,req.body.email); //Asegurarse de que funciona
-    return res.status(200).send(decoded);
+
+    try {
+        const decoded = jwt.verify(token,secret); //Asegurarse de que funciona
+        return decoded.sub?
+            res.status(201).json({ message: 'Usuario logueado exitosamente',decoded,code:201 }):
+            res.status(301).json({ message: 'JWT No válido',decoded,code:301 })
+    } catch (error) {
+        return res.status(500).json({ message: 'Error verificando',code:500 });
+    }
+
+    
 }
 
 // Controlador para registrar un nuevo usuario

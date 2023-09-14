@@ -13,30 +13,42 @@ export class LockService implements OnInit{
     constructor(private httpService: HttpClient,private router: Router){
     }
 
-    ngOnInit(): void {
-        //this.checkToken();
-    }
+    ngOnInit(): void {}
 
-    checkToken = async (email) => {
+    checkToken = ():any => {
         
         const token = this.getToken();
+        let email = this.getUser();
 
-        this.httpService.post("http://127.0.0.1:3003/api/users/verifyToken",{token:token,email:email}).subscribe(data=>{
-            console.log(data);
-            this.router.navigate['']
-        });
+        try {
+            return this.httpService.post("http://127.0.0.1:3003/api/user/verifyToken",{token:token});   
+        } catch (error) {
+            console.log(error)
+            return false;
+        }
     }
 
     getToken = () => {
         return sessionStorage.getItem('jwtToken');
      }
 
+    getUser = () => {
+        return sessionStorage.getItem('email');
+    }
+
     setToken = (token) => {
-        console.log(token);
        return sessionStorage.setItem('jwtToken', token);
     }
 
+    setUser = (email) => {
+        return sessionStorage.setItem('email', email);
+     }
+
     removeToken = () => {
        return sessionStorage.setItem('jwtToken', "");
+    }
+  
+    removeUser = () => {
+        return sessionStorage.setItem('email', "");
     }
 }

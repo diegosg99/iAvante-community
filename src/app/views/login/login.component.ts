@@ -34,9 +34,11 @@ export class LoginComponent implements OnInit{
     this.oauth.login(email,password).subscribe(res => {
       if (res.code === 201) {
         this.lockService.setToken(res.token);
+        this.lockService.setUser(email);
         this.router.navigate(['/home']);
       }else{
         this.lockService.removeToken();
+        this.lockService.removeUser();
         }
     });   
   }

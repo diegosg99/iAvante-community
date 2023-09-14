@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <img src="../../../assets/images/logo_fps.png" width="230px">
-      <a class="navbar-brand m-2 p-3" href="#/home" style="font-size: 21px; font-family: 'Nixie One', cursive;">Simulation Centre</a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="row w-100 align-items-center justify-content-center">
+      <div class="col-xl-2 col-lg-6 col-md-4 col-sm-0 col-xs-0">
+        <img src="../../../assets/images/logo_fps.png" width="230px" height="43.75px">
+      </div>
+      <div class="col-xl-2 col-lg-6 col-md-8 col-sm-12 col-xs-12">
+        <a class="navbar-brand m-2 p-3" href="#/home" (click)="getUserData()" style="font-size: 21px; font-family: 'Nixie One', cursive;">Simulation Centre</a>
+      </div>
+      <div class="col-xl-7 col-lg-9 col-md-10 col-sm-12 col-xs-12">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/foro">¿Dudas?</a>
+            <a class="nav-link p-3" href="#/foro" (click)="getUserData()">¿Dudas?</a>
           </li>
 
                 <!-- Noticias por categoria -->
@@ -20,9 +20,9 @@
             <div class="dropdown">
               <button class="dropbtn nav-link p-3">¿Qué está pasando?</button>
               <div class="dropdown-content">
-                <a href="#/news/science">Ciencia</a>
-                <a href="#/news/health">Salud</a>
-                <a href="#/news/simulation">Mundo de la simulación</a>
+                <a href="#/news/science" (click)="getUserData()">Ciencia</a>
+                <a href="#/news/health" (click)="getUserData()">Salud</a>
+                <a href="#/news/simulation" (click)="getUserData()">Mundo de la simulación</a>
               </div>
             </div>
           </li>
@@ -30,27 +30,29 @@
             <a class="nav-link p-3" href="news">¿Qué está pasando?</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/miembros">Integrantes</a>
+            <a class="nav-link p-3" href="#/miembros" (click)="getUserData()">Integrantes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/learn">Aprende con nosotros</a>
+            <a class="nav-link p-3" href="#/learn" (click)="getUserData()">Aprende con nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/publicar" tabindex="-1" aria-disabled="true">Publicar</a>
+            <a class="nav-link p-3" href="#/publicar" (click)="getUserData()" tabindex="-1" aria-disabled="true">Publicar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/about-us" tabindex="-1" aria-disabled="true">¿Quienes somos?</a>
+            <a class="nav-link p-3" href="#/about-us" (click)="getUserData()" tabindex="-1" aria-disabled="true">¿Quienes somos?</a>
           </li>
         </ul>
       </div>
-      <div class="d-flex justify-content-between w-10 text-center">
-        <a class="navbar-brand my-auto row" *ngIf="userLogged|async as userLogged" href="#/profile/{{userLogged.uid}}">
+      <div class="col-xl-1 col-lg-3 col-md-2 col-sm-12 col-xs-12 d-flex row" style="justify-content: right;">
+        <a class="col-6 navbar-brand my-auto row" *ngIf="userLogged|async as userLogged" href="#/profile/{{userLogged.uid}}">
           <img src="{{user.photo.stringValue}}" style="border-radius: 100%; max-width: 48px !important;padding: 0px !important;" class="d-inline-block align-top col-4" width="48px" height="48px">
           <p class="my-auto mr-3 text-secondary col-6" style="font-size: 14px;">{{user.fullName.stringValue?user.fullName.stringValue:userLogged.email}}</p>
         </a>
-        <button class="btn btn-outline-success col-2 my-3" (click)="logout()">
-          <i class="fa-solid fa-right-from-bracket"></i>
+        <div class=" col-6">
+          <button class="btn btn-outline-success" (click)="logout()">
+            <i width="20px" class="fa-solid fa-right-from-bracket"></i>
         </button>
+        </div>
       </div>
     </div>
   </nav>
