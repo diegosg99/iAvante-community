@@ -24,8 +24,6 @@ export class NavbarComponent implements OnInit{
   }
 
   getUserData = () => {
-    console.log('Checkeando')
-
     this.lockService.checkToken().subscribe(
       result => {
         console.log(result)
