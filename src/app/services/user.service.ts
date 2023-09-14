@@ -40,8 +40,8 @@ export class UserService implements OnInit{
     return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
   }
 
-  getUserByEmail = (id = null):Observable<any> => {
-    return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
+  getUserByEmail = (email = null):Observable<any> => {
+    return this.http.get(`${this.baseUrl}/user/email/${email}`)
   }
 
   getUsers = ():Observable<any> => {

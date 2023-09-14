@@ -1,8 +1,22 @@
 const connection = require('../database');
 const authService = require('../services/auth.service');
 const jwt = require("jsonwebtoken");
+const sharp = require("sharp");
+const multer = require("multer");
 
 const secret = "Bearer";
+
+const storage = multer.diskStorage({
+    destination: (req,file,cb) => {
+        cb(null, '../uploads/images')
+    },
+    filename: (req,file,cb) => {
+        const ext = file.originalname.split('.').pop()
+        cb(null,`${Date.now()}.${ext}`)
+    }
+})
+
+const upload = multer({storage});
 
 // Controlador para loguear un usuario
 exports.loginUser = async (req, res) => {
@@ -42,8 +56,13 @@ exports.verifyToken = (req, res) => {
 
     try {
         const decoded = jwt.verify(token,secret); //Asegurarse de que funciona
+
+        const sql = `SELECT * FROM users where email = '${decoded.sub}'`;
+
         return decoded.sub?
-            res.status(201).json({ message: 'Usuario logueado exitosamente',decoded,code:201 }):
+        connection.query(sql, (err, rows) => {
+            res.status(201).json(rows[0]);
+          }):
             res.status(301).json({ message: 'JWT No válido',decoded,code:301 })
     } catch (error) {
         return res.status(500).json({ message: 'Error verificando',code:500 });
@@ -104,5 +123,38 @@ exports.updateUser = (req, res) => {
 
 // Controlador para obtener un usuario por su ID
 exports.getUserById = (req, res) => {
-  // Implementa la lógica para obtener un usuario por su ID aquí
+    const sql = 'SELECT * FROM users';
+    connection.query(sql, (err, rows) => {
+      if (err) {
+        console.error('Error fetching users:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+      res.status(200).json(rows);
+    });
 };
+
+exports.getUserByEmail = (req, res) => {
+    let email = req.params.email;
+
+    const sql = `SELECT * FROM users where email = '${email}'`;
+
+    console.log(sql);
+
+    try {
+        connection.query(sql, (err, rows) => {
+
+            if (err) {
+                console.error('Error fetching users:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+              }
+            res.status(201).json(rows[0]);
+          });   
+    } catch (error) {
+        console.error('Error fetching user:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+exports.uploadImage = (req,res) => {
+    
+}

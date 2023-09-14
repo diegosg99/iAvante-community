@@ -18,7 +18,6 @@ export class LockService implements OnInit{
     checkToken = ():any => {
         
         const token = this.getToken();
-        let email = this.getUser();
 
         try {
             return this.httpService.post("http://127.0.0.1:3003/api/user/verifyToken",{token:token});   

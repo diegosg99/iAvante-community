@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit{
 
         reader.onload = (_event: any) => {
           this.imageBase64 = _event.target.result;
+          console.log(this.imageBase64);
         };
         reader.readAsDataURL(this.imageRaw);
       }

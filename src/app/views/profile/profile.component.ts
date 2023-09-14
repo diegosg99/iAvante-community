@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit{
 
-  userLogged = this.auth.getUserLogged();
+  userLogged:any;
   userId;
   user;
   //userForm: FormGroup;

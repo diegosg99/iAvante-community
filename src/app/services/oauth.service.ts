@@ -48,5 +48,6 @@ export class OauthService {
 
   logout = () => {
     this.lockService.removeToken();
-    this.router.navigate(['../login']);  }
+    this.router.navigate(['../login']);  
+  }
 }

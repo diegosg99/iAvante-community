@@ -6,39 +6,39 @@
 
     <div class="col-5 row justify-content-center mb-auto mt-5">
 
-        <div class="box1 box" *ngIf="userLogged|async as userLog">
+        <div class="box1 box" *ngIf="userLogged">
         <form><!-- [formGroup]="userForm" -->
           <div class="content  w-50 mx-auto">
             <div class="image">
-              <img src="{{user.photo.stringValue}}" style="max-height: 120px;">
+              <img src="{{userLogged.photo}}" style="max-height: 120px;">
             </div>
             <div class="level">
                 <!-- <input class="form-control" formControlName> -->
-              <p>{{user.role}}</p>
+              <p>{{userLogged.role}}</p>
             </div>
             <div class="text">
                 <div class="d-flex m-3" style="font-size: 20px;">
-                  <p>{{user.fullName.stringValue}}</p>  
+                  <p>{{userLogged.fullName}}</p>  
                 </div>
                 <div class="d-flex m-3" style="font-size: 16px;">
-                  <p>@{{user.username.stringValue}}</p>
+                  <p>@{{userLogged.username}}</p>
                 </div>
               <div class="d-flex m-3" style="font-size: 16px;">
-                  <p>{{user.proffesion.stringValue}}</p>
+                  <p>{{userLogged.proffesion}}</p>
               </div>
             </div>
             <div class="icons">
               <button>
-                <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{user.instagram.stringValue}}"></a>
+                <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{userLogged.instagram}}"></a>
               </button>
               <button>
-                <i class="fa fa-twitter" href="user.twitter"></i>
+                <a class="fa fa-twitter" style="text-decoration: none;color: black;" href="{{userLogged.twitter}}"></a>
               </button>
               <button>
-                <i class="fa fa-linkedin" href="user.linkedin"></i>
+                <a class="fa fa-linkedin" style="text-decoration: none;color: black;" href="{{userLogged.linkedin}}"></a>
               </button>
               <button>
-                <i class="fa fa-facebook" href="user.facebook"></i>
+                <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{userLogged.facebook}}"></a>
               </button>
             </div>
             <div class="button">

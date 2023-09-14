@@ -43,11 +43,18 @@
           </li>
         </ul>
       </div>
-      <div class="col-xl-1 col-lg-3 col-md-2 col-sm-12 col-xs-12 d-flex row" style="justify-content: right;">
-        <a class="col-6 navbar-brand my-auto row" *ngIf="userLogged|async as userLogged" href="#/profile/{{userLogged.uid}}">
-          <img src="{{user.photo.stringValue}}" style="border-radius: 100%; max-width: 48px !important;padding: 0px !important;" class="d-inline-block align-top col-4" width="48px" height="48px">
-          <p class="my-auto mr-3 text-secondary col-6" style="font-size: 14px;">{{user.fullName.stringValue?user.fullName.stringValue:userLogged.email}}</p>
+      <div class="col-xl-1 col-lg-3 col-md-2 col-sm-12 col-xs-12 d-flex row align-items-center" style="justify-content: right;">
+        
+        <a class="col-6" *ngIf="userLogged" href="#/profile/{{userLogged.uid}}">
+          <img src="data:image/png;base64,{{userLogged.photo}}" style="border-radius: 100%; max-width: 48px !important;padding: 0px !important;"  width="48px" height="48px">
+          <!-- <p class="text-secondary col-6 my-auto" style="font-size: 14px;">{{userLogged.fullname}}</p> -->
         </a>
+
+
+        <!-- <a class="col-6 navbar-brand my-auto row" *ngIf="!(userLogged | async)" href="#/profile/{{userLogged.uid}}">
+          <p>Usuario</p>
+        </a> -->
+        
         <div class=" col-6">
           <button class="btn btn-outline-success" (click)="logout()">
             <i width="20px" class="fa-solid fa-right-from-bracket"></i>
