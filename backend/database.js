@@ -7,7 +7,7 @@ const URI = 'localhost';
     host     : URI,
     user     : 'root',
     password : '',
-    database : 'community'
+    database : 'comunidad-iavante'
   });
 
   connection.connect(function(err) {

@@ -15,6 +15,8 @@ export class User {
     facebook: string;
     twitter: string;
     linkedin: string;
+    status: number;
+    created_at: string;
 
     constructor(uid:string,email:string,password:string,username:string,
         fullName:string,age:string,photo:string='',proffesion:string='',
@@ -37,5 +39,8 @@ export class User {
         this.facebook= facebook;
         this.twitter= twitter;
         this.linkedin = linkedin;
+        this.status = 0;
+        this.created_at = "";
+
     }
 }

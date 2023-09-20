@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import { OauthService } from './oauth.service';
 import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
@@ -35,10 +35,23 @@ export class UserService implements OnInit{
     });
   }
   
-
-  getUser = (id = null):Observable<any> => {
-    return this.firebase.collection('users').doc(id==null?this.userId:id).snapshotChanges();
+  updateUser = (user:any): any => {
+    return this.http.post(`${this.baseUrl}/user/update`, user).subscribe(res=> {
+      console.log('Usuario actulizado con éxito.');
+    });
   }
+  
+  updateImage = (file:any): any => {
+    return this.http.post(`${this.baseUrl}/upload/image`, file).subscribe(res=> {
+      console.log(res);
+    });
+  }
+  
+
+  getUser = (id = null):any => {
+    return this.http.post(`${this.baseUrl}/user/getUser`, id).subscribe((res:any)=> {
+      return res;
+    });  }
 
   getUserByEmail = (email = null):Observable<any> => {
     return this.http.get(`${this.baseUrl}/user/email/${email}`)

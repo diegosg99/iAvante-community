@@ -5,12 +5,10 @@ const {helperImg} = require("../services/imageOptimizer");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-    destination: (req,file,cb) => {
-        cb(null, './backend/uploads/images')
-    },
+    destination: './backend/uploads/images',
     filename: (req,file,cb) => {
-        const ext = file.originalname.split('.').pop()
-        cb(null,`${Date.now()}.${ext}`)
+        const ext = file.originalname
+        cb(null,`${ext}`)
     }
 })
 
@@ -36,6 +34,9 @@ router.get('/users', usersController.getAllUsers);
 // Ruta para actualizar un usuario
 router.put('/user/update', usersController.updateUser);
 
+// Ruta para actualizar un usuario
+// router.get('/user/profile/image/:id', usersController.getProfileImage);
+
 // Ruta para obtener un usuario por su ID
 router.get('/user/:uid', usersController.getUserById);
 
@@ -43,6 +44,6 @@ router.get('/user/:uid', usersController.getUserById);
 router.get('/user/email/:email', usersController.getUserByEmail);
 
 // Ruta para obtener un usuario por su ID
-router.post('/upload/image/:type',upload.single('file'), usersController.uploadImage);
+router.post('/upload/image',upload.single('file'), usersController.uploadImage);
 
 module.exports = router;

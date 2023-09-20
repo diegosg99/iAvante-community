@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/User';
 import { FollowService } from 'src/app/services/follow.service';
 import { ForumService } from 'src/app/services/forum.service';
+import { ImageService } from 'src/app/services/image.service.service';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
@@ -25,8 +27,7 @@ export class ProfileComponent implements OnInit{
   payload;
   p;
 
-  imageFile: { link: string; file: any; name: string; } | any;
-  imageRaw: { link: string; file: any; name: string; } | any;
+  @ViewChild('photo',{static:false})fileInput: ElementRef;
 
   factory;
   category;
@@ -58,8 +59,8 @@ export class ProfileComponent implements OnInit{
   }
 
   constructor(
-      private auth:OauthService,private userService:UserService,private toastr: ToastrService,
-      private router:Router,private _activatedroute:ActivatedRoute,private forumService: ForumService,
+      private imageService: ImageService,private lockService: LockService,private userService:UserService,private toastr: ToastrService,
+      private _activatedroute:ActivatedRoute,private forumService: ForumService,
       private _postService:PostService, private followService: FollowService){
     
     this.factory = {
@@ -75,64 +76,67 @@ export class ProfileComponent implements OnInit{
         
         this.userId = data['id'];
 
-        this.userService.getUser(this.userId).subscribe(user=>{
-
-          this.user = {...user.payload._delegate._document.data.value.mapValue.fields};
+          this.user = this.lockService.checkToken().subscribe(res=>{
+            console.log(res);
+            this.userLogged = res;
+            return res;
+          });
+          console.log(this.user);
           this.user.role = this.ROLES[this.user.role.stringValue];
-        })
+        
       });
   }
 
   ngOnInit(): void {
     this.payloadFactory('posts');
+    console.log(this.user.value());
+
   }
 
   updateProfile = () => {
 
-    let userID;
-    this.auth.getUserLogged().subscribe(user=> {
-      userID = user.uid
+    let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
+
+    const USER: any = {
+      uid: this.userLogged.uid,
+      username: this.userForm.username,
+      fullName: this.userForm.fullName,
+      proffesion: this.userForm.proffesion,
+      jobCentre: this.userForm.jobCentre,
+      role: 'USUARIO',
+      photo: file,
+      age: this.userForm.age,
+      instagram: this.userForm.instagram,
+      facebook: this.userForm.facebook,
+      twitter: this.userForm.twitter,
+      linkedin: this.userForm.linkedin
+    }
       
-      const USER: any = {
-        uid: userID,
-        username: this.userForm.username,
-        fullName: this.userForm.fullName,
-        proffesion: this.userForm.proffesion,
-        jobCentre: this.userForm.jobCentre,
-        role: 'USUARIO',
-        photo: this.imageFile.link,
-        age: this.userForm.age,
-        instagram: this.userForm.instagram,
-        facebook: this.userForm.facebook,
-        twitter: this.userForm.twitter,
-        linkedin: this.userForm.linkedin
-      }
-    
-        this.userService.uploadUser(USER).then(()=> {
-          this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
-        },(error: any) => {
-          this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
-          console.log(error);
-        });
+    console.log(USER);
+
+    this.userService.updateUser(USER).then(()=> {
+      this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+    },(error: any) => {
+      this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
+      console.log(error);
     });
   }
 
-  imagePreview = (event: any) => {
+  updateImage = () => {
 
-    if (event.target.files && event.target.files[0]) {
-      this.imageRaw = event.target.files[0];
+    let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
+    
+    this.userService.updateImage(file).then(()=> {
 
-      const reader = new FileReader();
-
-      reader.onload = (_event: any) => {
-          this.imageFile = {
-              link: _event.target.result,
-              file: event.srcElement.files[0],
-              name: event.srcElement.files[0].name
-          };
-      };
-      reader.readAsDataURL(event.target.files[0]);
+      this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+    },(error: any) => {
+      this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
+      console.log(error);
+    });
   }
+
+  handleImage = (event) => {
+    this.imageService.imagePreview(event,this.userLogged);
   }
 
   hide = () => {
@@ -143,7 +147,6 @@ export class ProfileComponent implements OnInit{
     this.payload = [];
     this.category = category;
     this.factory[category]();
-    console.log(this.payload);
   }
 
   getUserPosts = () => {
