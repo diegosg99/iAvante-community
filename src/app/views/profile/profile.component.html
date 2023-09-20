@@ -80,7 +80,7 @@
                 <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
 
                 <label style="float: left;;margin-bottom: 1em;">Centro de trabajo:</label>
-                <input class="form-control my-3" type="text" placeholder="Empresas" #jobCentre  [(ngModel)]="userForm.jobCentre">
+                <input class="form-control my-3 w-100" type="text" placeholder="Empresas" #jobCentre  [(ngModel)]="userForm.jobCentre">
                 
               </div>
 
@@ -96,7 +96,7 @@
                       <label style="float: left;;margin-bottom: 1em;">Foto:</label>
                       <input class="form-control my-3" type="file" (change)="updateImage()" placeholder="Foto de perfil" #photo>    
                   </div> -->
-                  <div class="col-12 p-2">
+                  <div class="col-12">
                       <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
                       <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
                   </div>

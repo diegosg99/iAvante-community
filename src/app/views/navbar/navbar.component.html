@@ -46,7 +46,7 @@
       <div class="col-xl-1 col-lg-3 col-md-2 col-sm-12 col-xs-12 d-flex row align-items-center" style="justify-content: right;">
         
         <a class="col-6" *ngIf="userLogged" href="#/profile/{{userLogged.uid}}">
-          <img src="data:image/png;base64,{{userLogged.photo}}" style="margin-right:1rem;border-radius: 100%; max-width: 36px !important;padding: 0px !important;"  width="36px" height="36px">
+          <img src="{{userLogged.url}}" style="margin-right:1rem;border-radius: 100%; max-width: 36px !important;padding: 0px !important;"  width="36px" height="36px">
           <!-- <p class="text-secondary col-6 my-auto" style="font-size: 14px;">{{userLogged.fullname}}</p> -->
         </a>
 
