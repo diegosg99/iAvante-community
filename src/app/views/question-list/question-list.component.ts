@@ -17,17 +17,21 @@ export class QuestionListComponent implements OnInit{
   constructor(private userService: UserService,private forumService:ForumService,private router:Router){}
 
   ngOnInit(): void {
+
+    console.log(this.question);
+
     this.userService.getUser(this.question.usuario).subscribe(user=>{
       this.questionUser = {...user.payload._delegate._document.data.value.mapValue.fields};
       console.log(this.questionUser)
     })
   }
 
-  updateViews = (idQuestion) => {
-
-    this.forumService.updateQuestionViews(idQuestion,this.question).then(res=>
+  updateViews = (question) => {
+    
+    this.forumService.updateQuestionViews(question).subscribe(res=>
       {
-        this.router.navigate(["foro/"+idQuestion]);
+        console.log(res);
+        this.router.navigate(["foro/"+question.uid]);
       });
   }
 

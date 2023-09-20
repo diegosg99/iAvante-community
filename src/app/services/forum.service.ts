@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { OauthService } from './oauth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,10 @@ export class ForumService implements OnInit{
   userLogged = this.auth.getUserLogged();
   userId;
 
-  constructor(private firebase: AngularFirestore,private auth:OauthService) { }
+  private baseUrl = 'http://localhost:3003/api';
+
+
+  constructor(private firebase: AngularFirestore,private auth:OauthService,private http: HttpClient) { }
 
   ngOnInit(): void {
     if(this.userLogged){
@@ -24,26 +28,24 @@ export class ForumService implements OnInit{
   //-------------------------------- QUESTIONS -----------------------------
 
   uploadQuestion = (forum:any): any => {
-    return this.firebase.collection('forums').add(forum)
-          .then(()=>{
-            console.log('Pregunta subida con éxito.')
-          }, error => {
-            console.log(error);
-          });
+    return this.http.post(`${this.baseUrl}/upload/question`, forum).subscribe(res=> {
+      console.log(res);
+      console.log('Pregunta subida con éxito.');
+    });
   }
 
   getQuestions = ():Observable<any> => {
-    return this.firebase.collection('forums',ref => ref.orderBy('fechaCreacion','desc')).snapshotChanges();
+    return this.http.get(`${this.baseUrl}/get/questions`);
   }
 
   getCategoryQuestions = (category):Observable<any> => {
-    return this.firebase.collection('forums',ref => ref.where('categoria','==',category)).snapshotChanges();
+    return this.http.get(`${this.baseUrl}/get/questions/`+category)
   }
 
-  updateQuestionViews = (id,question) => {
-    question.views++
-    return this.firebase.collection("forums").doc(id).set({...question});
-  }
+  updateQuestionViews = (question):any => {
+    question.views++;
+    return this.http.post(`${this.baseUrl}/questions/update/views`, question)
+  };
 
   removeQuestion = (id) => {
     return this.firebase.collection("forums").doc(id).delete();

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Question } from 'src/app/models/Question';
 import { ForumService } from 'src/app/services/forum.service';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 
 @Component({
@@ -13,18 +14,19 @@ import { OauthService } from 'src/app/services/oauth.service';
 export class ForumNewQuestionComponent implements OnInit{
   
   form: FormGroup;
-
-  userUID:any = this.auth.getUserLogged().subscribe();
+  userLogged;
   
-  constructor(fb: FormBuilder,private forumService:ForumService,private auth:OauthService,private toastr:ToastrService){
+  constructor(fb: FormBuilder,private forumService:ForumService,private auth:OauthService,private toastr:ToastrService,private lockService: LockService){
     this.form = fb.group({
       title: ['',Validators.required],
       category: [''],
       description: ['',[Validators.required,Validators.minLength(16)]]
     });
-    this.auth.getUserLogged().subscribe(user=> {
-      this.userUID = user.uid
-    })
+    
+    this.lockService.checkToken().subscribe(res=>{
+      this.userLogged = res;
+      return res;
+    });
   }
 
   ngOnInit(): void {
@@ -33,15 +35,16 @@ export class ForumNewQuestionComponent implements OnInit{
 
   uploadNewForum = () => {
     const QUESTION:any = {
-      //id: this.uuidv4(),
-      usuario: this.userUID,
-      titulo: this.form.value.title,
-      descripcion: this.form.value.description,
-      categoria: this.form.value.category,
+      uid: this.uuidv4(),
+      title: this.form.value.title,
+      body: this.form.value.description,
+      usuario: this.userLogged.uid,
+      category: this.form.value.category,
       views: 0,
       comments: 0,
-      fechaCreacion: new Date(),
-      fechaActualizacion: new Date()
+      status: 0,
+      created_at: new Date(),
+      updated_at: new Date()
     };
 
     this.forumService.uploadQuestion(QUESTION).then(()=> {

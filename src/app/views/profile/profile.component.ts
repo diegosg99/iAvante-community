@@ -77,11 +77,9 @@ export class ProfileComponent implements OnInit{
         this.userId = data['id'];
 
           this.user = this.lockService.checkToken().subscribe(res=>{
-            console.log(res);
             this.userLogged = res;
             return res;
           });
-          console.log(this.user);
           this.user.role = this.ROLES[this.user.role.stringValue];
         
       });

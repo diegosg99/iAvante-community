@@ -1,5 +1,6 @@
 const connection = require('../database');
 const authService = require('../services/auth.service');
+const toolService = require('../services/tools.service');
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const mime = require('mime');
@@ -261,8 +262,8 @@ convertImageToBase64 = (filepath) => {
 uploadImageToDB = (data) => {
 
     let uid = data.originalname.split('.')[1];
-    let imageUID = uuidv4();
-    let mediaUID = uuidv4();
+    let imageUID = toolService.uuidv4();
+    let mediaUID = toolService.uuidv4();
 
     let sql = `INSERT INTO images 
                     (id,url)
@@ -293,11 +294,3 @@ uploadImageToDB = (data) => {
 
     return {mediaUID: mediaUID,imageUID: imageUID};
 }
-
-uuidv4 = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      const r = Math.random() * 16 | 0;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }

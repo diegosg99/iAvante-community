@@ -61,15 +61,15 @@ export class ForumComponent implements OnInit{
 
   processQuestions = (questions) => {
 
+    console.log(questions);
+
     let processedQuestions: any[] = [];
 
     questions.forEach((question: any)=>{
-      let arraySegments = question.payload.doc._delegate._key.path.segments;
-      let questionId = arraySegments[arraySegments.length - 1];
 
-      this.getQuestionComments(questionId);
+      this.getQuestionComments(question.uid);
 
-      processedQuestions.push({id:questionId,...question.payload.doc.data()});
+      processedQuestions.push({...question});
     })
 
     this.questions=processedQuestions;
@@ -83,15 +83,6 @@ export class ForumComponent implements OnInit{
 
   sortRecentQuestions = () => {
     this.questions.sort((a, b) => a.fechaCreacion < b.fechaCreacion);
-  }
-
-  updateViews = (idQuestion) => {
-    let question = this.questions.find(q=>q.id===idQuestion);
-
-    this.forumService.updateQuestionViews(idQuestion,question).then(res=>
-      {
-        this.router.navigate(["foro/"+idQuestion]);
-      });
   }
 
   getQuestionComments = (idQuestion) => {
