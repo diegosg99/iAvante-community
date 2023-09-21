@@ -42,9 +42,7 @@ export class UserService implements OnInit{
   }
   
   updateImage = (file:any): any => {
-    return this.http.post(`${this.baseUrl}/upload/image`, file).subscribe(res=> {
-      console.log(res);
-    });
+    return this.http.post(`${this.baseUrl}/upload/image`, file);
   }
   
 

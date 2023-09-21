@@ -15,12 +15,8 @@ export class OauthService {
   constructor(private auth: AngularFireAuth,private http: HttpClient,private router:Router, private lockService: LockService) { }
 
   register = (user:any): any => {
--
-    this.http.post(`${this.baseUrl}/user/register`, user).subscribe(res=> {
-      console.log(res);
-      console.log('Usuario actulizado con éxito.');
-      this.router.navigate(['../login']);
-    });
+
+    return this.http.post(`${this.baseUrl}/user/register`, user);
   }
 
   login = (email:string, password: string) => {

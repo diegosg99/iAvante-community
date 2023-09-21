@@ -75,7 +75,7 @@ export class ForumService implements OnInit{
 
   getResponses = (idQuestion):any => {
 
-    return this.firebase.collection("forum-response",ref=>ref.where('preguntaId','==',idQuestion.toString())).snapshotChanges();
+    return this.http.get(`${this.baseUrl}/questions/comments/`+idQuestion);
   }
 
   getResponsesBy = (id:string,key:string):any => {

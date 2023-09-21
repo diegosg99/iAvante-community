@@ -1,3 +1,4 @@
+const path = require('path');
 const connection = require('../database');
 const toolService = require('../services/tools.service');
 
@@ -35,23 +36,29 @@ exports.uploadQuestion = (req, res) => {
 };
 
 exports.getAllQuestions = (req, res) => {
-    //const sql = 'SELECT * FROM questions';
+    const sql = 'SELECT * FROM questions';
     
     // SQL CON FOTO DEL USUARIO
-    const sql =`SELECT q.*,u.fullname,i.url 
-                    FROM questions as q
-                        INNER JOIN users as u 
-                            on u.uid = q.user_id 
-                        INNER JOIN media_users as m 
-                            on u.photo = m.uid 
-                        INNER JOIN images as i 
-                        on m.id_media = i.id;`
+    // const sql =`SELECT q.*,u.fullname,i.url 
+    //                 FROM questions as q
+    //                     INNER JOIN users as u 
+    //                         on u.uid = q.user_id 
+    //                     INNER JOIN media_users as m 
+    //                         on u.photo = m.uid 
+    //                     INNER JOIN images as i 
+    //                     on m.id_media = i.id;`
     connection.query(sql, (err, rows) => {
       if (err) {
         console.error('Error fetching users:', err);
         return res.status(500).json({ error: 'Internal Server Error' });
       }
-      res.status(200).json(rows);
+      
+        const filepath = path.resolve(rows[0].url);
+        let base64image = toolService.convertImageToBase64(filepath);
+
+        let newQuestion = {...rows[0],userImage:base64image}
+
+        res.status(201).json(newQuestion);
     });
 };  
 
@@ -87,3 +94,44 @@ exports.updateViews = (req, res) => {
     });
 };
 
+exports.getQuestionComments = (req,res) => {
+    
+    let idQuestion = req.body.params.id;
+
+    let sql = `SELECT * FROM comments WHERE id_post = '${idQuestion}'`;
+               
+                console.log(sql);
+
+    connection.query(sql, (err, rows) => {
+        if (err) {
+            console.error('Error fetching users:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+      res.status(200).json(rows);
+    });
+}
+
+exports.newComment = (req,res) => {
+    let sql = `INSERT INTO questions 
+                    (uid,id_post,id_user,body,likes,created_at,updated_at)
+                    VALUES 
+                        (
+                            '${data.uid}',
+                            '${data.id_post}',
+                            '${data.id_user}',
+                            '${data.body}',
+                            '${data.likes}',
+                            '${data.created_at}',
+                            '${data.updated_at}'
+                        )`;
+               
+                console.log(sql);
+
+    connection.query(sql, (err, rows) => {
+        if (err) {
+            console.error('Error fetching users:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+      res.status(200).json(rows);
+    });
+}

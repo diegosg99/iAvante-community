@@ -19,7 +19,7 @@ export class User {
     created_at: string;
 
     constructor(uid:string,email:string,password:string,username:string,
-        fullName:string,age:string,photo:string='',proffesion:string='',
+        fullName:string,age:string,photo:any='',proffesion:string='',
         questions:string='',answers:string='',posts:string='',instagram:string='',
         facebook:string='',twitter:string='',linkedin:string='') {
         

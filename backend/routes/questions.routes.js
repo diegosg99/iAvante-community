@@ -8,5 +8,7 @@ router.post('/upload/question',questionController.uploadQuestion);
 router.get('/get/questions',questionController.getAllQuestions);
 router.get('/get/questions/:category',questionController.getCategoryQuestions);
 router.post('/questions/update/views',questionController.updateViews);
+router.get('/questions/comments/:id',questionController.getQuestionComments);
+router.post('/questions/new',questionController.newComment);
 
 module.exports = router;

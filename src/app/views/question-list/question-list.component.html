@@ -4,7 +4,7 @@
             <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
             <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
             <a style="text-decoration: none;color: inherit;" href="#/profile/{{questionUser.uid}}">
-                <img src="{{questionUser.photo.stringValue}}" width="30px" height="30px" style="border-radius: 100%;"><span class="mx-3">{{questionUser.fullName}}</span>
+                <img src="{{question.userImage}}" width="30px" height="30px" style="border-radius: 100%;"><span class="mx-3">{{questionUser.fullname}}</span>
             </a>
     </div>
     <div class="col-6" style="text-align: right;">

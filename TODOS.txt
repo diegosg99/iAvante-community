@@ -26,3 +26,7 @@ luz.liebana@juntadeandalucia.es
 - El servidor debe tener mysql server
 - En este servidor crear una base de datos (mysql) llamada gestion, que tenga las tablas de alumnos, cursos y valoraciones
 - En este mismo servidor crear otra base de datos llamada iavante-community
+
+
+
+parte publica y privada

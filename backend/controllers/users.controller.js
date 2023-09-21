@@ -20,8 +20,6 @@ exports.loginUser = async (req, res) => {
         sub: data.email,
     }
       
-    console.log(data);
-
     const token = jwt.sign(payload,secret,{expiresIn: "1hr"});
     
     try {
@@ -29,7 +27,7 @@ exports.loginUser = async (req, res) => {
 
         if (data.email && data.password){
             connection.query(sql, function(err, rows, fields) {
-                
+
                 if (err) throw err;
 
                 authService.comparePassword(data.password,rows[0].password).then(logged => {
@@ -54,14 +52,13 @@ exports.verifyToken = (req, res) => {
         const sql = `SELECT u.*,i.url as url
         FROM media_users as m 
             INNER JOIN users as u 
-                ON u.photo = m.uid 
+            ON u.photo = m.uid 
             INNER JOIN images as i 
-                ON m.id_media = i.id 
+                ON m.id_media = i.id
         WHERE u.email = '${decoded.sub}'`;
 
         return decoded.sub?
         connection.query(sql, (err, rows) => {
-
             const filepath = path.resolve(rows[0].url);
 
             let base64img = convertImageToBase64(filepath);
@@ -80,12 +77,19 @@ exports.verifyToken = (req, res) => {
 // Controlador para registrar un nuevo usuario
 exports.registerUser = async (req, res) => {
     let data = req.body;
-
+    console.log(data)
     try {
         // Codificar la contraseña antes de guardarla en la base de datos
         const hashedPassword = await authService.hashPassword(data.password);
         
-        let sql = `INSERT INTO users 
+        let sql = `SELECT * FROM users WHERE email = '${data.email}'`;
+
+        connection.query(sql, function(err, rows, fields) {
+            if (rows[0]){
+                console.log(rows);
+                res.status(301).json({ message: 'email already exists',code:301 });
+            }else {
+                sql = `INSERT INTO users 
                             (uid,username,email,fullname,password,age,photo)
                         VALUES 
                         (
@@ -95,15 +99,22 @@ exports.registerUser = async (req, res) => {
                             '${data.fullName}',
                             '${hashedPassword}',
                             '${data.age}',
-                            '${data.photo}'
+                            '""'
                         )`;
 
         if (data.username && data.email && data.fullName && hashedPassword){
             connection.query(sql, function(err, rows, fields) {
-                if (err) throw err;
-                res.status(201).json({ message: 'Usuario registrado exitosamente',code:201 });
+
+                let sql = `SELECT * FROM users WHERE email = '${data.email}'`;
+
+                connection.query(sql, function(err, rows, fields) {
+                    res.status(201).json({ data: rows[0],code:201 });
+                })
             });
         }
+    }
+    })
+
     } catch (error) {
         console.error('Error al registrar usuario:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
@@ -194,7 +205,7 @@ exports.uploadImage = (req,res) => {
 
         let sql = `UPDATE users 
                         SET photo = '${ids.mediaUID}'                        
-                        WHERE uid = '${uid}'`;
+                        WHERE uid = '${uid}'`;    
         connection.query(sql, function(err, rows, fields) {
             if (err) throw err;
             return res.status(201).json({code:201,file:req.file})

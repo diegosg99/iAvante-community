@@ -28,26 +28,17 @@ export class ForumComponent implements OnInit{
   constructor(private forumService: ForumService,private _activatedroute:ActivatedRoute,private router:Router,private userService:UserService, private auth: OauthService){}
 
   ngOnInit(): void {
-    this.getAllQuestions();
-    this.userLogged.subscribe(user=>{
-      this.userID=user.uid;
-
-      console.log(this.userID);
-      
-      this.userService.getUser(this.userID).subscribe(user=>{
-        this.user = {...user.payload._delegate._document.data.value.mapValue.fields};
-        console.log(this.user);
-      })
-    });
-    
+    this.getAllQuestions();    
   }
 
   getAllQuestions = () => {
     this.forumService.getQuestions().subscribe(questions => {
 
+      this.questions = questions;
       this.processQuestions(questions);
       this.setTopQuestions();
       this.sortRecentQuestions();
+      console.log(this.questions);
     })
   }
 
@@ -69,10 +60,13 @@ export class ForumComponent implements OnInit{
 
       this.getQuestionComments(question.uid);
 
-      processedQuestions.push({...question});
+      processedQuestions.push(question);
     })
 
     this.questions=processedQuestions;
+
+    console.log(this.questions);
+
   }
 
   setTopQuestions = () => {
