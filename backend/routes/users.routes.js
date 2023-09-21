@@ -1,23 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/users.controller');
-const questionController = require('../controllers/questions.controller');
-const {helperImg} = require("../services/imageOptimizer");
 const multer = require("multer");
+const tools = require("../services/tools.service");
 
 const storage = multer.diskStorage({
-    destination: './backend/uploads/images',
+    destination: (req,file,cb) => {
+        let path = tools.mediaManager(file);
+        cb(null,path)
+    },
     filename: (req,file,cb) => {
         const ext = file.originalname;
         console.log(ext);
         cb(null,`${ext}`)
     }
 })
-
-const IMAGE_TYPES = {
-    PROFILE: 'profile',
-    POST: 'post'
-}
 
 const upload = multer({storage});
 

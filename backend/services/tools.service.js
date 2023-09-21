@@ -1,5 +1,14 @@
+const path = require('path');
 const mime = require('mime');
+const sharp = require("sharp");
 const fs = require('fs');
+
+const ROUTES = {
+  profile: 'profile/',
+  post: 'posts/',
+  forum: 'forum/',
+  others: 'others/',
+}
 
 exports.uuidv4 = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -7,6 +16,12 @@ exports.uuidv4 = () => {
       const v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
+}
+
+exports.helperImg = (filePath,fileName,size=100) => {
+  return sharp(filePath)
+          .resize(size)
+          .toFile('./'+fileName)
 }
 
 exports.convertImageToBase64 = (filepath) => {
@@ -19,4 +34,15 @@ exports.convertImageToBase64 = (filepath) => {
       }
   });
   return `data:${filemime};base64,${base64}`;
+}
+
+exports.mediaManager = (file) => {
+
+  let mime = file.mimetype.split('/')[0];
+  let baseRoute = './backend/uploads/';
+  let route = file.originalname.split('.')[0];
+
+  baseRoute = mime === 'image' ? baseRoute+'images/':baseRoute+'videos/';
+
+  return baseRoute+ROUTES[route];
 }

@@ -6,9 +6,6 @@ const path = require("path");
 const mime = require('mime');
 var fs = require("fs");
 
-// const multer = require("multer");
-const { helperImg } = require('../services/imageOptimizer');
-
 const secret = "Bearer";
 
 
@@ -61,7 +58,7 @@ exports.verifyToken = (req, res) => {
         connection.query(sql, (err, rows) => {
             const filepath = path.resolve(rows[0].url);
 
-            let base64img = convertImageToBase64(filepath);
+            let base64img = toolService.convertImageToBase64(filepath);
             let newUser = {...rows[0],url:base64img};
 
             res.status(201).json(newUser);
@@ -70,16 +67,13 @@ exports.verifyToken = (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: 'Error verificando',code:500 });
     }
-
-    
 }
 
 // Controlador para registrar un nuevo usuario
 exports.registerUser = async (req, res) => {
     let data = req.body;
-    console.log(data)
+
     try {
-        // Codificar la contraseña antes de guardarla en la base de datos
         const hashedPassword = await authService.hashPassword(data.password);
         
         let sql = `SELECT * FROM users WHERE email = '${data.email}'`;
@@ -136,15 +130,6 @@ exports.getAllUsers = (req, res) => {
 // Controlador para actualizar un usuario
 exports.updateUser = (req, res) => {
     let data = req.body;
-
-    // console.log(req.body.photo);
-
-    // helperImg(req.body.photo.path,`resize-${req.body.photo.filename}`);
-
-    // ${data.username?'username = "'+data.username+'",':""}
-    // ${data.email?'email = "'+data.email+'",':""}
-    // ${data.fullName?'fullname = "'+data.fullName+'",':""}
-    // ${data.proffesion?'proffesion = "'+data.proffesion+'",':""}
 
     try {
         let sql = `UPDATE users 
@@ -234,41 +219,7 @@ exports.getImage = (req,res) => {
     }
 }
 
-getProfileImage = (req,res) => {
-
-    try {
-        let category = req.file.originalname.split('.')[0];
-        let uid = req.file.originalname.split('.')[1];
-
-        
-
-        let sql = `SELECT i.url FROM media_users as m 
-        INNER JOIN users as u ON u.photo = m.uid 
-        INNER JOIN images as i ON m.id_media = i.id 
-        WHERE u.uid = '${uid}'; `;
-        connection.query(sql, function(err, rows, fields) {
-            if (err) throw err;
-            return res.status(201).json({code:201,file:req.file})
-        });
-    }
-    catch (error) {
-        console.error('Error al registrar usuario:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
-}
-
-
-convertImageToBase64 = (filepath) => {
-
-    const filemime = mime.getType(filepath);
-
-    let base64 = fs.readFileSync(filepath,{encoding: 'base64'},(err, data) => {
-        if (err) {
-            throw err;
-        }
-    });
-    return `data:${filemime};base64,${base64}`;
-}
+//---------------------Linkea el contenido de media con el usuario
 
 uploadImageToDB = (data) => {
 
@@ -284,10 +235,7 @@ uploadImageToDB = (data) => {
                     '${data.destination+"/"+data.filename}'
                 )`;
 
-    connection.query(sql, function(err, rows, fields) {
-        if (err){console.log(err)}
-        console.log("Foto subida");
-    });
+    connection.query(sql, function(err, rows, fields) {if (err){console.log(err)}});
 
     sql = `INSERT INTO media_users 
                     (uid,id_cat,id_media,media_type)
@@ -298,10 +246,7 @@ uploadImageToDB = (data) => {
                     '${imageUID}',
                     'profile'
                 )`;
-    connection.query(sql, function(err, rows, fields) {
-        if (err){console.log(err)}
-        console.log("Usuario actializado");
-    });
+    connection.query(sql, function(err, rows, fields) {if (err){console.log(err)}});
 
     return {mediaUID: mediaUID,imageUID: imageUID};
 }

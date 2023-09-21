@@ -124,11 +124,11 @@ export class ProfileComponent implements OnInit{
 
     let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
     
-    this.userService.updateImage(file).then(()=> {
+    console.log(file);
 
-      this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+    this.userService.updateImage(file).subscribe((res)=> {
+      console.log(res);
     },(error: any) => {
-      this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
       console.log(error);
     });
   }
