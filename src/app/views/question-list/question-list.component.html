@@ -3,11 +3,11 @@
         <div class="col-6">
             <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
             <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
-            <a style="text-decoration: none;color: inherit;" href="#/profile/{{questionUser.uid}}">
-                <img src="{{question.userImage}}" width="30px" height="30px" style="border-radius: 100%;"><span class="mx-3">{{questionUser.fullname}}</span>
+            <a style="text-decoration: none;color: inherit;" href="#/profile/{{question.user_id}}">
+                <img src="{{question.userImage}}" width="30px" height="30px" style="border-radius: 100%;"><span class="mx-3">{{question.fullname}}</span>
             </a>
     </div>
-    <div class="col-6" style="text-align: right;">
+    <!-- <div class="col-6" style="text-align: right;">
         <i class="fa fa-trash delete-button px-5" style="font-size: 14px;text-align: right;" *ngIf="user.role.stringValue == 'admin' || user.uid.stringValue === questionUser.uid.stringValue" (click)="removeQuestion(question.id)"></i>    
-    </div>
+    </div> -->
 </div>

@@ -26,8 +26,6 @@ export class OauthService {
       password:password
     }
 
-    console.log(data);
-
     try {
 
       return this.http.post(`${this.baseUrl}/user/login`, data);

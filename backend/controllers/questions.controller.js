@@ -1,6 +1,7 @@
 const path = require('path');
 const connection = require('../database');
 const toolService = require('../services/tools.service');
+const questionService = require('../services/questions.service');
 
 exports.uploadQuestion = (req, res) => {
     let data = req.body;
@@ -36,45 +37,76 @@ exports.uploadQuestion = (req, res) => {
 };
 
 exports.getAllQuestions = (req, res) => {
-    const sql = 'SELECT * FROM questions';
-    
-    // SQL CON FOTO DEL USUARIO
-    // const sql =`SELECT q.*,u.fullname,i.url 
-    //                 FROM questions as q
-    //                     INNER JOIN users as u 
-    //                         on u.uid = q.user_id 
-    //                     INNER JOIN media_users as m 
-    //                         on u.photo = m.uid 
-    //                     INNER JOIN images as i 
-    //                     on m.id_media = i.id;`
+
+    let newQuestions = [];
+
+    const sql =`SELECT q.*,u.fullname,i.url 
+                    FROM questions as q
+                        INNER JOIN users as u 
+                            on u.uid = q.user_id 
+                        INNER JOIN media_users as m 
+                            on u.photo = m.uid 
+                        INNER JOIN images as i 
+                        on m.id_media = i.id;`
+
     connection.query(sql, (err, rows) => {
-      if (err) {
-        console.error('Error fetching users:', err);
-        return res.status(500).json({ error: 'Internal Server Error' });
-      }
-      
-        const filepath = path.resolve(rows[0].url);
-        let base64image = toolService.convertImageToBase64(filepath);
 
-        let newQuestion = {...rows[0],userImage:base64image}
+        if (rows[0]) {
+            rows.forEach(row => {
+                const filepath = path.resolve(row.url);
+                let base64image = toolService.convertImageToBase64(filepath);
+    
+                newQuestions.push( {...row,userImage:base64image})//}
+            });
+                
+            console.log(newQuestions);
 
-        res.status(201).json(newQuestion);
+            let processedData = {};
+
+            processedData.top = questionService.sortTopQuestions(newQuestions);
+            processedData.recent = questionService.sortRecentQuestions(newQuestions);
+
+            res.status(201).json(processedData);
+        }
+        //res.status(301).json({error: 'No hay preguntas'});
     });
 };  
 
 exports.getCategoryQuestions = (req, res) => {
 
-    console.log(req.params);
+    let newQuestions = [];
 
-    const sql = `SELECT * FROM questions WHERE category = '${req.params.category}'`;
+    const sql = `SELECT q.*,u.fullname,i.url 
+    FROM questions as q
+        INNER JOIN users as u 
+            on u.uid = q.user_id 
+        INNER JOIN media_users as m 
+            on u.photo = m.uid 
+        INNER JOIN images as i 
+        on m.id_media = i.id
+        WHERE q.category = '${req.params.category}'`;
 
-    connection.query(sql, (err, rows) => {
-        if (err) {
-            console.error('Error fetching users:', err);
-            return res.status(500).json({ error: 'Internal Server Error' });
-        }
-      res.status(200).json(rows);
-    });
+        connection.query(sql, (err, rows) => {
+
+            if (rows[0]) {
+                rows.forEach(row => {
+                    const filepath = path.resolve(row.url);
+                    let base64image = toolService.convertImageToBase64(filepath);
+        
+                    newQuestions.push( {...row,userImage:base64image})//}
+                });
+                    
+                console.log(newQuestions);
+    
+                let processedData = {};
+    
+                processedData.top = questionService.sortTopQuestions(newQuestions);
+                processedData.recent = questionService.sortRecentQuestions(newQuestions);
+    
+                res.status(201).json(processedData);
+            }
+            //res.status(301).json({error: 'No hay preguntas'});
+        });
 };
 
 exports.updateViews = (req, res) => {
@@ -96,7 +128,7 @@ exports.updateViews = (req, res) => {
 
 exports.getQuestionComments = (req,res) => {
     
-    let idQuestion = req.body.params.id;
+    let idQuestion = req.params.id;
 
     let sql = `SELECT * FROM comments WHERE id_post = '${idQuestion}'`;
                

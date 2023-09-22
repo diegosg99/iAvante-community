@@ -33,8 +33,7 @@ export class RegisterComponent implements OnInit{
 
   userData:User;
 
-  constructor (private oauth:OauthService,private userService: UserService, private imageService:ImageService, private router:Router) {
-    
+  constructor (private oauth:OauthService,private userService: UserService, private imageService:ImageService, private router:Router) {    
   }
 
   ngOnInit(): void {
@@ -59,21 +58,6 @@ export class RegisterComponent implements OnInit{
     });;
   }
 
-  imagePreview = (event):any => {    
-    // this.imageRaw =event.target.files[0];
-
-    //   if (this.imageRaw) {
-    //     const reader = new FileReader();
-
-    //     reader.onload = (_event: any) => {
-    //       this.imageBase64 = _event.target.result;
-    //       console.log(this.imageBase64);
-    //     };
-    //     reader.readAsDataURL(this.imageRaw);
-    //   }
-
-    this.userForm.photo = this.imageService.processImage(this.fileInput,"hi");
-  }
 
   generateUid(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {

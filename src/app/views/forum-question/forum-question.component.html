@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
 
-<app-chat></app-chat>
+<!-- <app-chat></app-chat> -->
 
 <!-- ----------------------------MAIN QUESTION----------------------------------- -->
 
 <div class="row mb-3">
     <div class="col-lg-12">
-        <h1 *ngIf="question" class="logo mb-5 p-5">Foro cuestiones generales</h1>
+        <h1 *ngIf="question" class="logo mb-5 p-5">{{question.category}}</h1>
     </div>
 
     <div class="row">

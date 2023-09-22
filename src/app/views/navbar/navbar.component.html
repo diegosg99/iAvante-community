@@ -4,12 +4,12 @@
         <img src="../../../assets/images/logo_fps.png" width="230px" height="43.75px">
       </div>
       <div class="col-xl-2 col-lg-6 col-md-8 col-sm-12 col-xs-12">
-        <a class="navbar-brand m-2 p-3" href="#/home" (click)="getUserData()" style="font-size: 21px; font-family: 'Nixie One', cursive;">Simulation Centre</a>
+        <a class="navbar-brand m-2 p-3" href="#/home" style="font-size: 21px; font-family: 'Nixie One', cursive;">Simulation Centre</a>
       </div>
       <div class="col-xl-7 col-lg-9 col-md-10 col-sm-12 col-xs-12">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/foro" (click)="getUserData()">¿Dudas?</a>
+            <a class="nav-link p-3" href="#/foro">¿Dudas?</a>
           </li>
 
                 <!-- Noticias por categoria -->
@@ -20,9 +20,9 @@
             <div class="dropdown">
               <button class="dropbtn nav-link p-3">¿Qué está pasando?</button>
               <div class="dropdown-content">
-                <a href="#/news/science" (click)="getUserData()">Ciencia</a>
-                <a href="#/news/health" (click)="getUserData()">Salud</a>
-                <a href="#/news/simulation" (click)="getUserData()">Mundo de la simulación</a>
+                <a href="#/news/science">Ciencia</a>
+                <a href="#/news/health">Salud</a>
+                <a href="#/news/simulation">Mundo de la simulación</a>
               </div>
             </div>
           </li>
@@ -30,13 +30,13 @@
             <a class="nav-link p-3" href="news">¿Qué está pasando?</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/miembros" (click)="getUserData()">Integrantes</a>
+            <a class="nav-link p-3" href="#/miembros">Integrantes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/learn" (click)="getUserData()">Aprende con nosotros</a>
+            <a class="nav-link p-3" href="#/learn">Aprende con nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" href="#/publicar" (click)="getUserData()" tabindex="-1" aria-disabled="true">Publicar</a>
+            <a class="nav-link p-3" href="#/publicar" tabindex="-1" aria-disabled="true">Publicar</a>
           </li>
           <li class="nav-item">
             <a class="nav-link p-3" href="#/about-us" tabindex="-1" aria-disabled="true">¿Quienes somos?</a>
@@ -45,13 +45,13 @@
       </div>
       <div class="col-xl-1 col-lg-3 col-md-2 col-sm-12 col-xs-12 d-flex row align-items-center" style="justify-content: right;">
         
-        <a class="col-6" *ngIf="userLogged" href="#/profile/{{userLogged.uid}}">
-          <img src="{{userLogged.url}}" style="margin-right:1rem;border-radius: 100%; max-width: 36px !important;padding: 0px !important;"  width="36px" height="36px">
-          <!-- <p class="text-secondary col-6 my-auto" style="font-size: 14px;">{{userLogged.fullname}}</p> -->
+        <a class="col-6" *ngIf="$userSubscription | async as userData" href="#/profile/{{userData.uid}}">
+          <img src="{{userData.url}}" style="margin-right:1rem;border-radius: 100%; max-width: 36px !important;padding: 0px !important;"  width="36px" height="36px">
+          <!-- <p class="text-secondary col-6 my-auto" style="font-size: 14px;">{{userSubscription$.fullname}}</p> -->
         </a>
 
 
-        <!-- <a class="col-6 navbar-brand my-auto row" *ngIf="!(userLogged | async)" href="#/profile/{{userLogged.uid}}">
+        <!-- <a class="col-6 navbar-brand my-auto row" *ngIf="!(userSubscription$ | async)" href="#/profile/{{userSubscription$.uid}}">
           <p>Usuario</p>
         </a> -->
         

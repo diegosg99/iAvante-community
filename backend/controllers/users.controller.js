@@ -80,7 +80,6 @@ exports.registerUser = async (req, res) => {
 
         connection.query(sql, function(err, rows, fields) {
             if (rows[0]){
-                console.log(rows);
                 res.status(301).json({ message: 'email already exists',code:301 });
             }else {
                 sql = `INSERT INTO users 
@@ -186,8 +185,6 @@ exports.uploadImage = (req,res) => {
 
         let ids = uploadImageToDB(req.file);
 
-        console.log(category,uid);
-
         let sql = `UPDATE users 
                         SET photo = '${ids.mediaUID}'                        
                         WHERE uid = '${uid}'`;    
@@ -202,22 +199,21 @@ exports.uploadImage = (req,res) => {
     }
 }
 
-exports.getImage = (req,res) => {
+// exports.getImage = (req,res) => {
 
-    try {
-        let category = req.file.originalname.split('.')[0];
-        let uid = req.file.originalname.split('.')[1];
+//     try {
+//         let category = req.file.originalname.split('.')[0];
+//         let uid = req.file.originalname.split('.')[1];
 
-        console.log(category);
 
         
 
-    }
-    catch (error) {
-        console.error('Error al registrar usuario:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
-}
+//     }
+//     catch (error) {
+//         console.error('Error al registrar usuario:', error);
+//         res.status(500).json({ error: 'Error interno del servidor' });
+//     }
+// }
 
 //---------------------Linkea el contenido de media con el usuario
 

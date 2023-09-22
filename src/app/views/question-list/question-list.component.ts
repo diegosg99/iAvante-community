@@ -11,26 +11,21 @@ import { UserService } from 'src/app/services/user.service';
 export class QuestionListComponent implements OnInit{
 
   @Input() question;
-  @Input() user;
+  // @Input() user;
   questionUser;
 
   constructor(private userService: UserService,private forumService:ForumService,private router:Router){}
 
   ngOnInit(): void {
-
     console.log(this.question);
-
-    this.userService.getUser(this.question.usuario).subscribe(user=>{
-      this.questionUser = {...user.payload._delegate._document.data.value.mapValue.fields};
-      console.log(this.questionUser)
-    })
   }
 
   updateViews = (question) => {
+
+    console.log(question);
     
     this.forumService.updateQuestionViews(question).subscribe(res=>
       {
-        console.log(res);
         this.router.navigate(["foro/"+question.uid]);
       });
   }

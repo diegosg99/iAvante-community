@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,11 +11,12 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.scss']
 })
-export class ForumComponent implements OnInit{
+export class ForumComponent {
 
-  questions:any;
-  topQuestions:any;
   p = 1;
+
+  questions;
+  topQuestions;
 
   ROLES = {
     user: 'USUARIO',
@@ -21,73 +24,35 @@ export class ForumComponent implements OnInit{
     docent: 'DOCENTE'
   }
 
-  userLogged = this.auth.getUserLogged();
+  // userLogged = this.auth.getUserLogged();
   userID;
   user;
+  $questionSubscription: Observable<any> = this.forumService.getQuestions();
 
-  constructor(private forumService: ForumService,private _activatedroute:ActivatedRoute,private router:Router,private userService:UserService, private auth: OauthService){}
-
-  ngOnInit(): void {
-    this.getAllQuestions();    
+  constructor(private forumService: ForumService,private auth: OauthService,private lockService: LockService){
+    // this.forumService.getQuestions().subscribe(res=> {
+    //   this.questions = res.recent;
+    //   this.topQuestions = res.top;
+    // });
   }
-
+    
   getAllQuestions = () => {
-    this.forumService.getQuestions().subscribe(questions => {
-
-      this.questions = questions;
-      this.processQuestions(questions);
-      this.setTopQuestions();
-      this.sortRecentQuestions();
-      console.log(this.questions);
-    })
+    this.$questionSubscription = this.forumService.getQuestions();
   }
 
   getCategoryQuestions = (category) => {
-    this.forumService.getCategoryQuestions(category).subscribe(questions => {
-    this.processQuestions(questions);
-    this.setTopQuestions();
-    this.sortRecentQuestions();
-    })
+    this.$questionSubscription = this.forumService.getCategoryQuestions(category)
   }
 
-  processQuestions = (questions) => {
+  // getQuestionComments = (idQuestion) => {
+  //   this.forumService.getResponses(idQuestion).subscribe(comments=>{
 
-    console.log(questions);
-
-    let processedQuestions: any[] = [];
-
-    questions.forEach((question: any)=>{
-
-      this.getQuestionComments(question.uid);
-
-      processedQuestions.push(question);
-    })
-
-    this.questions=processedQuestions;
-
-    console.log(this.questions);
-
-  }
-
-  setTopQuestions = () => {
-    this.topQuestions = this.questions;
-    this.topQuestions.sort((a, b) => a.views < b.views);
-    this.topQuestions = this.topQuestions.slice(0,3);
-  }
-
-  sortRecentQuestions = () => {
-    this.questions.sort((a, b) => a.fechaCreacion < b.fechaCreacion);
-  }
-
-  getQuestionComments = (idQuestion) => {
-    this.forumService.getResponses(idQuestion).subscribe(comments=>{
-
-      let selectedQuestion = this.questions.find(q => {
-        return q.id ===idQuestion;
-      })
-      selectedQuestion.comments = comments.length;
-    })
-  }
+  //     let selectedQuestion = this.questions.find(q => {
+  //       return q.id ===idQuestion;
+  //     })
+  //     selectedQuestion.comments = comments.length;
+  //   })
+  // }
 
   removeQuestion = (idQuestion) => {
     this.forumService.removeQuestion(idQuestion);

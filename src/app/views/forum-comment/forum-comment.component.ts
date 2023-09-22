@@ -15,16 +15,16 @@ export class ForumCommentComponent implements OnInit{
   @Input() divComments;
   form: FormGroup;
 
-  userUID:any = this.auth.getUserLogged().subscribe();
-  userLogged = this.auth.getUserLogged();
+  // userUID:any = this.auth.getUserLogged().subscribe();
+  // userLogged = this.auth.getUserLogged();
   
   constructor(fb: FormBuilder,private forumService:ForumService,private auth:OauthService,private toastr:ToastrService){
     this.form = fb.group({
       response: ['',[Validators.required,Validators.minLength(16)]]
     });
-    this.auth.getUserLogged().subscribe(user=> {
-      this.userUID = user.uid
-    })
+    // this.auth.getUserLogged().subscribe(user=> {
+    //   this.userUID = user.uid
+    // })
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class ForumCommentComponent implements OnInit{
       respuesta: this.form.value.response,
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
-      usuario: this.userUID,
+      //usuario: this.userUID,
       preguntaId: this.questionId.value.id,
       likes: 0
     };

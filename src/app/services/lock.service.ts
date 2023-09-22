@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -15,16 +16,11 @@ export class LockService implements OnInit{
 
     ngOnInit(): void {}
 
-    checkToken = ():any => {
+    checkToken = ():Observable<any> => {
         
         const token = this.getToken();
 
-        try {
-            return this.httpService.post("http://127.0.0.1:3003/api/user/verifyToken",{token:token});   
-        } catch (error) {
-            console.log(error)
-            return false;
-        }
+        return this.httpService.post("http://127.0.0.1:3003/api/user/verifyToken",{token:token});   
     }
 
     getToken = () => {
