@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime } from 'rxjs';
+import { Observable, debounceTime } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -21,58 +21,43 @@ export class ForumQuestionComponent implements OnInit{
   userLogged = this.auth.getUserLogged();
   comments:any = [];
   clickedComment = false;
+  $questionSubscription: Observable<any>;
 
   constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private auth: OauthService,private userService:UserService){}
 
   ngOnInit(): any {
+    //this.idQuestion = this._activatedroute.params;
 
-    this.idQuestion = this._activatedroute.params;
-    this.commentsDiv = document.getElementById('divComments');
-
-    this.getQuestionData();
-    this.getQuestionComments();
-  }
-
-  getQuestionData = () => {
-    this.forumService.getQuestion(this.idQuestion.value.id).snapshotChanges().subscribe(question=>{
-      this.question = {...question.payload.data()};
-      this.userId = this.question.usuario;
-
-      this.userService.getUser(this.userId).subscribe(user=>{
-        this.userQuestion = {...user.payload._delegate._document.data.value.mapValue.fields};
+    this._activatedroute.params.subscribe(data=>
+      {
+        
+        this.idQuestion = data['id'];
+        
+        this.$questionSubscription = this.forumService.getQuestion(this.idQuestion);
+        this.commentsDiv = document.getElementById('divComments');     
       });
-      
-      let formatDate = this.formatDate(this.question.fechaCreacion);
-      this.question.fechaCreacionFormat = formatDate;
-    });
   }
 
-  getQuestionComments = () => {
-    this.forumService.getResponses(this.idQuestion.value.id).subscribe(comments=>{
-    this.comments = [];
+  // getQuestionComments = () => {
 
-      comments.forEach(comment => {
+  //   console.log('Hola')
 
-        let arraySegments = comment.payload.doc._delegate._key.path.segments;
-        let commentId = arraySegments[arraySegments.length - 1];
+  //   this.forumService.getResponses(this.idQuestion.value.id).subscribe(comments=>{
+  //     this.comments = comments;
+  //     console.log(comments);
+  //     this.comments.sort((a,b)=>{return a.fechaCreacion-b.fechaCreacion});
+  //   });
+  // };
 
-        let processedComment = {id:commentId,...comment.payload.doc.data()};
-        processedComment.fechaCreacionFormat = this.formatDate(processedComment.fechaCreacion);
-        this.comments.push(processedComment);
-      });
+  // formatDate = (date) => {
+  //   let fullDate = date.toDate();
 
-      this.comments.sort((a,b)=>{return a.fechaCreacion-b.fechaCreacion});
-    });
-  };
+  //     let day = fullDate.getDate();
+  //     let month = fullDate.getMonth();
+  //     let year = fullDate.getFullYear();
+  //     let hour = fullDate.getHours();
+  //     let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
 
-  formatDate = (date) => {
-    let fullDate = date.toDate();
-      let day = fullDate.getDate();
-      let month = fullDate.getMonth();
-      let year = fullDate.getFullYear();
-      let hour = fullDate.getHours();
-      let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
-
-      return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
-  }
+  //     return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
+  // }
 }

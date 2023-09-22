@@ -52,7 +52,7 @@ export class ForumService implements OnInit{
   }
 
   getQuestion = (id:string):any => {
-    return this.firebase.collection("forums").doc(id);
+    return this.http.get(`${this.baseUrl}/get/question/`+id);
   }
 
   getQuestionBy = (id:string,key:string):any => {
@@ -65,12 +65,7 @@ export class ForumService implements OnInit{
 
   uploadResponse = (response): any => {
 
-    return this.firebase.collection('forum-response').add(response)
-      .then(()=>{
-        console.log('Publicación subida con éxito.')
-      }, error => {
-        console.log(error);
-    });
+    return this.http.post(`${this.baseUrl}/upload/comment`,response)
   }
 
   getResponses = (idQuestion):any => {

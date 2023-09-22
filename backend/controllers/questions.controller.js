@@ -126,11 +126,43 @@ exports.updateViews = (req, res) => {
     });
 };
 
-exports.getQuestionComments = (req,res) => {
+getQuestionComments = (idQuestion) => {
     
-    let idQuestion = req.params.id;
+    let sql = `SELECT c.*,u.fullname,i.url 
+                FROM comments as c 
+                    INNER JOIN users as u 
+                        on u.uid = c.id_user 
+                    INNER JOIN media_users as m 
+                        on u.photo = m.uid 
+                    INNER JOIN images as i 
+                        on m.id_media = i.id 
+                    INNER JOIN questions as q 
+                        on q.uid = c.id_post 
+                WHERE q.uid = '${idQuestion}';`;
+               
+                console.log(sql);
 
-    let sql = `SELECT * FROM comments WHERE id_post = '${idQuestion}'`;
+    connection.query(sql, (err, rows) => {
+      return rows;
+    });
+}
+
+exports.newComment = (req,res) => {
+    let sql = `INSERT INTO questions 
+                    (uid,title,body,user_id,category,views,comments,status,created_at,updated_at)
+                VALUES 
+                (
+                    '${data.uid}',
+                    '${data.title}',
+                    '${data.body}',
+                    '${data.usuario}',
+                    '${data.category}',
+                    ${data.views},
+                    ${data.comments},
+                    ${data.status},
+                    '${data.created_at}',
+                    '${data.updated_at}'
+                )`;
                
                 console.log(sql);
 
@@ -143,27 +175,43 @@ exports.getQuestionComments = (req,res) => {
     });
 }
 
-exports.newComment = (req,res) => {
-    let sql = `INSERT INTO questions 
-                    (uid,id_post,id_user,body,likes,created_at,updated_at)
-                    VALUES 
-                        (
-                            '${data.uid}',
-                            '${data.id_post}',
-                            '${data.id_user}',
-                            '${data.body}',
-                            '${data.likes}',
-                            '${data.created_at}',
-                            '${data.updated_at}'
-                        )`;
-               
-                console.log(sql);
+exports.getQuestion = (req,res) => {
+
+    let newQuestion = {};
+
+    let response = {}
+
+    const sql =`SELECT q.*,u.fullname,i.url 
+                    FROM questions as q
+                        INNER JOIN users as u 
+                            on u.uid = q.user_id 
+                        INNER JOIN media_users as m 
+                            on u.photo = m.uid 
+                        INNER JOIN images as i 
+                        on m.id_media = i.id
+                        WHERE q.uid = '${req.params.id}';`
+
+    console.log(sql);
 
     connection.query(sql, (err, rows) => {
-        if (err) {
-            console.error('Error fetching users:', err);
-            return res.status(500).json({ error: 'Internal Server Error' });
+
+        if (rows[0]) {
+            
+            console.log(rows[0]);
+            
+            const filepath = path.resolve(rows[0].url);
+            let base64image = toolService.convertImageToBase64(filepath);
+
+            newQuestion = {...rows[0],userImage:base64image}
+
+            response.question = newQuestion;
+
+            let comments = getQuestionComments(newQuestion.uid)?getQuestionComments(newQuestion.uid):[];
+
+            response.comments = comments;
+      
+            res.status(201).json(response);
         }
-      res.status(200).json(rows);
+        //res.status(301).json({error: 'No hay preguntas'});
     });
 }

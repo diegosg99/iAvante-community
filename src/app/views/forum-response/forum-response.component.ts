@@ -13,7 +13,7 @@ export class ForumResponseComponent implements OnInit{
   commentId:any;
   @Input() comment:any;
   clickedComment:boolean;
-  userLogged = this.auth.getUserLogged();
+  // userLogged = this.auth.getUserLogged();
   userUID;
   numLikes;
   likes = [];
@@ -23,11 +23,11 @@ export class ForumResponseComponent implements OnInit{
 
   ngOnInit(): void {
     this.commentId = this.comment.id;
-    this.userLogged.subscribe(user => {
-      this.userUID = user.uid;
-    })
-    this.getCommentedUserData();
-    this.getLikes();
+    // this.userLogged.subscribe(user => {
+    //   this.userUID = user.uid;
+    // })
+    // this.getCommentedUserData();
+    // this.getLikes();
   }
 
   likeComment = () => {
@@ -38,20 +38,20 @@ export class ForumResponseComponent implements OnInit{
       comment: this.comment.id
     };    
 
-    if (this.userLogged!= null && this.clickedComment) {
+    // if (this.userLogged!= null && this.clickedComment) {
   
-      this.clickedComment = false;
+    //   this.clickedComment = false;
 
-      let deletedLike = this.likes.find((like) => {
-        return (like.usuario === this.userUID && like.comment === this.commentId)
-      })
+    //   let deletedLike = this.likes.find((like) => {
+    //     return (like.usuario === this.userUID && like.comment === this.commentId)
+    //   })
 
-      this.forumService.removeLikeResponse(deletedLike.id);
+    //   this.forumService.removeLikeResponse(deletedLike.id);
 
-    }else{
-      this.clickedComment = true;
-      this.forumService.likeResponse(COMMENT_LIKE);
-    }
+    // }else{
+    //   this.clickedComment = true;
+    //   this.forumService.likeResponse(COMMENT_LIKE);
+    // }
     this.getLikes();
   }
 
