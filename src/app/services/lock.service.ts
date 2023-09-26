@@ -40,7 +40,8 @@ export class LockService implements OnInit{
      }
 
     removeToken = () => {
-       return sessionStorage.setItem('jwtToken', "");
+        sessionStorage.setItem('jwtToken', "");
+        sessionStorage.setItem('email', "");
     }
   
     removeUser = () => {
