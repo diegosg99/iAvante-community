@@ -42,6 +42,8 @@ import { FullPostComponent } from './views/post/full-post/full-post.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AboutUsComponent } from './views/about-us/about-us.component';
 import { LandingComponent } from './views/landing/landing.component';
+import { ProfileDataComponent } from './views/profile/profile-data/profile-data.component';
+import { ProfileTableComponent } from './views/profile/profile-table/profile-table.component';
 
 
 @NgModule({
@@ -73,6 +75,8 @@ import { LandingComponent } from './views/landing/landing.component';
     FullPostComponent,
     AboutUsComponent,
     LandingComponent,
+    ProfileDataComponent,
+    ProfileTableComponent,
   ],
   imports: [
     BrowserModule,

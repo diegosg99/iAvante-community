@@ -1,0 +1,124 @@
+<div class="row justify-content-center mb-auto mt-5">
+
+    <div class="box1 box" *ngIf="userLogged">
+    <form><!-- [formGroup]="userForm" -->
+      <div class="content  w-50 mx-auto">
+        <div class="image-upload">
+          <div class="image">
+            <label for="file-input">
+                <img src="{{userLogged.url}}" style="max-height: 120px;">
+            </label>
+          </div>
+          <input id="file-input" class="imageProfileUpload" type="file" (change)="updateImage()" #photo />
+        </div>
+        
+        <div class="level">
+            <!-- <input class="form-control" formControlName> -->
+          <p>{{userLogged.role}}</p>
+        </div>
+        <div class="text">
+            <div class="d-flex m-3" style="font-size: 20px;">
+              <p>{{userLogged.fullName}}</p>  
+            </div>
+            <div class="d-flex m-3" style="font-size: 16px;">
+              <p>@{{userLogged.username}}</p>
+            </div>
+          <div class="d-flex m-3" style="font-size: 16px;">
+              <p>{{userLogged.proffesion}}</p>
+          </div>
+        </div>
+        <div class="icons">
+          <button>
+            <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{userLogged.instagram}}"></a>
+          </button>
+          <button>
+            <a class="fa fa-twitter" style="text-decoration: none;color: black;" href="{{userLogged.twitter}}"></a>
+          </button>
+          <button>
+            <a class="fa fa-linkedin" style="text-decoration: none;color: black;" href="{{userLogged.linkedin}}"></a>
+          </button>
+          <button>
+            <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{userLogged.facebook}}"></a>
+          </button>
+        </div>
+        <div class="button">
+          <div>
+            <button class="message" type="button">Abrir chat</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col-1"></div>
+  <div class="container col-10 m-5">
+    <div class="card text-center">
+        <div class="card-header" (click)="hide()">
+            <h5 class="card-title m-3">Modificar tus datos</h5>
+        </div>
+        <div class="card-body p-4 row" [ngClass]="edit ? 'show' : 'hide'">
+
+          <div class="col-2"></div>
+
+          <div class="col-12">
+
+            <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+            <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
+            
+            <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+            <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
+            
+            <label style="float: left;;margin-bottom: 1em;">Profesión:</label>
+            <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
+
+            <label style="float: left;;margin-bottom: 1em;">Centro de trabajo:</label>
+            <input class="form-control my-3 w-100" type="text" placeholder="Empresas" #jobCentre  [(ngModel)]="userForm.jobCentre">
+            
+          </div>
+
+            <div class="col-2"></div>
+            
+            <hr>
+
+            <div class="col-1"></div>
+
+            <div class="col-10 my-3">
+            <div class="row mb-3">
+            
+            <div class="col-12">
+                <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
+                <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
+            </div>
+
+            </div>
+          </div>
+
+            <div class="col-1"></div>
+
+
+            <hr>
+
+            <div class="col-2"></div>
+
+            <div class="col-8 my-3">
+              <label style="float: left;;margin-bottom: 1em;">Instagram:</label>
+              <input class="form-control my-3" type="text" placeholder="Instagram" #fullName  [(ngModel)]="userForm.instagram">
+              <label style="float: left;;margin-bottom: 1em;">Twitter:</label>
+              <input class="form-control my-3" type="text" placeholder="Twitter" #fullName  [(ngModel)]="userForm.twitter">
+              <label style="float: left;;margin-bottom: 1em;">Facebook:</label>
+              <input class="form-control my-3" type="text" placeholder="Facebook" #fullName  [(ngModel)]="userForm.facebook">
+              <label style="float: left;;margin-bottom: 1em;">LinkedIn:</label>
+              <input class="form-control my-3" type="text" placeholder="LinkedIn" #fullName  [(ngModel)]="userForm.linkedin">
+            </div>
+            <div class="col-2"></div>
+
+                
+        <div class="row mx-3">
+            <div class="col-3"></div>
+            <button class="text-white btn btn-primary mb-3 col-6" (click)="updateProfile()">Actualizar perfil</button>
+            <div class="col-3"></div>
+          </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+</div>

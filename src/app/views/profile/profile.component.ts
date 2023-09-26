@@ -87,8 +87,6 @@ export class ProfileComponent implements OnInit{
 
   ngOnInit(): void {
     this.payloadFactory('posts');
-    console.log(this.user.value());
-
   }
 
   updateProfile = () => {
@@ -124,8 +122,6 @@ export class ProfileComponent implements OnInit{
 
     let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
     
-    console.log(file);
-
     this.userService.updateImage(file).subscribe((res)=> {
       console.log(res);
     },(error: any) => {
