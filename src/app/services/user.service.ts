@@ -46,10 +46,9 @@ export class UserService implements OnInit{
   }
   
 
-  getUser = (id = null):any => {
-    return this.http.post(`${this.baseUrl}/user/getUser`, id).subscribe((res:any)=> {
-      return res;
-    });  }
+  getUser = (id):any => {
+    return this.http.get(`${this.baseUrl}/user/`+id);
+  }
 
   getUserByEmail = (email = null):Observable<any> => {
     return this.http.get(`${this.baseUrl}/user/email/${email}`)

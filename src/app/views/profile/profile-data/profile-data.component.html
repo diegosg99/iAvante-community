@@ -6,7 +6,7 @@
         <div class="image-upload">
           <div class="image">
             <label for="file-input">
-                <img src="{{userLogged.url}}" style="max-height: 120px;">
+                <img src="{{userLogged.url}}" style="max-height: 120px;border:3px solid #fff;">
             </label>
           </div>
           <input id="file-input" class="imageProfileUpload" type="file" (change)="updateImage()" #photo />
@@ -41,11 +41,11 @@
             <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{userLogged.facebook}}"></a>
           </button>
         </div>
-        <div class="button">
+        <!-- <div class="button">
           <div>
             <button class="message" type="button">Abrir chat</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </form>
     <div class="col-1"></div>

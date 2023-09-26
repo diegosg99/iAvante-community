@@ -44,6 +44,7 @@ import { AboutUsComponent } from './views/about-us/about-us.component';
 import { LandingComponent } from './views/landing/landing.component';
 import { ProfileDataComponent } from './views/profile/profile-data/profile-data.component';
 import { ProfileTableComponent } from './views/profile/profile-table/profile-table.component';
+import { OtherProfileComponent } from './views/profile/other-profile/other-profile.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { ProfileTableComponent } from './views/profile/profile-table/profile-tab
     LandingComponent,
     ProfileDataComponent,
     ProfileTableComponent,
+    OtherProfileComponent,
   ],
   imports: [
     BrowserModule,

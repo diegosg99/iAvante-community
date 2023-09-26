@@ -167,13 +167,28 @@ exports.updateUser = (req, res) => {
 
 // Controlador para obtener un usuario por su ID
 exports.getUserById = (req, res) => {
-    const sql = 'SELECT * FROM users';
+
+    let uid = req.params.uid;
+
+    const sql = `SELECT u.*,i.url as url
+    FROM media_users as m 
+        INNER JOIN users as u 
+              ON u.photo = m.uid 
+        INNER JOIN images as i 
+              ON m.id_media = i.id
+    WHERE u.uid ='${uid}'`;
     connection.query(sql, (err, rows) => {
       if (err) {
         console.error('Error fetching users:', err);
         return res.status(500).json({ error: 'Internal Server Error' });
       }
-      res.status(200).json(rows);
+
+      const filepath = path.resolve(rows[0].url);
+
+        base64img = toolService.convertImageToBase64(filepath);
+        newUser = {...rows[0],url:base64img};
+
+      res.status(200).json(newUser);
     });
 };
 
@@ -220,21 +235,15 @@ exports.uploadImage = (req,res) => {
 }
 
 // exports.getImage = (req,res) => {
-
 //     try {
 //         let category = req.file.originalname.split('.')[0];
 //         let uid = req.file.originalname.split('.')[1];
-
-
-        
-
 //     }
 //     catch (error) {
 //         console.error('Error al registrar usuario:', error);
 //         res.status(500).json({ error: 'Error interno del servidor' });
 //     }
 // }
-
 //---------------------Linkea el contenido de media con el usuario
 
 uploadImageToDB = (data) => {
