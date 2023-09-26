@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { FollowService } from 'src/app/services/follow.service';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,11 +11,12 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.scss']
 })
-export class MembersComponent implements OnInit{
+export class MembersComponent implements OnInit,OnDestroy{
   
-  userLogged = this.auth.getUserLogged();
-  userId;
-  members:User[] = [];
+  userLoggedObservable = this.lockService.checkToken();
+  userLogged;
+  sub
+  members:Observable<any> = this.userService.getUsers();
   p = 1;
 
   ROLES = {
@@ -22,33 +25,17 @@ export class MembersComponent implements OnInit{
     docent: 'DOCENTE'
   }
 
-  constructor(private auth:OauthService, private userService: UserService, private followService: FollowService){
+  constructor(private lockService:LockService, private userService: UserService, private followService: FollowService){
 
   }
 
   ngOnInit(): void {
-    this.userLogged.subscribe(user=>{
-      this.userId = user.uid;
+    this.sub = this.userLoggedObservable.subscribe(user=>{
+      this.userLogged = user;
     });
-
-    this.userService.getUsers().subscribe((members: User)=>{
-      this.members = this.processUsers(members);
-    })   
   }
 
-  processUsers = (users) => {
-    let processedUsers: User[] = [];
-
-    users.forEach((question: any)=>{
-      let arraySegments = question.payload.doc._delegate._key.path.segments;
-      let questionId = arraySegments[arraySegments.length - 1];
-
-      let processedUser = {...question.payload.doc.data()}
-      processedUser.role = this.ROLES[processedUser.role];
-
-      processedUsers.push({id:questionId,...processedUser});
-    })
-
-    return processedUsers;
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

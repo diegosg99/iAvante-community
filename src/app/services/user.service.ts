@@ -56,7 +56,7 @@ export class UserService implements OnInit{
   }
 
   getUsers = ():Observable<any> => {
-    return this.firebase.collection('users').snapshotChanges();
+    return this.http.get(`${this.baseUrl}/users`);
   }
 
   getCategoryQuestions = (category):Observable<any> => {

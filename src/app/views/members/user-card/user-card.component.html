@@ -1,13 +1,15 @@
-<div class="box2 box mx-auto">
-    <div class="content">
+<div class="box2 box mx-auto patternBG">
+    <div class="bg-soft" style="margin-top: 4rem;padding-right: 0px!important;padding-left: 0px!important;">
       <div class="row">
         <div class="image">
-          <img src="{{user.photo}}" style="max-height: 80px;" alt="Profile Image">
+          <a href="#/profile/{{user.uid}}">
+            <img src="{{user.url}}" style="max-height: 100px;" height="100px" width="120px" alt="Profile Image">
+          </a>
         </div>
         <div class="row">
           <div class="post col-4">
             <p>Posts</p>
-            <h5>{{posts}}</h5>
+            <h5>{{user.posts}}</h5>
           </div>
           <div class="followers col-4">
             <p>Followers</p>
@@ -23,7 +25,7 @@
         <div class="col-3"></div>
         <div class="col-6">
           <div class="button my-0">
-            <div *ngIf="user.uid !== userId">
+            <div *ngIf="user.uid !== userLogged.uid">
               <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Dejar de seguir</button>
               <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Seguir</button>
             </div>
@@ -42,7 +44,7 @@
       <div class="text">
         <div class="row">
             <div class="col-12">
-                <p class="name">{{user.fullName}}</p>
+                <p class="name text-center">{{user.fullname}}</p>
             </div>
             <div class="col-8">
               <p class="job_title">{{user.proffesion}}</p>
@@ -58,16 +60,16 @@
       </div>
       <div class="icons">
         <button>
-          <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{user.instagram.stringValue}}"></a>
+          <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{user.instagram}}"></a>
         </button>
         <button>
-          <i class="fa fa-twitter" href="user.twitter"></i>
+          <a class="fa fa-twitter" style="text-decoration: none;color: black;" href="{{user.twitter}}"></a>
         </button>
         <button>
-          <i class="fa fa-linkedin" href="user.linkedin"></i>
+          <a class="fa fa-linkedin" style="text-decoration: none;color: black;" href="{{user.linkedin}}"></a>
         </button>
         <button>
-          <i class="fa fa-facebook" href="user.facebook"></i>
+          <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{user.facebook}}"></a>
         </button>
       </div>
     </div>

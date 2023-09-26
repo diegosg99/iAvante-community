@@ -116,13 +116,33 @@ exports.registerUser = async (req, res) => {
 
 // Controlador para obtener todos los usuarios
 exports.getAllUsers = (req, res) => {
-  const sql = 'SELECT * FROM users';
+
+    let base64img;
+    let newUser;
+    let usersData = [];
+
+  const sql = `
+  SELECT u.*,i.url as url
+  FROM media_users as m 
+      INNER JOIN users as u 
+            ON u.photo = m.uid 
+      INNER JOIN images as i 
+            ON m.id_media = i.id`;
   connection.query(sql, (err, rows) => {
     if (err) {
       console.error('Error fetching users:', err);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
-    res.status(200).json(rows);
+
+    rows.forEach(row => {
+        const filepath = path.resolve(row.url);
+
+        base64img = toolService.convertImageToBase64(filepath);
+        newUser = {...row,url:base64img};
+        usersData.push(newUser);
+    });
+
+    res.status(200).json(usersData);
   });
 };
 
