@@ -7,7 +7,7 @@ import { UploadPostComponent } from './views/upload-post/upload-post.component';
 import { PostComponent } from './views/post/post.component';
 import { NewsComponent } from './views/news/news.component';
 import { ForumComponent } from './views/forum/forum.component';
-import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
+import { ForumQuestionComponent } from './views/forum/forum-question/forum-question.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
 import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';

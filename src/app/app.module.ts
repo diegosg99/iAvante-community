@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from './environments/environment';
-import { getAuth } from '@firebase/auth';
 import { OauthService } from './services/oauth.service';
 import { LockService } from './services/lock.service';
 import { NavbarComponent } from './views/navbar/navbar.component';
@@ -28,20 +27,21 @@ import { NewsComponent } from './views/news/news.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NewsService } from './services/news.service';
 import { ForumComponent } from './views/forum/forum.component';
-import { ForumCategoriesComponent } from './views/forum-categories/forum-categories.component';
-import { ForumCommentComponent } from './views/forum-comment/forum-comment.component';
-import { ForumNewQuestionComponent } from './views/forum-new-question/forum-new-question.component';
-import { ForumQuestionComponent } from './views/forum-question/forum-question.component';
-import { ForumResponseComponent } from './views/forum-response/forum-response.component';
+import { ForumCategoriesComponent } from './views/forum/forum-categories/forum-categories.component';
+import { ForumCommentComponent } from './views/forum/forum-comment/forum-comment.component';
+import { ForumNewQuestionComponent } from './views/forum/forum-new-question/forum-new-question.component';
+import { ForumQuestionComponent } from './views/forum/forum-question/forum-question.component';
+import { ForumResponseComponent } from './views/forum/forum-response/forum-response.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { MembersComponent } from './views/members/members.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { QuestionListComponent } from './views/question-list/question-list.component';
+import { QuestionListComponent } from './views/forum/question-list/question-list.component';
 import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.component';
 import { UserCardComponent } from './views/members/user-card/user-card.component';
 import { FullPostComponent } from './views/post/full-post/full-post.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AboutUsComponent } from './views/about-us/about-us.component';
+import { LandingComponent } from './views/landing/landing.component';
 
 
 @NgModule({
@@ -72,6 +72,7 @@ import { AboutUsComponent } from './views/about-us/about-us.component';
     UserCardComponent,
     FullPostComponent,
     AboutUsComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
