@@ -6,7 +6,29 @@
             <img src="{{user.url}}" style="max-height: 100px;border:3px solid #fff;" height="100px" width="120px" alt="Profile Image">
           </a>
         </div>
+
+        <div class="text">
+          <div class="row">
+            <div class="col-12 p-3">
+              <p class="name text-center">{{user.fullname}}</p>
+            </div>
+            <div class="px-3 row">
+              <div class="col-6">
+                <p class="job_title">@{{user.username}}</p>
+              </div>
+              <div class="col-6">
+                <p class="job_title">{{user.proffesion}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- <div *ngIf="user.description">
+            <p class="about">Sobre mí</p>
+            <p class="job_discription">{{user.description}}</p>
+          </div> -->
+        </div>
+
         <div class="row">
+          
           <div class="post col-4">
             <p>Posts</p>
             <h5>{{user.posts}}</h5>
@@ -26,8 +48,8 @@
         <div class="col-6">
           <div class="button my-0">
             <div *ngIf="user.uid !== userLogged.uid">
-              <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Dejar de seguir</button>
-              <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser(user.uid)">Seguir</button>
+              <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="unfollowUser()">Dejar de seguir</button>
+              <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser()">Seguir</button>
             </div>
           </div>
         </div>
@@ -41,23 +63,7 @@
           </div>
         </div> -->
       </div>
-      <div class="text">
-        <div class="row">
-            <div class="col-12">
-                <p class="name text-center">{{user.fullname}}</p>
-            </div>
-            <div class="col-8">
-              <p class="job_title">{{user.proffesion}}</p>
-            </div>
-            <div class="col-4">
-              <p class="job_title">@{{user.username}}</p>
-            </div>
-        </div>
-        <div *ngIf="user.description">
-          <p class="about">About</p>
-          <p class="job_discription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, placeat obcaecati. Eaque fugit eveniet error voluptates totam enim molestias vitae, amet aliquid deleniti ipsa ea.</p>
-        </div>
-      </div>
+      
       <div class="icons">
         <button>
           <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{user.instagram}}"></a>

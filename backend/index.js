@@ -4,8 +4,9 @@ const morgan = require('morgan');
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-const usersRoutes = require('./routes/users.routes'); // Importa las rutas
-const questionRoutes = require('./routes/questions.routes'); // Importa las rutas
+const usersRoutes = require('./routes/users.routes');
+const questionRoutes = require('./routes/questions.routes');
+const followRoutes = require('./routes/follow.routes');
 
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
@@ -14,6 +15,7 @@ app.use(morgan('dev'));
 // Usa las rutas importadas
 app.use('/api', usersRoutes);
 app.use('/api', questionRoutes);
+app.use('/api', followRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
-import { OauthService } from 'src/app/services/oauth.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -10,35 +10,40 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class UserCardComponent implements OnInit{
 
-  followed;
   @Input() user;
   @Input() userLogged;
-  // userLogged = this.auth.getUserLogged();
-  userId;
+
+  $followed: Observable<any> | any;
+  followed: any;
 
   followers;
   following;
   posts;
 
-  constructor(private auth:OauthService, private followService:FollowService,private postService: PostService){}
+  constructor(private followService:FollowService,private postService: PostService){}
 
   ngOnInit(): void {
-    console.log(this.user);
-    console.log(this.userLogged);
+    this.$followed = this.checkFollowed();
   }
 
-  followUser = (userId) => {
-    console.log('Previo:')
-    console.log(this.followed);
-    this.followed?
-      this.followed = this.followService.unfollowUser(userId,this.userId):
-      this.followed = this.followService.followUser(userId,this.userId);
-    console.log(this.followed);
+  followUser = () => {
+    return this.followService.followUser(this.user.uid,this.userLogged.uid).subscribe(res=>{
+      console.log(res);
+      this.followed = res;
+    });
+  }
+
+  unfollowUser = () => {
+    return this.followService.unfollowUser(this.user.uid,this.userLogged.uid).subscribe(res=>{
+      console.log(res);
+      this.followed = res;
+    });
   }
 
   checkFollowed = () => {
-    this.followService.checkFollow(this.user.uid,this.userId).subscribe(res=>{
-      res.length == 0 ? this.followed = false : this.followed = true;
+    return this.followService.checkFollow(this.user.uid,this.userLogged.uid).subscribe(res=>{
+      console.log(res);
+      this.followed = res;
     });
   }
 

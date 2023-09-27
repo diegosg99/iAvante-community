@@ -1,65 +1,56 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { OauthService } from './oauth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FollowService {
 
-  userId;
+  private baseUrl = 'http://localhost:3003/api';
 
-  constructor(private firebase: AngularFirestore,private auth:OauthService) { }
+
+  constructor(private auth:OauthService, private http: HttpClient) { }
 
   ngOnInit(): void {}
 
-  getUserFollows = (userId) => {
-    return this.firebase.collection("follow",ref=>ref.where('follower','==',userId)).snapshotChanges();
+  getUserFollows = (userId):any => {
+    return this.http.post(`${this.baseUrl}/get/follows`, userId);
   }
 
-  getUserFollowers = (userId) => {
-    return this.firebase.collection("follow",ref=>ref.where('userId','==',userId)).snapshotChanges();
+  getUserFollowers = (userId):any => {
+    return this.http.post(`${this.baseUrl}/get/followers`, userId);
   }
 
   followUser = (followed,follower) => {
     const FOLLOW = {
-      userId: followed,
+      followed: followed,
       follower: follower,
       both: followed+'&union&'+follower
     }
 
-    this.firebase.collection("follow").add({...FOLLOW});
-
-    return true;
+    return this.http.post(`${this.baseUrl}/follow`, FOLLOW);
   }
 
   unfollowUser = (followed,follower) => {
-
-    let docId;
     
-    this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges().subscribe((user:any)=> {
-      docId = user[0].payload.doc._delegate._key.path.segments[user[0].payload.doc._delegate._key.path.segments.length -1];
-    
-      this.firebase.collection("follow").doc(docId).delete().then(()=>{
-        console.log('Dejaste de seguir a '+followed);
-      });
-    })
+    const FOLLOW = {
+      followed: followed,
+      follower: follower,
+      both: followed+'&union&'+follower
+    }
 
-    return false;
+    return this.http.post(`${this.baseUrl}/unfollow`, FOLLOW);
   }
 
   checkFollow = (followed,follower) => {
-    return this.firebase.collection("follow",ref=>ref.where('both','==',followed+'&union&'+follower)).snapshotChanges();
+
+    const FOLLOW = {
+      followed: followed,
+      follower: follower,
+      both: followed+'&union&'+follower
+    }
+
+    return this.http.post(`${this.baseUrl}/follow/check`, FOLLOW);
   }
-  
-  // getFollowers = () => {
-  //   return this.firebase.collection('follow',ref => ref.where('categoria','==',category)).snapshotChanges();
-  // }
-  // getFollowed = () => {
-
-  // }
-
-  // processFollows = (user) => {
-  //   return {docId:user.payload.doc._delegate._key.path.segments[user.payload.doc._delegate._key.path.segments.length -1],...user.payload.doc.data()};
-  // }
 }
