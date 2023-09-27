@@ -39,8 +39,10 @@ export class ProfileDataComponent {
   userForm = {
     username: '',
     fullName: '',
+    location: '',
     proffesion: '',
     jobCentre: '',
+    description: '',
     photo: '',
     age: '',
     instagram: '',
@@ -53,16 +55,15 @@ export class ProfileDataComponent {
 
   updateProfile = () => {
 
-    let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
-
     const USER: any = {
       uid: this.userLogged.uid,
       username: this.userForm.username,
       fullName: this.userForm.fullName,
+      location: this.userForm.location,
       proffesion: this.userForm.proffesion,
       jobCentre: this.userForm.jobCentre,
+      description: this.userForm.description,
       role: 'USUARIO',
-      photo: file,
       age: this.userForm.age,
       instagram: this.userForm.instagram,
       facebook: this.userForm.facebook,
@@ -73,9 +74,9 @@ export class ProfileDataComponent {
     console.log(USER);
 
     this.userService.updateUser(USER).then(()=> {
-      this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+      this.toastr.success('Has actualizado tus datos.','¡Genial!');
     },(error: any) => {
-      this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
+      this.toastr.error('Oops.. Ha habido un problema al actualizar los datos... ¡Intentalo más tarde!','Error!')
       console.log(error);
     });
   }

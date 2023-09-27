@@ -29,7 +29,7 @@ router.post('/user/register',upload.single('file'), usersController.registerUser
 
 router.get('/users', usersController.getAllUsers);
 
-router.put('/user/update', usersController.updateUser);
+router.post('/user/update', usersController.updateUser);
 
 router.get('/user/:uid', usersController.getUserById);
 

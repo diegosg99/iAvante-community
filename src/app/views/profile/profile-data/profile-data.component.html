@@ -66,11 +66,17 @@
             <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
             <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
             
+            <label style="float: left;;margin-bottom: 1em;">Ubicación:</label>
+            <input class="form-control my-3 w-100" type="text" placeholder="Ubicación" #location  [(ngModel)]="userForm.location">
+
             <label style="float: left;;margin-bottom: 1em;">Profesión:</label>
             <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
 
             <label style="float: left;;margin-bottom: 1em;">Centro de trabajo:</label>
             <input class="form-control my-3 w-100" type="text" placeholder="Empresas" #jobCentre  [(ngModel)]="userForm.jobCentre">
+
+            <label style="float: left;;margin-bottom: 1em;">Sobre mí:</label>
+            <input class="form-control my-3 w-100" type="text" placeholder="Sobre mí" #description  [(ngModel)]="userForm.description">
             
           </div>
 

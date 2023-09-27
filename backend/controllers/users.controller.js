@@ -8,8 +8,6 @@ var fs = require("fs");
 
 const secret = "Bearer";
 
-
-// Controlador para loguear un usuario
 exports.loginUser = async (req, res) => {
     let data = req.body;
 
@@ -69,7 +67,6 @@ exports.verifyToken = (req, res) => {
     }
 }
 
-// Controlador para registrar un nuevo usuario
 exports.registerUser = async (req, res) => {
     let data = req.body;
 
@@ -114,7 +111,6 @@ exports.registerUser = async (req, res) => {
     }
 };
 
-// Controlador para obtener todos los usuarios
 exports.getAllUsers = (req, res) => {
 
     let base64img;
@@ -146,14 +142,29 @@ exports.getAllUsers = (req, res) => {
   });
 };
 
-// Controlador para actualizar un usuario
 exports.updateUser = (req, res) => {
     let data = req.body;
 
+    console.log(data);
+
+    let sqlFields = '';
+
+    Object.entries(data).forEach(entry => {
+        const [i, value] = entry;
+        if (value) {
+            sqlFields+=i+'="'+value+'",'
+        }
+    });
+
+    sqlFields = sqlFields.substring(0, sqlFields.length - 1);
+
     try {
-        let sql = `UPDATE users 
-                        SET ${data.photo?'photo = "'+data.photo+'"':""}                            
-                        WHERE uid = '${data.uid}'`;
+        let sql = `UPDATE users SET 
+                        ${sqlFields}                            
+                    WHERE uid = '${data.uid}'`;
+
+            console.log(sql);
+
             connection.query(sql, function(err, rows, fields) {
                 if (err) throw err;
                 res.status(201).json({ message: 'Usuario registrado exitosamente',code:201 });
@@ -165,7 +176,6 @@ exports.updateUser = (req, res) => {
     }
 };
 
-// Controlador para obtener un usuario por su ID
 exports.getUserById = (req, res) => {
 
     let uid = req.params.uid;
