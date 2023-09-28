@@ -57,7 +57,7 @@
                                 <i class="fa-solid fa-image form-control"></i>
                             </span>
                             </div>
-                            <input type="file" (change)="imagePreview($event)" class="form-control" placeholder="Foto del artículo" formControlName="photo">
+                            <input id="file-input" class="form-control" type="file" (change)="updateImage()" #photo formControlName="photo" />
                         </div>
                     </div>
                 </div>                

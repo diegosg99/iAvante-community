@@ -34,7 +34,8 @@
             </p>
           </div>
           <div class="profile-btn">
-            <button class="createbtn" id="Create-post"><i class="fa fa-plus"></i>Seguir</button>
+            <button *ngIf="followed" class="createbtn" (click)="unfollowUser()" style="font-size: 14px;"><i class="fa fa-plus"></i>Dejar de seguir</button>
+            <button *ngIf="!followed" class="createbtn" (click)="followUser()"><i class="fa fa-plus"></i>Seguir</button>
             <button class="chatbtn" id="chatBtn"><i class="fa fa-comment"></i>Chat</button>
           </div>
           <!-- <div class="user-rating">

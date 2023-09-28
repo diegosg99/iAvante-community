@@ -17,7 +17,7 @@
 
 <div class="row" *ngIf="userLogged.uid !== userId">
 
-  <app-other-profile [user]="user"></app-other-profile>
+  <app-other-profile [user]="user" [userLogged]="userLogged"></app-other-profile>
 
 </div>
   
