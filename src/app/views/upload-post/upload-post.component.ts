@@ -18,17 +18,12 @@ export class UploadPostComponent implements OnInit{
   form: FormGroup;
   loading:boolean = false;
   userLogged:any;
+  files = [];
 
   @ViewChild('photo',{static:false})fileInput: ElementRef;
 
-
-  imageFile: { link: string; file: any; name: string; } | any;
-  imageRaw: { link: string; file: any; name: string; } | any;
-
-  userUID:any = this.auth.getUserLogged().subscribe();
-
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private _postService:PostService,
     private toastr: ToastrService,
     private auth: OauthService,
@@ -36,21 +31,17 @@ export class UploadPostComponent implements OnInit{
      private userService: UserService,
      private lockService: LockService
   ) {
-    this.form = fb.group({
+
+    this.form = this.fb.group({
       titulo: ['',Validators.required],
       descripcion: ['',[Validators.required,Validators.minLength(16)]],
-      photo: [''],
+      photo: this.fb.array([]),
       categoria: ['',Validators.required],
     });
-    this.auth.getUserLogged().subscribe(user=> {
-      this.userUID = user.uid
-    })
 
     this.lockService.checkToken().subscribe(res=>{
       this.userLogged = res;
     });
-
-    //this.userLogged.subscribe(console.log);
   }
 
   ngOnInit(): void {}
@@ -66,26 +57,33 @@ export class UploadPostComponent implements OnInit{
   uploadPost = () => {
 
     const POST: any = {
+      uid: this.uuidv4(),
       title: this.form.value.titulo,
       descripcion: this.form.value.descripcion,
-      photo: this.imageFile.link,
       categoria: this.form.value.categoria,
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
-      usuario: this.userUID
+      usuario: this.userLogged.uid
     }
 
-    this.loading = true;
+    try {
+      let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
 
-    this._postService.uploadPost(POST,this.imageRaw).then(()=> {
-      this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
-      this.form.reset();
-      this.loading = false;
-    },(error: any) => {
-      this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
+      console.log(file);
+
+      POST.photo = file;
+
+      this._postService.uploadPost(POST).then(()=> {
+        this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+        this.form.reset();
+      },(error: any) => {
+        this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
+        console.log(error);
+      });
+      
+    } catch (error) {
       console.log(error);
-      this.loading = false;
-    });
+    }
   }
 
   // editarPost = (id:string) => {
@@ -102,31 +100,15 @@ export class UploadPostComponent implements OnInit{
   // }
 
   updateImage = () => {
-
-    let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
-    
-    this.userService.updateImage(file).subscribe((res)=> {
-      console.log(res);
-    },(error: any) => {
-      console.log(error);
-    });
+    this.files.push(this.imageService.processImage(this.fileInput,this.userLogged.uid,'post.'));
+    console.log(this.files);
   }
 
-  // imagePreview = (event: any) => {
-
-  //   if (event.target.files && event.target.files[0]) {
-  //     this.imageRaw = event.target.files[0];
-
-  //     const reader = new FileReader();
-
-  //     reader.onload = (_event: any) => {
-  //         this.imageFile = {
-  //             link: _event.target.result,
-  //             file: event.srcElement.files[0],
-  //             name: event.srcElement.files[0].name
-  //         };
-  //     };
-  //     reader.readAsDataURL(event.target.files[0]);
-  // }
-  // }
+  uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
 }

@@ -3,37 +3,25 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { Post } from '../models/Post';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  private storage = getStorage();
+  private baseUrl = 'http://localhost:3003/api';
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(private firebase: AngularFirestore, private http: HttpClient) { }
 
-  uploadPost = (post: Post,image:any): Promise<any> => {
+  uploadPost = (post: Post): any => {
 
-    let imagePath = 'images/'+image.name;
-
-    let imagesRef = ref(this.storage, imagePath);
-    let imageRef = ref(this.storage,imagePath);
-
-    return uploadBytes(imagesRef, image).then((snapshot) => {
-
-      getDownloadURL(imageRef).then((downloadURL) => {
-
-        post.photo = downloadURL;
-        this.firebase.collection('posts').add(post)
-          .then(()=>{
-            console.log('Publicación subida con éxito.')
-          }, error => {
-            console.log(error);
-          });
-      });
-    });
   }
+
+  uploadPostImage = (file:any): any => {
+    return this.http.post(`${this.baseUrl}/upload/image`, file);
+  }
+  
 
   getPosts = ():Observable<any> => {
     return this.firebase.collection('posts',ref => ref.orderBy('fechaActualizacion','desc')).snapshotChanges();

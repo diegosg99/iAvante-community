@@ -45,6 +45,7 @@ import { LandingComponent } from './views/landing/landing.component';
 import { ProfileDataComponent } from './views/profile/profile-data/profile-data.component';
 import { ProfileTableComponent } from './views/profile/profile-table/profile-table.component';
 import { OtherProfileComponent } from './views/profile/other-profile/other-profile.component';
+import { PostImageUploaderComponent } from './views/media/post-image-uploader/post-image-uploader.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { OtherProfileComponent } from './views/profile/other-profile/other-profi
     ProfileDataComponent,
     ProfileTableComponent,
     OtherProfileComponent,
+    PostImageUploaderComponent,
   ],
   imports: [
     BrowserModule,

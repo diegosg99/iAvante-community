@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3003;
 const usersRoutes = require('./routes/users.routes');
 const questionRoutes = require('./routes/questions.routes');
 const followRoutes = require('./routes/follow.routes');
+const postRoutes = require('./routes/posts.routes');
 
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 app.use('/api', usersRoutes);
 app.use('/api', questionRoutes);
 app.use('/api', followRoutes);
+app.use('/api', postRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -10,44 +10,35 @@ export class ImageService {
 
   constructor() { }
 
-  imagePreview = (event,uid) => {
+  // imagePreview = (event,uid) => {
 
-    if (event.target.files && event.target.files[0]) {
-      this.imageRaw = event.target.files[0];
+  //   if (event.target.files && event.target.files[0]) {
+  //     this.imageRaw = event.target.files[0];
 
-      const reader = new FileReader();
+  //     const reader = new FileReader();
 
-      reader.onload = (_event: any) => {
-          this.imageFile = {
-              link: _event.target.result,
-              file: event.srcElement.files[0],
-              user_id: uid,
-              name: event.srcElement.files[0].name,
-              type: 0,
-              cat: 'profile'
-          };
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
+  //     reader.onload = (_event: any) => {
+  //         this.imageFile = {
+  //             link: _event.target.result,
+  //             file: event.srcElement.files[0],
+  //             user_id: uid,
+  //             name: event.srcElement.files[0].name,
+  //             type: 0,
+  //             cat: 'profile'
+  //         };
+  //     };
+  //     reader.readAsDataURL(event.target.files[0]);
+  //   }
+  // }
 
 
-  processImage = (fileRaw:ElementRef,uid:string) => {
-
+  processImage = (fileRaw:ElementRef,uid:string,prefix='profile.') => {
 
     let imageBlob = fileRaw.nativeElement.files[0];
-
     let type = imageBlob.name.split('.')[1];
-
-    console.log(imageBlob.name.split('.')[1]);
-
     let file:any = new FormData();    
 
-    console.log(type);
-
-    file.set('file',imageBlob,'profile.'+uid+'.'+type);
-
-    console.log(file);
+    file.set('file',imageBlob,prefix+uid+'.'+type);
     
     return file;
   }
