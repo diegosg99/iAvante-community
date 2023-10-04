@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/services/post.service';
@@ -18,9 +18,18 @@ export class UploadPostComponent implements OnInit{
   form: FormGroup;
   loading:boolean = false;
   userLogged:any;
-  files = [];
+  files;
+
+  //imagenes al servidor
+  imgArray;
+  slides;
+
+  //imagenes para cliente
+  $base64;
 
   @ViewChild('photo',{static:false})fileInput: ElementRef;
+  @ViewChild('imgWrap',{static:false})imgWrap: ElementRef;
+
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +53,10 @@ export class UploadPostComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   
+  }
+
 
   postArticle = () => {
     //if (this.id == undefined) {
@@ -99,11 +111,96 @@ export class UploadPostComponent implements OnInit{
 
   // }
 
+  imgUpload = async (e) => {
+
+    this.files = e.target.files;
+
+    let promises  = [];
+
+    let html = "";
+    this.imgArray = [];
+    this.$base64 = [];
+    this.imgWrap.nativeElement.innerHTML = html;
+
+    Array.from(this.files).forEach((file) => { 
+        let image = this.imageService.processImage(file,this.userLogged.uid, 'post.');
+        this.imgArray.push(image);
+
+        promises.push(this.imageService.getBase64(file));
+    });
+
+
+
+    await Promise.all(promises).then((base64) => {
+          
+      let html = "";
+
+      base64.forEach(image => {
+        this.$base64.push(image);
+
+        html += `<img src='${image}' class="base64Img"/>`;
+      })
+      
+      this.imgWrap.nativeElement.innerHTML = html;
+      this.updateClasses();
+    })
+    .catch(error => console.log(`Error en las promesas ${error}`))
+
+  }
+
+  updateClasses = () => {
+
+    let slide = `
+    height: 40vh;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    color: #fff;
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    transition: all 0.5s ease-in-out;`
+
+    let imgNum = 1;
+    let active = ' active';
+
+    let elems = document.getElementsByClassName('base64Img');
+    Array.from(elems).forEach(elem => {
+      active = imgNum == 1? ' active':'';
+      elem.setAttribute('style',slide);
+
+      elem.className = `base64Img slide${active}`;
+      imgNum++;
+    });
+
+    //this.initSlides();
+  }
+
   updateImage = () => {
     this.files.push(this.imageService.processImage(this.fileInput,this.userLogged.uid,'post.'));
     console.log(this.files);
   }
+  
+  clearActiveClasses = () => {
 
+    this.slides.forEach((slide) => {
+        slide.classList.remove('active')
+    })
+  }
+
+  initSlides = () => {
+    this.slides = document.querySelectorAll('.slide')
+
+    this.slides.forEach(slide => {
+        slide.addEventListener('click', () => {
+            this.clearActiveClasses()
+            slide.classList.add('active')
+        })
+    })
+  }
+  
   uuidv4 = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
       const r = Math.random() * 16 | 0;
@@ -112,3 +209,4 @@ export class UploadPostComponent implements OnInit{
     });
   }
 }
+

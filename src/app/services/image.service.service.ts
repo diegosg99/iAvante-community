@@ -32,9 +32,9 @@ export class ImageService {
   // }
 
 
-  processImage = (fileRaw:ElementRef,uid:string,prefix='profile.') => {
-
-    let imageBlob = fileRaw.nativeElement.files[0];
+  processImage = (fileRaw:any,uid:string,prefix='profile.') => {
+    
+    let imageBlob = fileRaw;
     let type = imageBlob.name.split('.')[1];
     let file:any = new FormData();    
 
@@ -42,4 +42,15 @@ export class ImageService {
     
     return file;
   }
+
+  getBase64 = (file) => {
+
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+    
+      reader.onabort = reject;
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+     });
+ }
 }
