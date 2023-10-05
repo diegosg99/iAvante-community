@@ -16,7 +16,7 @@ export class UserService implements OnInit{
   userId;
   userLogged;
 
-  private baseUrl = 'http://localhost:3003/api';
+  private baseUrl = 'http://10.111.249.108:3003/api';
 
   constructor(private firebase: AngularFirestore,private auth:OauthService,private http: HttpClient,private router:Router) { }
 

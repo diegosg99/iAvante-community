@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FollowService {
 
-  private baseUrl = 'http://localhost:3003/api';
+  private baseUrl = 'http://10.111.249.108:3003/api';
 
 
   constructor(private auth:OauthService, private http: HttpClient) { }

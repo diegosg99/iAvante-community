@@ -10,12 +10,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PostService {
 
-  private baseUrl = 'http://localhost:3003/api';
+  private baseUrl = 'http://10.111.249.108:3003/api';
 
   constructor(private firebase: AngularFirestore, private http: HttpClient) { }
 
-  uploadPost = (post: Post): any => {
-
+  uploadPost = (post: Post,files:any): any => {
+    return this.http.post(`${this.baseUrl}/post/upload`, {post:post,files: files});
   }
 
   uploadPostImage = (file:any): any => {
