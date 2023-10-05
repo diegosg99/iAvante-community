@@ -121,7 +121,6 @@ export class UploadPostComponent implements OnInit{
     this.imgArray = [];
     this.$base64 = [];
     this.imgWrap.nativeElement.innerHTML = html;
-    let imgNum = 1;
 
 
     Array.from(this.files).forEach((file) => {
@@ -133,25 +132,8 @@ export class UploadPostComponent implements OnInit{
 
 
 
-    await Promise.all(promises).then((base64) => {
-
-      let html = "";
-
-      base64.forEach(image => {
-        this.$base64.push(image);
-
-        html += `
-        <div style="position:relative;">
-          <img src='${image}' class="base64Img"/>
-          <i class="fa fa-xmark imgCross" data-photo="${imgNum}" style="color:white;position:absolute;top:1em;right:1em;padding: .3em;background-color: lightgray;border-radius: 14px;"></i>
-        </div>`;
-        imgNum++;
-
-      })
-
-      this.imgWrap.nativeElement.innerHTML = html;
-      this.updateClasses();
-      this.bindPhotos();
+    await Promise.all(promises).then((base64Arr) => {
+      this.printImages(base64Arr);
     })
     .catch(error => console.log(`Error en las promesas ${error}`))
 
@@ -160,7 +142,7 @@ export class UploadPostComponent implements OnInit{
   updateClasses = () => {
 
     let smallSlide = `
-    height: 16vh;
+    height: 20vh;
     border-radius: 20px;
     margin: 10px;
     cursor: pointer;
@@ -180,12 +162,13 @@ export class UploadPostComponent implements OnInit{
   }
 
   bindPhotos = () => {
+
     let photos = document.getElementsByClassName('base64Img');
     Array.from(photos).forEach(photo => {
       photo.addEventListener('click',this.handlePhoto);
     });
+
     let crosses = document.getElementsByClassName('imgCross');
-    console.log(crosses);
     Array.from(crosses).forEach(cross => {
       cross.addEventListener('click',this.deletePhoto);
     });
@@ -193,7 +176,7 @@ export class UploadPostComponent implements OnInit{
 
   handlePhoto = (e) => {
     let bigSlide = `
-    height: 36vh;
+    height: 40vh;
     border-radius: 20px;
     margin: 10px;
     cursor: pointer;
@@ -206,7 +189,7 @@ export class UploadPostComponent implements OnInit{
     transition: all 0.5s ease-in-out;`
 
     let smallSlide = `
-    height: 16vh;
+    height: 20vh;
     border-radius: 20px;
     margin: 10px;
     cursor: pointer;
@@ -226,7 +209,7 @@ export class UploadPostComponent implements OnInit{
       photo.setAttribute('style',smallSlide);
     });
     
-    e.target.style = selectedHeight=='36vh'?smallSlide:bigSlide;    
+    e.target.style = selectedHeight=='40vh'?smallSlide:bigSlide;    
   }
 
   updateImage = () => {
@@ -234,7 +217,39 @@ export class UploadPostComponent implements OnInit{
   }
 
   deletePhoto = (e) => {
-    console.log(e.target);
+
+    let index = e.target.dataset['photo'] - 1;
+    this.$base64.splice(index,1);
+    this.imgArray.splice(index,1);
+    let out = Array.from(this.files).splice(index,1);
+    this.files = Array.from(this.files).filter(el=>el!==out[0]);
+
+    this.printImages(this.$base64);
+  }
+
+  printImages = (base64Arr) => {
+
+      let html = '';
+      let imgNum = 1;
+      this.$base64 = [];
+
+      console.log(this.files);
+
+      base64Arr.forEach(image => {
+        this.$base64.push(image);
+
+        html += `
+        <div style="position:relative;">
+          <img src='${image}' class="base64Img"/>
+          <i class="fa fa-xmark imgCross" data-photo="${imgNum}" style="color:white;position:absolute;top:1em;right:1em;padding: .3em;background-color: lightgray;border-radius: 14px;"></i>
+        </div>`;
+        imgNum++;
+    })
+
+    this.imgWrap.nativeElement.innerHTML = html;
+
+    this.updateClasses();
+    this.bindPhotos();
   }
 
   uuidv4 = () => {
