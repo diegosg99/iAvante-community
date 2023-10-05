@@ -143,13 +143,13 @@ export class UploadPostComponent implements OnInit{
         html += `
         <div style="position:relative;">
           <img src='${image}' class="base64Img"/>
-          <i class="fa fa-xmark" class="imgCross" data-photo="${imgNum}" style="color:white;position:absolute;top:1em;right:1em;padding: .3em;background-color: lightgray;border-radius: 14px;"></i>
+          <i class="fa fa-xmark imgCross" data-photo="${imgNum}" style="color:white;position:absolute;top:1em;right:1em;padding: .3em;background-color: lightgray;border-radius: 14px;"></i>
         </div>`;
+        imgNum++;
+
       })
 
-      imgNum++;
       this.imgWrap.nativeElement.innerHTML = html;
-
       this.updateClasses();
       this.bindPhotos();
     })
@@ -172,25 +172,22 @@ export class UploadPostComponent implements OnInit{
     position: relative;
     transition: all 0.5s ease-in-out;`
 
-    let imgNum = 1;
-    let active = ' active';
-
     let elems = document.getElementsByClassName('base64Img');
     Array.from(elems).forEach(elem => {
-      // active = imgNum == 1? ' active':'';
       elem.setAttribute('style',smallSlide);
-
       elem.className = `base64Img slide`;
-      // imgNum++;
     });
-
-    //this.initSlides();
   }
 
   bindPhotos = () => {
     let photos = document.getElementsByClassName('base64Img');
     Array.from(photos).forEach(photo => {
       photo.addEventListener('click',this.handlePhoto);
+    });
+    let crosses = document.getElementsByClassName('imgCross');
+    console.log(crosses);
+    Array.from(crosses).forEach(cross => {
+      cross.addEventListener('click',this.deletePhoto);
     });
   }
 
@@ -221,39 +218,23 @@ export class UploadPostComponent implements OnInit{
     position: relative;
     transition: all 0.5s ease-in-out;`
 
+    let selectedHeight = e.target.style.height;
+
     let photos = document.getElementsByClassName('base64Img');
+    
     Array.from(photos).forEach(photo => {
       photo.setAttribute('style',smallSlide);
     });
-
-    e.target.style=bigSlide;
+    
+    e.target.style = selectedHeight=='36vh'?smallSlide:bigSlide;    
   }
 
   updateImage = () => {
     this.files.push(this.imageService.processImage(this.fileInput,this.userLogged.uid,'post.'));
-    console.log(this.files);
   }
 
-  clearActiveClasses = () => {
-
-    this.slides.forEach((slide) => {
-        slide.classList.remove('active')
-    })
-  }
-
-  deletePhoto = () => {
-    console.log('Buenas noches');
-  }
-
-  initSlides = () => {
-    this.slides = document.querySelectorAll('.slide')
-
-    this.slides.forEach(slide => {
-        slide.addEventListener('click', () => {
-            this.clearActiveClasses()
-            slide.classList.add('active')
-        })
-    })
+  deletePhoto = (e) => {
+    console.log(e.target);
   }
 
   uuidv4 = () => {

@@ -33,9 +33,6 @@ export class ImageService {
 
 
   processImage = (fileRaw:any,uid:string,prefix='profile.') => {
-    
-    console.log(fileRaw);
-    console.log(uid);
 
     let imageBlob = fileRaw;
     let type = imageBlob.name.split('.')[1];
