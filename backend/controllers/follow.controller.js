@@ -66,7 +66,7 @@ exports.getFollows = (req, res) => {
 
     try {
         
-        let sql = `SELECT * FROM users WHERE email = '${data.email}'`;
+        let sql = `SELECT * FROM follows AS f WHERE f.both = '${data.both}'`;
 
         connection.query(sql, function(err, rows, fields) {
             if (rows[0]){

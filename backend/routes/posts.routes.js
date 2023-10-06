@@ -23,11 +23,8 @@ const upload = multer({storage});
 
 // ------------------------------------------- User Routes -----------------------------------------------------
 
-// router.post('/user/login', postController.loginUser);
-
-// router.post('/user/verifyToken', postController.verifyToken);
-
 router.post('/post/upload', postController.uploadPost);
 router.post('/post/upload/media',upload.array('files'), postController.uploadPostMedia);
+router.post('/get/followed/posts', postController.getFollowedPosts);
 
 module.exports = router;

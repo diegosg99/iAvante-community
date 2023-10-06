@@ -46,6 +46,8 @@ import { ProfileDataComponent } from './views/profile/profile-data/profile-data.
 import { ProfileTableComponent } from './views/profile/profile-table/profile-table.component';
 import { OtherProfileComponent } from './views/profile/other-profile/other-profile.component';
 import { PostImageUploaderComponent } from './views/media/post-img-wrapper/post-img-wrapper.component';
+import { FollowsComponent } from './views/post/follows/follows.component';
+import { PostNewsComponent } from './views/post/news/news.component';
 
 
 @NgModule({
@@ -81,6 +83,8 @@ import { PostImageUploaderComponent } from './views/media/post-img-wrapper/post-
     ProfileTableComponent,
     OtherProfileComponent,
     PostImageUploaderComponent,
+    FollowsComponent,
+    PostNewsComponent
   ],
   imports: [
     BrowserModule,

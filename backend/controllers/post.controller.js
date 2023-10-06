@@ -1,12 +1,5 @@
 const connection = require('../database');
-const authService = require('../services/auth.service');
 const toolService = require('../services/tools.service');
-const jwt = require("jsonwebtoken");
-const path = require("path");
-const mime = require('mime');
-var fs = require("fs");
-
-const secret = "Bearer";
 
 exports.uploadPost = (req, res) => {
     let data = req.body;
@@ -52,8 +45,7 @@ exports.uploadPost = (req, res) => {
 exports.uploadPostMedia = async (req, res) => {
     
     let files = req.files;
-    console.log('files:');
-    console.log(files);
+
     try {
         let index = 1;
         files.forEach(file => {
@@ -74,6 +66,39 @@ exports.uploadPostMedia = async (req, res) => {
     catch (error) {
         console.error('Error al registrar usuario:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
+    }
+}
+
+exports.getFollowedPosts = () => {
+    let uid = req.body.uid;
+
+    try {
+            // SELECT p.*,u.* FROM posts AS p INNER JOIN users AS u ON p.user_id = u.uid INNER JOIN follows AS f ON f.follower = u.uid WHERE u.uid IN (SELECT followed FROM follows WHERE follower ='cec24f1b-1d57-4bd2-a71f-bfd10584ecf2'); 
+
+        const sql = 
+            `SELECT p.*,u.* 
+            FROM posts AS p 
+                INNER JOIN users AS u 
+                    ON p.user_id = u.uid 
+                INNER JOIN follows AS f 
+                    ON f.follower = u.uid 
+            WHERE u.uid 
+            IN (SELECT followed 
+                FROM follows 
+                WHERE follower ='${uid}'); `;
+        connection.query(sql, (err, rows) => {
+            if (err) {
+                console.error('Error fetching posts:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }else{
+                res.status(200).json(rows);
+            }
+        // const filepath = path.resolve(rows[0].url);
+        // base64img = toolService.convertImageToBase64(filepath);
+        // newPost = {...rows[0],url:base64img};
+        });
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -108,4 +133,17 @@ uploadImageToDB = (data) => {
     connection.query(sql, function(err, rows, fields) {if (err){console.log(err)}});
 
     return {mediaUID: mediaUID};
+}
+
+getUserFollows = (uid) => {
+    const sql = `SELECT followed
+    FROM follows
+    WHERE follower ='${uid}'`;
+    connection.query(sql, (err, rows) => {
+      if (err) {
+        console.error('Error fetching users:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+      return rows;
+    });
 }

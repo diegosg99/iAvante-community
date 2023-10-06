@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit{
   posts:any = [];
   followeds;
   p = 1;
+  dir = 'news';
   
   constructor(private _postservice: PostService,private router:Router, private followService: FollowService, private auth: OauthService){}
 
@@ -73,4 +74,8 @@ export class HomeComponent implements OnInit{
 
         return postId;
   }
+
+  load = (dir) => {
+    this.dir = dir;
+}
 }

@@ -7,95 +7,20 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="logo mb-5 p-5">Últimas publicaciones</h1>
+            <h1 class="logo mb-1 p-5">Últimas publicaciones</h1>
+        </div>
+
+        <div class="col-lg-12 row" style="justify-content: right;">
+            <button class="col-6 btn" (click)="load('news')">Novedades</button>
+            <button class="col-6 btn" (click)="load('posts')">Publicaciones</button>
         </div>
 
         <div class="col-1"></div>
 
-        <div class="col-10 mt-3" id="posts">
-            <div *ngIf="!posts[0]">
-                <div class="container m-5 row">
-                    <div class="col-2"></div>
-                    <div class="row d-flex post col-8">
-                        <div class="col-12" style="padding-left: 0px;">
-                            <img class="w-100 post-image" src="../../../assets/images/iavante-baeza.jpg" width="346px" height="100%">
-                        </div>
+        <app-post-news *ngIf="dir==='news'"></app-post-news>
 
-                        <div class="post-content col-12 p-3 row">
-                            <div class="col-12 row">
-                                <h1>
-                                    ¡Bienvenido a nuestra comunidad de simulación!
-                                </h1>
-                            </div>
-                
-                            <div class="row col-12">
-                                <div class="mb-3 col-3">
-                                    
-                                </div>
-                                <div class="col-6"></div>
-                                <div class="col-3">
-                                </div>
-                            </div>
-                
-                            
-                            <hr>
-                            <div class="col-12">
-                                <p>¡Bienvenido a nuestra plataforma virtual!, desde aquí trataremos de colaborar entre todos, contando contigo.</p>
-                                <p>Para sacarle el mayor partido a nuestra web, echa un vistazo a nuestros <b>miembros</b> y <b>sigue</b> a los que te interesen, incluso puedes ponerte en contacto con quien quieras.</p>
-                                <p>Tambien puedes participar en nuestro foro si necesitas ayuda sobre temas de <b>simulación clínica o de medicina</b>, o simplemente compartir tus experiencias.</p>
-                                <p>Puedes subir el contenido que creas necesario para compartirlo con tus contactos, mantenerte informado de las últimas <b>noticias</b> del mundo de la simulación y tambien estar al tanto de nuestros cursos o charlas con nuestros ponentes.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2"></div>
-
-                </div>
-
-                <div class="container m-5 row">
-                    <div class="col-2"></div>
-                    <div class="row d-flex post col-8">
-                        <div class="col-12" style="padding-left: 0px;">
-                            <img class="w-100 post-image" src="../../../assets/images/hugito.jpg" width="346px" height="100%">
-                        </div>
-
-                        <div class="post-content col-12 p-3 row">
-                            <div class="col-12 row">
-                                <h1>
-                                    ¿Qué hacemos en nuestro centro?
-                                </h1>
-                            </div>
-                
-                            <div class="row col-12">
-                                <div class="mb-3 col-3">
-                                    
-                                </div>
-                                <div class="col-6"></div>
-                                <div class="col-3">
-                                </div>
-                            </div>
-                
-                            
-                            <hr>
-                            <div class="col-12">
-                                <p>¡Bienvenido a nuestra plataforma virtual!, desde aquí trataremos de colaborar entre todos, contando contigo.</p>
-                                <p>Para sacarle el mayor partido a nuestra web, echa un vistazo a nuestros <b>miembros</b> y <b>sigue</b> a los que te interesen, incluso puedes ponerte en contacto con quien quieras.</p>
-                                <p>Tambien puedes participar en nuestro foro si necesitas ayuda sobre temas de <b>simulación clínica o de medicina</b>, o simplemente compartir tus experiencias.</p>
-                                <p>Puedes subir el contenido que creas necesario para compartirlo con tus contactos, mantenerte informado de las últimas <b>noticias</b> del mundo de la simulación y tambien estar al tanto de nuestros cursos o charlas con nuestros ponentes.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2"></div>
-
-                </div>
-            </div>
-            <ul style="list-style: none;padding:0px;" class="mx-auto">
-                <li *ngFor="let post of posts | paginate: { itemsPerPage: 10, currentPage: p}">
-                    <app-post [post]="post"></app-post>
-                </li>
-                <pagination-controls class="mt-3" (pageChange)="p = $event"></pagination-controls>
-            </ul>
-        </div>
-    
+        <app-follows *ngIf="dir==='posts'"></app-follows>
+        
         <div class="col-1"></div>
 
     </div>
