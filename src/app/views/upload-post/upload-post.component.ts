@@ -213,6 +213,15 @@ export class UploadPostComponent implements OnInit{
     let index = e.target.dataset['photo'] - 1;
     this.$base64.splice(index,1);
     this.imgArray.splice(index,1);
+
+    let resFiles = this.fdImg.getAll('files');
+    this.fdImg.delete('files');
+    resFiles.splice(index,1);
+
+    resFiles.forEach(file=>{
+      this.fdImg.append('files',file);
+    });
+
     let out = Array.from(this.files).splice(index,1);
     this.files = Array.from(this.files).filter(el=>el!==out[0]);
 

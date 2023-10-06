@@ -10,14 +10,6 @@ const secret = "Bearer";
 
 exports.uploadPost = (req, res) => {
     let data = req.body;
-
-    // let files = {column:'',id:''};
-    // let count = 1;
-
-    // Array.from(req.body.files).forEach(file => {
-    //     files = {...{column:files.column+`,media${count}`,id:files.id+`,'uid'`}};
-    //     count++;
-    // });
     
     try {
         
@@ -63,21 +55,21 @@ exports.uploadPostMedia = async (req, res) => {
     console.log('files:');
     console.log(files);
     try {
+        let index = 1;
         files.forEach(file => {
-            let category = req.file.originalname.split('.')[0];
-            let uidUser = req.file.originalname.split('.')[1];
-            let uidPost = req.file.originalname.split('.')[2];
+            let uidPost = file.originalname.split('.')[1];
     
             let ids = uploadImageToDB(file);
     
-            let sql = `UPDATE users 
-                            SET photo = '${ids.mediaUID}'                        
+            let sql = `UPDATE posts 
+                            SET media${index} = '${ids.mediaUID}'                        
                             WHERE uid = '${uidPost}'`;    
             connection.query(sql, function(err, rows, fields) {
                 if (err) throw err;
-                return res.status(201).json({code:201,file:req.file})
             });
+            index++;
         })
+        return res.status(201).json({code:201,message:'Fotos linkeadas al post'})
     }
     catch (error) {
         console.error('Error al registrar usuario:', error);
@@ -87,15 +79,18 @@ exports.uploadPostMedia = async (req, res) => {
 
 uploadImageToDB = (data) => {
 
-    let uid = data.originalname.split('.')[1];
-    let imageUID = toolService.uuidv4();
+    let category = data.originalname.split('.')[0];
+    let uidPhoto = data.originalname.split('.')[2];
+    let uidPost = data.originalname.split('.')[1];
+    let mime = data.mimetype.split('/')[0]+'s';
+
     let mediaUID = toolService.uuidv4();
 
-    let sql = `INSERT INTO images 
+    let sql = `INSERT INTO ${mime} 
                     (id,url)
                 VALUES 
                 (
-                    '${imageUID}',
+                    '${uidPhoto}',
                     '${data.destination+"/"+data.filename}'
                 )`;
 
@@ -106,11 +101,11 @@ uploadImageToDB = (data) => {
                 VALUES 
                 (
                     '${mediaUID}',
-                    '${uid}',
-                    '${imageUID}',
-                    'profile'
+                    '${uidPost}',
+                    '${uidPhoto}',
+                    '${category}'
                 )`;
     connection.query(sql, function(err, rows, fields) {if (err){console.log(err)}});
 
-    return {mediaUID: mediaUID,imageUID: imageUID};
+    return {mediaUID: mediaUID};
 }
