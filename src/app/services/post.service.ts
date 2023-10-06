@@ -14,12 +14,13 @@ export class PostService {
 
   constructor(private firebase: AngularFirestore, private http: HttpClient) { }
 
-  uploadPost = (post: Post,files:any): any => {
-    return this.http.post(`${this.baseUrl}/post/upload`, {post:post,files: files});
+  uploadPost = (post: Post): any => {
+    return this.http.post(`${this.baseUrl}/post/upload`, post);
   }
 
-  uploadPostImage = (file:any): any => {
-    return this.http.post(`${this.baseUrl}/upload/image`, file);
+  uploadPostImage = (files:any): any => {
+    console.log(files);
+    return this.http.post(`${this.baseUrl}/post/upload/media`, files);
   }
   
 

@@ -6,7 +6,8 @@ const tools = require("../services/tools.service");
 
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
-        console.log(file.originalname);
+        console.log('storage file:');
+        console.log(file);
         let path = tools.mediaManager(file);
         cb(null,path)
     },
@@ -26,6 +27,7 @@ const upload = multer({storage});
 
 // router.post('/user/verifyToken', postController.verifyToken);
 
-router.post('/post/upload',upload.array('files'), postController.uploadPost);
+router.post('/post/upload', postController.uploadPost);
+router.post('/post/upload/media',upload.array('files'), postController.uploadPostMedia);
 
 module.exports = router;

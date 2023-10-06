@@ -84,7 +84,7 @@ export class ProfileDataComponent {
   updateImage = () => {
 
     let file = this.imageService.processImage(this.fileInput,this.userLogged.uid);
-    
+
     this.userService.updateImage(file).subscribe((res)=> {
       console.log(res);
     },(error: any) => {

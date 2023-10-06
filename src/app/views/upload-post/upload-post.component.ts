@@ -24,11 +24,12 @@ export class UploadPostComponent implements OnInit{
   //imagenes al servidor
   imgArray;
   slides;
+  fdImg: FormData;
+  postId;
 
   //imagenes para cliente
   $base64;
   $userSubscription: Observable<any> = this.lockService.checkToken();
-
 
   @ViewChild('uploadFile',{static:false})fileInput: ElementRef;
   @ViewChild('imgWrap',{static:false})imgWrap: ElementRef;
@@ -57,37 +58,36 @@ export class UploadPostComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+    this.postId = this.uuidv4();
   }
 
 
   postArticle = () => {
-    //if (this.id == undefined) {
       this.uploadPost();
-    // }else{
-    //   this.editarPost(this.id);
-    // }
   }
 
   uploadPost = () => {
 
     const POST: any = {
-      uid: this.uuidv4(),
+      uid: this.postId,
       title: this.form.value.titulo,
       descripcion: this.form.value.descripcion,
       categoria: this.form.value.categoria,
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
-      usuario: this.userLogged.uid,
+      usuario: this.userLogged.uid
     }
-
-    console.log(this.files);
 
     try {
 
-      this._postService.uploadPost(POST,this.files).subscribe(()=> {
-        this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
-        this.form.reset();
+      this._postService.uploadPost(POST).subscribe((res)=> {
+        console.log(res);
+        console.log(this.imgArray);
+        this._postService.uploadPostImage(this.fdImg).subscribe(res=>{
+          console.log(res);
+          this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+          this.form.reset();
+        });
       },(error: any) => {
         this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
         console.log(error);
@@ -98,19 +98,6 @@ export class UploadPostComponent implements OnInit{
     }
   }
 
-  // editarPost = (id:string) => {
-  //   const POST: any = {
-  //     titulo: this.form.value.titulo,
-  //     descripcion: this.form.value.descripcion,
-  //     photo: this.form.value.photo,
-  //     curso: this.form.value.curso,
-  //     fechaActualizacion: new Date()
-  //   }
-
-  //   this.loading = true;
-
-  // }
-
   imgUpload = async (e) => {
 
     this.files = e.target.files;
@@ -118,20 +105,29 @@ export class UploadPostComponent implements OnInit{
     let promises  = [];
 
     let html = "";
+    let index = 0;
+    this.fdImg = new FormData();
+
     this.imgArray = [];
     this.$base64 = [];
     this.imgWrap.nativeElement.innerHTML = html;
 
-
     Array.from(this.files).forEach((file) => {
-        let image = this.imageService.processImage(file,this.userLogged.uid, 'post.');
-        this.imgArray.push(image);
+        let image = this.imageService.processImage(file,this.postId+'.'+this.uuidv4(), 'post.');
+        
+        console.log(image);
 
+        //this.imgArray.push(image.get('file'));
+        this.fdImg.append('files',image.get('file'));
         promises.push(this.imageService.getBase64(file));
     });
 
+    this.imgArray.forEach(file=> {
+      this.fdImg.append(`file${index}`,file);
 
-
+      index++;
+    })
+    
     await Promise.all(promises).then((base64Arr) => {
       this.printImages(base64Arr);
     })
@@ -212,10 +208,6 @@ export class UploadPostComponent implements OnInit{
     e.target.style = selectedHeight=='40vh'?smallSlide:bigSlide;    
   }
 
-  updateImage = () => {
-    this.files.push(this.imageService.processImage(this.fileInput,this.userLogged.uid,'post.'));
-  }
-
   deletePhoto = (e) => {
 
     let index = e.target.dataset['photo'] - 1;
@@ -232,8 +224,6 @@ export class UploadPostComponent implements OnInit{
       let html = '';
       let imgNum = 1;
       this.$base64 = [];
-
-      console.log(this.files);
 
       base64Arr.forEach(image => {
         this.$base64.push(image);
