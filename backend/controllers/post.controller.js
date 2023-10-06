@@ -91,7 +91,7 @@ uploadImageToDB = (data) => {
                 VALUES 
                 (
                     '${uidPhoto}',
-                    '${data.destination+"/"+data.filename}'
+                    '${data.destination+data.filename}'
                 )`;
 
     connection.query(sql, function(err, rows, fields) {if (err){console.log(err)}});
