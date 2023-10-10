@@ -61,18 +61,26 @@ exports.checkFollow = (req, res) => {
     }
 };
 
-exports.getFollows = (req, res) => {
-    let data = req.body;
+exports.getFollows = (req, res) => { //TODO: modificar consulta para traer datos de cada usuari y foto
+    let data = req.body; 
+
+    console.log(data);
 
     try {
         
-        let sql = `SELECT * FROM follows AS f WHERE f.both = '${data.both}'`;
+        let sql = `SELECT f.followed FROM follows AS f WHERE f.follower = '${data.uid}'`;
 
         connection.query(sql, function(err, rows, fields) {
-            if (rows[0]){
-                res.status(301).json({ message: 'email already exists',code:301 });
+            if (!rows[0]){
+                res.status(301).json({ sql:sql,code:301 });
             }else {
-                res.status(201).json({ data: rows[0],code:201 });
+                console.log(rows);
+                let data = [];
+
+                rows.forEach(row => {
+                    data.push(row.followed)
+                });
+                res.status(201).json({ data: data,code:201 });
     }
     })
 

@@ -69,7 +69,7 @@ exports.uploadPostMedia = async (req, res) => {
     }
 }
 
-exports.getFollowedPosts = () => {
+exports.getFollowedPosts = (req,res) => {
     let uid = req.body.uid;
 
     try {
@@ -79,9 +79,7 @@ exports.getFollowedPosts = () => {
             `SELECT p.*,u.* 
             FROM posts AS p 
                 INNER JOIN users AS u 
-                    ON p.user_id = u.uid 
-                INNER JOIN follows AS f 
-                    ON f.follower = u.uid 
+                    ON p.user_id = u.uid
             WHERE u.uid 
             IN (SELECT followed 
                 FROM follows 
@@ -91,6 +89,8 @@ exports.getFollowedPosts = () => {
                 console.error('Error fetching posts:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }else{
+                console.log(rows);
+                console.log(sql);
                 res.status(200).json(rows);
             }
         // const filepath = path.resolve(rows[0].url);

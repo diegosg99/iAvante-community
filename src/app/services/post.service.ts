@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PostService {
 
-  private baseUrl = 'http://10.111.249.108:3003/api';
+  private baseUrl = 'http://localhost:3003/api'; // TODO IP : 10.111.249.108
 
   constructor(private firebase: AngularFirestore, private http: HttpClient) { }
 
@@ -32,9 +32,13 @@ export class PostService {
     return this.firebase.collection("posts",ref=>ref.where('usuario','==',userId)).snapshotChanges();
   }
 
-  getFollowedPosts = (followeds) => {
+  getFollowedPosts = (followeds):Observable<any> => {
 
-    return this.firebase.collection('posts',ref => ref.where('usuario', 'in', followeds)).snapshotChanges();
+    return this.http.post(`${this.baseUrl}/get/followed/posts`, followeds);
+  }
+
+  getFollowedsPosts = (uid) => {
+    return this.http.post(`${this.baseUrl}/get/followed/posts`, {uid:uid});
   }
 
   getPost = (id:string):any => {
