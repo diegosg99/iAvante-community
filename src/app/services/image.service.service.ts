@@ -58,7 +58,11 @@ export class ImageService {
   }
 
   getProfilePic = (uid) => {
-    console.log(uid);
     return this.http.post(`${this.baseUrl}/get/media/profile`, {uid:uid});
+  }
+
+  getMediaPost = (id) => {
+    console.log(id);
+    return this.http.post(`${this.baseUrl}/get/media/post`, {id:id});
   }
 }

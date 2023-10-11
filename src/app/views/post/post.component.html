@@ -3,7 +3,18 @@
     <div class="row d-flex post">
 
         <div class="col-4" style="padding-left: 0px;">
-            <img class="w-100 post-image" src="{{post.photo}}" width="346px" height="100%">
+
+            <!-- <ng-image-slider #nav
+                    [images]="[$mediaSub | async as media,$mediaSub2 | async as media]"
+                    [infinite]="false"
+                    [autoSlide]="1"
+                    [imageSize]="{width: '25%', height: 200}"
+                    slideImage="1">
+            </ng-image-slider> -->
+
+            <img class="w-100 post-image"*ngIf="$mediaSub | async as media" src="{{media.url}}" width="346px" height="100%">
+            <img class="w-0 post-image"*ngIf="$mediaSub2 | async as media2" src="{{media2.url}}" width="346px" height="100%">
+            <img class="w-0 post-image"*ngIf="$mediaSub3 | async as media3" src="{{media3.url}}" width="346px" height="100%">
         </div>
         <div class="post-content col-8 p-3 row">
             <!-- <app-like-bookmark></app-like-bookmark> -->
