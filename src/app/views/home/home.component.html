@@ -19,7 +19,7 @@
 
         <app-post-news *ngIf="dir==='news'"></app-post-news>
 
-        <app-follows *ngIf="dir==='posts'"></app-follows>
+        <app-follows *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
         
         <div class="col-1"></div>
 

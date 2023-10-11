@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ElementRef, Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,10 +6,12 @@ import { ElementRef, Injectable } from '@angular/core';
 })
 export class ImageService {
 
+  private baseUrl = 'http://localhost:3003/api'; // TODO IP : 10.111.249.108
+
   imageFile: { link: string; file: any; name: string;type: number; } | any;
   imageRaw: { link: string; file: any; name: string; } | any;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   // imagePreview = (event,uid) => {
 
@@ -52,5 +55,10 @@ export class ImageService {
       reader.onload = () => resolve(reader.result);
       reader.readAsDataURL(file);
      });
- }
+  }
+
+  getProfilePic = (uid) => {
+    console.log(uid);
+    return this.http.post(`${this.baseUrl}/get/media/profile`, {uid:uid});
+  }
 }

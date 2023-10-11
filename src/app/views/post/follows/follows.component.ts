@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-follows',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./follows.component.scss']
 })
 export class FollowsComponent {
+
+  @Input() posts;
+  p=0;
+
+  constructor(){}
+  
 
 }

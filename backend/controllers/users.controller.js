@@ -187,6 +187,9 @@ exports.getUserById = (req, res) => {
         INNER JOIN images as i 
               ON m.id_media = i.id
     WHERE u.uid ='${uid}'`;
+
+    console.log(sql);
+
     connection.query(sql, (err, rows) => {
       if (err) {
         console.error('Error fetching users:', err);

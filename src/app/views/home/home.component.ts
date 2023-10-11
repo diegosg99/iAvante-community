@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit{
   userId;
   posts:any = [];
   followeds;
+  followedPosts:any = [];
+
   p = 1;
   dir = 'news';
   
@@ -32,7 +34,6 @@ export class HomeComponent implements OnInit{
 
     this.userLogged.subscribe(user=>{
 
-      console.log(user);
 
       this.userId = user.uid;
 
@@ -57,7 +58,8 @@ export class HomeComponent implements OnInit{
           });
       
       this._postservice.getFollowedsPosts(this.userId).subscribe(posts => {
-
+        console.log(posts);
+        this.followedPosts = posts;
       });
     });
   }
