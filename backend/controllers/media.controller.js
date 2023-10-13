@@ -41,6 +41,12 @@ exports.getProfilePicture = async (req, res) => {
 exports.getMediaPost = async (req, res) => {
     let data = req.body;
     let id = data.id;
+
+    console.log(data);
+
+    if (id===undefined){
+        res.status(300).json({ err: 'foto nula'});
+    }
           
     try {
 

@@ -2,21 +2,70 @@
     
     <div class="row d-flex post">
 
-        <div class="col-4" style="padding-left: 0px;">
+        <div class="col-4" style="padding-left: 0px;" *ngIf="$mediaSub | async as media">
 
-            <!-- <ng-image-slider #nav
-                    [images]="[$mediaSub | async as media,$mediaSub2 | async as media]"
-                    [infinite]="false"
-                    [autoSlide]="1"
-                    [imageSize]="{width: '25%', height: 200}"
-                    slideImage="1">
-            </ng-image-slider> -->
 
-            <img class="w-100 post-image"*ngIf="$mediaSub | async as media" src="{{media.url}}" width="346px" height="100%">
-            <img class="w-0 post-image"*ngIf="$mediaSub2 | async as media2" src="{{media2.url}}" width="346px" height="100%">
-            <img class="w-0 post-image"*ngIf="$mediaSub3 | async as media3" src="{{media3.url}}" width="346px" height="100%">
+            <!-- <div class="slider-container">
+                <div class="slide fade" *ngIf="$mediaSub | async as media">
+                  <img class="slide-image post-image" src="${{media.url}}">
+                  <div class="slide-number-container">
+                    <p class="slider-number">01</p>
+                    <hr>
+                    <p class="slider-number">03</p>
+                  </div>
+                </div>
+              
+                <div class="slide fade" *ngIf="$mediaSub2 | async as media2">
+                  <img class="slide-image post-image" src="${{media2.url}}">
+                  <div class="slide-number-container">
+                    <p class="slider-number">02</p>
+                    <hr>
+                    <p class="slider-number">03</p>
+                  </div>
+                </div>
+              
+                <div class="slide fade" *ngIf="$mediaSub3 | async as media3">
+                  <img class="slide-image post-image" src="${{media3.url}}">
+                  <div class="slide-number-container">
+                    <p class="slider-number">03</p>
+                    <hr>
+                    <p class="slider-number">03</p>
+                  </div>
+                </div>
+              
+                Next and previous buttons
+                <div class="slider-nav">
+                  <a class="slider-nav-btn" (click)="plusSlides(-1)">
+                    <i class="fa-solid fa-arrow-right" style="color: white;"></i>
+                  </a>
+                  <a class="slider-nav-btn" (click)="plusSlides(1)">
+                    <i class="fa-solid fa-arrow-right" style="color: white;"></i>
+                  </a>
+                </div>
+              
+                The dots/circles
+                <div class="dot-container">
+                  <span class="dot" onclick="currentSlide(1)"></span>
+                  <span class="dot" onclick="currentSlide(2)"></span>
+                  <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+              </div> -->
+
+            <div class="w-100">
+                <i class="fa-solid fa-arrow-left" style="color: white;left: 1em;top: 50%;"  (click)="slidePhoto('back')"></i>
+                <div *ngIf="$mediaSub | async as media">
+                    <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="346px" height="100%">
+                </div>
+                <div *ngIf="$mediaSub2 | async as media2">
+                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="346px" height="100%">
+                </div>
+                <div *ngIf="$mediaSub3 | async as media3">
+                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="346px" height="100%">
+                </div>
+                <i class="fa-solid fa-arrow-right" style="color: white;right: 1em;top: 50%;"  (click)="slidePhoto('next')"></i>
+            </div>
         </div>
-        <div class="post-content col-8 p-3 row">
+        <div class="post-content col p-3 row">
             <!-- <app-like-bookmark></app-like-bookmark> -->
             <div class="col-12 row">
                 <h1 class="col-8">
