@@ -15,13 +15,13 @@
             <button class="col-6 btn" (click)="load('posts')">Publicaciones</button>
         </div>
 
-        <div class="col-1"></div>
+        <div class="col-xl-1 col-lg-1"></div>
 
         <app-post-news *ngIf="dir==='news'"></app-post-news>
 
         <app-follows *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
         
-        <div class="col-1"></div>
+        <div class="col-xl-1 col-lg-1"></div>
 
     </div>
 </div>
