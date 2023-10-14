@@ -51,8 +51,15 @@
                 </div>
               </div> -->
 
-            <div class="w-100">
-                <i class="fa-solid fa-arrow-left" style="color: white;left: 1em;top: 50%;"  (click)="slidePhoto('back')"></i>
+            <div class="slider-container w-100">
+                <div class="slider-nav d-flex w-100" style="justify-content: space-between;">
+                    <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('back')">
+                      <i class="fa-solid fa-arrow-left" style="color: white;"></i>
+                    </a>
+                    <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('next')">
+                      <i class="fa-solid fa-arrow-right" style="color: white;"></i>
+                    </a>
+                </div>
                 <div *ngIf="$mediaSub | async as media">
                     <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="346px" height="100%">
                 </div>
@@ -62,7 +69,6 @@
                 <div *ngIf="$mediaSub3 | async as media3">
                     <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="346px" height="100%">
                 </div>
-                <i class="fa-solid fa-arrow-right" style="color: white;right: 1em;top: 50%;"  (click)="slidePhoto('next')"></i>
             </div>
         </div>
         <div class="post-content col p-3 row">

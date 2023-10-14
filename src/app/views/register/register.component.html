@@ -1,11 +1,11 @@
 <app-parallax></app-parallax>
-<div class="container row mx-auto">
-    <div class="col-3"></div>
-    <div class="col-6 card text-center" style="padding-left: 0px;padding-right: 0px;">
+<div class="container row mx-auto my-3"  style="height: fit-content!important;">
+    <div class="col-xl-3"></div>
+    <div class="col-xl-6 col card text-center" style="padding-left: 0px;padding-right: 0px;">
         <div class="card-header">
             <h5 class="card-title register-title p-3">REGISTRO</h5>
         </div>
-        <div class="card-body p-5">
+        <div class="card-body p-3">
 
             <label style="float: left;margin-bottom: 1em;">Email:</label>
             <input class="form-control my-3" type="text" placeholder="Email" required #email [(ngModel)]="usuario.email">
@@ -35,13 +35,13 @@
         <p>¿Ya tienes cuenta? <a href="#/login">Iniciar sesión</a></p>
 
         <div class="row mx-3">
-            <div class="col-3"></div>
-            <button class="text-white btn btn-primary my-3 p-2 col-6" style="font-size: 22px; letter-spacing: 2px;" (click)="register()">Registrarme</button>
-            <div class="col-3"></div>
+            <div class="col-xl-3"></div>
+            <button class="text-white btn btn-primary my-3 p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6" style="font-size: 22px; letter-spacing: 2px;" (click)="register()">Registrarme</button>
+            <div class="col-xl-3"></div>
 
         </div>
         </div>
     </div>
-    <div class="col-3"></div>
+    <div class="col-xl-3"></div>
 
 </div>
