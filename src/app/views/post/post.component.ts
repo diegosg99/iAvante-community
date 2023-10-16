@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ImageService } from 'src/app/services/image.service.service';
@@ -13,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class PostComponent implements OnInit{
 
   @Input() post:any;
+
   postId:any;
   postUser:any;
 

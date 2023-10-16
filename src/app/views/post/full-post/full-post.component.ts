@@ -9,29 +9,28 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class FullPostComponent implements OnInit{
 
-  post:any;
   postId:any;
-  @Input() postUser;
+  @Input() post:any;
 
   constructor(private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute){
 
   }
 
   ngOnInit(): void {
-    this.postId = this._activatedroute.params;
+    // this.postId = this._activatedroute.params;
 
-    this._postService.getPosts().subscribe(posts=>{
+    // this._postService.getPosts().subscribe(posts=>{
 
-      let processedPosts: any[] = [];
+    //   let processedPosts: any[] = [];
 
-      posts.forEach((post: any)=>{
-        let arraySegments = post.payload.doc._delegate._key.path.segments;
-        let postId = arraySegments[arraySegments.length - 1];
+    //   posts.forEach((post: any)=>{
+    //     let arraySegments = post.payload.doc._delegate._key.path.segments;
+    //     let postId = arraySegments[arraySegments.length - 1];
 
-        processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
-      })
+    //     processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
+    //   })
 
-      this.post = processedPosts.find(post => post.id === this.postId.value.id);
-    });
+    //   this.post = processedPosts.find(post => post.id === this.postId.value.id);
+    // });
   }
 }

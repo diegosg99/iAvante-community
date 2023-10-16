@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit{
   posts:any = [];
   followeds;
   followedPosts:any = [];
+  
 
   p = 1;
   dir = 'news';

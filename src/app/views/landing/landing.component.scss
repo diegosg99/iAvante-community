@@ -27,12 +27,7 @@ body{
   width:100vw;
   overflow: hidden;
   overflow-y:scroll;
-  font-family: "Open Sans", sans-serif;
-  
-  
-  
-  
-  
+  font-family: "Open Sans", sans-serif;  
 }
 .containerr {
   display: inline-block;
@@ -152,11 +147,21 @@ button {
 
 }
 
-.content .btn-green:hover,
+.content .btn-green:hover {
+
+  background-color: white;
+  color: #a3c962;
+  border-color: #a3c962;
+  transition: all .2s;
+
+}
+
 .content .btn-white:hover {
-  background-color: #000;
+  background-color: #a3c962;
   color: #fff;
+  border-color: #fff;
   border: 1px solid #fff;
+  transition: all .2s;
 }
 
 .center {
@@ -616,9 +621,38 @@ button {
   }
 }
 
+.landing-2-title {
+  font-size: 18px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.landing-2-text {
+  font-size: 14px;
+  color: #676662;
+  font-family: "Open Sans", sans-serif;
+}
+
+.box-orange {
+  color: #f2b42d;
+  border: solid 2px #f2b42d;
+  border-radius: 20px;
+}
+.box-red {
+  color: #d7425e;
+  border: solid 2px #d7425e;
+  border-radius: 20px;
+}
+.box-pus {
+  color: #dd785e;
+  border: solid 2px #dd785e;  
+  border-radius: 20px;
+}
+
 
 @media (min-width: 1400px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
       max-width: 100%;
     }
   }
+
+

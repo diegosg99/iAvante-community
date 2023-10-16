@@ -40,17 +40,17 @@
             </div>
 
             <div class="row col-12">
-                <div class="mb-3 col-3">
-                    {{post.categoria}}
+                <div class="col-3">
+                    {{post.category}}
                 </div>
                 <div class="col-6"></div>
                 <div class="col-3">
-                    <p style="text-align: right;font-size: 14px;">{{post.createdAt}}</p>
+                    <p style="text-align: right;font-size: 14px;">{{post.created_at | date}}</p>
                 </div>
             </div>
 
             
-            <hr>
+            <hr class="mb-5">
             <div class="col-12">
                 <p>{{ (post.body.length>6)? (post.body | slice:0:200)+'...':(post.body)}}</p>
             </div>

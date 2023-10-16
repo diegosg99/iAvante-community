@@ -3,17 +3,20 @@ const toolService = require('../services/tools.service');
 
 exports.uploadPost = (req, res) => {
     let data = req.body;
+
+    console.log(data);
     
     try {
         
         let sql = `
         INSERT INTO posts 
-            (uid,title,body,user_id,status,created_at)
+            (uid,title,body,category,user_id,status,created_at)
         VALUES 
         (
             '${data.uid}',
             '${data.title}',
             '${data.descripcion}',
+            '${data.categoria}',
             '${data.usuario}',
             '1',
             '${data.fechaCreacion}'
