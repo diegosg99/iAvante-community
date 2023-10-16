@@ -1,56 +1,8 @@
-<div class="container m-5">
+<div class="m-5">
     
     <div class="row d-flex post">
 
-        <div class="col-4" style="padding-left: 0px;" *ngIf="$mediaSub | async as media">
-
-
-            <!-- <div class="slider-container">
-                <div class="slide fade" *ngIf="$mediaSub | async as media">
-                  <img class="slide-image post-image" src="${{media.url}}">
-                  <div class="slide-number-container">
-                    <p class="slider-number">01</p>
-                    <hr>
-                    <p class="slider-number">03</p>
-                  </div>
-                </div>
-              
-                <div class="slide fade" *ngIf="$mediaSub2 | async as media2">
-                  <img class="slide-image post-image" src="${{media2.url}}">
-                  <div class="slide-number-container">
-                    <p class="slider-number">02</p>
-                    <hr>
-                    <p class="slider-number">03</p>
-                  </div>
-                </div>
-              
-                <div class="slide fade" *ngIf="$mediaSub3 | async as media3">
-                  <img class="slide-image post-image" src="${{media3.url}}">
-                  <div class="slide-number-container">
-                    <p class="slider-number">03</p>
-                    <hr>
-                    <p class="slider-number">03</p>
-                  </div>
-                </div>
-              
-                Next and previous buttons
-                <div class="slider-nav">
-                  <a class="slider-nav-btn" (click)="plusSlides(-1)">
-                    <i class="fa-solid fa-arrow-right" style="color: white;"></i>
-                  </a>
-                  <a class="slider-nav-btn" (click)="plusSlides(1)">
-                    <i class="fa-solid fa-arrow-right" style="color: white;"></i>
-                  </a>
-                </div>
-              
-                The dots/circles
-                <div class="dot-container">
-                  <span class="dot" onclick="currentSlide(1)"></span>
-                  <span class="dot" onclick="currentSlide(2)"></span>
-                  <span class="dot" onclick="currentSlide(3)"></span>
-                </div>
-              </div> -->
-
+        <div class="col-xl-4 col-sm-12" style="padding-left: 0px;" *ngIf="$mediaSub | async as media">
             <div class="slider-container w-100">
                 <div class="slider-nav d-flex w-100" style="justify-content: space-between;">
                     <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('back')">
@@ -74,13 +26,13 @@
         <div class="post-content col p-3 row">
             <!-- <app-like-bookmark></app-like-bookmark> -->
             <div class="col-12 row">
-                <h1 class="col-8">
+                <h1 class="col-xl-8 col-sm-12">
                     <a href="#/post/{{post.uid}}" style="font-size: 26px;text-decoration: none;color: black;">
                         {{post.title}} <i class="fa fa-link" style="font-size:14px;" aria-hidden="true"></i>
                     </a>
                 </h1>
-                <span class="col-4 d-flex justify-content-between" style="padding: 0px;">
-                    <p>{{post.fullname}}</p>
+                <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
+                    <p class="px-3">{{post.fullname}}</p>
                     <a class="navbar-brand me-2">
                         <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="60px" height="60px">
                     </a>
