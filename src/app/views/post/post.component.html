@@ -60,14 +60,14 @@
                       <i class="fa-solid fa-arrow-right" style="color: white;"></i>
                     </a>
                 </div>
-                <div *ngIf="$mediaSub | async as media">
-                    <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="346px" height="100%">
+                <div *ngIf="$mediaSub | async as media" class="slider-photo">
+                    <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px">
                 </div>
-                <div *ngIf="$mediaSub2 | async as media2">
-                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="346px" height="100%">
+                <div *ngIf="$mediaSub2 | async as media2" class="slider-photo">
+                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="auto" height="300px">
                 </div>
-                <div *ngIf="$mediaSub3 | async as media3">
-                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="346px" height="100%">
+                <div *ngIf="$mediaSub3 | async as media3" class="slider-photo">
+                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="auto" height="300px">
                 </div>
             </div>
         </div>
