@@ -85,7 +85,7 @@ import { PostNewsComponent } from './views/post/news/news.component';
     PostImageUploaderComponent,
     FollowsComponent,
     PostNewsComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

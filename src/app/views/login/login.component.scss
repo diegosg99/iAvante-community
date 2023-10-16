@@ -14,3 +14,9 @@
     letter-spacing: 5px;
     font-size: xx-large;
 }
+
+@media (max-width: 480px) { 
+    .login-title { 
+        font-size: x-large; 
+    } 
+} 
