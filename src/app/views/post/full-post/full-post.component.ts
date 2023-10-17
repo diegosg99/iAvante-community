@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ImageService } from 'src/app/services/image.service.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -10,27 +12,67 @@ import { PostService } from 'src/app/services/post.service';
 export class FullPostComponent implements OnInit{
 
   postId:any;
-  @Input() post:any;
+  post:any;
 
-  constructor(private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute){
+  index:any = 0;
+  slideIndex:any = 1;
+  slides:any;
+  dots:any;
+
+  $mediaSub: Observable<any>;
+  $mediaSub2: Observable<any>;
+  $mediaSub3: Observable<any>;
+  $profileSub:Observable<any>;
+
+
+  constructor(private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute,private imageService: ImageService){
 
   }
 
   ngOnInit(): void {
-    // this.postId = this._activatedroute.params;
+    this._activatedroute.params.subscribe((data:any) => {
+      this.postId = data.id;
+    });
+    this._postService.getPost(this.postId).subscribe(data=>{
+      this.post = data;
+      this.getProfilePic();
+      this.getPostMedia();
+    });
+  }
 
-    // this._postService.getPosts().subscribe(posts=>{
+  getPostMedia = () => {
+    let mediaArr = [this.post.media1,this.post.media2,this.post.media3].filter(media=>media!==null);
 
-    //   let processedPosts: any[] = [];
+    mediaArr[0]?
+      this.$mediaSub = this.imageService.getMediaPost(mediaArr[0]):null
+    mediaArr[1]?
+      this.$mediaSub2 = this.imageService.getMediaPost(mediaArr[1]):null;
+    mediaArr[2]?
+      this.$mediaSub3 = this.imageService.getMediaPost(mediaArr[2]):null
+  }
 
-    //   posts.forEach((post: any)=>{
-    //     let arraySegments = post.payload.doc._delegate._key.path.segments;
-    //     let postId = arraySegments[arraySegments.length - 1];
+  slidePhoto = (move) => {
 
-    //     processedPosts = [...processedPosts,{id: postId,...post.payload.doc.data()}];
-    //   })
+    console.log(this.post);
 
-    //   this.post = processedPosts.find(post => post.id === this.postId.value.id);
-    // });
+    let photos = document.getElementsByClassName('post-image-'+this.post.uid);
+
+    photos[this.index].classList.add('hide');
+    photos[this.index].classList.remove('show');
+
+    move==='back'?this.index--:this.index++;
+
+    this.index<0?this.index=0:this.index;
+    this.index>photos.length-1?this.index=photos.length-1:this.index;
+
+    photos[this.index].classList.add('show');
+    photos[this.index].classList.remove('hide');  
+
+    console.log(photos);
+  }
+
+  getProfilePic = () => {
+    console.log(this.post.user_id);
+    this.$profileSub = this.imageService.getProfilePic(this.post.user_id);
   }
 }

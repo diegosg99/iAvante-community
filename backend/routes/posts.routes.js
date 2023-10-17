@@ -26,5 +26,6 @@ const upload = multer({storage});
 router.post('/post/upload', postController.uploadPost);
 router.post('/post/upload/media',upload.array('files'), postController.uploadPostMedia);
 router.post('/get/followed/posts', postController.getFollowedPosts);
+router.post('/get/post', postController.getPost);
 
 module.exports = router;

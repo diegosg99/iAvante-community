@@ -42,12 +42,7 @@ export class PostService {
   }
 
   getPost = (id:string):any => {
-
-    let doc;
-    
-    this.firebase.collection('posts').snapshotChanges().subscribe(docs=>{
-      doc = docs;
-    });
+    return this.http.post(`${this.baseUrl}/get/post`, {uid:id});
   }
 }
 

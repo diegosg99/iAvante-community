@@ -105,6 +105,34 @@ exports.getFollowedPosts = (req,res) => {
     }
 }
 
+exports.getPost = (req,res) => {
+    let uid = req.body.uid;
+
+    try {
+            // SELECT p.*,u.* FROM posts AS p INNER JOIN users AS u ON p.user_id = u.uid INNER JOIN follows AS f ON f.follower = u.uid WHERE u.uid IN (SELECT followed FROM follows WHERE follower ='cec24f1b-1d57-4bd2-a71f-bfd10584ecf2'); 
+
+        const sql = 
+            `SELECT p.*,u.*,u.uid AS user_id,p.uid AS uid 
+            FROM posts AS p 
+                INNER JOIN users AS u 
+                    ON p.user_id = u.uid
+            WHERE p.uid  ='${uid}'; `;
+        connection.query(sql, (err, rows) => {
+            if (err) {
+                console.error('Error fetching posts:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }else{
+                res.status(200).json(rows[0]);
+            }
+        // const filepath = path.resolve(rows[0].url);
+        // base64img = toolService.convertImageToBase64(filepath);
+        // newPost = {...rows[0],url:base64img};
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 uploadImageToDB = (data) => {
 
     let category = data.originalname.split('.')[0];

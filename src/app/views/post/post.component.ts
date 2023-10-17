@@ -64,9 +64,6 @@ export class PostComponent implements OnInit{
   }
 
   slidePhoto = (move) => {
-
-    console.log(this.post);
-
     let photos = document.getElementsByClassName('post-image-'+this.post.uid);
 
     photos[this.index].classList.add('hide');
@@ -79,8 +76,6 @@ export class PostComponent implements OnInit{
 
     photos[this.index].classList.add('show');
     photos[this.index].classList.remove('hide');  
-
-    console.log(photos);
   }
 
 

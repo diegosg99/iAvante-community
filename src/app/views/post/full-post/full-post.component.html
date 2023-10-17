@@ -7,33 +7,63 @@
 <div class="content">
     <div class="row">
 
-        <div class="col-1"></div>
+        <div class="col-xl-2 col-md-0"></div>
 
-        <div class="col-10 my-3 row p-3">
-            <img class="row w-50 post-image mx-auto" src="{{post.photo}}" width="346px">
+        <div class="col-xl-8 col-md-12 row" style="justify-content: right;">
+            <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
+                <p class="px-3">{{post.fullname}}</p>
+                <a class="navbar-brand me-2">
+                    <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="40px" height="40px">
+                </a>
+            </span>
+        </div>
+
+        <div class="col-xl-2 col-md-0"></div>
+
+        <div class="col-xl-2 col-md-0"></div>
+
+        <div class="col-xl-8 col-md-12 my-3 row p-3">
+            
+            <div class="slider-container">
+                <div class="slider-nav d-flex w-100" style="justify-content: space-between;">
+                    <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('back')">
+                      <i class="fa-solid fa-arrow-left" style="color: white;"></i>
+                    </a>
+                    <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('next')">
+                      <i class="fa-solid fa-arrow-right" style="color: white;"></i>
+                    </a>
+                </div>
+                <div *ngIf="$mediaSub | async as media" class="slider-photo">
+                    <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px">
+                </div>
+                <div *ngIf="$mediaSub2 | async as media2" class="slider-photo">
+                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="auto" height="300px">
+                </div>
+                <div *ngIf="$mediaSub3 | async as media3" class="slider-photo">
+                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="auto" height="300px">
+                </div>
+            </div>
 
             <div class="row d-flex">
-                <div class="col-2"></div>
-                <div class="post-content col-8 p-3 row">
-                    <app-like-bookmark></app-like-bookmark>
+                <div class="post-content col p-3 row">
+                    <!-- <app-like-bookmark></app-like-bookmark> -->
                     <div class="col-12">
-                        <h1 style="font-size: 34px;text-decoration: none;color: black;">
-                            {{post.titulo}}
+                        <h1 class="mb-3" style="font-size: 34px;text-decoration: none;color: black;">
+                            {{post.title}}
                         </h1>
                         <div class="mb-3">
-                            {{post.categoria}}
+                            {{post.category}}
                         </div>
                     </div>
                     <hr>
-                    <div class="col-12">
-                        <p>{{post.descripcion}}</p>
+                    <div class="col-12 m-3">
+                        <p>{{post.body}}</p>
                     </div>
                 </div>
-                <div class="col-2"></div>
             </div>
         </div>
         
-        <div class="col-1"></div>
+        <div class="col-xl-2 col-md-0"></div>
 
     </div>
 </div>
