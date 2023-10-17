@@ -1,18 +1,18 @@
 <app-navbar></app-navbar>
 
-<app-parallax></app-parallax>
+<!-- <app-parallax></app-parallax> -->
 
 <app-chat></app-chat>
 
 <div class="content">
-    <div class="row">
+    <div class="row mt-3">
 
         <div class="col-xl-2 col-md-0"></div>
 
         <div class="col-xl-8 col-md-12 row" style="justify-content: right;">
             <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
                 <p class="px-3">{{post.fullname}}</p>
-                <a class="navbar-brand me-2">
+                <a class="navbar-brand me-2" href="#/profile/{{post.user_id}}">
                     <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="40px" height="40px">
                 </a>
             </span>
@@ -23,7 +23,7 @@
         <div class="col-xl-2 col-md-0"></div>
 
         <div class="col-xl-8 col-md-12 my-3 row p-3">
-            
+
             <div class="slider-container">
                 <div class="slider-nav d-flex w-100" style="justify-content: space-between;">
                     <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('back')">
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-xl-2 col-md-0"></div>
 
     </div>

@@ -10,13 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ForumResponseComponent implements OnInit{
 
-  commentId:any;
   @Input() comment:any;
-  clickedComment:boolean;
-  userUID;
-  numLikes;
-  likes = [];
-  commentedUserData;
+  // clickedComment:boolean;
+  // userUID;
+  // numLikes;
+  // likes = [];
+  // commentedUserData;
 
   constructor(private userService: UserService) {}
 
