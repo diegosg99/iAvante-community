@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PostService {
 
-  private baseUrl = 'http://localhost:3003/api'; // TODO IP : 10.111.249.108
+  private baseUrl = 'http://10.111.249.116:3003/api'; // TODO IP : 10.111.249.108
 
   constructor(private firebase: AngularFirestore, private http: HttpClient) { }
 

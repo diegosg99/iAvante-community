@@ -6,7 +6,7 @@ import { ElementRef, Injectable } from '@angular/core';
 })
 export class ImageService {
 
-  private baseUrl = 'http://localhost:3003/api'; // TODO IP : 10.111.249.108
+  private baseUrl = 'http://10.111.249.116:3003/api'; // TODO IP : 10.111.249.108
 
   imageFile: { link: string; file: any; name: string;type: number; } | any;
   imageRaw: { link: string; file: any; name: string; } | any;
