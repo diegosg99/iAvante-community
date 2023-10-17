@@ -670,6 +670,11 @@ button {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
       max-width: 100%;
     }
-  }
+}
 
+@media (max-width: 500px) {
+  .media-title {
+    font-size: 20px !important;
+  }
+}
 
