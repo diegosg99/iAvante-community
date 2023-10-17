@@ -56,20 +56,20 @@ export class ForumResponseComponent implements OnInit{
   }
 
   getLikes = () => {
-    this.forumService.getLikesResponse(this.commentId).subscribe((likes:any)=> {
+    // this.forumService.getLikesResponse(this.commentId).subscribe((likes:any)=> {
 
-      this.likes = [];
-      likes.forEach(like => {
-        let arraySegments = like.payload.doc._delegate._key.path.segments;
-        let likeId = arraySegments[arraySegments.length - 1];
+    //   this.likes = [];
+    //   likes.forEach(like => {
+    //     let arraySegments = like.payload.doc._delegate._key.path.segments;
+    //     let likeId = arraySegments[arraySegments.length - 1];
   
-        let processedLike = {id:likeId,...like.payload.doc.data()};
-        this.likes.push(processedLike);
-      })
+    //     let processedLike = {id:likeId,...like.payload.doc.data()};
+    //     this.likes.push(processedLike);
+    //   })
 
-      this.numLikes = this.likes.length;
-      this.isLiked();
-    });
+    //   this.numLikes = this.likes.length;
+    //   this.isLiked();
+    // });
   }
 
   isLiked = () => {

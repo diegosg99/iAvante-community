@@ -4,26 +4,25 @@ import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage
 import { Observable } from 'rxjs';
 import { OauthService } from './oauth.service';
 import { HttpClient } from '@angular/common/http';
+import { LockService } from './lock.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ForumService implements OnInit{
+export class ForumService {
 
-  private storage = getStorage();
-  userLogged = this.auth.getUserLogged();
-  userId;
+  // userLogged = this.lockService.checkToken();
+  user;
 
-  private baseUrl = 'http://localhost:3003/api';
+  private baseUrl = 'http://10.111.249.116:3003/api'; // TODO IP : 10.111.249.108
 
+  constructor(private lockService:LockService,private http: HttpClient) { }
 
-  constructor(private firebase: AngularFirestore,private auth:OauthService,private http: HttpClient) { }
-
-  ngOnInit(): void {
-    if(this.userLogged){
-      this.userLogged.subscribe(user=>{this.userId = user});
-    }
-  }
+  // ngOnInit(): void {
+  //   if(this.userLogged){
+  //     this.userLogged.subscribe(user=>{this.user = user});
+  //   }
+  // }
 
   //-------------------------------- QUESTIONS -----------------------------
 
@@ -48,7 +47,6 @@ export class ForumService implements OnInit{
   };
 
   removeQuestion = (id) => {
-    return this.firebase.collection("forums").doc(id).delete();
   }
 
   getQuestion = (id:string):any => {
@@ -56,7 +54,6 @@ export class ForumService implements OnInit{
   }
 
   getQuestionBy = (id:string,key:string):any => {
-    return this.firebase.collection("forums",ref=>ref.where(key,'==',id)).snapshotChanges();
   }
 
   //-------------------------------- QUESTIONS -----------------------------
@@ -65,7 +62,7 @@ export class ForumService implements OnInit{
 
   uploadResponse = (response): any => {
 
-    return this.http.post(`${this.baseUrl}/upload/comment`,response)
+    return this.http.post(`${this.baseUrl}/upload/comment`,response);
   }
 
   getResponses = (idQuestion):any => {
@@ -74,8 +71,6 @@ export class ForumService implements OnInit{
   }
 
   getResponsesBy = (id:string,key:string):any => {
-    console.log(id);
-    return this.firebase.collection("forum-response",ref=>ref.where(key,'==',id)).snapshotChanges();
   }
 
   //--------------------------------- NO CREO QUE HAGA FALTA ---------------------------
@@ -85,26 +80,26 @@ export class ForumService implements OnInit{
 
   likeResponse = (commentLike) => {
 
-    return this.firebase.collection('forums-response-likes').add(commentLike)
-    .then(()=>{
-      console.log('Like con éxito.')
-    }, error => {
-      console.log(error);
-    });
+    // return this.firebase.collection('forums-response-likes').add(commentLike)
+    // .then(()=>{
+    //   console.log('Like con éxito.')
+    // }, error => {
+    //   console.log(error);
+    // });
   }
 
   removeLikeResponse = (commentLikeId) => {
-    return this.firebase.collection('forums-response-likes').doc(commentLikeId).delete()
-    .then(()=>{
-      console.log('Like eliminado con éxito.')
-    }, error => {
-      console.log(error);
-    });
+    // return this.firebase.collection('forums-response-likes').doc(commentLikeId).delete()
+    // .then(()=>{
+    //   console.log('Like eliminado con éxito.')
+    // }, error => {
+    //   console.log(error);
+    // });
   }
 
   getLikesResponse = (commentId) => {
 
-    return this.firebase.collection('forums-response-likes',ref=>ref.where('comment','==',commentId)).snapshotChanges();
+    // return this.firebase.collection('forums-response-likes',ref=>ref.where('comment','==',commentId)).snapshotChanges();
   }
 }
 

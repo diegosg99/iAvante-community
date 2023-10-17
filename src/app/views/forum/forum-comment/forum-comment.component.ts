@@ -30,12 +30,11 @@ export class ForumCommentComponent implements OnInit{
 
   uploadResponse = () => {
 
-    console.log(this.userLogged);
-
       const RESPONSE: any = {
+        uid: this.uuidv4(),
         respuesta: this.form.value.response,
         usuario: this.userLogged.uid,
-        preguntaId: this.questionId.value.id,
+        preguntaId: this.questionId,
         likes: 0,
         fechaCreacion: new Date(),
         fechaActualizacion: new Date()
@@ -43,6 +42,19 @@ export class ForumCommentComponent implements OnInit{
   
       console.log(RESPONSE);
   
-      this.forumService.uploadResponse(RESPONSE);
+      this.forumService.uploadResponse(RESPONSE).subscribe(data=>{
+        console.log(data);
+      });
   }
+
+  uuidv4(): string {
+    return (([1e7] as any) + -1e3 + -4e3 + -8e3 + -1e11).replace(
+    /[018]/g,
+    (c: number) =>
+        (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16)
+    );
+}
 }

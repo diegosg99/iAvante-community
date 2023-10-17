@@ -6,6 +6,8 @@ const questionService = require('../services/questions.service');
 exports.uploadQuestion = (req, res) => {
     let data = req.body;
 
+    console.log(data);
+
     try {
         sql = `INSERT INTO questions 
                     (uid,title,body,user_id,category,views,comments,status,created_at,updated_at)
@@ -148,20 +150,22 @@ getQuestionComments = (idQuestion) => {
 }
 
 exports.newComment = (req,res) => {
-    let sql = `INSERT INTO questions 
-                    (uid,title,body,user_id,category,views,comments,status,created_at,updated_at)
+
+    let data = req.body;
+
+    console.log(data);
+
+    let sql = `INSERT INTO comments 
+                    (uid,id_post,id_user,body,likes,created_at,updated_at)
                 VALUES 
                 (
                     '${data.uid}',
-                    '${data.title}',
-                    '${data.body}',
+                    '${data.preguntaId}',
                     '${data.usuario}',
-                    '${data.category}',
-                    ${data.views},
-                    ${data.comments},
-                    ${data.status},
-                    '${data.created_at}',
-                    '${data.updated_at}'
+                    '${data.respuesta}',
+                    '${data.likes}',
+                    '${data.fechaCreacion}',
+                    '${data.fechaActualizacion}'
                 )`;
                
                 console.log(sql);
@@ -171,7 +175,7 @@ exports.newComment = (req,res) => {
             console.error('Error fetching users:', err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
-      res.status(200).json(rows);
+      res.status(200).json({message: 'Comentario publicado con éxito',data:rows});
     });
 }
 

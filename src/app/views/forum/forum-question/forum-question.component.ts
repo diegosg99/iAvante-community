@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, debounceTime } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -18,12 +19,12 @@ export class ForumQuestionComponent implements OnInit{
   userId:any;
   userQuestion;
   usersComments;
-  userLogged = this.auth.getUserLogged();
+  userLogged = this.lockService.checkToken();
   comments:any = [];
   clickedComment = false;
   $questionSubscription: Observable<any>;
 
-  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private auth: OauthService,private userService:UserService){}
+  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private userService:UserService){}
 
   ngOnInit(): any {
     //this.idQuestion = this._activatedroute.params;
