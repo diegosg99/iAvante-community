@@ -17,13 +17,9 @@ export class QuestionListComponent implements OnInit{
   constructor(private userService: UserService,private forumService:ForumService,private router:Router){}
 
   ngOnInit(): void {
-    console.log(this.question);
   }
 
-  updateViews = (question) => {
-
-    console.log(question);
-    
+  updateViews = (question) => {    
     this.forumService.updateQuestionViews(question).subscribe(res=>
       {
         this.router.navigate(["foro/"+question.uid]);

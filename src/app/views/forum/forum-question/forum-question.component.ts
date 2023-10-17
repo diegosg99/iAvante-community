@@ -20,7 +20,7 @@ export class ForumQuestionComponent implements OnInit{
   userQuestion;
   usersComments;
   userLogged = this.lockService.checkToken();
-  comments:any = [];
+  $comments:Observable<any>;
   clickedComment = false;
   $questionSubscription: Observable<any>;
 
@@ -35,7 +35,8 @@ export class ForumQuestionComponent implements OnInit{
         this.idQuestion = data['id'];
         
         this.$questionSubscription = this.forumService.getQuestion(this.idQuestion);
-        this.commentsDiv = document.getElementById('divComments');     
+        // this.$comments = this.forumService.getResponses(this.idQuestion);
+        //this.commentsDiv = document.getElementById('divComments');     
       });
   }
 

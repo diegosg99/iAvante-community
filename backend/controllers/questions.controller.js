@@ -2,6 +2,7 @@ const path = require('path');
 const connection = require('../database');
 const toolService = require('../services/tools.service');
 const questionService = require('../services/questions.service');
+const { error } = require('console');
 
 exports.uploadQuestion = (req, res) => {
     let data = req.body;
@@ -142,10 +143,13 @@ getQuestionComments = (idQuestion) => {
                         on q.uid = c.id_post 
                 WHERE q.uid = '${idQuestion}';`;
                
-                console.log(sql);
-
     connection.query(sql, (err, rows) => {
-      return rows;
+        if (err){
+            console.log(error);
+            return error;
+        }else{
+            return rows;
+        }
     });
 }
 
@@ -182,10 +186,10 @@ exports.newComment = (req,res) => {
 exports.getQuestion = (req,res) => {
 
     let newQuestion = {};
-
     let response = {}
+    let comments = [];
 
-    const sql =`SELECT q.*,u.fullname,i.url 
+    let sql =`SELECT q.*,u.fullname,i.url 
                     FROM questions as q
                         INNER JOIN users as u 
                             on u.uid = q.user_id 
@@ -195,14 +199,10 @@ exports.getQuestion = (req,res) => {
                         on m.id_media = i.id
                         WHERE q.uid = '${req.params.id}';`
 
-    console.log(sql);
-
     connection.query(sql, (err, rows) => {
 
         if (rows[0]) {
-            
-            console.log(rows[0]);
-            
+                        
             const filepath = path.resolve(rows[0].url);
             let base64image = toolService.convertImageToBase64(filepath);
 
@@ -210,12 +210,28 @@ exports.getQuestion = (req,res) => {
 
             response.question = newQuestion;
 
-            let comments = getQuestionComments(newQuestion.uid)?getQuestionComments(newQuestion.uid):[];
-
-            response.comments = comments;
-      
-            res.status(201).json(response);
+            sql = `SELECT c.*,u.fullname,i.url 
+                FROM comments as c 
+                    INNER JOIN users as u 
+                        on u.uid = c.id_user 
+                    INNER JOIN media_users as m 
+                        on u.photo = m.uid 
+                    INNER JOIN images as i 
+                        on m.id_media = i.id 
+                    INNER JOIN questions as q 
+                        on q.uid = c.id_post 
+                WHERE q.uid = '${newQuestion.uid}';`;
+               
+            connection.query(sql, (err, rows) => {
+                if (err){
+                    console.log(error);
+                    res.status(301).json({error: 'No hay preguntas'});
+                }else{
+                    comments = rows;
+                    response.comments = comments;
+                    res.status(201).json(response);
+                }
+            });
         }
-        //res.status(301).json({error: 'No hay preguntas'});
     });
 }
