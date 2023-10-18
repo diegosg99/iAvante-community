@@ -2,20 +2,17 @@
     <span class="">
         <span class="msg-header row">
             <span class="col-1">
-                <a class="navbar-brand me-2" href="#/profile/"{{comment.id_user}}>
-                    <img src="" class="msg-img" alt="" width="60px" height="60px">
+                <a class="navbar-brand me-2" href="#/profile/{{comment.id_user}}">
+                    <img src="{{comment.url}}" class="msg-img" alt="" width="60px" height="60px">
                 </a>
             </span>
             <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
                 <span class="msg-username col-3">
-                    <a href="perfil/usuario" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);"></a>
+                    <a href="#/profile/{{comment.id_user}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{comment.fullname}}</a>
                 </span>
                 <span class="col-3" style="text-align: right;">
                     <span class="hace" style="font-size: 12px;">{{comment.created_at | date}}</span>
                     <span class="interactions">
-                        <!-- <span class="ico_msg_mp"></span>
-                        <span class="ico_msg_ocultar"></span>
-                        <span class="ico_msg_mod"></span> -->
                     </span>
                 </span>
             </div>
@@ -27,8 +24,8 @@
         <hr>
         <div class="mt-3">
             <span class="" id="usu_votos_2">
-                <button class="mx-2 btn btn-light" ><!--(click)="likeComment()"-->
-                    <!-- <i class="fa-heart" [ngClass]="clickedComment ? 'fa-solid red-heart' : 'fa-regular black'"></i>  -->
+                <button class="mx-2 btn btn-light" (click)="likeComment()"><!---->
+                    <i class="fa-heart" [ngClass]="clickedComment ? 'fa-solid red-heart' : 'fa-regular black'"></i> 
                 </button>
                 <span class="p" style="font-size: 14px; color: #6f6f6f;">
                     <b>{{comment.likes}}</b> 
@@ -37,5 +34,4 @@
             <span class="cb db"></span>
         </div>
     </div>
-    
 </div>

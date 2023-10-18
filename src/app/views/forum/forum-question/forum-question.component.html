@@ -1,115 +1,69 @@
 <app-navbar></app-navbar>
 
-<!-- <app-chat></app-chat> -->
+<app-chat></app-chat>
 
 <!-- ----------------------------MAIN QUESTION----------------------------------- -->
 
-<div *ngIf="$questionSubscription | async as data">
 
-    <div class="row mb-3" *ngIf="$questionSubscription | async as data">
-        <div class="col-lg-12">
-            <h1 class="logo mb-5 p-5">Foro cuestiones generales</h1>
-        </div>
-    
-        <div class="row">
-            <div class="col-2"></div>
-            <h1 class="title col-8 mb-5">
-                <span>*</span>
-                <span>*</span>
-                {{data.question.title}}
-                <span>*</span>
-                <span>*</span>
-              </h1>
-            <div class="col-2"></div>
-        </div>
-        
-    
-        <div #questionDiv class="mx-3">
-            <div class="mx-3 mb-5 msg col-11">
-                <span class="">
-    
-                    <span class="msg-header row pb-3">
-                        <span class="col-1" style="padding: 0px;">
-                            <a class="navbar-brand me-2" href="#/profile/{{data.question.user_id}}">
-                                <img src="{{data.question.userImage}}" class="msg-img" alt="" data-loaded="true" width="60px" height="60px">
-                            </a>
-                        </span>
-                        <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
-                            <span class="msg-username col-3">
-                                <a href="#/profile/{{data.question.user_id}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{data.question.fullname}}</a>
-                            </span>
-                            <span class="col-3" style="text-align: right;">
-                                <span class="hace" style="font-size: 12px;">{{data.question.created_at | date:'short'}}</span>
-                                <span class="interactions">
-                                </span>
-                            </span>
-                        </div>
-                    </span>
-    
-                    <hr>
-                </span>
-                <div class="question-content p-3">
-                    <div *ngIf="data" class="col-lg-12">
-                        <p class="mb-3 p-1">{{data.question.body}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row mb-3" *ngIf="$questionSubscription | async as question">
+    <div class="col-lg-12">
+        <h1 class="logo mb-5 p-5">Foro cuestiones generales</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <h1 class="title col-8 mb-5">
+            <span>*</span>
+            <span>*</span>
+            {{question.title}}
+            <span>*</span>
+            <span>*</span>
+            </h1>
+        <div class="col-2"></div>
     </div>
     
-    <!-- ----------------------------MAIN QUESTION----------------------------------- -->
-    
-    <!-- -----------------------------RESPONSES------------------------------------ -->
-    <div #commentsDiv>
-        <div *ngFor="let comment of data.comments" class="mx-5 mb-5 msg w-75">
-    
-            <div>
-                <span class="">
-                    <span class="msg-header row">
-                        <span class="col-1">
-                            <a class="navbar-brand me-2" href="#/profile/"{{comment.id_user}}>
-                                <img src="" class="msg-img" alt="" width="60px" height="60px">
-                            </a>
-                        </span>
-                        <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
-                            <span class="msg-username col-3">
-                                <a href="perfil/usuario" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);"></a>
-                            </span>
-                            <span class="col-3" style="text-align: right;">
-                                <span class="hace" style="font-size: 12px;">{{comment.created_at | date}}</span>
-                                <span class="interactions">
-                                    <!-- <span class="ico_msg_mp"></span>
-                                    <span class="ico_msg_ocultar"></span>
-                                    <span class="ico_msg_mod"></span> -->
-                                </span>
-                            </span>
-                        </div>
+
+    <div #questionDiv class="mx-3">
+        <div class="mx-3 mb-5 msg col-11">
+            <span class="">
+
+                <span class="msg-header row pb-3">
+                    <span class="col-1" style="padding: 0px;">
+                        <a class="navbar-brand me-2" href="#/profile/{{question.user_id}}">
+                            <img src="{{question.userImage}}" class="msg-img" alt="" data-loaded="true" width="60px" height="60px">
+                        </a>
                     </span>
-                    <hr>
-                </span>
-                <div class="msg-content p-3">
-                    <p class="mb-3">{{comment.body}}</p>
-                    <hr>
-                    <div class="mt-3">
-                        <span class="" id="usu_votos_2">
-                            <button class="mx-2 btn btn-light" ><!--(click)="likeComment()"-->
-                                <!-- <i class="fa-heart" [ngClass]="clickedComment ? 'fa-solid red-heart' : 'fa-regular black'"></i>  -->
-                            </button>
-                            <span class="p" style="font-size: 14px; color: #6f6f6f;">
-                                <b>{{comment.likes}}</b> 
+                    <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
+                        <span class="msg-username col-3">
+                            <a href="#/profile/{{question.user_id}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{question.fullname}}</a>
+                        </span>
+                        <span class="col-3" style="text-align: right;">
+                            <span class="hace" style="font-size: 12px;">{{question.created_at | date:'short'}}</span>
+                            <span class="interactions">
                             </span>
                         </span>
-                        <span class="cb db"></span>
                     </div>
+                </span>
+
+                <hr>
+            </span>
+            <div class="question-content p-3">
+                <div class="col-lg-12">
+                    <p class="mb-3 p-1">{{question.body}}</p>
                 </div>
-                
             </div>
-    
-            <!-- <app-forum-response [comment]="comment"></app-forum-response> -->
         </div>
     </div>
 </div>
 
+<!-- ----------------------------MAIN QUESTION----------------------------------- -->
+
 <!-- -----------------------------RESPONSES------------------------------------ -->
 
-<app-forum-comment [questionId]='idQuestion' [userLogged]='userLogged | async' [divComments]='commentsDiv'></app-forum-comment>
+<div *ngFor="let comment of $commentsSub | async as comments" class="mx-5 mb-5 msg w-75">
+    <app-forum-response [comment]="comment" [userLogged]='userLogged | async'></app-forum-response>
+</div>
+
+<!-- -----------------------------RESPONSES------------------------------------ -->
+
+<app-forum-comment [questionId]='idQuestion' [userLogged]='userLogged | async'></app-forum-comment>

@@ -67,7 +67,7 @@ export class ForumService {
 
   getResponses = (idQuestion):any => {
 
-    return this.http.get(`${this.baseUrl}/questions/comments/`+idQuestion);
+    return this.http.post(`${this.baseUrl}/questions/comments`,{uid:idQuestion});
   }
 
   getResponsesBy = (id:string,key:string):any => {

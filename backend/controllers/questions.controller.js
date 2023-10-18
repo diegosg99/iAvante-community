@@ -129,7 +129,9 @@ exports.updateViews = (req, res) => {
     });
 };
 
-getQuestionComments = (idQuestion) => {
+exports.getQuestionComments = (req,res) => {
+
+    let uid = req.body.uid;
     
     let sql = `SELECT c.*,u.fullname,i.url 
                 FROM comments as c 
@@ -141,14 +143,24 @@ getQuestionComments = (idQuestion) => {
                         on m.id_media = i.id 
                     INNER JOIN questions as q 
                         on q.uid = c.id_post 
-                WHERE q.uid = '${idQuestion}';`;
+                WHERE q.uid = '${uid}'
+                ORDER BY c.created_at ASC;`;
                
     connection.query(sql, (err, rows) => {
         if (err){
             console.log(error);
-            return error;
+            res.status(301).json({message:'Hubo un error al conseguir los comentarios...'});
         }else{
-            return rows;
+            let filepath;
+            let base64image;
+
+            rows.forEach(comment => {
+                filepath = path.resolve(comment.url);
+                base64image = toolService.convertImageToBase64(filepath);
+                comment.url = base64image;
+            })
+
+            res.status(200).json(rows);
         }
     });
 }
@@ -156,8 +168,6 @@ getQuestionComments = (idQuestion) => {
 exports.newComment = (req,res) => {
 
     let data = req.body;
-
-    console.log(data);
 
     let sql = `INSERT INTO comments 
                     (uid,id_post,id_user,body,likes,created_at,updated_at)
@@ -171,8 +181,6 @@ exports.newComment = (req,res) => {
                     '${data.fechaCreacion}',
                     '${data.fechaActualizacion}'
                 )`;
-               
-                console.log(sql);
 
     connection.query(sql, (err, rows) => {
         if (err) {
@@ -187,7 +195,6 @@ exports.getQuestion = (req,res) => {
 
     let newQuestion = {};
     let response = {}
-    let comments = [];
 
     let sql =`SELECT q.*,u.fullname,i.url 
                     FROM questions as q
@@ -208,30 +215,10 @@ exports.getQuestion = (req,res) => {
 
             newQuestion = {...rows[0],userImage:base64image}
 
-            response.question = newQuestion;
-
-            sql = `SELECT c.*,u.fullname,i.url 
-                FROM comments as c 
-                    INNER JOIN users as u 
-                        on u.uid = c.id_user 
-                    INNER JOIN media_users as m 
-                        on u.photo = m.uid 
-                    INNER JOIN images as i 
-                        on m.id_media = i.id 
-                    INNER JOIN questions as q 
-                        on q.uid = c.id_post 
-                WHERE q.uid = '${newQuestion.uid}';`;
-               
-            connection.query(sql, (err, rows) => {
-                if (err){
-                    console.log(error);
-                    res.status(301).json({error: 'No hay preguntas'});
-                }else{
-                    comments = rows;
-                    response.comments = comments;
-                    res.status(201).json(response);
-                }
-            });
+            response = newQuestion;
+            res.status(200).json(response);
+        }else{
+            res.status(301).json({message:'Hubo un error'});
         }
     });
 }

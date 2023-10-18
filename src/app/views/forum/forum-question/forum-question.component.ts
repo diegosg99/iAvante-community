@@ -13,31 +13,24 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ForumQuestionComponent implements OnInit{
 
-  @Output() idQuestion:any = new EventEmitter<string>();
-  @Output() commentsDiv:any = new EventEmitter<string>();
+  idQuestion:any = this._activatedroute.snapshot.paramMap.get('id');
+  //@Output() commentsDiv:any = new EventEmitter<string>();
   question:any;
   userId:any;
   userQuestion;
   usersComments;
+
+//--------------------------------------- SUBS -----------------------------------
   userLogged = this.lockService.checkToken();
-  $comments:Observable<any>;
+  $commentsSub: Observable<any> = this.forumService.getResponses(this.idQuestion);
+  $questionSubscription: Observable<any> = this.forumService.getQuestion(this.idQuestion);
+
   clickedComment = false;
-  $questionSubscription: Observable<any>;
+
 
   constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private userService:UserService){}
 
   ngOnInit(): any {
-    //this.idQuestion = this._activatedroute.params;
-
-    this._activatedroute.params.subscribe(data=>
-      {
-        
-        this.idQuestion = data['id'];
-        
-        this.$questionSubscription = this.forumService.getQuestion(this.idQuestion);
-        // this.$comments = this.forumService.getResponses(this.idQuestion);
-        //this.commentsDiv = document.getElementById('divComments');     
-      });
   }
 
   // getQuestionComments = () => {
