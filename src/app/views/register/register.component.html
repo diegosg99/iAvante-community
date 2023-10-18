@@ -1,47 +1,43 @@
 <app-parallax></app-parallax>
 <div class="container row mx-auto my-3"  style="height: fit-content!important;">
     <div class="col-xl-3"></div>
-    <div class="col-xl-6 col card text-center" style="padding-left: 0px;padding-right: 0px;">
-        <div class="card-header">
-            <h5 class="card-title register-title p-3">REGISTRO</h5>
-        </div>
-        <div class="card-body p-3">
+        <div class="col-xl-6 col card text-center" style="padding-left: 0px;padding-right: 0px;">
+            <div class="card-header" style="background-color: #198754dc;border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                <h5 class="card-title register-title p-3">REGISTRO</h5>
+            </div>
+            <div class="card-body p-5">
 
-            <label style="float: left;margin-bottom: 1em;">Email:</label>
-            <input class="form-control my-3" type="text" placeholder="Email" required #email [(ngModel)]="usuario.email">
+                <label style="float: left;margin-bottom: 1em;">Email:</label>
+                <input class="form-control my-3" type="text" placeholder="Email" required #email [(ngModel)]="usuario.email">
 
-            <label style="float: left;;margin-bottom: 1em;">Contraseña:</label>
-            <input class="form-control my-3" type="password" placeholder="Contraseña" required #password  [(ngModel)]="usuario.password">
+                <label style="float: left;;margin-bottom: 1em;">Contraseña:</label>
+                <input class="form-control my-3" type="password" placeholder="Contraseña" required #password  [(ngModel)]="usuario.password">
 
-            
-            <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
-            <input class="form-control my-3" type="text" placeholder="Nombre de usuario" required #username  [(ngModel)]="userForm.username">
-            
-            <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
-            <input class="form-control my-3" type="text" placeholder="Nombre completo" required #fullName  [(ngModel)]="userForm.fullName">
-            
-            <div class="row mb-3">
-                <div class="col-6">
-                    <label style="float: left;;margin-bottom: 1em;">Foto:</label>
-                    <input class="form-control my-3" required type="file" placeholder="Foto de perfil" id="photo" #photo  [(ngModel)]="userForm.photo">    
+                
+                <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+                <input class="form-control my-3" type="text" placeholder="Nombre de usuario" required #username  [(ngModel)]="userForm.username">
+                
+                <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+                <input class="form-control my-3" type="text" placeholder="Nombre completo" required #fullName  [(ngModel)]="userForm.fullName">
+                
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label style="float: left;;margin-bottom: 1em;">Foto:</label>
+                        <input class="form-control my-3" required type="file" placeholder="Foto de perfil" id="photo" #photo  [(ngModel)]="userForm.photo">    
+                    </div>
+
+                    <div class="col-6">
+                        <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
+                        <input class="form-control my-3" type="date" required #age  [(ngModel)]="userForm.age">
+                    </div>
                 </div>
-
-                <div class="col-6">
-                    <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
-                    <input class="form-control my-3" type="date" required #age  [(ngModel)]="userForm.age">
+                
+                <div class="switch">
+                    <span>¿Ya tienes cuenta?</span>
+                    <a href="#/login" class="text-white btn btn-primary my-1 p-2" style="background-color: #198754dc;border:solid 1px white" (click)="register()">Iniciar sesión</a>
                 </div>
             </div>
-            
-        <p>¿Ya tienes cuenta? <a href="#/login">Iniciar sesión</a></p>
-
-        <div class="row mx-3">
-            <div class="col-xl-3"></div>
-            <button class="text-white btn btn-primary my-3 p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6" style="font-size: 22px; letter-spacing: 2px;" (click)="register()">Registrarme</button>
-            <div class="col-xl-3"></div>
-
         </div>
-        </div>
-    </div>
     <div class="col-xl-3"></div>
 
 </div>

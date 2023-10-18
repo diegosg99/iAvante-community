@@ -7,68 +7,104 @@
 }
 
 .login-title {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 700;
     font-family: "Lato", sans-serif;
-    color: #808080;
+    color: #ffffff;
     letter-spacing: 5px;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
-.know-us{
-    text-decoration: none;
-    height: 65px;
-    width: 210px;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    border: 1px solid transparent;
-    outline: none;
-    cursor: pointer;
-    overflow: hidden;
-    transition: 0.6s;
-    background: #206592;
+.cardd {
+  width: 300px;
+  background-color: transparent;
+  padding: 0px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-  }
-  .know-us:first-child{
-    color: white;
-    border-color: white;
-  }
-  .know-us:before, .know-us:after{
-    position: absolute;
-    content: '';
-    left: 0;
-    top: 0;
-    height: 100%;
-    filter: blur(30px);
-    opacity: 0.4;
-    transition: 0.6s;
-  }
-  .know-us:before{
-    width: 60px;
-    background: rgba(255,255,255,0.6);
-    transform: translateX(-130px) skewX(-45deg);
-  }
-  .know-us:after{
-    width: 30px;
-    background: rgba(255,255,255,0.6);
-    transform: translateX(-130px) skewX(-45deg);
-  }
-  .know-us:hover:before,
-  .know-us:hover:after{
-    opacity: 0.6;
-    transform: translateX(320px) skewX(-45deg);
-  }
-  .know-us:hover{
-    color: #f2f2f2;
-  }
-  .know-us:hover:first-child{
-    background: white;
-    color: #206592;
-    border-color: #206592;
-  }
+input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid #198754dc;
+  color: #808080;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  color: #f6226f;
+  cursor: pointer;
+}
+
+.switch {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: #198754dc;
+}
+
+
+// .know-us{
+//     text-decoration: none;
+//     height: 65px;
+//     width: 210px;
+//     font-size: 18px;
+//     font-weight: 500;
+//     letter-spacing: 1px;
+//     border-radius: 5px;
+//     text-transform: uppercase;
+//     border: 1px solid transparent;
+//     outline: none;
+//     cursor: pointer;
+//     overflow: hidden;
+//     transition: 0.6s;
+//     background: #206592;
+
+//   }
+//   .know-us:first-child{
+//     color: white;
+//     border-color: white;
+//   }
+//   .know-us:before, .know-us:after{
+//     position: absolute;
+//     content: '';
+//     left: 0;
+//     top: 0;
+//     height: 100%;
+//     filter: blur(30px);
+//     opacity: 0.4;
+//     transition: 0.6s;
+//   }
+//   .know-us:before{
+//     width: 60px;
+//     background: rgba(255,255,255,0.6);
+//     transform: translateX(-130px) skewX(-45deg);
+//   }
+//   .know-us:after{
+//     width: 30px;
+//     background: rgba(255,255,255,0.6);
+//     transform: translateX(-130px) skewX(-45deg);
+//   }
+//   .know-us:hover:before,
+//   .know-us:hover:after{
+//     opacity: 0.6;
+//     transform: translateX(320px) skewX(-45deg);
+//   }
+//   .know-us:hover{
+//     color: #f2f2f2;
+//   }
+//   .know-us:hover:first-child{
+//     background: white;
+//     color: #206592;
+//     border-color: #206592;
+//   }
 
 @media (max-width: 480px) { 
     .login-title { 
