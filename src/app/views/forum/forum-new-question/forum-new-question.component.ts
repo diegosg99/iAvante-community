@@ -41,7 +41,6 @@ export class ForumNewQuestionComponent implements OnInit{
       usuario: this.userLogged.uid,
       category: this.form.value.category,
       views: 0,
-      comments: 0,
       status: 0,
       created_at: new Date(),
       updated_at: new Date()

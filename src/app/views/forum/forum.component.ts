@@ -28,6 +28,7 @@ export class ForumComponent {
   userID;
   user;
   $questionSubscription: Observable<any> = this.forumService.getQuestions();
+  $userSubscription: Observable<any> = this.lockService.checkToken();
 
   constructor(private forumService: ForumService,private auth: OauthService,private lockService: LockService){
     // this.forumService.getQuestions().subscribe(res=> {
@@ -44,15 +45,15 @@ export class ForumComponent {
     this.$questionSubscription = this.forumService.getCategoryQuestions(category)
   }
 
-  // getQuestionComments = (idQuestion) => {
-  //   this.forumService.getResponses(idQuestion).subscribe(comments=>{
+  getQuestionComments = (idQuestion) => {
+    this.forumService.getResponses(idQuestion).subscribe(comments=>{
 
-  //     let selectedQuestion = this.questions.find(q => {
-  //       return q.id ===idQuestion;
-  //     })
-  //     selectedQuestion.comments = comments.length;
-  //   })
-  // }
+      let selectedQuestion = this.questions.find(q => {
+        return q.id ===idQuestion;
+      })
+      selectedQuestion.comments = comments.length;
+    })
+  }
 
   removeQuestion = (idQuestion) => {
     this.forumService.removeQuestion(idQuestion);

@@ -11,7 +11,7 @@ exports.uploadQuestion = (req, res) => {
 
     try {
         sql = `INSERT INTO questions 
-                    (uid,title,body,user_id,category,views,comments,status,created_at,updated_at)
+                    (uid,title,body,user_id,category,views,status,created_at,updated_at)
                 VALUES 
                 (
                     '${data.uid}',
@@ -20,7 +20,6 @@ exports.uploadQuestion = (req, res) => {
                     '${data.usuario}',
                     '${data.category}',
                     ${data.views},
-                    ${data.comments},
                     ${data.status},
                     '${data.created_at}',
                     '${data.updated_at}'
@@ -43,7 +42,8 @@ exports.getAllQuestions = (req, res) => {
 
     let newQuestions = [];
 
-    const sql =`SELECT q.*,u.fullname,i.url 
+    const sql =`SELECT q.*,u.fullname,i.url,
+    ( SELECT COUNT(c.uid) FROM comments AS c WHERE c.id_post = q.uid ) AS comments
                     FROM questions as q
                         INNER JOIN users as u 
                             on u.uid = q.user_id 

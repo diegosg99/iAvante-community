@@ -11,7 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 export class QuestionListComponent implements OnInit{
 
   @Input() question;
-  // @Input() user;
   questionUser;
 
   constructor(private userService: UserService,private forumService:ForumService,private router:Router){}
