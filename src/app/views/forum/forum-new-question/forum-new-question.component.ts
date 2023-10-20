@@ -46,10 +46,15 @@ export class ForumNewQuestionComponent implements OnInit{
       updated_at: new Date()
     };
 
-    this.forumService.uploadQuestion(QUESTION).then(()=> {
+    this.forumService.uploadQuestion(QUESTION).subscribe(data=> {
       
-      this.toastr.success('La pregunta se ha publicado con éxito.','¡Genial!',{ progressBar: true,positionClass: 'toast-bottom-right'});
-      this.form.reset();
+      if (data.code === 201) {
+        this.toastr.success('La pregunta se ha publicado con éxito.','¡Genial!',{ progressBar: true,positionClass: 'toast-top-right'});
+        this.form.reset();
+      }
+      else {
+        this.toastr.error('Oops.. Ha habido un problema al subir la pregunta ¡Intentalo más tarde!','Error!',{ progressBar: true,positionClass: 'toast-bottom-right'});
+      }
     },(error: any) => {
       this.toastr.error('Oops.. Ha habido un problema al subir la pregunta ¡Intentalo más tarde!','Error!',{ progressBar: true,positionClass: 'toast-bottom-right'});
     });

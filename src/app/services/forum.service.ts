@@ -27,10 +27,7 @@ export class ForumService {
   //-------------------------------- QUESTIONS -----------------------------
 
   uploadQuestion = (forum:any): any => {
-    return this.http.post(`${this.baseUrl}/upload/question`, forum).subscribe(res=> {
-      console.log(res);
-      console.log('Pregunta subida con éxito.');
-    });
+    return this.http.post(`${this.baseUrl}/upload/question`, forum);
   }
 
   getQuestions = ():Observable<any> => {

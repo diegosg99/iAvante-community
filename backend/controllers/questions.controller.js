@@ -187,7 +187,7 @@ exports.newComment = (req,res) => {
             console.error('Error fetching users:', err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
-      res.status(200).json({message: 'Comentario publicado con éxito',data:rows});
+      res.status(200).json({code:201,message: 'Comentario publicado con éxito',data:rows});
     });
 }
 

@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/services/post.service';
-import { Post } from '../../models/Post';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
 import { ImageService } from 'src/app/services/image.service.service';
@@ -85,8 +84,10 @@ export class UploadPostComponent implements OnInit{
         console.log(this.imgArray);
         this._postService.uploadPostImage(this.fdImg).subscribe(res=>{
           console.log(res);
-          this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');
+          this.imgWrap.nativeElement.innerHTML = '';
           this.form.reset();
+          console.log('Toasteando');
+          this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');          
         });
       },(error: any) => {
         this.toastr.error('Oops.. Ha habido un problema al subir la publicación ¡Intentalo más tarde!','Error!')
@@ -115,9 +116,6 @@ export class UploadPostComponent implements OnInit{
     Array.from(this.files).forEach((file) => {
         let image = this.imageService.processImage(file,this.postId+'.'+this.uuidv4(), 'post.');
         
-        console.log(image);
-
-        //this.imgArray.push(image.get('file'));
         this.fdImg.append('files',image.get('file'));
         promises.push(this.imageService.getBase64(file));
     });

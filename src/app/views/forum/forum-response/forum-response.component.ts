@@ -19,13 +19,6 @@ export class ForumResponseComponent implements OnInit{
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    console.log(this.comment);
-    //console.log(this.comment);
-    // this.userLogged.subscribe(user => {
-    //   this.userUID = user.uid;
-    // })
-    // this.getCommentedUserData();
-    // this.getLikes();
   }
 
   likeComment = () => {

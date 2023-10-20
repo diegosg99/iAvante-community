@@ -39,11 +39,16 @@ export class ForumCommentComponent implements OnInit{
         fechaCreacion: new Date(),
         fechaActualizacion: new Date()
       };
-  
-      console.log(RESPONSE);
-  
+    
       this.forumService.uploadResponse(RESPONSE).subscribe(data=>{
-        console.log(data);
+        
+        if (data.code === 201) {
+          this.toastr.success('La respuesta se ha registrado con éxito.','¡Genial!');
+          this.form.reset();
+        }else{
+          this.toastr.error('Oops.. Ha habido un problema al subir la respuesta ¡Intentalo más tarde!','Error!')
+          this.form.reset();
+        }
       });
   }
 

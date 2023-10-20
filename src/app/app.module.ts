@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { environment } from './environments/environment';
 import { OauthService } from './services/oauth.service';
 import { LockService } from './services/lock.service';
@@ -24,7 +24,7 @@ import { PostComponent } from './views/post/post.component';
 import { LikeService } from './services/like.service';
 import { PostService } from './services/post.service';
 import { NewsComponent } from './views/news/news.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NewsService } from './services/news.service';
 import { ForumComponent } from './views/forum/forum.component';
 import { ForumCategoriesComponent } from './views/forum/forum-categories/forum-categories.component';
@@ -88,15 +88,14 @@ import { PostNewsComponent } from './views/post/news/news.component';
     ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    ToastrModule.forRoot(),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    
+    ToastrModule.forRoot()    
   ],
   providers: [OauthService,
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },{provide: LocationStrategy, useClass: HashLocationStrategy},
