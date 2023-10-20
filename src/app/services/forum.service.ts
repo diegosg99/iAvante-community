@@ -75,28 +75,18 @@ export class ForumService {
   //   return this.firebase.collection("forums-response").doc(commentId).get();
   // }
 
-  likeResponse = (commentLike) => {
+  likeResponse = (user,target) => {
 
-    // return this.firebase.collection('forums-response-likes').add(commentLike)
-    // .then(()=>{
-    //   console.log('Like con éxito.')
-    // }, error => {
-    //   console.log(error);
-    // });
+    return this.http.post(`${this.baseUrl}/like`,{user:user,target: target});
   }
 
-  removeLikeResponse = (commentLikeId) => {
-    // return this.firebase.collection('forums-response-likes').doc(commentLikeId).delete()
-    // .then(()=>{
-    //   console.log('Like eliminado con éxito.')
-    // }, error => {
-    //   console.log(error);
-    // });
+  removeLikeResponse = (user,target) => {
+    return this.http.post(`${this.baseUrl}/unlike`,{user:user,target: target});
   }
 
-  getLikesResponse = (commentId) => {
+  getLikesResponse = (target) => {
 
-    // return this.firebase.collection('forums-response-likes',ref=>ref.where('comment','==',commentId)).snapshotChanges();
+    return this.http.post(`${this.baseUrl}/get/likes`,{target: target});
   }
 }
 

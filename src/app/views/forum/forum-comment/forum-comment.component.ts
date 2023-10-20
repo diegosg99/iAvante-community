@@ -35,7 +35,6 @@ export class ForumCommentComponent implements OnInit{
         respuesta: this.form.value.response,
         usuario: this.userLogged.uid,
         preguntaId: this.questionId,
-        likes: 0,
         fechaCreacion: new Date(),
         fechaActualizacion: new Date()
       };

@@ -170,14 +170,13 @@ exports.newComment = (req,res) => {
     let data = req.body;
 
     let sql = `INSERT INTO comments 
-                    (uid,id_post,id_user,body,likes,created_at,updated_at)
+                    (uid,id_post,id_user,body,created_at,updated_at)
                 VALUES 
                 (
                     '${data.uid}',
                     '${data.preguntaId}',
                     '${data.usuario}',
                     '${data.respuesta}',
-                    '${data.likes}',
                     '${data.fechaCreacion}',
                     '${data.fechaActualizacion}'
                 )`;

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ForumService } from 'src/app/services/forum.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,19 +17,24 @@ export class ForumResponseComponent implements OnInit{
   numLikes;
   likes = [];
   commentedUserData;
+  $likesSub: Observable<any>;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private forumService:ForumService) {}
 
   ngOnInit(): void {
+    console.log(this.userLogged);
+    console.log(this.comment);
+    // this.$likesSub = 
   }
 
   likeComment = () => {
-
-    const COMMENT_LIKE:any = {
-      usuario: null,
-      question:this.comment.preguntaId,
-      comment: this.comment.id
-    };    
+    this.userLogged.subscribe(user=>{
+      console.log(user);
+      this.forumService.likeResponse(user.uid,this.comment.uid).subscribe(data=>{
+        console.log(data);
+        this.getLikes();
+      });
+    })
 
     // if (this.userLogged!= null && this.clickedComment) {
   
@@ -43,24 +50,15 @@ export class ForumResponseComponent implements OnInit{
     //   this.clickedComment = true;
     //   this.forumService.likeResponse(COMMENT_LIKE);
     // }
-    this.getLikes();
+
   }
 
   getLikes = () => {
-    // this.forumService.getLikesResponse(this.commentId).subscribe((likes:any)=> {
-
-    //   this.likes = [];
-    //   likes.forEach(like => {
-    //     let arraySegments = like.payload.doc._delegate._key.path.segments;
-    //     let likeId = arraySegments[arraySegments.length - 1];
-  
-    //     let processedLike = {id:likeId,...like.payload.doc.data()};
-    //     this.likes.push(processedLike);
-    //   })
-
-    //   this.numLikes = this.likes.length;
-    //   this.isLiked();
-    // });
+    this.forumService.getLikesResponse(this.comment.uid).subscribe((likes:any)=> {
+      this.likes = likes;
+      this.numLikes = likes.length;
+      this.isLiked();
+    });
   }
 
   isLiked = () => {
@@ -72,9 +70,5 @@ export class ForumResponseComponent implements OnInit{
   }
 
   getCommentedUserData = () => {
-    this.userService.getUser(this.comment.usuario).subscribe(user => {
-      this.commentedUserData = {...user.payload._delegate._document.data.value.mapValue.fields};
-      console.log(this.commentedUserData);
-    });
   }
 }
