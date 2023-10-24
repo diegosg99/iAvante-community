@@ -50,7 +50,8 @@ exports.getAllQuestions = (req, res) => {
                         INNER JOIN media_users as m 
                             on u.photo = m.uid 
                         INNER JOIN images as i 
-                        on m.id_media = i.id;`
+                        on m.id_media = i.id
+                    ORDER BY q.created_at DESC;`
 
     connection.query(sql, (err, rows) => {
 

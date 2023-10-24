@@ -69,3 +69,20 @@ exports.getLikes = (req, res) => {
         res.status(301).json({error: 'No hay likes'});
     });
 };
+
+exports.getNumLikes = (req, res) => {
+
+    let data = req.body;
+
+    const sql =`SELECT COUNT(*) as likes
+                FROM likes
+                    WHERE target = '${data.target}';`
+
+    connection.query(sql, (err, rows) => {
+
+        if (rows[0]) {
+            res.status(201).json(rows[0]);
+        }
+        res.status(301).json({error: 'No hay likes'});
+    });
+};

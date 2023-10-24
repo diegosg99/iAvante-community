@@ -8,6 +8,8 @@ router.post('/unlike', likeController.unlike);
 
 router.post('/get/likes', likeController.getLikes);
 
+router.post('/get/num/likes', likeController.getNumLikes);
+
 
 
 module.exports = router;

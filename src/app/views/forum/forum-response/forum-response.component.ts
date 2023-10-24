@@ -14,7 +14,7 @@ export class ForumResponseComponent implements OnInit{
   @Input() userLogged:any;
   clickedComment:boolean;
   // userUID;
-  numLikes;
+  numLikes:Observable<any>;
   likes = [];
   commentedUserData;
   $likesSub: Observable<any>;
@@ -22,9 +22,8 @@ export class ForumResponseComponent implements OnInit{
   constructor(private userService: UserService,private forumService:ForumService) {}
 
   ngOnInit(): void {
-    console.log(this.userLogged);
-    console.log(this.comment);
-    // this.$likesSub = 
+    this.numLikes = this.forumService.getLikesResponse(this.comment.uid);
+    //this.getLikes();
   }
 
   likeComment = () => {
@@ -56,6 +55,7 @@ export class ForumResponseComponent implements OnInit{
   getLikes = () => {
     this.forumService.getLikesResponse(this.comment.uid).subscribe((likes:any)=> {
       this.likes = likes;
+      console.log(likes);
       this.numLikes = likes.length;
       this.isLiked();
     });
