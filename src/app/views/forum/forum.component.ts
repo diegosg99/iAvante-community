@@ -5,6 +5,7 @@ import { ForumService } from 'src/app/services/forum.service';
 import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 import { UserService } from 'src/app/services/user.service';
+import { SortPipe } from 'src/app/pipes/sort.pipe';
 
 @Component({
   selector: 'app-forum',

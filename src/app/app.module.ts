@@ -48,6 +48,7 @@ import { OtherProfileComponent } from './views/profile/other-profile/other-profi
 import { PostImageUploaderComponent } from './views/media/post-img-wrapper/post-img-wrapper.component';
 import { FollowsComponent } from './views/post/follows/follows.component';
 import { PostNewsComponent } from './views/post/news/news.component';
+import { SortPipe } from './pipes/sort.pipe';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { PostNewsComponent } from './views/post/news/news.component';
     OtherProfileComponent,
     PostImageUploaderComponent,
     FollowsComponent,
-    PostNewsComponent
+    PostNewsComponent,
+    SortPipe
     ],
   imports: [
     BrowserModule,
