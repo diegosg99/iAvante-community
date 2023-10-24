@@ -11,6 +11,7 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class FullPostComponent implements OnInit{
 
+  type = 'post';
   postId:any;
   post:any;
 

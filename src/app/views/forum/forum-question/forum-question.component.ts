@@ -19,6 +19,7 @@ export class ForumQuestionComponent implements OnInit{
   userId:any;
   userQuestion;
   usersComments;
+  type='question';
 
 //--------------------------------------- SUBS -----------------------------------
   userLogged = this.lockService.checkToken();

@@ -65,5 +65,7 @@
 
         <div class="col-xl-2 col-md-0"></div>
 
+        <app-forum-comment  [questionId]='post.id' [userLogged]='$profileSub | async' [type]='type'></app-forum-comment>
+
     </div>
 </div>

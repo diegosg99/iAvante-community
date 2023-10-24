@@ -15,6 +15,7 @@ export class ForumCommentComponent implements OnInit{
   @Input() questionId;
   @Input() divComments;
   @Input() userLogged;
+  @Input() type;
   form: FormGroup;
 
   $userSubscription:Observable<any>;
