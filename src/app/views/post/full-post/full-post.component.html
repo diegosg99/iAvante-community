@@ -65,7 +65,14 @@
 
         <div class="col-xl-2 col-md-0"></div>
 
-        <app-forum-comment  [questionId]='post.id' [userLogged]='$profileSub | async' [type]='type'></app-forum-comment>
+        <div class="col-2"></div>
+        <div class="col-">
+            <div *ngFor="let comment of $commentsSub | async as comments" class="mx-5 mb-5 msg">
+                <app-forum-response [comment]="comment" [userLogged]='$profileSub | async'></app-forum-response>
+            </div>
+        </div>
+        <div class="col-2"></div>
 
+        <app-forum-comment *ngIf="$userLogged | async as data" [questionId]='postId' [userLogged]='data' [type]='type'></app-forum-comment>
     </div>
 </div>

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ForumService } from 'src/app/services/forum.service';
 import { ImageService } from 'src/app/services/image.service.service';
+import { LockService } from 'src/app/services/lock.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -12,7 +14,7 @@ import { PostService } from 'src/app/services/post.service';
 export class FullPostComponent implements OnInit{
 
   type = 'post';
-  postId:any;
+  postId:any = this._activatedroute.snapshot.paramMap.get('id');
   post:any;
 
   index:any = 0;
@@ -24,16 +26,12 @@ export class FullPostComponent implements OnInit{
   $mediaSub2: Observable<any>;
   $mediaSub3: Observable<any>;
   $profileSub:Observable<any>;
+  $userLogged:Observable<any> = this.lockService.checkToken();
+  $commentsSub: Observable<any> = this.forumService.getResponses(this.postId);
 
-
-  constructor(private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute,private imageService: ImageService){
-
-  }
+  constructor(private lockService:LockService,private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute,private imageService: ImageService, private forumService: ForumService){}
 
   ngOnInit(): void {
-    this._activatedroute.params.subscribe((data:any) => {
-      this.postId = data.id;
-    });
     this._postService.getPost(this.postId).subscribe(data=>{
       this.post = data;
       this.getProfilePic();

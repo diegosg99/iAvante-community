@@ -31,12 +31,14 @@
       </div>
   
       <div class="form-group text-align-center">
-        <button type="submit" id="submit" class="submit-button btn green-bomba" (click)="uploadResponse()" [disabled]="this.form.invalid">
+        <button *ngIf="type==='question'" type="submit" id="submit" class="submit-button btn green-bomba" (click)="uploadResponse()" [disabled]="this.form.invalid">
           Responder
+        </button>
+        <button *ngIf="type==='post'" type="submit" id="submit" class="submit-button btn green-bomba" (click)="uploadResponse()" [disabled]="this.form.invalid">
+          Comentar
         </button>
       </div>
     </form>
   </div>
   <div class="col-1"></div>
-
 </div>

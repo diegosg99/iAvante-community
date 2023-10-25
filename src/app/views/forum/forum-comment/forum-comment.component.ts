@@ -22,7 +22,7 @@ export class ForumCommentComponent implements OnInit{
   
   constructor(fb: FormBuilder,private forumService:ForumService,private lockService:LockService,private toastr:ToastrService){
     this.form = fb.group({
-      response: ['',[Validators.required,Validators.minLength(16)]]
+      response: ['',[Validators.required,Validators.minLength(8)]]
     });
   }
 
@@ -30,6 +30,8 @@ export class ForumCommentComponent implements OnInit{
   }
 
   uploadResponse = () => {
+
+    console.log(this.userLogged);
 
       const RESPONSE: any = {
         uid: this.uuidv4(),
@@ -40,8 +42,9 @@ export class ForumCommentComponent implements OnInit{
         fechaActualizacion: new Date()
       };
     
-      this.forumService.uploadResponse(RESPONSE).subscribe(data=>{
-        
+      console.log(RESPONSE);
+
+      this.forumService.uploadResponse(RESPONSE).subscribe(data=>{        
         if (data.code === 201) {
           this.toastr.success('La respuesta se ha registrado con éxito.','¡Genial!');
           this.form.reset();
@@ -61,5 +64,5 @@ export class ForumCommentComponent implements OnInit{
         (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
         ).toString(16)
     );
-}
+  }
 }
