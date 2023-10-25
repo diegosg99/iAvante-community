@@ -1,7 +1,5 @@
-<div class="m-5">
-    
-    <div class="row d-flex post">
-
+<div class="m-3">   
+    <div class="row d-flex post w-75 mx-auto">
         <div class="col-xl-4 col-sm-12" style="padding-left: 0px;" *ngIf="$mediaSub | async as media">
             <div class="slider-container w-100">
                 <div class="slider-nav d-flex w-100" style="justify-content: space-between;">
@@ -32,7 +30,7 @@
                     </a>
                 </h1>
                 <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
-                    <p class="px-3">{{post.fullname}}</p>
+                    <p class="px-1">{{post.fullname}}</p>
                     <a class="navbar-brand me-2">
                         <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="60px" height="60px">
                     </a>
@@ -50,7 +48,7 @@
             </div>
 
             
-            <hr class="mb-5">
+            <hr class="mb-1">
             <div class="col-12">
                 <p>{{ (post.body.length>6)? (post.body | slice:0:200)+'...':(post.body)}}</p>
             </div>
