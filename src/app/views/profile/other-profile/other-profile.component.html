@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="$user | async as user">
     <div class="profile-header">
       <div class="profile-img">
         <img src="{{user.url}}" width="200" alt="Profile Image">
@@ -25,7 +25,7 @@
       <div class="left-side">
         <div class="profile-side">
           <p class="mobile-no"><i class="fa fa-user"></i>{{user.username}}</p>
-          <p class="mobile-no"><i class="fa fa-phone"></i>{{user.location}}</p>
+          <p *ngIf="user.phone" class="mobile-no"><i class="fa fa-phone"></i>{{user.phone}}</p>
           <p class="user-mail" style="font-size: 12px;"><i class="fa fa-envelope"></i>{{user.email}}</p>
           <div class="user-bio">
             <h3>Sobre mí</h3>
@@ -58,6 +58,9 @@
   
       </div>
       <div class="right-side">
+        <app-profile-table [userLogged]="null" [userSelected]="user"></app-profile-table>
+      </div>
+      <!-- <div class="right-side">
   
         <div class="nav">
           <ul>
@@ -67,18 +70,32 @@
         </div>
         <div class="profile-body">
           <div class="profile-posts tab">
-            <h1>Your Post</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa quia sunt itaque ut libero cupiditate ullam qui velit laborum placeat doloribus, non tempore nisi ratione error rem minima ducimus. Accusamus adipisci quasi at itaque repellat sed
-              magni eius magnam repellendus. Quidem inventore repudiandae sunt odit. Aliquid facilis fugiat earum ex officia eveniet, nisi, similique ad ullam repudiandae molestias aspernatur qui autem, nam? Cupiditate ut quasi iste, eos perspiciatis maiores
-              molestiae.</p>
+            <ul *ngIf="$posts | async as postsData">
+              <li *ngFor="let post of postsData">
+                <div>
+                  <p>{{post.title}}</p>
+                  <p>{{post.body | slice:0:20}}...</p>
+                  <p>{{post.category}}</p>
+                  <p *ngIf="post.status === 1">Abierta</p>
+                  <p *ngIf="post.status === 0">Cerrada</p>
+                </div>
+              </li>
+            </ul>
           </div>
           <div class="profile-reviews tab">
-            <h1>User reviews</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam pariatur officia, aperiam quidem quasi, tenetur molestiae. Architecto mollitia laborum possimus iste esse. Perferendis tempora consectetur, quae qui nihil voluptas. Maiores debitis
-              repellendus excepturi quisquam temporibus quam nobis voluptatem, reiciendis distinctio deserunt vitae! Maxime provident, distinctio animi commodi nemo, eveniet fugit porro quos nesciunt quidem a, corporis nisi dolorum minus sit eaque error
-              sequi ullam. Quidem ut fugiat, praesentium velit aliquam!</p>
+            <ul *ngIf="$posts | async as postsData">
+              <li *ngFor="let post of postsData">
+                <div class="d-flex">
+                  <p>{{post.title}}</p>
+                  <p>{{post.body | slice:0:20}}...</p>
+                  <p>{{post.category}}</p>
+                  <p *ngIf="post.status === 1">Abierta</p>
+                  <p *ngIf="post.status === 0">Cerrada</p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>

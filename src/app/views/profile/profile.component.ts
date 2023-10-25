@@ -3,6 +3,7 @@ import { ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { FollowService } from 'src/app/services/follow.service';
 import { ForumService } from 'src/app/services/forum.service';
@@ -19,9 +20,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit{
 
-  userLogged:any;
-  userId;
-  user;
+  userLogged:Observable<any> = this.lockService.checkToken();
+  userId = this._activatedroute.snapshot.paramMap.get('id');
+  
+  user:Observable<any> = this.userService.getUser(this.userId);
 
   ROLES = {
     user: 'USUARIO',
@@ -29,26 +31,7 @@ export class ProfileComponent implements OnInit{
     docent: 'DOCENTE'
   }
 
-  constructor(
-      private lockService: LockService,private userService:UserService,
-      private _activatedroute:ActivatedRoute){
-    
-    
-    this._activatedroute.params.subscribe(data=>
-      {
-        
-        this.userId = data['id'];
-
-          let sub = this.lockService.checkToken().subscribe(res=>{
-            this.userLogged = res;
-            this.userService.getUser(this.userId).subscribe(res => {
-              this.user = res;
-  
-              console.log(this.user);
-            });
-          });
-      });
-  }
+  constructor(private lockService: LockService,private userService:UserService,private _activatedroute:ActivatedRoute){}
 
   ngOnInit(): void {
   }

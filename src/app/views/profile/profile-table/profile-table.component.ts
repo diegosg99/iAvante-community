@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FollowService } from 'src/app/services/follow.service';
 import { ForumService } from 'src/app/services/forum.service';
 import { PostService } from 'src/app/services/post.service';
@@ -8,9 +8,10 @@ import { PostService } from 'src/app/services/post.service';
   templateUrl: './profile-table.component.html',
   styleUrls: ['./profile-table.component.scss']
 })
-export class ProfileTableComponent {
+export class ProfileTableComponent implements OnInit{
 
   @Input() userLogged:any;
+  @Input() userSelected:any;
   userId;
   user;
   payload;
@@ -20,6 +21,10 @@ export class ProfileTableComponent {
   category;
 
   constructor(private _postService: PostService, private forumService: ForumService, private followService: FollowService){}
+
+  ngOnInit(): void {
+    console.log(this.user);
+  }
 
   payloadFactory = (category) => {
     this.payload = [];

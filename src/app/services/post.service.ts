@@ -22,14 +22,9 @@ export class PostService {
     console.log(files);
     return this.http.post(`${this.baseUrl}/post/upload/media`, files);
   }
-  
-
-  getPosts = ():Observable<any> => {
-    return this.firebase.collection('posts',ref => ref.orderBy('fechaActualizacion','desc')).snapshotChanges();
-  }
 
   getUserPosts = (userId):Observable<any> => {
-    return this.firebase.collection("posts",ref=>ref.where('usuario','==',userId)).snapshotChanges();
+    return this.http.post(`${this.baseUrl}/user/posts`, {uid:userId});
   }
 
   getFollowedPosts = (followeds):Observable<any> => {

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
 import { PostService } from 'src/app/services/post.service';
@@ -10,38 +11,49 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class OtherProfileComponent {
 
-@Input() user;
-@Input() userLogged;
+@Input() $user:Observable<any>;
+@Input() $userLogged: Observable<any>;
+
+userData:any;
+userLoggedData:any;
+
+userId = this._activatedRoute.snapshot.paramMap.get('id');
 
 $followed: Observable<any> | any;
 followed: any;
 
 followers;
 following;
-posts;
+$posts:Observable<any> = this.postService.getUserPosts(this.userId);
 
-constructor(private followService:FollowService,private postService: PostService){}
+constructor(private followService:FollowService,private _activatedRoute: ActivatedRoute,private postService: PostService){}
 
 ngOnInit(): void {
   this.$followed = this.checkFollowed();
+  this.$user.subscribe(res=> {
+    this.userData = res;
+  });
+  this.$userLogged.subscribe(res=> {
+    this.userLoggedData = res;
+  })
 }
 
 followUser = () => {
-  return this.followService.followUser(this.user.uid,this.userLogged.uid).subscribe(res=>{
+  return this.followService.followUser(this.userData.uid,this.userLoggedData.uid).subscribe(res=>{
     console.log(res);
     this.followed = res;
   });
 }
 
 unfollowUser = () => {
-  return this.followService.unfollowUser(this.user.uid,this.userLogged.uid).subscribe(res=>{
+  return this.followService.unfollowUser(this.userData.uid,this.userLoggedData.uid).subscribe(res=>{
     console.log(res);
     this.followed = res;
   });
 }
 
 checkFollowed = () => {
-  return this.followService.checkFollow(this.user.uid,this.userLogged.uid).subscribe(res=>{
+  return this.followService.checkFollow(this.userData.uid,this.userLoggedData.uid).subscribe(res=>{
     console.log(res);
     this.followed = res;
   });

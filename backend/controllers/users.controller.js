@@ -155,12 +155,13 @@ exports.getFullDataUsers = (req, res) => {
     (SELECT count(uid) FROM posts WHERE user_id = u.uid) as posts,
     (SELECT count(followed) FROM follows WHERE follower = u.uid) as following,
     (SELECT count(follower) FROM follows WHERE followed = u.uid) as followers
-FROM
-    media_users AS m
-INNER JOIN users AS u
-	ON u.photo = m.uid
-INNER JOIN images AS i
-	ON m.id_media = i.id`;
+    FROM
+        media_users AS m
+    INNER JOIN users AS u
+        ON u.photo = m.uid
+    INNER JOIN images AS i
+        ON m.id_media = i.id`;
+        
   connection.query(sql, (err, rows) => {
     if (err) {
       console.error('Error fetching users:', err);

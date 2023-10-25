@@ -3,7 +3,7 @@
 <!-- <app-chat></app-chat> -->
 
 
-<div class="row" *ngIf="userLogged.uid === userId">
+<div class="row" *ngIf="(userLogged | async)?.uid  === userId">
   
   <div class="col-lg-12">
     <h1 class="logo mb-5 p-5">Tu perfil</h1>
@@ -15,9 +15,9 @@
 
 </div>
 
-<div class="row" *ngIf="userLogged.uid !== userId">
+<div class="row" *ngIf="(userLogged | async)?.uid  !== userId">
 
-  <app-other-profile [user]="user" [userLogged]="userLogged"></app-other-profile>
+  <app-other-profile [$user]="user" [$userLogged]="userLogged"></app-other-profile>
 
 </div>
   
