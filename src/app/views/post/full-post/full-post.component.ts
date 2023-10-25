@@ -27,9 +27,11 @@ export class FullPostComponent implements OnInit{
   $mediaSub3: Observable<any>;
   $profileSub:Observable<any>;
   $userLogged:Observable<any> = this.lockService.checkToken();
-  $commentsSub: Observable<any> = this.forumService.getResponses(this.postId);
+  $commentsSub: Observable<any> = this.forumService.getResponses(this.postId,this.type);
 
-  constructor(private lockService:LockService,private _postService: PostService,private router:Router,private _activatedroute:ActivatedRoute,private imageService: ImageService, private forumService: ForumService){}
+  constructor(private lockService:LockService,private _postService: PostService,
+            private _activatedroute:ActivatedRoute,private imageService: ImageService,
+            private forumService: ForumService){}
 
   ngOnInit(): void {
     this._postService.getPost(this.postId).subscribe(data=>{
@@ -71,7 +73,6 @@ export class FullPostComponent implements OnInit{
   }
 
   getProfilePic = () => {
-    console.log(this.post.user_id);
     this.$profileSub = this.imageService.getProfilePic(this.post.user_id);
   }
 }

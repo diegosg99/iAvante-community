@@ -19,7 +19,7 @@ export class ForumResponseComponent implements OnInit{
   commentedUserData;
   $likesSub: Observable<any>;
 
-  constructor(private userService: UserService,private forumService:ForumService) {}
+  constructor(private forumService:ForumService) {}
 
   ngOnInit(): void {
     this.numLikes = this.forumService.getLikesResponse(this.comment.uid);

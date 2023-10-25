@@ -66,9 +66,12 @@
         <div class="col-xl-2 col-md-0"></div>
 
         <div class="col-2"></div>
-        <div class="col-">
-            <div *ngFor="let comment of $commentsSub | async as comments" class="mx-5 mb-5 msg">
-                <app-forum-response [comment]="comment" [userLogged]='$profileSub | async'></app-forum-response>
+        <div class="col-xl-8 col p-3">
+            <h1 class="mb-3" style="font-size: 22px;text-decoration: none;color: black;">
+                Comentarios:
+            </h1>
+            <div *ngFor="let comment of $commentsSub | async as comments" class="mx-5 mb-3 msg">
+                <app-forum-response [comment]="comment" [userLogged]='$userLogged | async'></app-forum-response>
             </div>
         </div>
         <div class="col-2"></div>

@@ -62,9 +62,13 @@ export class ForumService {
     return this.http.post(`${this.baseUrl}/upload/comment`,response);
   }
 
-  getResponses = (idQuestion):any => {
+  getResponses = (idQuestion,type = 'question'):any => {
 
-    return this.http.post(`${this.baseUrl}/questions/comments`,{uid:idQuestion});
+    if (type === 'post') {
+      return this.http.post(`${this.baseUrl}/post/comments`,{uid:idQuestion});
+    }else{
+      return this.http.post(`${this.baseUrl}/questions/comments`,{uid:idQuestion});
+    }
   }
 
   getResponsesBy = (id:string,key:string):any => {

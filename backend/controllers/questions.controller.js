@@ -146,6 +146,8 @@ exports.getQuestionComments = (req,res) => {
                         on q.uid = c.id_post 
                 WHERE q.uid = '${uid}'
                 ORDER BY c.created_at ASC;`;
+
+                console.log(sql);
                
     connection.query(sql, (err, rows) => {
         if (err){
@@ -154,6 +156,48 @@ exports.getQuestionComments = (req,res) => {
         }else{
             let filepath;
             let base64image;
+
+            console.log(rows);
+
+            rows.forEach(comment => {
+                filepath = path.resolve(comment.url);
+                base64image = toolService.convertImageToBase64(filepath);
+                comment.url = base64image;
+            })
+
+            res.status(200).json(rows);
+        }
+    });
+}
+
+exports.getPostComments = (req,res) => {
+
+    let uid = req.body.uid;
+    
+    let sql = `SELECT c.*,u.fullname,i.url 
+                FROM comments as c 
+                    INNER JOIN users as u 
+                        on u.uid = c.id_user 
+                    INNER JOIN media_users as m 
+                        on u.photo = m.uid 
+                    INNER JOIN images as i 
+                        on m.id_media = i.id 
+                    INNER JOIN posts as p 
+                        on p.uid = c.id_post 
+                WHERE p.uid = '${uid}'
+                ORDER BY c.created_at ASC;`;
+
+                console.log(sql);
+               
+    connection.query(sql, (err, rows) => {
+        if (err){
+            console.log(error);
+            res.status(301).json({message:'Hubo un error al conseguir los comentarios...'});
+        }else{
+            let filepath;
+            let base64image;
+
+            console.log(rows);
 
             rows.forEach(comment => {
                 filepath = path.resolve(comment.url);
