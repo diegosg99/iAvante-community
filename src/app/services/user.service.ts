@@ -54,8 +54,8 @@ export class UserService implements OnInit{
     return this.http.get(`${this.baseUrl}/user/email/${email}`)
   }
 
-  getUsers = ():Observable<any> => {
-    return this.http.get(`${this.baseUrl}/users`);
+  getFullDataUsers = ():Observable<any> => {
+    return this.http.get(`${this.baseUrl}/users/full`);
   }
 
   getCategoryQuestions = (category):Observable<any> => {

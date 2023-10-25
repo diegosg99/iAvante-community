@@ -16,7 +16,7 @@ export class MembersComponent implements OnInit,OnDestroy{
   userLoggedObservable = this.lockService.checkToken();
   userLogged;
   sub
-  members:Observable<any> = this.userService.getUsers();
+  members:Observable<any> = this.userService.getFullDataUsers();
   p = 1;
 
   ROLES = {

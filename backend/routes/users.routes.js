@@ -29,6 +29,8 @@ router.post('/user/register',upload.single('file'), usersController.registerUser
 
 router.get('/users', usersController.getAllUsers);
 
+router.get('/users/full', usersController.getFullDataUsers);
+
 router.post('/user/update', usersController.updateUser);
 
 router.get('/user/:uid', usersController.getUserById);

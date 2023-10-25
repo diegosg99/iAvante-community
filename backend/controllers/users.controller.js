@@ -142,6 +142,43 @@ exports.getAllUsers = (req, res) => {
   });
 };
 
+exports.getFullDataUsers = (req, res) => {
+
+    let base64img;
+    let newUser;
+    let usersData = [];
+
+  const sql = `
+  SELECT
+    u.*,
+    i.url AS url,
+    (SELECT count(uid) FROM posts WHERE user_id = u.uid) as posts,
+    (SELECT count(followed) FROM follows WHERE follower = u.uid) as following,
+    (SELECT count(follower) FROM follows WHERE followed = u.uid) as followers
+FROM
+    media_users AS m
+INNER JOIN users AS u
+	ON u.photo = m.uid
+INNER JOIN images AS i
+	ON m.id_media = i.id`;
+  connection.query(sql, (err, rows) => {
+    if (err) {
+      console.error('Error fetching users:', err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    rows.forEach(row => {
+        const filepath = path.resolve(row.url);
+
+        base64img = toolService.convertImageToBase64(filepath);
+        newUser = {...row,url:base64img};
+        usersData.push(newUser);
+    });
+
+    res.status(200).json(usersData);
+  });
+};
+
 exports.updateUser = (req, res) => {
     let data = req.body;
 
