@@ -20,10 +20,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit{
 
-  userLogged:Observable<any> = this.lockService.checkToken();
   userId = this._activatedroute.snapshot.paramMap.get('id');
-  
-  user:Observable<any> = this.userService.getUser(this.userId);
+
+  userLogged:Observable<any> = this.lockService.checkToken();
+  user:Observable<any> = this.userService.getUser(this.userId);  
 
   ROLES = {
     user: 'USUARIO',

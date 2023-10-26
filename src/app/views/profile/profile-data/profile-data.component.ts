@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef,OnInit, Input, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { ImageService } from 'src/app/services/image.service.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,17 +9,18 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './profile-data.component.html',
   styleUrls: ['./profile-data.component.scss']
 })
-export class ProfileDataComponent {
+export class ProfileDataComponent implements OnInit{
 
-  @Input() userLogged:any;
+  @ViewChild('photo',{static:false})fileInput: ElementRef;
+
+  @Input() $userLogged:Observable<any>;
+  userLogged:any;
   userId;
   user;
   //userForm: FormGroup;
   edit:boolean = false;
   payload;
   p;
-
-  @ViewChild('photo',{static:false})fileInput: ElementRef;
 
   factory;
   category;
@@ -52,6 +54,12 @@ export class ProfileDataComponent {
   }
 
   constructor(private imageService: ImageService,private toastr: ToastrService, private userService: UserService){}
+
+  ngOnInit(): void {
+    this.$userLogged.subscribe(user=>{
+      this.userLogged = user;
+    })
+  }
 
   updateProfile = () => {
 

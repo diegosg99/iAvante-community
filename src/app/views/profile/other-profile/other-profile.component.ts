@@ -24,7 +24,6 @@ followed: any;
 
 followers;
 following;
-$posts:Observable<any> = this.postService.getUserPosts(this.userId);
 
 constructor(private followService:FollowService,private _activatedRoute: ActivatedRoute,private postService: PostService){}
 

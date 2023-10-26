@@ -18,12 +18,6 @@ export class ForumService {
 
   constructor(private lockService:LockService,private http: HttpClient) { }
 
-  // ngOnInit(): void {
-  //   if(this.userLogged){
-  //     this.userLogged.subscribe(user=>{this.user = user});
-  //   }
-  // }
-
   //-------------------------------- QUESTIONS -----------------------------
 
   uploadQuestion = (forum:any): any => {
@@ -50,7 +44,8 @@ export class ForumService {
     return this.http.get(`${this.baseUrl}/get/question/`+id);
   }
 
-  getQuestionBy = (id:string,key:string):any => {
+  getUserQuestions = (uid:string):any => {
+    return this.http.post(`${this.baseUrl}/get/user/questions`,{uid:uid});
   }
 
   //-------------------------------- QUESTIONS -----------------------------
@@ -63,7 +58,6 @@ export class ForumService {
   }
 
   getResponses = (idQuestion,type = 'question'):any => {
-
     if (type === 'post') {
       return this.http.post(`${this.baseUrl}/post/comments`,{uid:idQuestion});
     }else{
@@ -71,13 +65,9 @@ export class ForumService {
     }
   }
 
-  getResponsesBy = (id:string,key:string):any => {
+  getUserResponses = (uid:string):any => {
+    return this.http.post(`${this.baseUrl}/get/user/responses`,{uid:uid});
   }
-
-  //--------------------------------- NO CREO QUE HAGA FALTA ---------------------------
-  // getComment = (commentId) => {
-  //   return this.firebase.collection("forums-response").doc(commentId).get();
-  // }
 
   likeResponse = (user,target) => {
 

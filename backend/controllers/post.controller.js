@@ -1,5 +1,6 @@
 const connection = require('../database');
 const toolService = require('../services/tools.service');
+const path = require('path');
 
 exports.uploadPost = (req, res) => {
     let data = req.body;
@@ -135,24 +136,34 @@ exports.getPost = (req,res) => {
 
 exports.getUserPosts = (req,res) => {
     let uid = req.body.uid;
+    let newPost = {};
+    let data = [];
 
     try {
             // SELECT p.*,u.* FROM posts AS p INNER JOIN users AS u ON p.user_id = u.uid INNER JOIN follows AS f ON f.follower = u.uid WHERE u.uid IN (SELECT followed FROM follows WHERE follower ='cec24f1b-1d57-4bd2-a71f-bfd10584ecf2'); 
-
         const sql = 
-            `SELECT * 
-            FROM posts 
-            WHERE user_id = '${uid}'; `;
+            `SELECT p.*, i.url AS url 
+            FROM posts AS p 
+                INNER JOIN media_users AS m 
+                    ON p.media1 = m.uid 
+                INNER JOIN images AS i 
+                    ON i.id = m.id_media 
+                WHERE user_id = '${uid}';`;
         connection.query(sql, (err, rows) => {
             if (err) {
                 console.error('Error fetching posts:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }else{
-                res.status(200).json(rows);
+
+                rows.forEach(row=> {
+                    const filepath = path.resolve(row.url);
+                    base64img = toolService.convertImageToBase64(filepath);
+                    newPost = {...row,url:base64img};
+                    data.push(newPost);
+                })
+
+                res.status(200).json(data);
             }
-        // const filepath = path.resolve(rows[0].url);
-        // base64img = toolService.convertImageToBase64(filepath);
-        // newPost = {...rows[0],url:base64img};
         });
     } catch (error) {
         console.log(error);

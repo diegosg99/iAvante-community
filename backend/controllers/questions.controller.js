@@ -76,6 +76,64 @@ exports.getAllQuestions = (req, res) => {
     });
 };  
 
+exports.getUserQuestions = (req, res) => {
+
+    let uid = req.body.uid;
+
+    let newQuestions = [];
+
+    const sql = `SELECT q.*,u.fullname,i.url 
+    FROM questions as q
+        INNER JOIN users as u 
+            on u.uid = q.user_id 
+        INNER JOIN media_users as m 
+            on u.photo = m.uid 
+        INNER JOIN images as i 
+        on m.id_media = i.id
+        WHERE q.user_id = '${uid}'`;
+
+        connection.query(sql, (err, rows) => {
+
+            if (rows[0]) {
+                rows.forEach(row => {
+                    const filepath = path.resolve(row.url);
+                    let base64image = toolService.convertImageToBase64(filepath);
+        
+                    newQuestions.push( {...row,url:base64image})//}
+                });
+    
+                res.status(201).json(newQuestions);
+            }else{
+            res.status(301).json({error: 'No hay preguntas'});
+            }
+        });
+};
+
+exports.getUserResponses = (req, res) => {
+
+    let uid = req.body.uid;
+
+    console.log(uid);
+
+    const sql = `SELECT c.*
+                    FROM comments AS c
+        WHERE c.id_user = '${uid}';`;
+
+    console.log(sql);
+
+    connection.query(sql, (err, rows) => {
+
+        console.log(rows);
+
+        if (rows[0]) {
+            res.status(201).json(rows);
+        }else{
+        res.status(301).json({error: 'No hay respuestas'});
+
+        }
+    });
+};
+
 exports.getCategoryQuestions = (req, res) => {
 
     let newQuestions = [];

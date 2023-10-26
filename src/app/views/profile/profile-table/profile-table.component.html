@@ -1,86 +1,142 @@
-<div class="row" *ngIf="userLogged | async">
+<div class="row">
     <ul class="row" style="list-style: none;">
-      <li class="col p-3 text-center profile-nav" (click)="payloadFactory('posts')">
+      <li class="col p-3 text-center profile-nav" (click)="displayData('posts')">
         Publicaciones
       </li>
-      <li class="col p-3 text-center profile-nav" (click)="payloadFactory('questions')">
+      <li class="col p-3 text-center profile-nav" (click)="displayData('questions')">
         Preguntas
       </li>
-      <li class="col p-3 text-center profile-nav" (click)="payloadFactory('responses')">
-        Tus respuestas
+      <li class="col p-3 text-center profile-nav" (click)="displayData('responses')">
+        Respuestas
       </li>
-      <li class="col p-3 text-center profile-nav" (click)="payloadFactory('following')">
+      <li class="col p-3 text-center profile-nav" *ngIf="$userLogged | async" (click)="displayData('following')">
         Siguiendo
       </li>
-      <li class="col p-3 text-center profile-nav" (click)="payloadFactory('followers')">
+      <li class="col p-3 text-center profile-nav" *ngIf="$userLogged | async" (click)="displayData('followers')">
         Seguidores
       </li>
     </ul>
     <div #profilePayload>
       
-      <div style="list-style: none;" *ngIf="!payload[0]">
-        <p class="p-3">Todavía no hay...</p>
+      <div style="list-style: none;" *ngIf="!category">
       </div>
 
-      <ul style="list-style: none;" *ngIf="payload[0] && category =='posts'">
-        <li *ngFor="let item of payload">
+      <ul style="list-style: none;" *ngIf="category =='posts'">
+        <li>
           <div class="row profile-nav-small">
-            <div class="col-2 row">
-              <img src="{{item.photo}}" class="col-12">
+            <div class="col-2 text-center">
+              Imagenes
             </div>
             <div class="col-6">
-              <div class="d-flex" style="flex-grow: column;">
-                <p class="mx-auto">{{item.titulo}}</p>
-                <p>{{item.fechaActualizacionFormat}}</p>
+              <div class="row" style="flex-grow: column;">
+                <p class="mx-auto col-6 text-center" style=" font-size: 1rem;">
+                  Título
+                </p>
+                <p class="col-6 text-center" style=" font-size: 1rem;">
+                  Contenido
+                </p>
               </div>
             </div>
-            <div class="col-3">
-              <span class="mx-3">Benjamin Button Heredia</span>
+            <div class="col-3 text-center">
+              <span class="mx-3">Fecha de creación</span>
           </div>
-          <div class="col-1">
-            <span class="mx-3">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
+          <div class="col-1 text-center">
+            <span>
+              Detalles
             </span>
         </div>
           </div>
         </li>
-      </ul>
-
-      <ul style="list-style: none;" *ngIf="payload && category =='questions'">
-        <li *ngFor="let item of payload">
+        <li *ngFor="let item of ($posts | async)">
           <div class="row profile-nav-small">
-            <div class="col-6">
-              {{item.titulo}}
+            <div class="col-2 row p-4">
+              <img src="{{item.url}}">
             </div>
-            <div class="col-5" style="text-align: right;">
-              <span class="mx-3" style="text-align: right;"><i class="fa fa-eye" aria-hidden="true"></i> {{item.views}}</span>
-              <span class="mx-3" style="text-align: right;"><i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
+            <div class="col-6">
+              <div class="row" style="flex-grow: column;">
+                <a href="#/post/{{item.uid}}" style="color: #2a2e32;text-decoration: none;" class="mx-auto col-6 text-center">{{item.title}}</a>
+                <p class="col-6 text-center" style="font-size: 1rem;">{{item.body | slice:0:60}}...</p>
+              </div>
+            </div>
+            <div class="col-3 text-center">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
           </div>
-          <div class="col-1">
-            <span class="mx-3">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
+          <div class="col-1 text-center">
+            <span class="mx-1">
+              <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
+            <span>
+              <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
             </span>
         </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul style="list-style: none;" *ngIf="category =='questions'">
+        <li>
+          <div class="row profile-nav-small mb-3">
+            <div class="col-1 text-center">
+              Estado
+            </div>
+            <div class="col-4 text-center px-2" style="font-size: .9em;">
+              Título
+            </div>
+            <div class="col-3 text-center px-2" style="font-size: .9em;">
+              Contenido
+            </div>
+            <div class="col-2 text-center" style="font-size: .9em;">
+              Fecha de creación
+            </div>
+            <div class="col-2 text-center">
+              Detalles
+            </div>
+          </div>
+        </li>
+        <li *ngFor="let item of ($questions | async)">
+          <div class="row profile-nav-small my-3">
+            <div class="col-1 text-center">
+              <i *ngIf="item.status===1" class="fa fa-circle-o" style="color: rgb(179, 23, 12);"></i>
+              <i *ngIf="item.status===0" class="fa fa-circle-o" style="color: rgb(12, 179, 51);"></i>
+              <!-- <img src="{{item.url}}" class="w-100"> -->
+            </div>
+            <div class="col-4 text-center px-2" style="font-size: .9em;">
+              {{item.title}}
+            </div>
+            <div class="col-3 text-center px-2" style="font-size: .9em;">
+              {{item.body | slice:0:40}}
+            </div>
+            <div class="col-2 text-center" style="font-size: .9em;">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
+            </div>
+            <div class="col-2 text-center">
+              <span class="mx-1">
+                <i class="fa fa-eye" aria-hidden="true"></i> {{item.views}}</span>
+              <span class="mx-1">
+                <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
+              <span class="mx-1">
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
+              </span>
+            </div>
           </div>
         </li>
 
       </ul>
 
-      <ul style="list-style: none;" *ngIf="payload[0] && category =='responses'">
-        <li *ngFor="let item of payload | paginate: { itemsPerPage: 10, currentPage: p}">
+      <ul style="list-style: none;" *ngIf="category =='responses'">
+        <li *ngFor="let item of ($responses | async) | paginate: { itemsPerPage: 10, currentPage: p}">
           <div class="row profile-nav-small mb-0">
-            <div class="col-8" style="font-size: 14px;">
-              {{item.respuesta.stringValue}}
+            <div class="col-6 text-left px-3" style="font-size: 14px;">
+              {{item.body}}
             </div>
             <!-- <div class="col-1">
               <p style="font-size: 11px;">{{item.likes.integerValue}}<i class="fa fa-heart"></i></p>
             </div> -->
-            <div class="col-3">
-              <p style="font-size: 12px;color: gray;">{{item.fechaCreacion.timestampValue | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
+            <div class="col-4">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
             </div>
-            <div class="col-1">
+            <div class="col-2">
               <span class="mx-3">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
               </span>
           </div>
           </div>
@@ -88,13 +144,13 @@
       </ul>
       <pagination-controls class="mt-3" (pageChange)="p = $event"></pagination-controls>
 
-      <ul style="list-style: none;" *ngIf="payload[0] && category =='following'">
+      <ul style="list-style: none;" *ngIf="category =='following'">
         <li *ngFor="let item of payload">
           
         </li>
       </ul>
 
-      <ul style="list-style: none;" *ngIf="payload[0] && category =='followers'">
+      <ul style="list-style: none;" *ngIf="category =='followers'">
         <li *ngFor="let item of payload">
           
         </li>

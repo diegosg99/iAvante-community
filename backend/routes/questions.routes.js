@@ -13,5 +13,7 @@ router.post('/post/comments',questionController.getPostComments);
 // router.post('/questions/new',questionController.newComment);
 router.get('/get/question/:id',questionController.getQuestion);
 router.post('/upload/comment',questionController.newComment);
+router.post('/get/user/questions',questionController.getUserQuestions);
+router.post('/get/user/responses',questionController.getUserResponses);
 
 module.exports = router;

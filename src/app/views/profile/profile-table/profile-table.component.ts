@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
 import { ForumService } from 'src/app/services/forum.service';
 import { PostService } from 'src/app/services/post.service';
@@ -10,83 +12,99 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class ProfileTableComponent implements OnInit{
 
-  @Input() userLogged:any;
-  @Input() userSelected:any;
-  userId;
-  user;
+  @Input() $userLogged:any;
+  @Input() $userSelected:any;
+  userId = this.activatedRoute.snapshot.paramMap.get('id');
+  userLoggedData;
+  userData;
   payload;
   p;
 
-  factory;
-  category;
+  //----------------------------------- DATA SUBS --------------------------------
 
-  constructor(private _postService: PostService, private forumService: ForumService, private followService: FollowService){}
+  $posts:Observable<any> = this._postService.getUserPosts(this.userId);
+  $questions:Observable<any> = this.forumService.getUserQuestions(this.userId);
+  $responses:Observable<any> = this.forumService.getUserResponses(this.userId);
+
+  factory;
+  category = 'posts';
+
+  constructor(private _postService: PostService, private forumService: ForumService, private followService: FollowService,private activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
-    console.log(this.user);
+    this.$userSelected.subscribe(res=> {
+      this.userData = res;
+    });
+    this.$userLogged.subscribe(res=> {
+      this.userLoggedData = res;
+    })
   }
 
-  payloadFactory = (category) => {
-    this.payload = [];
+  displayData = (category) => {
     this.category = category;
-    this.factory[category]();
   }
 
-  getUserPosts = () => {
-    this.payload = [];
-    this._postService.getUserPosts(this.userId).subscribe(data=>{
-      data.forEach(item => {
-        let processedItem = item.payload.doc.data();
-        this.payload = [...this.payload,processedItem];
-      });
-    })
-  }
+  // payloadFactory = (category) => {
+  //   this.payload = [];
+  //   this.category = category;
+  //   this.factory[category]();
+  // }
+
+  // getUserPosts = () => {
+  //   this.payload = [];
+  //   this._postService.getUserPosts(this.userId).subscribe(data=>{
+  //     data.forEach(item => {
+  //       let processedItem = item.payload.doc.data();
+  //       this.payload = [...this.payload,processedItem];
+  //     });
+  //   })
+  // }
  
-  getUserQuestions = () => {
-    this.forumService.getQuestionBy(this.userId,'usuario').subscribe(data=>{
+  // getUserQuestions = () => {
+  //   this.forumService.getQuestionBy(this.userId,'usuario').subscribe(data=>{
 
-      data.forEach(item => {
-        let processedItem = item.payload.doc.data();
-        this.payload = [...this.payload,processedItem];
-      });
-      console.log(this.payload);
-    })
-  }
+  //     data.forEach(item => {
+  //       let processedItem = item.payload.doc.data();
+  //       this.payload = [...this.payload,processedItem];
+  //     });
+  //     console.log(this.payload);
+  //   })
+  // }
 
-  getUserResponses = () => {
-    this.forumService.getResponsesBy(this.userId,'usuario').subscribe(data=>{
+  // getUserResponses = () => {
+  //   this.forumService.getResponsesBy(this.userId,'usuario').subscribe(data=>{
 
-      data.forEach(item => {
-        let processedItem = item.payload._delegate.doc._document.data.value.mapValue.fields;
-        this.payload = [...this.payload,{...processedItem}];
+  //     data.forEach(item => {
+  //       let processedItem = item.payload._delegate.doc._document.data.value.mapValue.fields;
+  //       this.payload = [...this.payload,{...processedItem}];
 
-        // let responseId = item.payload._delegate.doc._document.key.path.segments[6];
-        // this.forumService.getLikesResponse(responseId).subscribe(data => processedItem.likes = data.length);
-        // console.log(processedItem);
-      });
-      console.log(this.payload);
-    })
-  }
+  //       // let responseId = item.payload._delegate.doc._document.key.path.segments[6];
+  //       // this.forumService.getLikesResponse(responseId).subscribe(data => processedItem.likes = data.length);
+  //       // console.log(processedItem);
+  //     });
+  //     console.log(this.payload);
+  //   })
+  // }
 
-  getUserFollowing = () => {
-    this.payload = [];
-    this.followService.getUserFollows(this.userId).subscribe(data=>{
-      data.forEach(item => {
-        let processedItem = item.payload.doc.data();
-        this.payload = [...this.payload,processedItem];
-      });
-      console.log(this.payload);
-    })
-  }
+  // getUserFollowing = () => {
+  //   this.payload = [];
+  //   this.followService.getUserFollows(this.userId).subscribe(data=>{
+  //     data.forEach(item => {
+  //       let processedItem = item.payload.doc.data();
+  //       this.payload = [...this.payload,processedItem];
+  //     });
+  //     console.log(this.payload);
+  //   })
+  // }
 
-  getUserFollowers = () => {
-    this.payload = [];
-    this.followService.getUserFollowers(this.userId).subscribe(data=>{
-      data.forEach(item => {
-        let processedItem = item.payload.doc.data();
-        this.payload = [...this.payload,processedItem];
-      });
-      console.log(this.payload);
-    })
-  }
+  // getUserFollowers = () => {
+  //   this.payload = [];
+  //   this.followService.getUserFollowers(this.userId).subscribe(data=>{
+  //     data.forEach(item => {
+  //       let processedItem = item.payload.doc.data();
+  //       this.payload = [...this.payload,processedItem];
+  //     });
+  //     console.log(this.payload);
+  //   })
+  // }
 }
