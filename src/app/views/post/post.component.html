@@ -30,7 +30,7 @@
                     </a>
                 </h1>
                 <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
-                    <p class="px-1">{{post.fullname}}</p>
+                    <a href="#/profile/{{post.user_id}}" style="text-decoration: none; color: #505051;" class="px-1">{{post.fullname}}</a>
                     <a class="navbar-brand me-2">
                         <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="60px" height="60px">
                     </a>
