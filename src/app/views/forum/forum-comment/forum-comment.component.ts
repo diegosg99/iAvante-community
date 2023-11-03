@@ -39,7 +39,8 @@ export class ForumCommentComponent implements OnInit{
         usuario: this.userLogged.uid,
         preguntaId: this.questionId,
         fechaCreacion: new Date(),
-        fechaActualizacion: new Date()
+        fechaActualizacion: new Date(),
+        type: this.type
       };
     
       console.log(RESPONSE);

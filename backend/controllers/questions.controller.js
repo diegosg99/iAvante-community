@@ -43,7 +43,7 @@ exports.getAllQuestions = (req, res) => {
     let newQuestions = [];
 
     const sql =`SELECT q.*,u.fullname,i.url,
-    ( SELECT COUNT(c.uid) FROM comments AS c WHERE c.id_post = q.uid ) AS comments
+    ( SELECT COUNT(c.uid) FROM comments_cat AS c WHERE c.id_cat = q.uid ) AS comments
                     FROM questions as q
                         INNER JOIN users as u 
                             on u.uid = q.user_id 
@@ -192,18 +192,31 @@ exports.getQuestionComments = (req,res) => {
 
     let uid = req.body.uid;
     
-    let sql = `SELECT c.*,u.fullname,i.url 
-                FROM comments as c 
-                    INNER JOIN users as u 
-                        on u.uid = c.id_user 
-                    INNER JOIN media_users as m 
-                        on u.photo = m.uid 
-                    INNER JOIN images as i 
-                        on m.id_media = i.id 
-                    INNER JOIN questions as q 
-                        on q.uid = c.id_post 
-                WHERE q.uid = '${uid}'
-                ORDER BY c.created_at ASC;`;
+    let sql = `SELECT
+    c.*,
+    u.fullname,
+    i.url
+        FROM
+            comments AS c
+        INNER JOIN comments_cat AS cc
+        ON
+            c.id_cat = cc.uid
+        INNER JOIN users AS u
+        ON
+            u.uid = c.id_user
+        INNER JOIN media_users AS m
+        ON
+            u.photo = m.uid
+        INNER JOIN images AS i
+        ON
+            m.id_media = i.id
+        INNER JOIN questions AS q
+        ON
+            q.uid = cc.id_cat
+        WHERE
+            q.uid = '${uid}'
+        ORDER BY
+    c.created_at ASC;`;
 
                 console.log(sql);
                
@@ -231,19 +244,33 @@ exports.getQuestionComments = (req,res) => {
 exports.getPostComments = (req,res) => {
 
     let uid = req.body.uid;
+
+    //SELECT c.*,u.fullname,i.url FROM comments as c INNER JOIN comments_cat AS cat ON cat.uid = c.id_cat INNER JOIN users as u on u.uid = cat.id_user INNER JOIN media_users as m on u.photo = m.uid INNER JOIN images as i on m.id_media = i.id INNER JOIN posts as p on p.uid = cat.id_cat WHERE p.uid = '138a9219-ecfc-42ab-94ca-7ef3c74da24d' ORDER BY c.created_at ASC; 
     
-    let sql = `SELECT c.*,u.fullname,i.url 
-                FROM comments as c 
-                    INNER JOIN users as u 
-                        on u.uid = c.id_user 
-                    INNER JOIN media_users as m 
-                        on u.photo = m.uid 
-                    INNER JOIN images as i 
-                        on m.id_media = i.id 
-                    INNER JOIN posts as p 
-                        on p.uid = c.id_post 
-                WHERE p.uid = '${uid}'
-                ORDER BY c.created_at ASC;`;
+    let sql = `SELECT
+                    c.*,
+                    u.fullname,
+                    i.url
+                FROM
+                    comments AS c
+                INNER JOIN comments_cat AS cc
+                ON
+                    c.id_cat = cc.uid
+                INNER JOIN users AS u
+                ON
+                    u.uid = c.id_user
+                INNER JOIN media_users AS m
+                ON
+                    u.photo = m.uid
+                INNER JOIN images AS i
+                ON
+                    m.id_media = i.id
+                INNER JOIN posts as p 
+                    on p.uid = cc.id_cat 
+                WHERE
+                    p.uid = '${uid}'
+                ORDER BY
+                    c.created_at DESC;`;
 
                 console.log(sql);
                
@@ -272,17 +299,33 @@ exports.newComment = (req,res) => {
 
     let data = req.body;
 
-    let sql = `INSERT INTO comments 
-                    (uid,id_post,id_user,body,created_at,updated_at)
+    let uid = toolService.uuidv4();
+
+    let sql = `INSERT INTO comments_cat
+                    (uid,id_user,id_cat,type)
                 VALUES 
                 (
-                    '${data.uid}',
-                    '${data.preguntaId}',
+                    '${uid}',
                     '${data.usuario}',
-                    '${data.respuesta}',
-                    '${data.fechaCreacion}',
-                    '${data.fechaActualizacion}'
+                    '${data.preguntaId}',
+                    '${data.type}'
                 )`;
+
+    connection.query(sql, (err, rows) => {
+        if (err) {
+            console.error('Error fetching users:', err);
+        }
+        sql = `INSERT INTO comments 
+                        (uid,id_cat,id_user,body,created_at,updated_at)
+                    VALUES 
+                    (
+                        '${data.uid}',
+                        '${uid}',
+                        '${data.usuario}',
+                        '${data.respuesta}',
+                        '${data.fechaCreacion}',
+                        '${data.fechaActualizacion}'
+                    )`;
 
     connection.query(sql, (err, rows) => {
         if (err) {
@@ -290,6 +333,7 @@ exports.newComment = (req,res) => {
             return res.status(500).json({ error: 'Internal Server Error' });
         }
       res.status(200).json({code:201,message: 'Comentario publicado con éxito',data:rows});
+    });
     });
 }
 
