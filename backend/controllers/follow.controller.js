@@ -1,4 +1,7 @@
 const connection = require('../database');
+const path = require('path');
+const toolService = require('../services/tools.service');
+const { error } = require('console');
 
 exports.follow = (req, res) => {
 
@@ -70,6 +73,8 @@ exports.getFollows = (req, res) => { //TODO: modificar consulta para traer datos
         
         let sql = `SELECT f.followed FROM follows AS f WHERE f.follower = '${data.uid}'`;
 
+        console.log(sql);
+
         connection.query(sql, function(err, rows, fields) {
             if (!rows[0]){
                 res.status(301).json({ sql:sql,code:301 });
@@ -80,7 +85,51 @@ exports.getFollows = (req, res) => { //TODO: modificar consulta para traer datos
                 rows.forEach(row => {
                     data.push(row.followed)
                 });
+
+                console.log(data);
+
                 res.status(201).json({ data: data,code:201 });
+    }
+    })
+
+    } catch (error) {
+        console.error('Error al registrar usuario:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+exports.getFollowsData = (req, res) => { //TODO: modificar consulta para traer datos de cada usuari y foto
+    let data = req.body; 
+    let newUsers = [];
+
+    try {
+        
+        let sql = `SELECT u.*,i.url
+                    FROM follows AS f 
+                        INNER JOIN users AS u 
+                            ON u.uid = f.followed 
+                        INNER JOIN media_users AS m 
+                            ON u.photo = m.uid 
+                        INNER JOIN images AS i 
+                            ON m.id_media = i.id 
+                    WHERE f.follower = '${data.uid}';`;
+
+        console.log(sql);
+
+        connection.query(sql, function(err, rows, fields) {
+            if (!rows[0]){
+                
+
+                res.status(301).json({ sql:sql,code:301 });
+            }else {
+                rows.forEach(row => {
+                    const filepath = path.resolve(row.url);
+                    let base64image = toolService.convertImageToBase64(filepath);
+        
+                    newUsers.push( {...row,userImage:base64image})//}
+                })
+
+                res.status(201).json(newUsers);
     }
     })
 
@@ -104,6 +153,46 @@ exports.getFollowers = (req, res) => {
                 res.status(201).json({ data: rows[0],code:201 });
     }
     })
+
+    } catch (error) {
+        console.error('Error al registrar usuario:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+
+exports.getFollowersData = (req, res) => { //TODO: modificar consulta para traer datos de cada usuari y foto
+    let data = req.body; 
+    let newUsers = [];
+
+    try {
+        
+        let sql = `SELECT u.*,i.url
+                    FROM follows AS f 
+                        INNER JOIN users AS u 
+                            ON u.uid = f.follower 
+                        INNER JOIN media_users AS m 
+                            ON u.photo = m.uid 
+                        INNER JOIN images AS i 
+                            ON m.id_media = i.id 
+                    WHERE f.followed = '${data.uid}';`;
+
+        console.log(sql);
+
+        connection.query(sql, function(err, rows, fields) {
+            if (!rows[0]){
+                res.status(301).json({ sql:sql,code:301 });
+            }else {
+                rows.forEach(row => {
+                    const filepath = path.resolve(row.url);
+                    let base64image = toolService.convertImageToBase64(filepath);
+        
+                    newUsers.push( {...row,userImage:base64image})//}
+                })
+
+                res.status(201).json(newUsers);
+            }
+        })
 
     } catch (error) {
         console.error('Error al registrar usuario:', error);

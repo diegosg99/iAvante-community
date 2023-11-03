@@ -15,11 +15,21 @@ export class FollowService {
   ngOnInit(): void {}
 
   getUserFollows = (userId):any => {
+    console.log(userId);
     return this.http.post(`${this.baseUrl}/get/follows`, {uid:userId});
   }
 
   getUserFollowers = (userId):any => {
     return this.http.post(`${this.baseUrl}/get/followers`, userId);
+  }
+
+  getUserFollowsData = (userId):any => {
+    console.log(userId);
+    return this.http.post(`${this.baseUrl}/get/follows/data`, {uid:userId});
+  }
+
+  getUserFollowersData = (userId):any => {
+    return this.http.post(`${this.baseUrl}/get/followers/data`, {uid:userId});
   }
 
   followUser = (followed,follower) => {

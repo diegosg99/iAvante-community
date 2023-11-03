@@ -25,6 +25,8 @@ export class ProfileTableComponent implements OnInit{
   $posts:Observable<any> = this._postService.getUserPosts(this.userId);
   $questions:Observable<any> = this.forumService.getUserQuestions(this.userId);
   $responses:Observable<any> = this.forumService.getUserResponses(this.userId);
+  $followed:Observable<any> = this.followService.getUserFollowsData(this.userId);
+  $followers:Observable<any> = this.followService.getUserFollowersData(this.userId);
 
   factory;
   category = 'posts';

@@ -114,19 +114,36 @@ exports.getUserResponses = (req, res) => {
     let uid = req.body.uid;
 
     console.log(uid);
+    
+    let data = {};
 
-    const sql = `SELECT c.*
+    const sql = `SELECT c.*,q.uid as q_id ,q.title
                     FROM comments AS c
+                    INNER JOIN comments_cat as cc
+                        ON cc.uid = c.id_cat
+                    INNER JOIN questions AS q
+                        ON q.uid = cc.id_cat
         WHERE c.id_user = '${uid}';`;
 
-    console.log(sql);
-
     connection.query(sql, (err, rows) => {
-
-        console.log(rows);
-
         if (rows[0]) {
-            res.status(201).json(rows);
+            data.questions = rows;
+
+            const sql = `SELECT c.*,p.uid as p_id,p.title
+                        FROM comments AS c
+                        INNER JOIN comments_cat as cc
+                            ON cc.uid = c.id_cat
+                        INNER JOIN posts AS p
+                                        ON p.uid = cc.id_cat
+                        WHERE c.id_user = '${uid}';`;
+
+            connection.query(sql, (err, rows) => {
+
+                    data.posts = rows;
+
+                    res.status(201).json(data);
+            })
+
         }else{
         res.status(301).json({error: 'No hay respuestas'});
 
