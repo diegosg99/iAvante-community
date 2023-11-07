@@ -45,14 +45,16 @@ p {
 }
 
 .post:hover {
-  background-color: #e8e8e8;
-  transition: all 0.3s ease-in-out;
+  //background-color: #e8e8e8;
+  //transition: all 0.3s ease-in-out;
 }
 
 .post {
   // border-radius: 10px;
   border: solid 1px #c1c1c1b5;
   background-color: #fdfdfd;
+  border-left: 0px;
+  border-right: 0px;
 }
 
 .post-image {

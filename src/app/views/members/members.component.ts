@@ -22,7 +22,8 @@ export class MembersComponent implements OnInit,OnDestroy{
   ROLES = {
     user: 'USUARIO',
     admin: 'ADMIN',
-    docent: 'DOCENTE'
+    docent: 'DOCENTE',
+    student: 'ESTUDIANTE'
   }
 
   constructor(private lockService:LockService, private userService: UserService, private followService: FollowService){
