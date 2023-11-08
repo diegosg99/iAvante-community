@@ -49,6 +49,7 @@ import { PostImageUploaderComponent } from './views/media/post-img-wrapper/post-
 import { FollowsComponent } from './views/post/follows/follows.component';
 import { PostNewsComponent } from './views/post/news/news.component';
 import { SortPipe } from './pipes/sort.pipe';
+import { SearchComponent } from './views/search/search.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { SortPipe } from './pipes/sort.pipe';
     PostImageUploaderComponent,
     FollowsComponent,
     PostNewsComponent,
-    SortPipe
+    SortPipe,
+    SearchComponent
     ],
   imports: [
     BrowserModule,

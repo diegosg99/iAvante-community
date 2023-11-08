@@ -16,7 +16,9 @@ export class MembersComponent implements OnInit,OnDestroy{
   userLoggedObservable = this.lockService.checkToken();
   userLogged;
   sub
-  members:Observable<any> = this.userService.getFullDataUsers();
+  members:Observable<any>;
+  searchedData:[];
+  
   p = 1;
 
   ROLES = {
@@ -31,6 +33,9 @@ export class MembersComponent implements OnInit,OnDestroy{
   }
 
   ngOnInit(): void {
+    this.members = this.userService.getFullDataUsers();
+
+
     this.sub = this.userLoggedObservable.subscribe(user=>{
       this.userLogged = user;
     });
@@ -38,5 +43,9 @@ export class MembersComponent implements OnInit,OnDestroy{
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  showSearched = ($event) => {
+    this.searchedData = $event;
   }
 }
