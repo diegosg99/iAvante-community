@@ -18,6 +18,7 @@ export class MembersComponent implements OnInit,OnDestroy{
   sub
   members:Observable<any>;
   searchedData:[];
+  cat:any = 'members';
   
   p = 1;
 
