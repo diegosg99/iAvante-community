@@ -2,7 +2,7 @@
         <section *ngIf="topQuestions as questions" class="col-12">
             <h4>Preguntas más frecuentadas</h4>
             <ul>
-                <li *ngFor="let question of (questions | sort: 'views' | slice:0:5)" class="p-1 row topQuestion">
+                <li *ngFor="let question of (questions | sortDesc: 'views' | slice:0:5)" class="p-1 row topQuestion">
                     <a class="col-12" (click)="updateViews(question)">{{question.title}}</a>
                     <div class="row pb-1 pt-1 col-12 details">
                         <span class="col-2"><i class="fa-regular fa-eye"></i> {{question.views}}</span>

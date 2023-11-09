@@ -1,9 +1,11 @@
 <a (click)="updateViews(question)">{{question.title}}</a>
     <div class="row pb-3 pt-3">
-        <div class="col-6">
-            <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
-            <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
-            <a style="text-decoration: none;color: inherit;" href="#/profile/{{question.user_id}}">
+        <div class="col-12 d-flex" style="justify-content: space-between;">
+            <div>
+                <span class="mx-3"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
+                <span class="mx-3"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>    
+            </div>
+           <a style="text-decoration: none;color: inherit;" href="#/profile/{{question.user_id}}">
                 <img src="{{question.userImage}}" width="30px" height="30px" style="border-radius: 100%;"><span class="mx-3">{{question.fullname}}</span>
             </a>
     </div>

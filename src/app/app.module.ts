@@ -52,6 +52,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { SearchComponent } from './views/search/search.component';
 import { TopQuestionsComponent } from './views/panels/top-questions/top-questions.component';
 import { CalendarComponent } from './views/panels/calendar/calendar.component';
+import { SortDescPipe } from './pipes/sort-desc.pipe';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import { CalendarComponent } from './views/panels/calendar/calendar.component';
     SortPipe,
     SearchComponent,
     TopQuestionsComponent,
-    CalendarComponent
+    CalendarComponent,
+    SortDescPipe
     ],
   imports: [
     BrowserModule,
