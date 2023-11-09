@@ -46,11 +46,14 @@ export class SearchComponent implements OnInit{
 
     let criteria = this.selectInput.nativeElement.selectedOptions[0].value;
 
+    console.log(criteria);
+
     this.itemsFiltered = this.items;
 
     if (this.props[prop] === 'members' && searchTerm !== '') {
       this.itemsFiltered = this.items.filter(item=>{
-        return item?.[criteria].toLowerCase().includes(searchTerm.toLowerCase())
+        console.log(item);
+        return item?.[criteria]?.toLowerCase().includes(searchTerm.toLowerCase())
       })
     }
 
