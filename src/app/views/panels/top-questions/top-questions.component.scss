@@ -104,10 +104,24 @@ nav a {
   color: #000;
 }
 nav a:hover {
-  background-color: #ccc;
-  border-bottom: 2px solid #198754;
-  transition: .2s;
+  background-color: #efefef;
 }
 .delete-button:hover{
   color: red;
+}
+
+.topQuestion {
+  font-size: 15px;
+}
+
+.details {
+  font-size: 14px;
+}
+
+.details span{
+  font-size: 12px;
+}
+
+.topQuestions {
+  background-color: #f8f8f8;
 }

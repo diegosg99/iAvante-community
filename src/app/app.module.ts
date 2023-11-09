@@ -50,6 +50,8 @@ import { FollowsComponent } from './views/post/follows/follows.component';
 import { PostNewsComponent } from './views/post/news/news.component';
 import { SortPipe } from './pipes/sort.pipe';
 import { SearchComponent } from './views/search/search.component';
+import { TopQuestionsComponent } from './views/panels/top-questions/top-questions.component';
+import { CalendarComponent } from './views/panels/calendar/calendar.component';
 
 
 @NgModule({
@@ -88,7 +90,9 @@ import { SearchComponent } from './views/search/search.component';
     FollowsComponent,
     PostNewsComponent,
     SortPipe,
-    SearchComponent
+    SearchComponent,
+    TopQuestionsComponent,
+    CalendarComponent
     ],
   imports: [
     BrowserModule,
