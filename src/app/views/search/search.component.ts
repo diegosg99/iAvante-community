@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit{
   cats = {
     members:{fullname:'Nombre',role:'Rol',proffesion:'Profesion'},
     posts:{title:'Título'},
-    questions:{title:'Título'},
+    questions:{title:'Preguntas',fullname:'Usuario'},
     events:{fullname:'Nombre',role:'Rol',proffesion:'Profesion'},
   }
 
