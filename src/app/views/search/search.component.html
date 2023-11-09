@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-1"></div>
     <div class="search-box col-10">
-        <input #filter type="text" class="w-100 search" placeholder="Buscar miembro..." (keyup)="filterItems(filter.value,'members')"  style="vertical-align: 4px; width: 255px;">
+        <input #filter type="text" class="w-100 search" placeholder="¿Qué buscas?" (keyup)="filterItems(filter.value,cat)"  style="vertical-align: 4px; width: 255px;">
         <select style="background: none; border: none; padding: 0" class="material-symbols-outline" #selectCats *ngIf="cats[cat] as categories">
             <option *ngFor="let category of categories | keyvalue" value="{{category.key}}">
                 {{category.value}}

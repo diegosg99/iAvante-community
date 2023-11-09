@@ -18,6 +18,9 @@ export class ForumComponent {
 
   questions;
   topQuestions;
+  searchedData:any;
+
+  cat = 'questions';
 
   ROLES = {
     user: 'USUARIO',
@@ -25,18 +28,12 @@ export class ForumComponent {
     docent: 'DOCENTE'
   }
 
-  // userLogged = this.auth.getUserLogged();
   userID;
   user;
   $questionSubscription: Observable<any> = this.forumService.getQuestions();
   $userSubscription: Observable<any> = this.lockService.checkToken();
 
-  constructor(private forumService: ForumService,private auth: OauthService,private lockService: LockService){
-    // this.forumService.getQuestions().subscribe(res=> {
-    //   this.questions = res.recent;
-    //   this.topQuestions = res.top;
-    // });
-  }
+  constructor(private forumService: ForumService,private auth: OauthService,private lockService: LockService){}
     
   getAllQuestions = () => {
     this.$questionSubscription = this.forumService.getQuestions();
@@ -58,5 +55,10 @@ export class ForumComponent {
 
   removeQuestion = (idQuestion) => {
     this.forumService.removeQuestion(idQuestion);
+  }
+
+  showSearched = ($event) => {
+    this.searchedData = $event;
+    console.log(this.searchedData);
   }
 }

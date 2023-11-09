@@ -20,8 +20,9 @@ export class SearchComponent implements OnInit{
 
   cats = {
     members:{fullname:'Nombre',role:'Rol',proffesion:'Profesion'},
-    posts:['role','fullname','proffesion'],
-    events:['role','fullname','profession'],
+    posts:{title:'Título'},
+    questions:{title:'Título'},
+    events:{fullname:'Nombre',role:'Rol',proffesion:'Profesion'},
   }
 
   props = {
@@ -39,27 +40,33 @@ export class SearchComponent implements OnInit{
   }
 
   init = () => {
-    this.data.emit(this.items);
+    if (this.cat ==='questions') {
+      this.data.emit(this.items.recent);
+    }else{
+      this.data.emit(this.items);
+    }
   }
 
   filterItems(searchTerm,prop = ""): void {
 
     let criteria = this.selectInput.nativeElement.selectedOptions[0].value;
 
-    console.log(criteria);
-
-    this.itemsFiltered = this.items;
+    if (this.cat ==='questions') {
+      this.itemsFiltered = this.items.recent;
+    }else{
+      this.itemsFiltered = this.items;
+    }
 
     if (this.props[prop] === 'members' && searchTerm !== '') {
       this.itemsFiltered = this.items.filter(item=>{
-        console.log(item);
         return item?.[criteria]?.toLowerCase().includes(searchTerm.toLowerCase())
       })
     }
 
     if (this.props[prop] === 'questions' && searchTerm !== '') {
-      this.itemsFiltered = this.items.filter(item=>{
-        return item?.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+      //TODO Cambiar todas las preguntas por recientes solo, al lado las más frecuentadas
+      this.itemsFiltered = this.items.recent.filter(item=>{
+        return item?.[criteria]?.toLowerCase().includes(searchTerm.toLowerCase())
       })
     }
 
@@ -74,6 +81,8 @@ export class SearchComponent implements OnInit{
         return item?.fullname.toLowerCase().includes(searchTerm.toLowerCase())
       })
     }
+
+    console.log(this.itemsFiltered);
 
     this.data.emit(this.itemsFiltered);
   }

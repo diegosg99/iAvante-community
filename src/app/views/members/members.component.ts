@@ -36,7 +36,6 @@ export class MembersComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
     this.members = this.userService.getFullDataUsers();
 
-
     this.sub = this.userLoggedObservable.subscribe(user=>{
       this.userLogged = user;
     });
