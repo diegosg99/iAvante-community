@@ -7,21 +7,20 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="logo mb-1 p-5">Últimas publicaciones</h1>
+            <h1 class="logo mb-1 p-5">Últimas novedades</h1>
         </div>
 
-        <div class="col-lg-12 row" style="justify-content: right;">
-            <button class="col-6 btn p-3" (click)="load('news')">Novedades</button>
-            <button class="col-6 btn p-3" (click)="load('posts')">Publicaciones</button>
+        <div class="col-lg-12 row soft-white" style="justify-content: right;">
+            <button class="col-6 btn p-3 nav-elem" (click)="load('news')">Novedades</button>
+            <button class="col-6 btn p-3 nav-elem" (click)="load('posts')">Publicaciones</button>
         </div>
 
-        <div class="col-xl-1 col-lg-1"></div>
+        <div class="row mt-3">
+            <app-post-news class="soft-white col-9" *ngIf="dir==='news'"></app-post-news>
 
-        <app-post-news *ngIf="dir==='news'"></app-post-news>
-
-        <app-follows *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
-                
-        <div class="col-xl-1 col-lg-1"></div>
-
+            <app-follows class="soft-white col-9" *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
+                    
+            <app-calendar class="col-3"></app-calendar>
+        </div>
     </div>
 </div>

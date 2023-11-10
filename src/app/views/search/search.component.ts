@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit{
     }
 
     if (this.props[prop] === 'members' && searchTerm !== '') {
-      this.itemsFiltered = this.items.filter(item=>{
+      this.itemsFiltered = this.items.filter(item => {
         return item?.[criteria]?.toLowerCase().includes(searchTerm.toLowerCase())
       })
     }

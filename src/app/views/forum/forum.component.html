@@ -21,8 +21,8 @@
         <a class="col-3" style="text-align: center;" (click)="getCategoryQuestions('general')">Cuestiones generales</a>
     </nav>
         
-    <div class="row" *ngIf="searchedData as questions">
-        <div class="col-8 soft-white">
+    <div class="row">
+        <div class="col-8 soft-white" *ngIf="searchedData as questions">
             <div class="row">
                 <div class="col-1"></div>
                 <section class="col-11">
@@ -36,7 +36,7 @@
                 </section>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-4" *ngIf="$questionSubscription | async as questions">
             <app-top-questions [questions]="questions"></app-top-questions>
         </div>
     </div>

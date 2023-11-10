@@ -10,27 +10,12 @@
   //font-family: 'Sacramento', cursive;
   }
 
-.portada {
-
-}
-
-.portada-img {
-
-}
-
-.content {
-  //background-color: white;
-}
-
 .post-title {
   color: #555555;
   font-size: 28px !important;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
 }
-// .card p {
-//   color: #434c5e;
-// }
 
 p {
   font-family: Lato,Arial,Helvetica,sans-serif;
@@ -58,4 +43,12 @@ p {
 .post-image {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+.nav-elem {
+  border-radius: 0px !important;
+}
+
+.nav-elem:hover {
+  border-bottom: 2px solid #198754;
 }

@@ -16,16 +16,15 @@ export class TopQuestionsComponent implements OnInit{
   constructor(private forumService: ForumService,private router:Router){}
 
   ngOnInit(): void {
-    console.log(this.topQuestions);
-    this.sortQuestions();
+    console.log(this.questions);
   }
 
-  sortQuestions = () => {
-    this.topQuestions = this.questions.sort((a,b)=>{
-      (a.views > b.views) ? 1 : -1
-    })
-    this.topQuestions.slice(0,4);
-  }
+  // sortQuestions = () => {
+  //   this.topQuestions = this.questions.sort((a,b)=>{
+  //     (a.views > b.views) ? 1 : -1
+  //   })
+  //   this.topQuestions.slice(0,4);
+  // }
 
   updateViews = (question) => {    
     this.forumService.updateQuestionViews(question).subscribe(res=>
