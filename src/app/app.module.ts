@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { environment } from './environments/environment';
 import { OauthService } from './services/oauth.service';
 import { LockService } from './services/lock.service';
@@ -53,6 +53,11 @@ import { SearchComponent } from './views/search/search.component';
 import { TopQuestionsComponent } from './views/panels/top-questions/top-questions.component';
 import { CalendarComponent } from './views/panels/calendar/calendar.component';
 import { SortDescPipe } from './pipes/sort-desc.pipe';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { EventsService } from './services/events.service';
+import { CreateEventComponent } from './views/events/create-event/create-event.component';
+import { EventComponent } from './views/events/event/event.component';
 
 
 @NgModule({
@@ -94,18 +99,24 @@ import { SortDescPipe } from './pipes/sort-desc.pipe';
     SearchComponent,
     TopQuestionsComponent,
     CalendarComponent,
-    SortDescPipe
+    SortDescPipe,
+    CreateEventComponent,
+    EventComponent
     ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     AppRoutingModule,
     FormsModule,
     AngularFireModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    ToastrModule.forRoot()    
+    ToastrModule.forRoot()   
   ],
   providers: [OauthService,
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },{provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -113,19 +124,10 @@ import { SortDescPipe } from './pipes/sort-desc.pipe';
     NewsService,
     ToastrService,
     LockService,
-    PostService],
+    PostService,
+    EventsService  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-function getFirestore() {
-  throw new Error('Function not implemented.');
-}
-
-function provideAuth(arg0: () => import("@firebase/auth").Auth): any[] | import("@angular/core").Type<any> | import("@angular/core").ModuleWithProviders<{}> {
-  throw new Error('Function not implemented.');
-}
-
-function provideFirestore(arg0: () => void): any[] | import("@angular/core").Type<any> | import("@angular/core").ModuleWithProviders<{}> {
-  throw new Error('Function not implemented.');
-}
 

@@ -16,9 +16,9 @@
         </div>
 
         <div class="row mt-3">
-            <app-post-news class="soft-white col-9" *ngIf="dir==='news'"></app-post-news>
+            <app-post-news class="col-9" *ngIf="dir==='news'"></app-post-news>
 
-            <app-follows class="soft-white col-9" *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
+            <app-follows class="col-9" *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
                     
             <app-calendar class="col-3"></app-calendar>
         </div>

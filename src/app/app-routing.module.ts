@@ -14,6 +14,8 @@ import { LearnWithUsComponent } from './views/learn-with-us/learn-with-us.compon
 import { FullPostComponent } from './views/post/full-post/full-post.component';
 import { AboutUsComponent } from './views/about-us/about-us.component';
 import { LandingComponent } from './views/landing/landing.component';
+import { EventComponent } from './views/events/event/event.component';
+import { CreateEventComponent } from './views/events/create-event/create-event.component';
 
 const routes: Routes = [
   {
@@ -67,6 +69,14 @@ const routes: Routes = [
   {
     path: "about-us",
     component: AboutUsComponent
+  },
+  {
+    path: "event/show/:id",
+    component: EventComponent
+  },
+  {
+    path: "event/create",
+    component: CreateEventComponent
   }
 ];
 

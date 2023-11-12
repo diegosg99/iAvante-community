@@ -1,0 +1,32 @@
+a {
+    text-decoration: none;
+    color: rgb(60, 60, 60);
+    font-size: 13px;
+}
+
+.name {
+    font-size: 13px;
+}
+
+.green-bomba {
+    background-color: #198754;
+    color: white;
+}
+
+.event-list {
+
+}
+
+.event-list li {
+    border-bottom: 1px solid rgba(123, 123, 123, 0.3);
+    padding: .5rem;
+}
+
+.event-list li:last-child {
+    border-bottom: none;
+}
+
+.event-list li:hover {
+    scale: 1.05;
+    transition: .2s;
+}
