@@ -64,45 +64,6 @@ export class HomeComponent implements OnInit{
     });
   }
 
-
-getLatestPosts = (followeds) => {
-
-
-  // let promises  = [];
-  // let index = 0;
-
-  //       let image = this.imageService.processImage(file,this.postId+'.'+this.uuidv4(), 'post.');
-        
-  //       console.log(image);
-
-  //       //this.imgArray.push(image.get('file'));
-  //       this.fdImg.append('files',image.get('file'));
-  //       promises.push(this.imageService.getBase64(file));
-  //   });
-
-  //   this.imgArray.forEach(file=> {
-  //     this.fdImg.append(`file${index}`,file);
-
-  //     index++;
-  //   })
-    
-  //   await Promise.all(promises).then((base64Arr) => {
-  //     this.printImages(base64Arr);
-  //   })
-
-}
-
-  // formatDate = (date) => {
-  //   let fullDate = date.toDate();
-  //     let day = fullDate.getDate();
-  //     let month = fullDate.getMonth();
-  //     let year = fullDate.getFullYear();
-  //     let hour = fullDate.getHours();
-  //     let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
-
-  //     return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
-  // }
-
   load = (dir) => {
     this.dir = dir;
 }

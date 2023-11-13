@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="$userLogged | async as user" class="col-3 my-3">
-        <app-calendar [$user]="user"></app-calendar>
+    <div class="col-3 my-3">
+        <app-calendar [$user]="$userLogged"></app-calendar>
     </div>
 </div>

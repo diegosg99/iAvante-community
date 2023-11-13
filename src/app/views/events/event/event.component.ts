@@ -13,7 +13,7 @@ export class EventComponent {
 
   postId:any = this._activatedroute.snapshot.paramMap.get('id');
   $event:Observable<any> = this.eventService.getEvent(this.postId);
-  $userLogged:Observable<any> = this.eventService.getEvent(this.postId);
+  $userLogged:Observable<any> = this.lockService.checkToken();
 
 
   constructor(private eventService:EventsService,private _activatedroute:ActivatedRoute,private lockService:LockService){}
