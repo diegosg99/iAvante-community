@@ -11,7 +11,5 @@ export class CalendarComponent {
 
   $events: Observable<any> = this.eventsService.getAllEvents();
 
-  constructor(private eventsService: EventsService) {
-
-  }
+  constructor(private eventsService: EventsService) {}
 }

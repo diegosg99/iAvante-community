@@ -2,4 +2,28 @@
 
 <app-chat></app-chat>
 
-<p>event works!</p>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10 soft-white p-3">
+        <div class="row" *ngIf="$event | async as event">
+            <div class="col-12" style="color: black;">
+                <h2>{{event.name}}</h2>
+            </div>
+            <div class="col-4">
+                <p>{{event.date | date}}</p>
+                <p>{{event.start}}</p>
+                <p>{{event.end}}</p>
+            </div>
+            <div class="col-4">
+                <p>{{event.province}}</p>
+            </div>
+            <div class="col-4">
+                <p>{{event.street}}</p>
+            </div>
+            <div class="col-12">
+                <p>{{event.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+</div>

@@ -18,6 +18,10 @@ export class EventsService {
     return this.http.get(`${this.baseUrl}/get/events`);
   }
 
+  getEvent = (id) => {
+    return this.http.get(`${this.baseUrl}/get/event/`+id);
+  }
+
   uploadEvent = (event) => {
     return this.http.post(`${this.baseUrl}/upload/event`,event);
   }

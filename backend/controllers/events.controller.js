@@ -19,6 +19,27 @@ exports.getEvents = (req, res) => {
     }
 };
 
+exports.getEvent = (req, res) => {
+    
+    let data = req.params;
+
+    try {
+        let sql = `SELECT * FROM events WHERE uid = '${data.id}';`;
+
+        
+        connection.query(sql, function(err, rows, fields) {
+
+            if (err) throw err;
+
+            res.status(201).json(rows);
+        });
+        
+    } catch (error) {
+        console.error('Fallo al traer eventos:', error);
+        res.status(500).json({ error: 'Fallo al traer eventos' });
+    }
+};
+
 exports.uploadEvent = (req, res) => {
           
     let data = req.body;
