@@ -9,29 +9,28 @@ exports.like = (req, res) => {
 
     try {
         sql = `INSERT INTO likes 
-                    (user,target)
+                    (uid,user,target)
                 VALUES 
                 (
+                    '${data.user}&&${data.target}',
                     '${data.user}',
                     '${data.target}'
                 )`;
 
-                console.log(sql);
+        console.log(sql);
 
-            connection.query(sql, function(err, rows, fields) {
-                if (err) throw err;
-                res.status(201).json({ message: 'Like registrado',code:201 });
-            });
-        }
+        connection.query(sql, function(err, rows, fields) {
+            if (err) throw err;
+            res.status(201).json({ message: 'Like registrado',code:201 });
+        });
+    }
     catch (error) {
-        console.error('Error al hacer like:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
 
 exports.unlike = (req, res) => {
     let data = req.body;
-
 
     try {
         sql = `DELETE FROM likes 
@@ -40,15 +39,12 @@ exports.unlike = (req, res) => {
                 AND
                     target = '${data.target}';`;
 
-                console.log(sql);
-
-            connection.query(sql, function(err, rows, fields) {
-                if (err) throw err;
-                res.status(201).json({ message: 'Like registrado',code:201 });
-            });
-        }
+        connection.query(sql, function(err, rows, fields) {
+            if (err) throw err;
+            res.status(201).json({ message: 'Like registrado',code:201 });
+        });
+    }
     catch (error) {
-        console.error('Error al hacer like:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
@@ -65,8 +61,9 @@ exports.getLikes = (req, res) => {
 
         if (rows[0]) {
             res.status(201).json(rows);
+        }else{
+            res.status(301).json({msg: 'No hay likes'});
         }
-        res.status(301).json({error: 'No hay likes'});
     });
 };
 
@@ -83,6 +80,6 @@ exports.getNumLikes = (req, res) => {
         if (rows[0]) {
             res.status(201).json(rows[0]);
         }
-        res.status(301).json({error: 'No hay likes'});
+        res.status(301).json({msg: 'No hay likes'});
     });
 };

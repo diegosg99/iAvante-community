@@ -20,17 +20,17 @@
         <hr>
     </span>
     <div class="msg-content p-3 row">
-        <div class="col-11">
-            <p class="mb-3">{{comment.body}}</p>
+        <div class="col-10 my-auto">
+            <p class="my-auto">{{comment.body}}</p>
         </div>
-        <div class="col-1">
-            <span class="" id="usu_votos_2">
+        <div class="col-2">
+            <span class="d-flex" style="justify-content: right;" id="usu_votos_2">
+                <span *ngIf="numLikes" class="p my-auto" style="font-size: 14px; color: #6f6f6f;">
+                    <b>{{numLikes}}</b> 
+                </span>
                 <button class="mx-2 btn btn-light" (click)="likeComment()">
                     <i class="fa-heart" [ngClass]="clickedComment ? 'fa-solid red-heart' : 'fa-regular black'"></i> 
                 </button>
-                <span *ngIf="numLikes | async as data" class="p" style="font-size: 14px; color: #6f6f6f;">
-                    <b>{{data.likes}}</b> 
-                </span>
             </span>
             <span class="cb db"></span>
         </div>

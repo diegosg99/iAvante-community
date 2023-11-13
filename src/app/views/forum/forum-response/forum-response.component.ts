@@ -13,7 +13,6 @@ export class ForumResponseComponent implements OnInit{
   @Input() comment:any;
   @Input() userLogged:any;
   clickedComment:boolean;
-  // userUID;
   numLikes:Observable<any>;
   likes = [];
   commentedUserData;
@@ -22,40 +21,29 @@ export class ForumResponseComponent implements OnInit{
   constructor(private forumService:ForumService) {}
 
   ngOnInit(): void {
-    this.numLikes = this.forumService.getLikesResponse(this.comment.uid);
-    //this.getLikes();
+    //this.numLikes = this.forumService.getLikesResponse(this.comment.uid);
+    this.getLikes();
   }
 
   likeComment = () => {
-    this.userLogged.subscribe(user=>{
-      console.log(user);
-      this.forumService.likeResponse(user.uid,this.comment.uid).subscribe(data=>{
-        console.log(data);
+
+    if (this.clickedComment) {
+      this.forumService.removeLikeResponse(this.userLogged.uid,this.comment.uid).subscribe(res => {
+        console.log('unlikeando');
         this.getLikes();
       });
-    })
-
-    // if (this.userLogged!= null && this.clickedComment) {
-  
-    //   this.clickedComment = false;
-
-    //   let deletedLike = this.likes.find((like) => {
-    //     return (like.usuario === this.userUID && like.comment === this.commentId)
-    //   })
-
-    //   this.forumService.removeLikeResponse(deletedLike.id);
-
-    // }else{
-    //   this.clickedComment = true;
-    //   this.forumService.likeResponse(COMMENT_LIKE);
-    // }
-
+    }
+    
+    else{
+      this.forumService.likeResponse(this.userLogged.uid,this.comment.uid).subscribe(data=>{
+        this.getLikes();
+      });
+    }
   }
 
   getLikes = () => {
     this.forumService.getLikesResponse(this.comment.uid).subscribe((likes:any)=> {
       this.likes = likes;
-      console.log(likes);
       this.numLikes = likes.length;
       this.isLiked();
     });
@@ -64,11 +52,8 @@ export class ForumResponseComponent implements OnInit{
   isLiked = () => {
 
     let myLike = this.likes.find((like) => {
-      return (like.usuario === this.userLogged.uid)
+      return (like.user === this.userLogged.uid)
     });
-    this.clickedComment= myLike === null||myLike===undefined?false:true;
-  }
-
-  getCommentedUserData = () => {
+    this.clickedComment = myLike === null||myLike===undefined?false:true;
   }
 }

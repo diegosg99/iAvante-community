@@ -70,6 +70,8 @@ export class ForumService {
   }
 
   likeResponse = (user,target) => {
+    console.log(user);
+    console.log(target);
 
     return this.http.post(`${this.baseUrl}/like`,{user:user,target: target});
   }
