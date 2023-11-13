@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { OauthService } from './oauth.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,12 +9,11 @@ export class FollowService {
   private baseUrl = 'http://localhost:3003/api';  // TODO IP : 10.111.249.108
 
 
-  constructor(private auth:OauthService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {}
 
   getUserFollows = (userId):any => {
-    console.log(userId);
     return this.http.post(`${this.baseUrl}/get/follows`, {uid:userId});
   }
 

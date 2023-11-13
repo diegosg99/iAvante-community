@@ -20,7 +20,7 @@
 
             <app-follows class="col-9" *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
                     
-            <app-calendar class="col-3"></app-calendar>
+            <app-calendar [$user]="userLogged" class="col-3"></app-calendar>
         </div>
     </div>
 </div>

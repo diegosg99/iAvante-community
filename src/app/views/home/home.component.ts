@@ -59,7 +59,6 @@ export class HomeComponent implements OnInit{
           });
       
       this._postservice.getFollowedsPosts(this.userId).subscribe(posts => {
-        console.log(posts);
         this.followedPosts = posts;
       });
     });

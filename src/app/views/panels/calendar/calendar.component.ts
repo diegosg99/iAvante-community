@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EventsService } from 'src/app/services/events.service';
 
@@ -10,6 +10,7 @@ import { EventsService } from 'src/app/services/events.service';
 export class CalendarComponent {
 
   $events: Observable<any> = this.eventsService.getAllEvents();
+  @Input() $user:Observable<any>;
 
   constructor(private eventsService: EventsService) {}
 }
