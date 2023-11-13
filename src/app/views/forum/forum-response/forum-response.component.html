@@ -29,7 +29,7 @@
                     <b>{{numLikes}}</b> 
                 </span>
                 <button class="mx-2 btn btn-light" (click)="likeComment()">
-                    <i class="fa-heart" [ngClass]="clickedComment ? 'fa-solid red-heart' : 'fa-regular black'"></i> 
+                    <i class="fa-heart" [ngClass]="clickedComment === null||clickedComment===undefined ? 'fa-regular black' : 'fa-solid red-heart'"></i> 
                 </button>
             </span>
             <span class="cb db"></span>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { of,Observable } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,7 +12,7 @@ export class ForumResponseComponent implements OnInit{
 
   @Input() comment:any;
   @Input() userLogged:any;
-  clickedComment:boolean;
+  clickedComment:any;
   numLikes:Observable<any>;
   likes = [];
   commentedUserData;
@@ -21,7 +21,6 @@ export class ForumResponseComponent implements OnInit{
   constructor(private forumService:ForumService) {}
 
   ngOnInit(): void {
-    //this.numLikes = this.forumService.getLikesResponse(this.comment.uid);
     this.getLikes();
   }
 
@@ -29,7 +28,6 @@ export class ForumResponseComponent implements OnInit{
 
     if (this.clickedComment) {
       this.forumService.removeLikeResponse(this.userLogged.uid,this.comment.uid).subscribe(res => {
-        console.log('unlikeando');
         this.getLikes();
       });
     }
@@ -51,9 +49,11 @@ export class ForumResponseComponent implements OnInit{
 
   isLiked = () => {
 
-    let myLike = this.likes.find((like) => {
+    this.clickedComment = this.likes.find((like) => {
       return (like.user === this.userLogged.uid)
     });
-    this.clickedComment = myLike === null||myLike===undefined?false:true;
+    // this.clickedComment = myLike === null||myLike===undefined?of(false):of(true);
+    // console.log(myLike === null||myLike===undefined?false:true);
+    // return myLike === null||myLike===undefined?false:true;
   }
 }
