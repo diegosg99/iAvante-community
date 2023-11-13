@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EventsService } from 'src/app/services/events.service';
 
@@ -7,10 +8,14 @@ import { EventsService } from 'src/app/services/events.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit{
 
   $events: Observable<any> = this.eventsService.getAllEvents();
   @Input() $user:Observable<any>;
 
-  constructor(private eventsService: EventsService) {}
+  constructor(private eventsService: EventsService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 }

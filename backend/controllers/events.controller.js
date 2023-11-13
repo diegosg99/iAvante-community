@@ -31,7 +31,7 @@ exports.getEvent = (req, res) => {
 
             if (err) throw err;
 
-            res.status(201).json(rows);
+            res.status(201).json(rows[0]);
         });
         
     } catch (error) {

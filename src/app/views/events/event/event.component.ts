@@ -2,16 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EventsService } from 'src/app/services/events.service';
+import { LockService } from 'src/app/services/lock.service';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.scss']
 })
-export class EventComponent{
+export class EventComponent {
 
   postId:any = this._activatedroute.snapshot.paramMap.get('id');
   $event:Observable<any> = this.eventService.getEvent(this.postId);
+  $userLogged:Observable<any> = this.eventService.getEvent(this.postId);
 
-  constructor(private eventService:EventsService,private _activatedroute:ActivatedRoute){}
+
+  constructor(private eventService:EventsService,private _activatedroute:ActivatedRoute,private lockService:LockService){}
 }

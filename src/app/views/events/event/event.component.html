@@ -3,27 +3,33 @@
 <app-chat></app-chat>
 
 <div class="row">
-    <div class="col-1"></div>
-    <div class="col-10 soft-white p-3">
+    <div class="col-9 soft-white px-5 pb-5 pt-3 my-3">
         <div class="row" *ngIf="$event | async as event">
-            <div class="col-12" style="color: black;">
-                <h2>{{event.name}}</h2>
+            <div class="col-12 mb-3">
+                <h2 class="mx-auto p-3" style="width: fit-content;">{{event.name}}</h2>
             </div>
-            <div class="col-4">
-                <p>{{event.date | date}}</p>
-                <p>{{event.start}}</p>
-                <p>{{event.end}}</p>
+            <div class="col-6 d-flex" style="justify-content: left;">
+                <i class="fa fa-calendar-days px-1 my-auto"></i>
+
+                <span class="px-3">{{event.date | date:'fullDate'}}</span>
+                <span class="px-3">{{event.start | slice:0:5}}</span>
+                <span class="px-3">{{event.end | slice:0:5}}</span>
             </div>
-            <div class="col-4">
-                <p>{{event.province}}</p>
+            <div class="col-6 d-flex" style="justify-content: right;">
+                <i class="fa fa-location-dot px-1 my-auto"></i>
+
+                <span class="px-3">{{event.province}}</span>
+                <span class="px-3">{{event.street}}</span>
             </div>
-            <div class="col-4">
-                <p>{{event.street}}</p>
-            </div>
+
             <div class="col-12">
+                <h5 class="mx-auto my-3" style="width: fit-content;">¿Qué hay planificado?</h5>
+                <hr>
                 <p>{{event.description}}</p>
             </div>
         </div>
     </div>
-    <div class="col-1"></div>
+    <div *ngIf="$userLogged | async as user" class="col-3 my-3">
+        <app-calendar [$user]="user"></app-calendar>
+    </div>
 </div>
