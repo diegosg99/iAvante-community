@@ -4,7 +4,7 @@
 
 <!-- ----------------------------MAIN QUESTION----------------------------------- -->
 
-<div *ngIf="userLogged | async as user">
+<div class="soft-white pb-3" *ngIf="userLogged | async as user">
     <div class="row mb-3" *ngIf="$questionSubscription | async as question">
         <div class="col-lg-12">
             <h1 class="logo mb-5 p-5">Foro cuestiones generales</h1>
@@ -60,8 +60,16 @@
     
     <!-- -----------------------------RESPONSES------------------------------------ -->
     
-    <div *ngFor="let comment of $commentsSub | async as comments" class="mx-5 mb-5 msg w-75">
-        <app-forum-response [comment]="comment" [userLogged]='user'></app-forum-response>
+    <div class="row">
+        <div class="col-7 mx-5 mb-5">
+            <div *ngFor="let comment of $commentsSub | async as comments" class="msg mb-3">
+                <app-forum-response [comment]="comment" [userLogged]='user'></app-forum-response>
+            </div>
+        </div>
+        
+        <div class="col-4" *ngIf="$questions | async as questions">
+            <app-top-questions [questions]="questions"></app-top-questions>
+        </div>
     </div>
     
     <!-- -----------------------------RESPONSES------------------------------------ -->

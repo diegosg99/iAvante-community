@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, debounceTime } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ForumQuestionComponent implements OnInit{
 
   idQuestion:any = this._activatedroute.snapshot.paramMap.get('id');
+  $questions:Observable<any> = this.forumService.getQuestions();
   //@Output() commentsDiv:any = new EventEmitter<string>();
   question:any;
   userId:any;

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row soft-white">
   
   <div class="col-lg-12">
     <h1 *ngIf="type==='question'" class="logo mb-5 p-5">Participa en la conversación</h1>
@@ -15,10 +15,6 @@
         <div class="d-flex" style="justify-content: space-between;">
           <p *ngIf="type==='question'">Desarrolla tu respuesta</p>
           <p *ngIf="type==='post'">Comenta la publicación</p>
-          <!-- <a class="navbar-brand me-2" *ngIf="userLogged|async as user">
-            <span class="m-3 text-secondary" style="font-size: medium;">{{user.displayName?user.displayName:user.email}}</span>
-            <img *ngIf="user.photoURL" src="{{user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
-          </a> -->
         </div>
         
         <textarea
