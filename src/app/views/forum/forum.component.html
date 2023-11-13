@@ -26,7 +26,9 @@
             <div class="row">
                 <div class="col-1"></div>
                 <section class="col-11">
-                    <h2>Preguntas recientes</h2>
+                    <div class="d-flex">
+                        <h2 class="montserrat mx-auto p-3">Preguntas recientes</h2>
+                    </div>
                     <ul class="mb-5">
                     <li *ngFor="let question of (questions | sort: 'created_at') | paginate: { itemsPerPage: 10, currentPage: p}" class="p-3">
                         <app-question-list [question]="question"></app-question-list>
