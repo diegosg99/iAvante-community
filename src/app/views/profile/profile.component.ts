@@ -1,16 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/User';
-import { FollowService } from 'src/app/services/follow.service';
-import { ForumService } from 'src/app/services/forum.service';
-import { ImageService } from 'src/app/services/image.service.service';
 import { LockService } from 'src/app/services/lock.service';
-import { OauthService } from 'src/app/services/oauth.service';
-import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -31,8 +22,9 @@ export class ProfileComponent implements OnInit{
     docent: 'DOCENTE'
   }
 
-  constructor(private lockService: LockService,private userService:UserService,private _activatedroute:ActivatedRoute){}
+  constructor(private lockService: LockService,private userService:UserService,private _activatedroute:ActivatedRoute,private router:Router){}
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 }
