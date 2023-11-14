@@ -33,7 +33,7 @@
             <div class="d-flex m-3" style="font-size: 16px;">
                 <p>{{userLogged.email}}</p>
             </div>
-            <div class="d-flex m-3" style="font-size: 16px;">
+            <div class="d-flex m-3" style="font-size: 16px; text-align: left;">
               <p>{{userLogged.description}}</p>
           </div>            
         </div>
@@ -54,20 +54,6 @@
             <p>{{userLogged.age}}</p>
         </div> 
         </div>
-        <div class="icons col-12 my-3">
-          <div>
-            <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{userLogged.instagram}}"></a>
-          </div>
-          <div>
-            <a class="fa fa-twitter" style="text-decoration: none;color: black;" href="{{userLogged.twitter}}"></a>
-          </div>
-          <div>
-            <a class="fa fa-linkedin" style="text-decoration: none;color: black;" href="{{userLogged.linkedin}}"></a>
-          </div>
-          <div>
-            <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{userLogged.facebook}}"></a>
-          </div>
-        </div>
         <!-- <div class="button">
           <div>
             <button class="message" type="button">Abrir chat</button>
@@ -75,8 +61,22 @@
         </div> -->
       </div>
     </form>
-    <div class="container col-5">
-      <div class="card text-center">
+    <div class="container col-5 row">
+      <div class="icons col-12 my-3">
+        <div>
+          <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{userLogged.instagram}}"></a>
+        </div>
+        <div>
+          <a class="fa fa-twitter" style="text-decoration: none;color: black;" href="{{userLogged.twitter}}"></a>
+        </div>
+        <div>
+          <a class="fa fa-linkedin" style="text-decoration: none;color: black;" href="{{userLogged.linkedin}}"></a>
+        </div>
+        <div>
+          <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{userLogged.facebook}}"></a>
+        </div>
+      </div>
+      <div class="card text-center row">
           <div class="card-header" (click)="hide()">
               <h5 class="card-title m-3">Modificar tus datos</h5>
           </div>
@@ -86,63 +86,62 @@
   
             <div class="col-12">
   
-              <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
-              <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
+              <div class="row">
+                <div class="col-6 px-3">
+                  <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+                  <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
+                </div>
+                <div class="col-6">
+                  <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+                  <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
+                </div>
+              </div>
               
-              <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
-              <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
-              
-              <label style="float: left;;margin-bottom: 1em;">Ubicación:</label>
-              <input class="form-control my-3 w-100" type="text" placeholder="Ubicación" #location  [(ngModel)]="userForm.location">
-  
-              <label style="float: left;;margin-bottom: 1em;">Profesión:</label>
-              <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
-  
-              <label style="float: left;;margin-bottom: 1em;">Centro de trabajo:</label>
-              <input class="form-control my-3 w-100" type="text" placeholder="Empresas" #jobCentre  [(ngModel)]="userForm.jobCentre">
-  
-              <label style="float: left;;margin-bottom: 1em;">Sobre mí:</label>
-              <input class="form-control my-3 w-100" type="text" placeholder="Sobre mí" #description  [(ngModel)]="userForm.description">
-              
-            </div>
-  
-              <div class="col-2"></div>
-              
-              <hr>
-  
-              <div class="col-1"></div>
-  
-              <div class="col-10 my-3">
-              <div class="row mb-3">
-              
-              <div class="col-12">
+              <div class="row">
+                <div class="col-4">
+                  <label style="float: left;;margin-bottom: 1em;">Ubicación:</label>
+                  <input class="form-control my-3 w-100" type="text" placeholder="Ubicación" #location  [(ngModel)]="userForm.location">
+                </div>
+                <div class="col-4 p-1">
+                  <label style="float: left;;margin-bottom: 1em;">Profesión:</label>
+                  <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
+                </div>
+                <div class="col-4">
+                  <label style="float: left;;margin-bottom: 1em;">Centro de trabajo:</label>
+                  <input class="form-control my-3 w-100" type="text" placeholder="Empresa" #jobCentre  [(ngModel)]="userForm.jobCentre">    
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <label style="float: left;;margin-bottom: 1em;">Sobre mí:</label>
+                  <input class="form-control my-3 w-100" type="text" placeholder="Sobre mí" #description  [(ngModel)]="userForm.description">  
+                </div>
+                <div class="col-4 p-1">
                   <label style="float: left;;margin-bottom: 1em;">Fecha  de nacimiento</label>
                   <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
-              </div>
-  
+                </div>
               </div>
             </div>
   
-              <div class="col-1"></div>
-  
-  
               <hr>
-  
-              <div class="col-2"></div>
-  
-              <div class="col-8 my-3">
+            <div class="row">
+              <div class="col-6 p-1">
                 <label style="float: left;;margin-bottom: 1em;">Instagram:</label>
                 <input class="form-control my-3" type="text" placeholder="Instagram" #fullName  [(ngModel)]="userForm.instagram">
+              </div>
+              <div class="col-6 p-1">
                 <label style="float: left;;margin-bottom: 1em;">Twitter:</label>
                 <input class="form-control my-3" type="text" placeholder="Twitter" #fullName  [(ngModel)]="userForm.twitter">
+              </div>
+              <div class="col-6 p-1">
                 <label style="float: left;;margin-bottom: 1em;">Facebook:</label>
                 <input class="form-control my-3" type="text" placeholder="Facebook" #fullName  [(ngModel)]="userForm.facebook">
+              </div>
+              <div class="col-6 p-1">
                 <label style="float: left;;margin-bottom: 1em;">LinkedIn:</label>
                 <input class="form-control my-3" type="text" placeholder="LinkedIn" #fullName  [(ngModel)]="userForm.linkedin">
               </div>
-              <div class="col-2"></div>
-  
-                  
+            </div>                  
           <div class="row mx-3">
               <div class="col-3"></div>
               <button class="text-white btn btn-primary mb-3 col-6" (click)="updateProfile()">Actualizar perfil</button>
