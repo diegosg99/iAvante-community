@@ -22,7 +22,6 @@ export class FollowService {
   }
 
   getUserFollowsData = (userId):any => {
-    console.log(userId);
     return this.http.post(`${this.baseUrl}/get/follows/data`, {uid:userId});
   }
 
@@ -47,6 +46,8 @@ export class FollowService {
       follower: follower,
       both: followed+'&union&'+follower
     }
+
+    console.log(FOLLOW);
 
     return this.http.post(`${this.baseUrl}/unfollow`, FOLLOW);
   }

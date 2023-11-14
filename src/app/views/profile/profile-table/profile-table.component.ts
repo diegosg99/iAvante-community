@@ -46,67 +46,15 @@ export class ProfileTableComponent implements OnInit{
     this.category = category;
   }
 
-  // payloadFactory = (category) => {
-  //   this.payload = [];
-  //   this.category = category;
-  //   this.factory[category]();
-  // }
+  manageFollow = (id,action) => {
+    console.log(id);
 
-  // getUserPosts = () => {
-  //   this.payload = [];
-  //   this._postService.getUserPosts(this.userId).subscribe(data=>{
-  //     data.forEach(item => {
-  //       let processedItem = item.payload.doc.data();
-  //       this.payload = [...this.payload,processedItem];
-  //     });
-  //   })
-  // }
- 
-  // getUserQuestions = () => {
-  //   this.forumService.getQuestionBy(this.userId,'usuario').subscribe(data=>{
+    if (action==='unfollow') {
+      this.followService.unfollowUser(id,this.userId);
+    }
 
-  //     data.forEach(item => {
-  //       let processedItem = item.payload.doc.data();
-  //       this.payload = [...this.payload,processedItem];
-  //     });
-  //     console.log(this.payload);
-  //   })
-  // }
-
-  // getUserResponses = () => {
-  //   this.forumService.getResponsesBy(this.userId,'usuario').subscribe(data=>{
-
-  //     data.forEach(item => {
-  //       let processedItem = item.payload._delegate.doc._document.data.value.mapValue.fields;
-  //       this.payload = [...this.payload,{...processedItem}];
-
-  //       // let responseId = item.payload._delegate.doc._document.key.path.segments[6];
-  //       // this.forumService.getLikesResponse(responseId).subscribe(data => processedItem.likes = data.length);
-  //       // console.log(processedItem);
-  //     });
-  //     console.log(this.payload);
-  //   })
-  // }
-
-  // getUserFollowing = () => {
-  //   this.payload = [];
-  //   this.followService.getUserFollows(this.userId).subscribe(data=>{
-  //     data.forEach(item => {
-  //       let processedItem = item.payload.doc.data();
-  //       this.payload = [...this.payload,processedItem];
-  //     });
-  //     console.log(this.payload);
-  //   })
-  // }
-
-  // getUserFollowers = () => {
-  //   this.payload = [];
-  //   this.followService.getUserFollowers(this.userId).subscribe(data=>{
-  //     data.forEach(item => {
-  //       let processedItem = item.payload.doc.data();
-  //       this.payload = [...this.payload,processedItem];
-  //     });
-  //     console.log(this.payload);
-  //   })
-  // }
+    if (action==='delete') {
+      this.followService.unfollowUser(this.userId,id);
+    }
+  }
 }
