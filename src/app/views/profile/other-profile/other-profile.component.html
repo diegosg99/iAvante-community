@@ -109,4 +109,6 @@
         </div>
       </div> -->
     </div>
-  </div>
+</div>
+
+<app-chat *ngIf="$userLogged | async as userLogged" [userLogged]="userLogged"></app-chat>

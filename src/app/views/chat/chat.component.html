@@ -3,22 +3,9 @@
             <i class="fa-regular fa-message m-2"></i>
             <h5 class="card-title">CHAT</h5>
         </div>
-        <div id="mensajesChat" class="card-body mensajesChat p-3" style="max-height: 320px;overflow: auto;scrollbar-width: thin;scrollbar-track-color: #197569;"  *ngIf="usuarioLogueado">
-            <div>
-                <div *ngFor="let mensaje of mensajes" 
-                [ngClass]="(usuarioLogueado.uid==mensaje.emisor)?'justify-content-end':'justify-content-start'"
-                class="d-inline-flex w-100">
-
-                    <p class="p-2 msj" style="margin-bottom: .4rem !important;"
-                        [ngClass]="(usuarioLogueado.uid==mensaje.emisor)?'enviado':'recibido'">
-                        {{mensaje.texto}}
-                    </p>
-                    <img 
-                    [ngClass]="(usuarioLogueado.uid==mensaje.emisor)?'enviado':'recibido'"
-                    *ngIf="usuarioLogueado.photoURL && usuarioLogueado.uid == mensaje.emisor" src="{{usuarioLogueado.photoURL}}" 
-                    style="border-radius: 60px;" class="d-inline-block align-top chatPhoto m-1" 
-                    width="30px" height="30px">
-                </div>
+        <div *ngIf="$lobbys | async as lobbys">
+            <div *ngFor="let lobby of lobbys">
+                {{lobby | json}}
             </div>
         </div>
         <hr>

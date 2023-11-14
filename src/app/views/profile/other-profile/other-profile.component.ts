@@ -29,13 +29,12 @@ following;
 constructor(private followService:FollowService,private _activatedRoute: ActivatedRoute,private postService: PostService,private chatService: ChatService){}
 
 ngOnInit(): void {
-  this.$followed = 
-  this.$user.subscribe(res=> {
-    this.userData = res;
-  });
-  this.$userLogged.subscribe(res=> {
-    this.userLoggedData = res;
-  })
+  // this.$user.subscribe(res=> {
+  //   this.userData = res;
+  // });
+  // this.$userLogged.subscribe(res=> {
+  //   this.userLoggedData = res;
+  // })
 }
 
 followUser = () => {

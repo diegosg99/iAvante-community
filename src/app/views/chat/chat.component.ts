@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ChatService } from 'src/app/services/chat.service';
+import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
 
 @Component({
@@ -9,54 +12,26 @@ import { OauthService } from 'src/app/services/oauth.service';
 export class ChatComponent implements OnInit {
 
   mensaje:string = "";
-  mensajes:any = [
-    {
-      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
-      texto:"¡Bienvenido a nuestra plataforma!"
-    },
-    {
-      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
-      texto:"A traves de aquí puedes contactar con otros docentes o alumnos."
-    },
-    {
-      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
-      texto:"Tambien puedes hacer preguntas en nuestro foro, o estar informado de las últimas noticias relacionadas con el mundo médico."
-    },
-    {
-      emisor:'HZvc0gbpm4cvUpSEg8uBcgkQ8QG3',
-      texto:"Gracias mi broder a ver klk pasa."
-    },
-    {
-      emisor:'HZvc0gbpm4cvUpSEg8uBcgkQ8QG3',
-      texto:"Estoy buscando cobre pa pagarlo."
-    },
-    {
-      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
-      texto:"¡Esperemos que sea útil! Estamos a tu disposición."
-    },
-    {
-      emisor:'b1oFK5kw76eylP3AlryuRKTC9Wa2',
-      texto:"IAVANTE, Fundación progreso y salud."
-    },
-  ];
+  mensajes:any = [];
 
   mostrar:boolean = false;
 
-  usuarioLogueado:any;
+  //$userLogged:Observable<any> = this.lockService.checkToken();
+  @Input() userLogged:any;
+  $lobbys:Observable<any>;
 
-  constructor(private auth:OauthService){}
 
-  ngOnInit = async () => {
-    // await this.auth.getUserLogged().subscribe(usuario => {
-    //   let multifactor:any = usuario?.multiFactor
-    //   this.usuarioLogueado = multifactor.user;
-    // });
+  constructor(private lockService: LockService, private chatService: ChatService){}
+
+  ngOnInit = () => {
+      console.log(this.userLogged);
+      this.$lobbys = this.chatService.getUserLobbys(this.userLogged.uid);
   }
 
   enviarMensaje = () => {
 
     let mensajeNuevo = {
-      emisor:this.usuarioLogueado.uid,
+      emisor:this.userLogged.uid,
       texto:this.mensaje
     }
 
@@ -70,12 +45,10 @@ export class ChatComponent implements OnInit {
   }
 
   mostrarChat = () => {
-    if (this.usuarioLogueado === null || this.usuarioLogueado === undefined) {
+    if (this.userLogged === null || this.userLogged === undefined) {
       
-      this.auth.getUserLogged().subscribe(usuario => {
-        
-        let multifactor:any = usuario?.multiFactor
-        this.usuarioLogueado = multifactor.user;
+      this.lockService.checkToken().subscribe(usuario => {
+                this.userLogged = usuario;
       });
     }
 
@@ -95,6 +68,5 @@ export class ChatComponent implements OnInit {
     let mensajesChat:any = document.getElementById('mensajesChat');
 
     mensajesChat.scrollTop = toppos;
-
   }
 }

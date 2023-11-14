@@ -8,6 +8,8 @@ router.post('/new/lobby', chatController.newLobby);
 
 router.post('/get/lobby', chatController.getLobby);
 
+router.get('/get/lobbys/:uid', chatController.getUserLobbys);
+
 router.post('/send/message', chatController.sendMessage);
 
 module.exports = router;

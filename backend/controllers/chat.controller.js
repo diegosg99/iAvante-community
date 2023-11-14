@@ -70,6 +70,29 @@ exports.getLobby = (req, res) => {
     }
 };
 
+exports.getUserLobbys = (req, res) => {
+    
+    let data = req.params;
+
+    try {
+        let sql = `SELECT * 
+                    FROM 
+                        sala AS s
+                    WHERE s.id_emisor = '${data.uid}' OR s.id_receptor = '${data.uid}';`;
+        
+        connection.query(sql, function(err, rows, fields) {
+
+            if (err) throw err;
+
+            res.status(201).json(rows);
+        });
+        
+    } catch (error) {
+        console.error('Fallo al traer eventos:', error);
+        res.status(500).json({ error: 'Fallo al traer eventos' });
+    }
+};
+
 //----------------------------------------------- MESSAGES ------------------------------------------
 
 exports.sendMessage = (req, res) => {

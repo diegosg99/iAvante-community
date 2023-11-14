@@ -1,1 +1,18 @@
-<p>lobby-chat works!</p>
+<div id="mensajesChat" class="card-body mensajesChat p-3" style="max-height: 320px;overflow: auto;scrollbar-width: thin;scrollbar-track-color: #197569;"  *ngIf="userLogged">
+    <div>
+        <div *ngFor="let mensaje of mensajes" 
+        [ngClass]="(userLogged.uid==mensaje.emisor)?'justify-content-end':'justify-content-start'"
+        class="d-inline-flex w-100">
+
+            <p class="p-2 msj" style="margin-bottom: .4rem !important;"
+                [ngClass]="(userLogged.uid==mensaje.emisor)?'enviado':'recibido'">
+                {{mensaje.texto}}
+            </p>
+            <img 
+            [ngClass]="(userLogged.uid==mensaje.emisor)?'enviado':'recibido'"
+            *ngIf="userLogged.photoURL && userLogged.uid == mensaje.emisor" src="{{userLogged.photoURL}}" 
+            style="border-radius: 60px;" class="d-inline-block align-top chatPhoto m-1" 
+            width="30px" height="30px">
+        </div>
+    </div>
+</div>

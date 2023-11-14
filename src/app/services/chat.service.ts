@@ -19,6 +19,11 @@ export class ChatService {
     return this.http.get(`${this.baseUrl}/get/lobby`);
   }
 
+  getUserLobbys = (uid) => {
+    console.log(uid);
+    return this.http.get(`${this.baseUrl}/get/lobbys/`+uid);
+  }
+
   sendMessage = (message) => {
     return this.http.post(`${this.baseUrl}/send/message`,message)
   }
