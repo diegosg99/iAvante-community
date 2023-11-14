@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
-import { Post } from '../models/Post';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

@@ -28,6 +28,10 @@
                 <span *ngIf="numLikes" class="p my-auto" style="font-size: 14px; color: #6f6f6f;">
                     <b>{{numLikes}}</b> 
                 </span>
+                <span *ngIf="!numLikes" class="p my-auto" style="font-size: 14px; color: #6f6f6f;">
+                    <b>0</b> 
+                </span>
+
                 <button class="mx-2 btn btn-light" (click)="likeComment()">
                     <i class="fa-heart" [ngClass]="clickedComment === null||clickedComment===undefined ? 'fa-regular black' : 'fa-solid red-heart'"></i> 
                 </button>

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ChatService } from 'src/app/services/chat.service';
 import { FollowService } from 'src/app/services/follow.service';
 import { PostService } from 'src/app/services/post.service';
 
@@ -9,7 +10,7 @@ import { PostService } from 'src/app/services/post.service';
   templateUrl: './other-profile.component.html',
   styleUrls: ['./other-profile.component.scss']
 })
-export class OtherProfileComponent {
+export class OtherProfileComponent implements OnInit{
 
 @Input() $user:Observable<any>;
 @Input() $userLogged: Observable<any>;
@@ -25,10 +26,10 @@ followed: any;
 followers;
 following;
 
-constructor(private followService:FollowService,private _activatedRoute: ActivatedRoute,private postService: PostService){}
+constructor(private followService:FollowService,private _activatedRoute: ActivatedRoute,private postService: PostService,private chatService: ChatService){}
 
 ngOnInit(): void {
-  this.$followed = this.checkFollowed();
+  this.$followed = 
   this.$user.subscribe(res=> {
     this.userData = res;
   });
@@ -52,10 +53,33 @@ unfollowUser = () => {
 }
 
 checkFollowed = () => {
-  return this.followService.checkFollow(this.userData.uid,this.userLoggedData.uid).subscribe(res=>{
+  return this.followService.checkFollow(this.userId,this.userLoggedData.uid).subscribe(res=>{
     console.log(res);
     this.followed = res;
   });
 }
 
+openChat = (uid) => {
+
+  let lobby = {
+    uid: this.uuidv4(),
+    id_emisor: this.userLoggedData.uid,
+    id_receptor: uid
+  }
+
+  this.chatService.createLobby(lobby).subscribe(res => {
+    console.log(res);
+  });
+}
+
+uuidv4(): string {
+  return (([1e7] as any) + -1e3 + -4e3 + -8e3 + -1e11).replace(
+  /[018]/g,
+  (c: number) =>
+      (
+      c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
+  );
+}
 }

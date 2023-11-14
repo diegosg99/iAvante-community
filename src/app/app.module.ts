@@ -58,6 +58,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EventsService } from './services/events.service';
 import { CreateEventComponent } from './views/events/create-event/create-event.component';
 import { EventComponent } from './views/events/event/event.component';
+import { LobbyChatComponent } from './views/chat/lobby-chat/lobby-chat.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { EventComponent } from './views/events/event/event.component';
     CalendarComponent,
     SortDescPipe,
     CreateEventComponent,
-    EventComponent
+    EventComponent,
+    LobbyChatComponent
     ],
   imports: [
     BrowserModule,

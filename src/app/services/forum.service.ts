@@ -1,10 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getDownloadURL,getStorage,ref,uploadBytes } from '@angular/fire/storage';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OauthService } from './oauth.service';
 import { HttpClient } from '@angular/common/http';
-import { LockService } from './lock.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +12,7 @@ export class ForumService {
 
   private baseUrl = 'http://localhost:3003/api'; // TODO IP : 10.111.249.108
 
-  constructor(private lockService:LockService,private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   //-------------------------------- QUESTIONS -----------------------------
 
