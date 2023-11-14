@@ -35,7 +35,6 @@ export class PostComponent implements OnInit{
   ngOnInit(): void {
     this.getProfilePic();
     this.getPostMedia();
-    // this.initSlides();
   }
 
   getPostUser = () => {

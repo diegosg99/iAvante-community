@@ -80,7 +80,7 @@ exports.getFollowedPosts = (req,res) => {
             // SELECT p.*,u.* FROM posts AS p INNER JOIN users AS u ON p.user_id = u.uid INNER JOIN follows AS f ON f.follower = u.uid WHERE u.uid IN (SELECT followed FROM follows WHERE follower ='cec24f1b-1d57-4bd2-a71f-bfd10584ecf2'); 
 
         const sql = 
-            `SELECT p.*,u.*,u.uid AS user_id,p.uid AS uid 
+            `SELECT p.*,u.*,u.uid AS user_id,p.uid AS uid, p.created_at as created_at
             FROM posts AS p 
                 INNER JOIN users AS u 
                     ON p.user_id = u.uid
