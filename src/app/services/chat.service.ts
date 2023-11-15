@@ -20,11 +20,14 @@ export class ChatService {
   }
 
   getUserLobbys = (uid) => {
-    console.log(uid);
     return this.http.get(`${this.baseUrl}/get/lobbys/`+uid);
   }
 
+  getLobbyData = (uid) => {
+    return this.http.get(`${this.baseUrl}/get/lobby/data/`+uid);
+  }
+
   sendMessage = (message) => {
-    return this.http.post(`${this.baseUrl}/send/message`,message)
+    return this.http.post(`${this.baseUrl}/send/message`,message);
   }
 }

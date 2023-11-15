@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChatService } from 'src/app/services/chat.service';
 import { LockService } from 'src/app/services/lock.service';
-import { OauthService } from 'src/app/services/oauth.service';
 
 @Component({
   selector: 'app-chat',
@@ -18,14 +17,12 @@ export class ChatComponent implements OnInit {
 
   //$userLogged:Observable<any> = this.lockService.checkToken();
   @Input() userLogged:any;
-  $lobbys:Observable<any>;
+  @Input() $lobbys:Observable<any>;
 
 
   constructor(private lockService: LockService, private chatService: ChatService){}
 
-  ngOnInit = () => {
-      console.log(this.userLogged);
-      this.$lobbys = this.chatService.getUserLobbys(this.userLogged.uid);
+  ngOnInit = () => {      
   }
 
   enviarMensaje = () => {

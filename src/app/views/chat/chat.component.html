@@ -5,7 +5,8 @@
         </div>
         <div *ngIf="$lobbys | async as lobbys">
             <div *ngFor="let lobby of lobbys">
-                {{lobby | json}}
+                <div>{{lobby.fullname}}</div>
+                <app-lobby-chat [lobby]="lobby"></app-lobby-chat>
             </div>
         </div>
         <hr>

@@ -15,6 +15,8 @@ export class OtherProfileComponent implements OnInit{
 @Input() $user:Observable<any>;
 @Input() $userLogged: Observable<any>;
 
+$lobbys:Observable<any>;
+
 userData:any;
 userLoggedData:any;
 
@@ -29,12 +31,13 @@ following;
 constructor(private followService:FollowService,private _activatedRoute: ActivatedRoute,private postService: PostService,private chatService: ChatService){}
 
 ngOnInit(): void {
-  // this.$user.subscribe(res=> {
-  //   this.userData = res;
-  // });
-  // this.$userLogged.subscribe(res=> {
-  //   this.userLoggedData = res;
-  // })
+  this.$user.subscribe(res=> {
+    this.userData = res;
+  });
+  this.$userLogged.subscribe(res=> {
+    this.userLoggedData = res;
+    this.$lobbys = this.chatService.getUserLobbys(this.userLoggedData.uid);
+  })
 }
 
 followUser = () => {

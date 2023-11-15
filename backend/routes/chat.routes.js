@@ -12,4 +12,6 @@ router.get('/get/lobbys/:uid', chatController.getUserLobbys);
 
 router.post('/send/message', chatController.sendMessage);
 
+router.get('/get/lobby/data/:id', chatController.getLobbyData);
+
 module.exports = router;
