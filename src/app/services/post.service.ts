@@ -39,5 +39,11 @@ export class PostService {
   getPost = (id:string):any => {
     return this.http.post(`${this.baseUrl}/get/post`, {uid:id});
   }
+
+  deletePost = (id:string):any => {
+    console.log('cocacolastic');
+    console.log(id);
+    return this.http.post(`${this.baseUrl}/delete/post`, {uid:id});
+  }
 }
 

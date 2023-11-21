@@ -235,6 +235,11 @@ input {
 //font-family: 'Sacramento', cursive;
 }
 
+.trash-hover:hover {
+  color: rgb(221, 0, 0);
+  transition: .2s;
+}
+
 /* Responsiveness:End */
 
 .hide {

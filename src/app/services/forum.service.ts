@@ -44,6 +44,10 @@ export class ForumService {
     return this.http.post(`${this.baseUrl}/get/user/questions`,{uid:uid});
   }
 
+  deleteQuestion = (uid:string):any => {
+    return this.http.post(`${this.baseUrl}/delete/question`,{uid:uid});
+  }
+
   //-------------------------------- QUESTIONS -----------------------------
  
   //-------------------------------- RESPONSES -----------------------------
@@ -77,8 +81,11 @@ export class ForumService {
   }
 
   getLikesResponse = (target) => {
-
     return this.http.post(`${this.baseUrl}/get/likes`,{target: target});
+  }
+
+  deleteResponse = (uid:string):any => {
+    return this.http.post(`${this.baseUrl}/delete/response`,{uid:uid});
   }
 }
 

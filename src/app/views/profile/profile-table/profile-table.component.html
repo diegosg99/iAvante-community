@@ -65,7 +65,7 @@
             <span class="mx-1">
               <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
             <span>
-              <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
+              <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'posts')"></i>
             </span>
         </div>
           </div>
@@ -114,7 +114,7 @@
               <span class="mx-1">
                 <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
               <span class="mx-1">
-                <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'questions')"></i>
               </span>
             </div>
           </div>
@@ -159,7 +159,7 @@
             </div>
             <div class="col-1">
               <span class="mx-3">
-                <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'responses')"></i>
               </span>
           </div>
           </div>
@@ -180,7 +180,7 @@
             </div>
             <div class="col-1">
               <span class="mx-3">
-                <i *ngIf="$userLogged | async" class="fa fa-trash-o" aria-hidden="true"></i>
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'responses')"></i>
               </span>
           </div>
           </div>

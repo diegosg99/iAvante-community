@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
 import { ForumService } from 'src/app/services/forum.service';
@@ -20,6 +21,12 @@ export class ProfileTableComponent implements OnInit{
   payload;
   p;
 
+  deleteFactory = {
+    posts: this._postService.deletePost,
+    questions: this.forumService.deleteQuestion,
+    responses: this.forumService.deleteResponse
+  }
+
   //----------------------------------- DATA SUBS --------------------------------
 
   $posts:Observable<any> = this._postService.getUserPosts(this.userId);
@@ -31,7 +38,7 @@ export class ProfileTableComponent implements OnInit{
   factory;
   category = 'posts';
 
-  constructor(private _postService: PostService, private forumService: ForumService, private followService: FollowService,private activatedRoute:ActivatedRoute){}
+  constructor(private _postService: PostService, private forumService: ForumService, private followService: FollowService,private activatedRoute:ActivatedRoute, private toastr:ToastrService){}
 
   ngOnInit(): void {
     this.$userSelected.subscribe(res=> {
@@ -44,6 +51,12 @@ export class ProfileTableComponent implements OnInit{
 
   displayData = (category) => {
     this.category = category;
+  }
+
+  removeItem = (id,table) => {
+    if (confirm("¿Quieres borrar el elemento?")) {
+      this.deleteFactory[table](id).subscribe(res=>console.log(res));
+  }
   }
 
   manageFollow = (id,action) => {

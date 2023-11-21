@@ -170,6 +170,28 @@ exports.getUserPosts = (req,res) => {
     }
 }
 
+exports.deleteUserPost = (req,res) => {
+    let uid = req.body.uid;
+
+    try {
+            // SELECT p.*,u.* FROM posts AS p INNER JOIN users AS u ON p.user_id = u.uid INNER JOIN follows AS f ON f.follower = u.uid WHERE u.uid IN (SELECT followed FROM follows WHERE follower ='cec24f1b-1d57-4bd2-a71f-bfd10584ecf2'); 
+        const sql = 
+            `DELETE FROM posts WHERE uid = '${uid}';`;
+
+            console.log(sql);
+        connection.query(sql, (err, rows) => {
+            if (err) {
+                console.error('Error deleting posts:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }else{
+                res.status(200).json({message: 'Post eliminado con éxito.'});
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 uploadImageToDB = (data) => {
 
     let category = data.originalname.split('.')[0];

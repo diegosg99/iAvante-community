@@ -27,5 +27,6 @@ router.post('/post/upload/media',upload.array('files'), postController.uploadPos
 router.post('/get/followed/posts', postController.getFollowedPosts);
 router.post('/get/post', postController.getPost);
 router.post('/user/posts', postController.getUserPosts);
+router.post('/delete/post', postController.deleteUserPost);
 
 module.exports = router;
