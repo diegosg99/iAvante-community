@@ -7,6 +7,7 @@ const ROUTES = {
   profile: 'profile/',
   post: 'posts/',
   forum: 'forum/',
+  events: 'events/',
   others: 'others/',
 }
 

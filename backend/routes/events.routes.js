@@ -1,6 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const eventsController = require('../controllers/events.controller');
+const multer = require("multer");
+const tools = require("../services/tools.service");
+
+const storage = multer.diskStorage({
+    destination: (req,file,cb) => {
+        console.log('storage file:');
+        console.log(file);
+        let path = tools.mediaManager(file);
+        cb(null,path)
+    },
+    filename: (req,file,cb) => {
+        const ext = file.originalname;
+        console.log(ext);
+        cb(null,`${ext}`)
+    }
+})
+
+const upload = multer({storage});
 
 // ------------------------------------------- User Routes -----------------------------------------------------
 
@@ -19,5 +37,7 @@ router.post('/event/unsub', eventsController.unsubscribeEvent);
 router.post('/event/people/subscribed', eventsController.getPeopleSubscribed);
 
 router.post('/event/isSubbed', eventsController.isSubbed);
+
+router.post('/event/upload/media',upload.array('files'), eventsController.uploadEventMedia);
 
 module.exports = router;

@@ -61,10 +61,18 @@ export class CreateEventComponent {
       street: this.form.value.street,
       start: this.form.value.start,
       end: this.form.value.end,
-
+      
     };
 
     this.eventService.uploadEvent(EVENT).subscribe((data:any)=> {
+
+      this.eventService.uploadEventImage(this.fdImg).subscribe(res=>{
+        console.log(res);
+        this.imgWrap.nativeElement.innerHTML = '';
+        this.form.reset();
+        console.log('Toasteando');
+        this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');          
+      });
       
       if (data.code === 201) {
         this.toastr.success('El evento se ha publicado con éxito.','¡Genial!',{ progressBar: true,positionClass: 'toast-top-right'});
@@ -97,7 +105,7 @@ imgUpload = async (e) => {
   this.imgWrap.nativeElement.innerHTML = html;
 
   Array.from(this.files).forEach((file) => {
-      let image = this.imageService.processImage(file,this.postId+'.'+this.uuidv4(), 'post.');
+      let image = this.imageService.processImage(file,this.postId+'.'+this.uuidv4(), 'events.');
       
       this.fdImg.append('files',image.get('file'));
       promises.push(this.imageService.getBase64(file));

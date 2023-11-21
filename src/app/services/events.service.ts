@@ -41,4 +41,8 @@ export class EventsService {
   getIsSubbed = (uid,event) => {
     return this.http.post(`${this.baseUrl}/event/isSubbed`,{uid:uid,event:event});
   }
+
+  uploadEventImage = (files:any): any => {
+    return this.http.post(`${this.baseUrl}/event/upload/media`, files);
+  }
 }
