@@ -1,27 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
-  selector: 'app-user-card',
-  templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.scss']
+  selector: 'app-mini-user',
+  templateUrl: './mini-user.component.html',
+  styleUrls: ['./mini-user.component.scss']
 })
-export class UserCardComponent implements OnInit{
+export class MiniUserComponent implements OnInit{
 
   @Input() user;
   @Input() userLogged;
 
-  $followed: Observable<any> | any;
-  followed: any;
+  followed;
+  $followed;
 
-  followers;
-  following;
-  posts;
-
-  constructor(private followService:FollowService){}
+  constructor(private followService: FollowService) {}
 
   ngOnInit(): void {
+    console.log(this.user);
+    console.log(this.userLogged);
     this.$followed = this.checkFollowed();
   }
 
@@ -45,11 +42,4 @@ export class UserCardComponent implements OnInit{
       this.followed = res;
     });
   }
-
-  // getPosts = () => {
-  //   this.postService.getUserPosts(this.user.uid).subscribe((res:any) => {
-  //     console.log(res);
-  //     this.posts = res.length;
-  //   });
-  // }
 }

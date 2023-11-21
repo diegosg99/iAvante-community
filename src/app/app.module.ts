@@ -59,6 +59,7 @@ import { EventsService } from './services/events.service';
 import { CreateEventComponent } from './views/events/create-event/create-event.component';
 import { EventComponent } from './views/events/event/event.component';
 import { LobbyChatComponent } from './views/chat/lobby-chat/lobby-chat.component';
+import { MiniUserComponent } from './views/profile/mini-user/mini-user.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { LobbyChatComponent } from './views/chat/lobby-chat/lobby-chat.component
     SortDescPipe,
     CreateEventComponent,
     EventComponent,
-    LobbyChatComponent
+    LobbyChatComponent,
+    MiniUserComponent
     ],
   imports: [
     BrowserModule,

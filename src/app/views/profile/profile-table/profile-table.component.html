@@ -187,55 +187,21 @@
         </li>
       </ul>
 
-      <ul style="list-style: none;" *ngIf="category =='following'">
-        <li *ngFor="let item of ($followed | async) | paginate: { itemsPerPage: 10, currentPage: p}">
-          <div class="row">
-            <span class="col-1">
-              <a class="navbar-brand me-2 col-3" href="#/profile/{{item.uid}}">
-                  <img src="{{item.userImage}}" class="msg-img" alt="" width="60px" height="60px">
-              </a>
-            </span>
-            <div class=" col-9 row justify-content-between pt-3" style="align-items: center;">
-                <span class="msg-username col-4">
-                    <a href="#/profile/{{item.uid}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{item.fullname}}</a>
-                </span>
-                <span class="col-4" style="text-align: right;">
-                    <span class="hace" style="font-size: 12px;">{{item.role}}</span>
-                    <span class="interactions">
-                    </span>
-                </span>
-                <span class="msg-username col-4">
-                  <button class="btn" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);" (click)="manageFollow(item.uid,'unfollow')">Dejar de seguir</button>
-              </span>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <ul style="list-style: none;" *ngIf="category =='followers'">
-        <li *ngFor="let item of ($followers | async) | paginate: { itemsPerPage: 10, currentPage: p}">
-          <div class="row">
-            <span class="col-1">
-              <a class="navbar-brand me-2 col-3" href="#/profile/{{item.uid}}">
-                  <img src="{{item.userImage}}" class="msg-img" alt="" width="60px" height="60px">
-              </a>
-            </span>
-            <div class=" col-9 row justify-content-between pt-3" style="align-items: center;">
-                <span class="msg-username col-4">
-                    <a href="#/profile/{{item.uid}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{item.fullname}}</a>
-                </span>
-                <span class="col-4" style="text-align: right;">
-                    <span class="hace" style="font-size: 12px;">{{item.role}}</span>
-                    <span class="interactions">
-                    </span>
-                </span>
-                <span class="msg-username col-4">
-                  <button class="btn" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);" (click)="manageFollow(item.uid,'delete')">Eliminar</button>
-              </span>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <div  *ngIf="$userLogged | async as userLogged">
+        
+        <ul style="list-style: none;" *ngIf="category =='following'">
+          <li *ngFor="let item of ($followed | async) | paginate: { itemsPerPage: 10, currentPage: p}">
+            <app-mini-user [user]="item" [userLogged]="userLogged"></app-mini-user>
+          </li>
+        </ul>
+  
+        <ul style="list-style: none;" *ngIf="category =='followers'">
+          <li *ngFor="let item of ($followers | async) | paginate: { itemsPerPage: 10, currentPage: p}">
+            <app-mini-user [user]="item" [userLogged]="userLogged"></app-mini-user>
+          </li>
+        
+        </ul>
+      </div>
 
       <pagination-controls class="mt-3" (pageChange)="p = $event"></pagination-controls>
 
