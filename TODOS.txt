@@ -48,22 +48,16 @@ PROMOCIONES
 
 GRUPOS DE DIFUSION
 
-Fumatelo y olvidate de lo que pasa chulo
-o comete la cabeza en casa pensando arreglar el mundo
-derriba los muros disfrazaos de miedo que son bulos
-a tomar por culo tu etica al moro nazi lo estrangulo
-
-
-
 PARA PROD:
 
-- Gestion de seguidores en perfil
-- Hacer un char funcional
-- Eliminar interacciones desde el perfil y hover ---- HECHO
+- Hacer un chat funcional
 - Mejorar los estilos básicos
 - Probar funcionalidades y seguridad
-- Traer comentarios en profile ---- HECHO
 - Aprende con nosotros básico
 - Inscribirse a eventos
 - Foto en evento
 - Hacer todo responsive
+
+- Eliminar interacciones desde el perfil y hover ---- HECHO
+- Traer comentarios en profile ---- HECHO
+- Gestion de seguidores en perfil ---- HECHO
