@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { EventsService } from 'src/app/services/events.service';
+import { ImageService } from 'src/app/services/image.service.service';
 import { LockService } from 'src/app/services/lock.service';
 
 @Component({
@@ -25,6 +26,8 @@ export class EventComponent implements OnInit{
   ngOnInit(): void {
     this.refresh();
   }
+
+// --------------------------------------------- ASISTENCIAS ------------------------------------
 
   refresh = () => {
     this.$userLogged.subscribe(res=> {
@@ -51,4 +54,5 @@ export class EventComponent implements OnInit{
       this.subscribed = res;
     });
   }
+
 }
