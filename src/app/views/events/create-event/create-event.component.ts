@@ -21,12 +21,11 @@ export class CreateEventComponent {
       title: ['',Validators.required],
       description: ['',Validators.required,Validators.minLength(16)],
       date: ['',[Validators.required]],
+      maxPeople: ['',[Validators.required]],
       province: ['',[Validators.required]],
       street: ['',[Validators.required]],
       start: ['',[Validators.required]],
       end: ['',[Validators.required]]
-
-
     });
 
     this.lockService.checkToken().subscribe(res=>{
@@ -40,6 +39,7 @@ export class CreateEventComponent {
       title: this.form.value.title,
       description: this.form.value.description,
       date: this.form.value.date,
+      maxPeople: this.form.value.maxPeople,
       province: this.form.value.province,
       street: this.form.value.street,
       start: this.form.value.start,

@@ -46,13 +46,14 @@ exports.uploadEvent = (req, res) => {
 
     try {
         let sql = `INSERT INTO events 
-                        (uid,name,description,date,start,end,province,street)
+                        (uid,name,description,date,maxPeople,start,end,province,street)
                     VALUES 
                     (
                         '${data.uid}',
                         '${data.title}',
                         '${data.description}',
                         '${data.date}',
+                        '${data.maxPeople}',
                         '${data.start}',
                         '${data.end}',
                         '${data.province}',

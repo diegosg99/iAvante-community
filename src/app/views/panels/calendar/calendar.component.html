@@ -4,7 +4,7 @@
     </div>
     <div class="d-flex event-list">
         <ul class="mx-auto" *ngIf="$events | async as events" style="list-style: none; padding-left: 0px; padding: .7rem;">
-            <li *ngFor="let event of (events | sortDesc: 'date' | slice:0:7)">
+            <li *ngFor="let event of (events | sortDesc: 'date' | slice:0:8)">
                 <a href="#/event/show/{{event.uid}}">
                     <div class="row">
                         <div class="col-5 date">
