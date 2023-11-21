@@ -17,8 +17,6 @@ export class MiniUserComponent implements OnInit{
   constructor(private followService: FollowService) {}
 
   ngOnInit(): void {
-    console.log(this.user);
-    console.log(this.userLogged);
     this.$followed = this.checkFollowed();
   }
 
@@ -38,7 +36,6 @@ export class MiniUserComponent implements OnInit{
 
   checkFollowed = () => {
     return this.followService.checkFollow(this.user.uid,this.userLogged.uid).subscribe(res=>{
-      console.log(res);
       this.followed = res;
     });
   }

@@ -56,7 +56,7 @@ export class ProfileTableComponent implements OnInit{
   removeItem = (id,table) => {
     if (confirm("¿Quieres borrar el elemento?")) {
       this.deleteFactory[table](id).subscribe(res=>console.log(res));
-  }
+    }
   }
 
   manageFollow = (id,action) => {

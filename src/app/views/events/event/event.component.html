@@ -44,8 +44,14 @@
                         </button>
                     </div>
                     <div class="col-6 text-center my-auto">
-                        <label>Asistentes</label>
-                        <span class="px-3">{{$peopleSubscribed | async}}/{{event.maxPeople}}</span>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="montserrat">Asistentes</h5>
+                            </div>
+                            <div class="col-12">
+                                <span class="px-3">{{$peopleSubscribed | async}}/{{event.maxPeople}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

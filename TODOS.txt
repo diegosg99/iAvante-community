@@ -54,10 +54,10 @@ PARA PROD:
 - Mejorar los estilos básicos
 - Probar funcionalidades y seguridad
 - Aprende con nosotros básico
-- Inscribirse a eventos
 - Foto en evento
 - Hacer todo responsive
+- Traer comentarios en profile (Num coments)
 
+- Inscribirse a eventos ---- HECHO
 - Eliminar interacciones desde el perfil y hover ---- HECHO
-- Traer comentarios en profile ---- HECHO
 - Gestion de seguidores en perfil ---- HECHO
