@@ -12,4 +12,12 @@ router.post('/upload/event', eventsController.uploadEvent);
 
 router.post('/remove/event', eventsController.removeEvent);
 
+router.post('/event/sub', eventsController.subscribeEvent);
+
+router.post('/event/unsub', eventsController.unsubscribeEvent);
+
+router.post('/event/people/subscribed', eventsController.getPeopleSubscribed);
+
+router.post('/event/isSubbed', eventsController.isSubbed);
+
 module.exports = router;

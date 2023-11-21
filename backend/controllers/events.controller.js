@@ -93,3 +93,93 @@ exports.removeEvent = (req, res) => {
         res.status(500).json({ error: 'Fallo al eliminar evento' });
     }
 };
+
+exports.subscribeEvent = (req, res) => {
+          
+    let data = req.body;
+
+    try {
+        let sql = `INSERT INTO event_users 
+                    (uid,user,event) 
+                VALUES 
+                    ('${data.uid+'&&'+data.event}','${data.uid}','${data.event}');`;
+
+        
+        connection.query(sql, function(err, rows, fields) {
+
+            if (err) throw err;
+
+            res.status(201).json(rows);
+        });
+        
+    } catch (error) {
+        console.error('Fallo al registrar en el evento:', error);
+        res.status(500).json({ error: 'Fallo al registrar en el evento' });
+    }
+};
+
+exports.unsubscribeEvent = (req, res) => {
+          
+    let data = req.body;
+
+    let uid = data.uid+'&&'+data.event;
+
+    try {
+        let sql = `DELETE FROM event_users WHERE uid = '${uid}';`;
+
+        
+        connection.query(sql, function(err, rows, fields) {
+
+            if (err) throw err;
+
+            res.status(201).json(rows);
+        });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Fallo al desuscribirse del evento' });
+    }
+};
+
+exports.getPeopleSubscribed = (req, res) => {
+          
+    let data = req.body;
+
+    try {
+        let sql = `SELECT * FROM event_users WHERE event = '${data.uid}';`;
+
+        
+        connection.query(sql, function(err, rows, fields) {
+
+            if (err) throw err;
+
+            res.status(201).json(rows.length);
+        });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Fallo al traer info del evento' });
+    }
+};
+
+exports.isSubbed = (req, res) => {
+          
+    let data = req.body;
+
+    try {
+        let sql = `SELECT * FROM event_users WHERE uid = '${data.uid+'&&'+data.event}';`;
+
+        
+        connection.query(sql, function(err, rows, fields) {
+
+            if (err) throw err;
+
+            if (rows[0]){
+                res.status(201).json(true);
+            }else{
+                res.status(201).json(false);
+            }
+        });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Fallo al traer info del evento' });
+    }
+};

@@ -12,8 +12,8 @@
                 <i class="fa fa-calendar-days px-1 my-auto"></i>
 
                 <span class="px-3">{{event.date | date:'fullDate'}}</span>
-                <span class="px-3">{{event.start | slice:0:5}}</span>
-                <span class="px-3">{{event.end | slice:0:5}}</span>
+                <span class="px-3">Desde: {{event.start | slice:0:5}}</span>
+                <span class="px-3">Hasta {{event.end | slice:0:5}}</span>
             </div>
             <div class="col-6 d-flex" style="justify-content: right;">
                 <i class="fa fa-location-dot px-1 my-auto"></i>
@@ -25,7 +25,7 @@
             <div class="col-12">
                 <h5 class="mx-auto my-3" style="width: fit-content;">¿Qué hay planificado?</h5>
                 <hr>
-                <p>{{event.description}}</p>
+                <p class="px-3">{{event.description}}</p>
             </div>
 
             <div class="col-12">
@@ -34,15 +34,18 @@
 
             <div class="col-12">
                 <h4 class="mx-auto p-3 montserrat"style="width: fit-content;">¿Quieres asistir?</h4>
-                <div class="mx-auto p-3 w-50 row">
+                <div class="mx-auto p-3 w-50 row" *ngIf="$userLogged | async as userLogged">
                     <div class="col-6 text-center">
-                        <button class="btn btn-primary">
+                        <button *ngIf="!subscribed" class="btn btn-primary" (click)="subscribeToEvent(userLogged.uid)">
                             Inscribirme
+                        </button>
+                        <button *ngIf="subscribed" class="btn btn-primary" (click)="unsubscribeToEvent(userLogged.uid)">
+                            No asistir
                         </button>
                     </div>
                     <div class="col-6 text-center my-auto">
                         <label>Asistentes</label>
-                        <span class="px-3">0/{{event.maxPeople}}</span>
+                        <span class="px-3">{{$peopleSubscribed | async}}/{{event.maxPeople}}</span>
                     </div>
                 </div>
             </div>
