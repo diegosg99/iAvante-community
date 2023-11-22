@@ -1,4 +1,16 @@
-<a (click)="updateViews(question)">{{question.title}}</a>
+
+<div class="row">
+    <a class="w-100 d-flex" style="text-decoration: none;color: #464646;justify-content: space-between;" (click)="updateViews(question)">
+        {{question.title}}
+        <i class="fa-solid" 
+        [ngClass]="{
+                    'fa-lock red': question.status === 0,
+                    'fa-lock-open green': question.status === 1,
+                    'fa-circle-check green': question.status === 2,
+                    }"
+        style="font-size: 13px;"></i>
+    </a>
+
     <div class="row pb-3 pt-3">
         <div class="col-12 d-flex" style="justify-content: space-between;">
             <div>
@@ -8,5 +20,6 @@
            <a style="text-decoration: none;color: inherit;" href="#/profile/{{question.user_id}}">
                 <img src="{{question.userImage}}" width="30px" height="30px" style="border-radius: 100%;"><span class="mx-3">{{question.fullname}}</span>
             </a>
+        </div>
     </div>
 </div>
