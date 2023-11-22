@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
 import { LockService } from 'src/app/services/lock.service';
@@ -30,11 +31,13 @@ export class ForumQuestionComponent {
 
   clickedComment = false;
 
-  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private statusService:StatusService){}
+  constructor(private forumService: ForumService,private _activatedroute:ActivatedRoute,private toastr: ToastrService,
+             private lockService: LockService,private statusService:StatusService){}
 
   changeStatus = (status) => {
     this.statusService.setStatus(status,this.idQuestion,'questions').subscribe(res=>{
-      this.myDialog.nativeElement.close()
+      this.myDialog.nativeElement.close();
+      this.toastr.success('Se ha cambiado el estado de la pregunta.','¡Genial!')
     });
   }
 }
