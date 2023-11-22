@@ -33,7 +33,14 @@
                         <app-question-list [question]="question"></app-question-list>
                     </li>
                     </ul>
-                    <pagination-controls class="mt-3" (pageChange)="p = $event"></pagination-controls>
+                    <pagination-controls 
+                        class="mt-3 w-100 text-center" 
+                        (pageChange)="p = $event"
+                        previousLabel="Atrás"
+                        nextLabel="Siguiente"
+                        screenReaderPaginationLabel="Paginación"
+                        screenReaderPageLabel="Página"
+                        screenReaderCurrentLabel="Estás en la página"></pagination-controls>
                 </section>
             </div>
         </div>
