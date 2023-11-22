@@ -4,8 +4,8 @@ const stateController = require('../controllers/state.controller');
 
 // ------------------------------------------- State Routes -----------------------------------------------------
 
-router.post('/change/status',stateController.changeStatus);
+router.post('/set/status',stateController.setStatus);
 
-router.get('/get/status',stateController.getStatus);
+router.post('/get/status',stateController.getStatus);
 
 module.exports = router;

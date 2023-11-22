@@ -69,20 +69,22 @@
         </div>
     </div>
 
+    <!-- ----------------------------------- DIALOG ------------------------------------- -->
+
     <dialog #myDialog class="dialog mx-auto">
         <div class="row">
             <div class="d-flex">
-                <h3 class="p-3 mx-auto text-center">Cambiar estado</h3>
+                <h2 class="pb-3 mx-auto text-center">Cambiar estado</h2>
                 <i class="fa-solid fa-xmark" (click)="myDialog.close()"></i>
             </div>
             <hr>
             <select class="form-control p-3 my-3" #selectStatus>
-                <option>Abrir pregunta</option><!--&#xf3c1;-->
-                <option>Cerrar pregunta</option><!--&#xf023;-->
-                <option>Marcar como resuelta</option><!--&#xf058;-->
+                <option value="1">Abrir pregunta</option><!--&#xf3c1;-->
+                <option value="0">Cerrar pregunta</option><!--&#xf023;-->
+                <option value="2">Marcar como resuelta</option><!--&#xf058;-->
             </select>
     
-           <button class="btn green-bomba" (click)="myDialog.close()">
+           <button class="btn green-bomba" (click)="changeStatus(selectStatus.value)">
                Confirmar
             </button>
         </div>

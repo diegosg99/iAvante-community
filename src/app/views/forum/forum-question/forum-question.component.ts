@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, debounceTime } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
 import { LockService } from 'src/app/services/lock.service';
-import { OauthService } from 'src/app/services/oauth.service';
-import { UserService } from 'src/app/services/user.service';
+import { StatusService } from 'src/app/services/status.service';
 
 @Component({
   selector: 'app-forum-question',
@@ -28,5 +27,9 @@ export class ForumQuestionComponent {
 
   clickedComment = false;
 
-  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private userService:UserService){}
+  constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private statusService:StatusService){}
+
+  changeStatus = (status) => {
+    this.statusService.setStatus(status,this.idQuestion,'questions').subscribe();
+  }
 }
