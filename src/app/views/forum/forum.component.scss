@@ -111,3 +111,16 @@ nav a:hover {
 .delete-button:hover{
   color: red;
 }
+
+.green-bomba {
+  background-color: #198754;
+  color: white;
+}
+
+.topQuestionsList li {
+  border-bottom: solid 1px #aaaaaa95;
+}
+
+.topQuestionsList li:last-child {
+  border-bottom: none;
+}

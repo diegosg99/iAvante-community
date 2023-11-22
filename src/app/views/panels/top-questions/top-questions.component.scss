@@ -125,3 +125,16 @@ nav a:hover {
 .topQuestions {
   background-color: #f8f8f8;
 }
+
+.green-bomba {
+  background-color: #198754;
+  color: white;
+}
+
+.topQuestionsList li {
+  border-bottom: solid 1px #aaaaaa95;
+}
+
+.topQuestionsList li:last-child {
+  border-bottom: none;
+}

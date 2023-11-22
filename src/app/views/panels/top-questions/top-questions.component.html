@@ -1,9 +1,9 @@
-<div class="row mt-5" class="topQuestions p-3">
+<div class="row mt-5 soft-white" class="topQuestions">
         <section *ngIf="questions.recent as questions" class="col-12">
-            <div class="d-flex">
-                <h4 class="montserrat mx-auto" >Preguntas más frecuentadas</h4>
+            <div class="d-flex green-bomba p-3">
+                <h4 class="montserrat mx-auto" style="margin-bottom: 0px !important;" >Preguntas más frecuentadas</h4>
             </div>
-            <ul>
+            <ul class="px-3 topQuestionsList">
                 <li *ngFor="let question of (questions | sort: 'views' | slice:0:5)" class="p-1 row topQuestion">
                     <a class="col-12" (click)="updateViews(question)">{{question.title}}</a>
                     <div class="row pb-1 pt-1 col-12 details">
