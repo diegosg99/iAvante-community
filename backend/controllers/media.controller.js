@@ -72,3 +72,38 @@ exports.getMediaPost = async (req, res) => {
         res.status(500).json({ error: error });
     }
 };
+
+exports.getMediaEvent = async (req, res) => {
+    let data = req.body;
+    let id = data.id;
+
+    console.log(data);
+
+    if (id===undefined){
+        res.status(300).json({ err: 'foto nula'});
+    }
+          
+    try {
+
+        let sql;
+
+            sql = `SELECT i.url
+            FROM media_users as m 
+                INNER JOIN images as i 
+                    ON m.id_media = i.id
+            WHERE m.uid = '${id}';`;
+
+            connection.query(sql, function(err, rows, fields) {
+                const filepath = path.resolve(rows[0].url);
+                let base64img = toolService.convertImageToBase64(filepath);
+                if(err){
+                res.status(300).json({ err:err });
+                }
+
+                res.status(200).json({ url: base64img });
+            });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: error });
+    }
+};

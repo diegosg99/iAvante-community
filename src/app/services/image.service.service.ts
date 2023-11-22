@@ -50,4 +50,8 @@ export class ImageService {
     console.log(id);
     return this.http.post(`${this.baseUrl}/get/media/post`, {id:id});
   }
+
+  getMediaEvent = (id) => {
+    return this.http.post(`${this.baseUrl}/get/media/event`, {id:id});
+  }
 }
