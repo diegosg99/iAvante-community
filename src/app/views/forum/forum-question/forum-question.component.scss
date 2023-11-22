@@ -12,8 +12,8 @@
 
 .msg {
   border: solid 1px #a9a9a961;
-  border-top-left-radius: 39px;
-  border-top-right-radius: 39px;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
 }
 
 .msg .msg-header {
@@ -23,8 +23,8 @@
   font-size: 10px;
   text-shadow: 1px 1px 0 #FFF;
   font-family: Roboto,Arial;
-  border-top-left-radius: 60px;
-  border-top-right-radius: 60px;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
 }
 
 .msg-img {
@@ -117,4 +117,30 @@ img {
 * {
   box-sizing: border-box;
   margin: 0;
+}
+
+.red {
+  color: rgb(137, 1, 1);
+}
+
+.green {
+  color: rgb(1, 154, 3);
+}
+
+
+// ---------------------------------------- DIALOG ------------------------------------
+
+dialog {
+  background-color: #f8f8f8;
+  color: #3f3f3f;
+  border-color: transparent;
+  overflow: hidden;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 20px 8px #d0d0d0;
+}
+
+.green-bomba {
+  background-color: #198754;
+  color: white;
 }

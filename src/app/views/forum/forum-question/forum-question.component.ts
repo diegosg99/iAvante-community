@@ -11,11 +11,10 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './forum-question.component.html',
   styleUrls: ['./forum-question.component.scss']
 })
-export class ForumQuestionComponent implements OnInit{
+export class ForumQuestionComponent {
 
   idQuestion:any = this._activatedroute.snapshot.paramMap.get('id');
   $questions:Observable<any> = this.forumService.getQuestions();
-  //@Output() commentsDiv:any = new EventEmitter<string>();
   question:any;
   userId:any;
   userQuestion;
@@ -29,32 +28,5 @@ export class ForumQuestionComponent implements OnInit{
 
   clickedComment = false;
 
-
   constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private userService:UserService){}
-
-  ngOnInit(): any {
-  }
-
-  // getQuestionComments = () => {
-
-  //   console.log('Hola')
-
-  //   this.forumService.getResponses(this.idQuestion.value.id).subscribe(comments=>{
-  //     this.comments = comments;
-  //     console.log(comments);
-  //     this.comments.sort((a,b)=>{return a.fechaCreacion-b.fechaCreacion});
-  //   });
-  // };
-
-  // formatDate = (date) => {
-  //   let fullDate = date.toDate();
-
-  //     let day = fullDate.getDate();
-  //     let month = fullDate.getMonth();
-  //     let year = fullDate.getFullYear();
-  //     let hour = fullDate.getHours();
-  //     let minutes = fullDate.getMinutes()<=9?'0'+fullDate.getMinutes().toString():fullDate.getMinutes();
-
-  //     return (day+'/'+(month+1)+'/'+year+' - '+hour+':'+minutes);
-  // }
 }

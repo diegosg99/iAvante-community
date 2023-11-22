@@ -2,13 +2,19 @@
 <div class="row">
     <a class="w-100 d-flex" style="text-decoration: none;color: #464646;justify-content: space-between;" (click)="updateViews(question)">
         {{question.title}}
-        <i class="fa-solid" 
-        [ngClass]="{
-                    'fa-lock red': question.status === 0,
-                    'fa-lock-open green': question.status === 1,
-                    'fa-circle-check green': question.status === 2,
-                    }"
-        style="font-size: 13px;"></i>
+        
+        <div>
+            <span *ngIf="question.status==0" class="px-3" style="font-size: 14px;">Pregunta cerrada</span>
+            <span *ngIf="question.status==1" class="px-3" style="font-size: 14px;">Pregunta abierta</span>
+            <span *ngIf="question.status==2" class="px-3" style="font-size: 14px;">Pregunta resuelta</span>
+            <i class="fa-solid" 
+            [ngClass]="{
+                        'fa-lock red': question.status === 0,
+                        'fa-lock-open green': question.status === 1,
+                        'fa-circle-check green': question.status === 2,
+                        }"
+            style="font-size: 13px;"></i>
+        </div>
     </a>
 
     <div class="row pb-3 pt-3">
