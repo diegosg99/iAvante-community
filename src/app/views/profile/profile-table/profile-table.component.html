@@ -110,9 +110,9 @@
             </div>
             <div class="col-2 text-center">
               <span class="mx-1">
-                <i class="fa fa-eye" aria-hidden="true"></i> {{item.views}}</span>
+                <i class="fa fa-eye" style="font-size: 14px;" aria-hidden="true"></i> {{item.views}}</span>
               <span class="mx-1">
-                <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
+                <i class="fa fa-commenting-o" style="font-size: 14px;" aria-hidden="true"></i> {{item.comments}}</span>
               <span class="mx-1">
                 <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'questions')"></i>
               </span>
