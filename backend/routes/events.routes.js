@@ -7,13 +7,11 @@ const tools = require("../services/tools.service");
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
         console.log('storage file:');
-        console.log(file);
         let path = tools.mediaManager(file);
         cb(null,path)
     },
     filename: (req,file,cb) => {
         const ext = file.originalname;
-        console.log(ext);
         cb(null,`${ext}`)
     }
 })

@@ -1,4 +1,7 @@
 const connection = require('../database');
+const toolService = require("../services/tools.service");
+const path = require('path');
+
 
 exports.getEvents = (req, res) => {
           
@@ -191,13 +194,14 @@ exports.uploadEventMedia = async (req, res) => {
     try {
         let index = 1;
         files.forEach(file => {
+
             let uidPost = file.originalname.split('.')[1];
-    
             let ids = uploadImageToDB(file);
     
             let sql = `UPDATE events 
                             SET media${index} = '${ids.mediaUID}'                        
                             WHERE uid = '${uidPost}'`;    
+            
             connection.query(sql, function(err, rows, fields) {
                 if (err) throw err;
             });
@@ -238,6 +242,7 @@ uploadImageToDB = (data) => {
                     '${uidPhoto}',
                     '${category}'
                 )`;
+
     connection.query(sql, function(err, rows, fields) {if (err){console.log(err)}});
 
     return {mediaUID: mediaUID};

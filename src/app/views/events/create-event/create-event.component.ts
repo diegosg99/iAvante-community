@@ -19,7 +19,7 @@ export class CreateEventComponent {
 
   
   files;
-  postId;
+  eventId;
 
   //imagenes al servidor
   imgArray;
@@ -34,6 +34,9 @@ export class CreateEventComponent {
   @ViewChild('imgWrap',{static:false})imgWrap: ElementRef;
 
   constructor(fb: FormBuilder,private eventService:EventsService,private toastr:ToastrService,private lockService: LockService,private imageService: ImageService){
+    
+    this.eventId = this.uuidv4();
+    
     this.form = fb.group({
       title: ['',Validators.required],
       description: ['',Validators.required,Validators.minLength(16)],
@@ -52,7 +55,7 @@ export class CreateEventComponent {
 
   uploadNewEvent = () => {
     const EVENT:any = {
-      uid: this.uuidv4(),
+      uid: this.eventId,
       title: this.form.value.title,
       description: this.form.value.description,
       date: this.form.value.date,
@@ -70,7 +73,6 @@ export class CreateEventComponent {
         console.log(res);
         this.imgWrap.nativeElement.innerHTML = '';
         this.form.reset();
-        console.log('Toasteando');
         this.toastr.success('La publicación se ha registrado con éxito.','¡Genial!');          
       });
       
@@ -105,7 +107,7 @@ imgUpload = async (e) => {
   this.imgWrap.nativeElement.innerHTML = html;
 
   Array.from(this.files).forEach((file) => {
-      let image = this.imageService.processImage(file,this.postId+'.'+this.uuidv4(), 'events.');
+      let image = this.imageService.processImage(file,this.eventId+'.'+this.uuidv4(), 'events.');
       
       this.fdImg.append('files',image.get('file'));
       promises.push(this.imageService.getBase64(file));
