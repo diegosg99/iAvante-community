@@ -12,6 +12,7 @@ const mediaRoutes = require('./routes/media.routes');
 const likeRoutes = require('./routes/like.routes');
 const eventRoutes = require('./routes/events.routes');
 const chatRoutes = require('./routes/chat.routes');
+const stateRoutes = require('./routes/state.routes');
 
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
@@ -26,6 +27,7 @@ app.use('/api', mediaRoutes);
 app.use('/api', likeRoutes);
 app.use('/api', eventRoutes);
 app.use('/api', chatRoutes);
+app.use('/api', stateRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

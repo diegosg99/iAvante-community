@@ -12,6 +12,8 @@ export class SearchComponent implements OnInit{
   @Input() cat:any;  
   @Input() items:any;
 
+  selectStatus:boolean = false;
+
   @ViewChild('selectCats',{static:false})selectInput: ElementRef;
 
   itemsFiltered:[];
@@ -21,7 +23,7 @@ export class SearchComponent implements OnInit{
   cats = {
     members:{fullname:'Nombre',role:'Rol',proffesion:'Profesion'},
     posts:{title:'Título'},
-    questions:{title:'Preguntas',fullname:'Usuario'},
+    questions:{title:'Preguntas',fullname:'Usuario',status:'Estado'},
     events:{fullname:'Nombre',role:'Rol',proffesion:'Profesion'},
   }
 
@@ -66,7 +68,18 @@ export class SearchComponent implements OnInit{
     if (this.props[prop] === 'questions' && searchTerm !== '') {
       //TODO Cambiar todas las preguntas por recientes solo, al lado las más frecuentadas
       this.itemsFiltered = this.items.recent.filter(item=>{
-        return item?.[criteria]?.toLowerCase().includes(searchTerm.toLowerCase())
+        console.log(criteria);
+        if (criteria === 'status'){
+
+          this.selectStatus = true;
+          return item?.[criteria] == searchTerm;
+
+        }else{
+
+          this.selectStatus = false;
+
+          return item?.[criteria]?.toLowerCase().includes(searchTerm.toLowerCase());
+        }
       })
     }
 
@@ -85,5 +98,14 @@ export class SearchComponent implements OnInit{
     console.log(this.itemsFiltered);
 
     this.data.emit(this.itemsFiltered);
+  }
+
+  isStatus = (value) => {
+    console.log(value);
+    if (value === 'status'){
+      this.selectStatus = true;
+    }else {
+      this.selectStatus = false;
+    }
   }
 }

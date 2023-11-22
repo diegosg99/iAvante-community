@@ -28,6 +28,12 @@ export class ForumComponent {
     docent: 'DOCENTE'
   }
 
+  STATUS = [
+    'Cerrado',
+    'Abierto',
+    'Resuelto'
+  ]
+
   userID;
   user;
   $questionSubscription: Observable<any> = this.forumService.getQuestions();
@@ -59,6 +65,5 @@ export class ForumComponent {
 
   showSearched = ($event) => {
     this.searchedData = $event;
-    console.log(this.searchedData);
   }
 }
