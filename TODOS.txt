@@ -57,6 +57,7 @@ PARA PROD:
 - Foto en evento
 - Hacer todo responsive
 - Traer comentarios en profile (Num coments)
+- Mostrar y cambiar estados de preguntas
 
 - Inscribirse a eventos ---- HECHO
 - Eliminar interacciones desde el perfil y hover ---- HECHO

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ForumService } from 'src/app/services/forum.service';
@@ -20,6 +20,9 @@ export class ForumQuestionComponent {
   usersComments;
   type='question';
 
+  @ViewChild('myDialog',{static:false})myDialog: ElementRef;
+
+
 //--------------------------------------- SUBS -----------------------------------
   userLogged = this.lockService.checkToken();
   $commentsSub: Observable<any> = this.forumService.getResponses(this.idQuestion);
@@ -30,6 +33,8 @@ export class ForumQuestionComponent {
   constructor(private forumService: ForumService,private router:Router,private _activatedroute:ActivatedRoute, private lockService: LockService,private statusService:StatusService){}
 
   changeStatus = (status) => {
-    this.statusService.setStatus(status,this.idQuestion,'questions').subscribe();
+    this.statusService.setStatus(status,this.idQuestion,'questions').subscribe(res=>{
+      this.myDialog.nativeElement.close()
+    });
   }
 }
