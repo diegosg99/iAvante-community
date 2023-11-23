@@ -141,14 +141,29 @@ exports.getUserPosts = (req,res) => {
 
     try {
             // SELECT p.*,u.* FROM posts AS p INNER JOIN users AS u ON p.user_id = u.uid INNER JOIN follows AS f ON f.follower = u.uid WHERE u.uid IN (SELECT followed FROM follows WHERE follower ='cec24f1b-1d57-4bd2-a71f-bfd10584ecf2'); 
-        const sql = 
-            `SELECT p.*, i.url AS url
-            FROM posts AS p 
-                INNER JOIN media_users AS m 
-                    ON p.media1 = m.uid 
-                INNER JOIN images AS i 
-                    ON i.id = m.id_media 
-                WHERE user_id = '${uid}';`;
+        // const sql = 
+        //     `SELECT p.*, i.url AS url,count(cc.uid) as comments
+        //     FROM posts AS p 
+        //         INNER JOIN media_users AS m 
+        //             ON p.media1 = m.uid 
+        //         INNER JOIN images AS i 
+        //             ON i.id = m.id_media
+        //         INNER JOIN comments_cat as cc 
+        //             ON cc.id_cat = p.uid
+        //         WHERE user_id = '${uid}';`;
+
+        const sql = `
+            SELECT p.*, i.url AS url, COUNT(cc.uid) AS comments
+                FROM posts AS p 
+                    INNER JOIN media_users AS m 
+                        ON p.media1 = m.uid 
+                    INNER JOIN images AS i 
+                        ON i.id = m.id_media
+                    LEFT JOIN comments_cat AS cc 
+                        ON cc.id_cat = p.uid
+                WHERE p.user_id = '${uid}'
+                GROUP BY p.uid, i.url;`;
+
         connection.query(sql, (err, rows) => {
             if (err) {
                 console.error('Error fetching posts:', err);
@@ -156,6 +171,7 @@ exports.getUserPosts = (req,res) => {
             }else{
 
                 rows.forEach(row=> {
+                    console.log(row);
                     const filepath = path.resolve(row.url);
                     base64img = toolService.convertImageToBase64(filepath);
                     newPost = {...row,url:base64img};

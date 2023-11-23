@@ -83,16 +83,17 @@ exports.getUserQuestions = (req, res) => {
     let newQuestions = [];
 
     const sql = `SELECT q.*,u.fullname,i.url,count(cc.uid) as comments
-    FROM questions as q
-        INNER JOIN users as u 
-            on u.uid = q.user_id 
-        INNER JOIN media_users as m 
-            on u.photo = m.uid 
-        INNER JOIN images as i 
-            on m.id_media = i.id
-        INNER JOIN comments_cat as cc
-            ON cc.id_cat = q.uid
-        WHERE q.user_id = '${uid}'`;
+                FROM questions as q
+                    INNER JOIN users as u 
+                        on u.uid = q.user_id 
+                    INNER JOIN media_users as m 
+                        on u.photo = m.uid 
+                    INNER JOIN images as i 
+                        on m.id_media = i.id
+                        LEFT JOIN comments_cat AS cc 
+                        ON cc.id_cat = q.uid
+                    WHERE q.user_id = '${uid}'
+                    GROUP BY q.uid, i.url;`;
 
         connection.query(sql, (err, rows) => {
 
