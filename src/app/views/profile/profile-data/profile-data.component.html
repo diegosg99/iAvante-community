@@ -36,6 +36,12 @@
                 <!-- <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span> -->
               </div>
             </div>
+            <div class="mx-auto">
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 100">Iniciado</span>
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 1000 && userLogged.reputation >= 100">Aprendíz</span>
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 10000 && userLogged.reputation >= 1000">Maestro</span>
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 100000 && userLogged.reputation >= 10000">Sabio</span>
+            </div>
         </div>
         
         <div class="col-4">

@@ -43,6 +43,13 @@
               <!-- <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span> -->
             </div>
           </div>
+          <div class="mx-auto">
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 100">Iniciado</span>
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 1000 && user.reputation >= 100">Aprendíz</span>
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 10000 && user.reputation >= 1000">Maestro</span>
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 100000 && user.reputation >= 10000">Sabio</span>
+          </div>
+          
           <div class="icons d-flex col-12 my-3 p-3" style="justify-content: space-between;">
             <div>
               <a class="fa fa-instagram" style="text-decoration: none;color: #555555;" href="{{user.instagram}}"></a>
