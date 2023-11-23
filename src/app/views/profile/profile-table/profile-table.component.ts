@@ -41,7 +41,7 @@ export class ProfileTableComponent implements OnInit{
   constructor(private _postService: PostService, private forumService: ForumService, private followService: FollowService,private activatedRoute:ActivatedRoute, private toastr:ToastrService){}
 
   ngOnInit(): void {
-    this.$userSelected.subscribe(res=> {
+    this.$userSelected?.subscribe(res=> {
       this.userData = res;
     });
     this.$userLogged.subscribe(res=> {

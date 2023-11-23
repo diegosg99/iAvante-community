@@ -97,7 +97,7 @@
             <div class="col-1 text-center">
               <div style="font-size: 14px;" *ngIf="item.status===1">
                 <span class="px-2">Abierta</span>
-                <i class="fa-solid fa-lock-open green"></i>
+                <i class="fa-solid fa-lock-open" style="color: rgb(118, 118, 118);"></i>
               </div>
               
               <div style="font-size: 14px;" *ngIf="item.status===0">
@@ -168,7 +168,7 @@
             <div class="col-5 text-left px-3" style="font-size: 14px;">
               {{item.body}}
             </div>
-            <a href="#/foro/{{item.q_id}}"  class="col-4 text-left px-3" style="font-size: 14px;">
+            <a href="#/foro/{{item.q_id}}"  class="col-4 text-left px-3" style="font-size: 14px;text-decoration: none; color: #2a2e32;">
               {{item.title}}
             </a>
             <!-- <div class="col-1">
@@ -189,7 +189,7 @@
             <div class="col-5 text-left px-3" style="font-size: 14px;">
               {{item.body}}
             </div>
-            <a href="#/post/{{item.p_id}}" class="col-4 text-left px-3" style="font-size: 14px;">
+            <a href="#/post/{{item.p_id}}" class="col-4 text-left px-3" style="font-size: 14px;text-decoration: none; color: #2a2e32;">
               {{item.title}}
             </a>
             <!-- <div class="col-1">
