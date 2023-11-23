@@ -1,11 +1,10 @@
 const path = require('path');
 const connection = require('../database');
-const toolService = require('../services/tools.service');
+const reputationService = require('../services/reputation.service');
+
 
 exports.like = (req, res) => {
     let data = req.body;
-
-    console.log(data);
 
     try {
         sql = `INSERT INTO likes 
@@ -21,7 +20,17 @@ exports.like = (req, res) => {
 
         connection.query(sql, function(err, rows, fields) {
             if (err) throw err;
-            res.status(201).json({ message: 'Like registrado',code:201 });
+
+            let reputation = reputationService.setReputation('like');
+
+            sql = `UPDATE users set reputation=reputation+${reputation} WHERE uid = '${data.user}';`;
+
+            connection.query(sql, function(err, rows, fields) {
+
+                if (err) throw err;
+
+                res.status(201).json({ message: 'Like registrado',code:201 });
+            })
         });
     }
     catch (error) {

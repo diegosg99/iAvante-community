@@ -1,7 +1,5 @@
 const connection = require('../database');
 
-// const STATES = ['Cerrada','Abierto','Cancelado'];
-
 exports.setStatus = async (req, res) => {
   
     const data = req.body;
@@ -10,8 +8,6 @@ exports.setStatus = async (req, res) => {
         const sql = `UPDATE ${data.table}
         SET status = ${data.status}
         WHERE uid = '${data.uid}';`;
-
-        console.log(sql);
 
         connection.query(sql, (err, rows) => {
             if(err){

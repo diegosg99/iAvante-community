@@ -2,16 +2,15 @@ const path = require('path');
 const connection = require('../database');
 const toolService = require('../services/tools.service');
 const questionService = require('../services/questions.service');
+const reputationService = require('../services/reputation.service');
 const { error } = require('console');
 
 exports.uploadQuestion = (req, res) => {
     let data = req.body;
 
-    console.log(data);
-
     try {
         sql = `INSERT INTO questions 
-                    (uid,title,body,user_id,category,views,status,created_at,updated_at)
+                    (uid,title,body,user_id,category,views,created_at,updated_at)
                 VALUES 
                 (
                     '${data.uid}',
@@ -20,7 +19,6 @@ exports.uploadQuestion = (req, res) => {
                     '${data.usuario}',
                     '${data.category}',
                     ${data.views},
-                    ${data.status},
                     '${data.created_at}',
                     '${data.updated_at}'
                 )`;
@@ -29,7 +27,17 @@ exports.uploadQuestion = (req, res) => {
 
             connection.query(sql, function(err, rows, fields) {
                 if (err) throw err;
-                res.status(201).json({ message: 'Usuario registrado exitosamente',code:201 });
+
+                let reputation = reputationService.setReputation('pregunta');
+
+                sql = `UPDATE users set reputation=reputation+${reputation} WHERE uid = '${data.usuario}';`;
+    
+                connection.query(sql, function(err, rows, fields) {
+    
+                    if (err) throw err;
+    
+                    res.status(201).json({ message: 'Usuario registrado exitosamente',code:201 });
+                })
             });
         }
     catch (error) {
@@ -352,8 +360,18 @@ exports.newComment = (req,res) => {
             console.error('Error fetching users:', err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
-      res.status(200).json({code:201,message: 'Comentario publicado con éxito',data:rows});
-    });
+        
+        let reputation = reputationService.setReputation('respuesta');
+
+            sql = `UPDATE users set reputation=reputation+${reputation} WHERE uid = '${data.usuario}';`;
+
+            connection.query(sql, function(err, rows, fields) {
+
+                if (err) throw err;
+
+                res.status(200).json({code:201,message: 'Comentario publicado con éxito',data:rows});
+            })
+        });
     });
 }
 

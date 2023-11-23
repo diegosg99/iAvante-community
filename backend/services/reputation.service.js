@@ -4,7 +4,6 @@ const REPUTATION = {
     pregunta: 80,
     respuesta: 50,
     asistencia: 100,
-    estado: 30,
     seguidor: 50,
   }
   

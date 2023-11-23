@@ -1,6 +1,7 @@
 const connection = require('../database');
 const toolService = require('../services/tools.service');
 const path = require('path');
+const reputationService = require('../services/reputation.service')
 
 exports.uploadPost = (req, res) => {
     let data = req.body;
@@ -35,7 +36,16 @@ exports.uploadPost = (req, res) => {
                         if (err){
                             res.status(301).json({ message: 'Error al subir el post',code:301 });
                         }else{
-                            res.status(201).json({ data: rows[0],code:201 })
+                            let reputation = reputationService.setReputation('post');
+
+                            sql = `UPDATE users set reputation=reputation+${reputation} WHERE uid = '${data.usuario}';`;
+                
+                            connection.query(sql, function(err, rows, fields) {
+                
+                                if (err) throw err;
+                
+                                res.status(201).json({ data: rows[0],code:201 })
+                            })
                         }
                     })
                 }

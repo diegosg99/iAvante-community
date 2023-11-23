@@ -1,6 +1,7 @@
 const connection = require('../database');
 const path = require('path');
 const toolService = require('../services/tools.service');
+const reputationService = require('../services/reputation.service');
 const { error } = require('console');
 
 exports.follow = (req, res) => {
@@ -8,14 +9,24 @@ exports.follow = (req, res) => {
     let data = req.body;
 
     try {
-        const sql = `INSERT INTO follows 
+        let sql = `INSERT INTO follows 
         VALUES ('${data.followed}','${data.follower}','${data.both}');`;
 
         connection.query(sql, (err, rows) => {
             if (err) {
                 res.status(301).json(false)
             }else{
-                res.status(201).json(true);
+
+                let reputation = reputationService.setReputation('seguidor');
+
+                sql = `UPDATE users set reputation=reputation+${reputation} WHERE uid = '${data.followed}';`;
+
+                connection.query(sql, function(err, rows, fields) {
+
+                    if (err) throw err;
+
+                    res.status(201).json(true);
+                })
             }
           })
     } catch (error) {
@@ -35,7 +46,16 @@ exports.unfollow = (req, res) => {
             if (err){
                 res.status(301).json(true);
             }else {
-        res.status(201).json(false);
+                let reputation = reputationService.setReputation('seguidor');
+
+                sql = `UPDATE users set reputation=reputation-${reputation} WHERE uid = '${data.followed}';`;
+
+                connection.query(sql, function(err, rows, fields) {
+
+                    if (err) throw err;
+
+                    res.status(201).json(false);
+                })
     }
     })
 
