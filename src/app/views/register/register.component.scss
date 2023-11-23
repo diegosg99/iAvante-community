@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.register-title {
+    font-weight: 700;
+    font-family: "Lato", sans-serif;
+    color: white;
+    letter-spacing: 5px;
+    font-size: x-large;
+}
+
+.cardd {
+    width: 300px;
+    background-color: transparent;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid #198754dc;
+    color: #808080;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    color: #f6226f;
+    cursor: pointer;
+  }
+  
+  .switch {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    color: #198754dc;
+  }
+
+
+// ---------------------------------------------- MEDIAQUERIES -----------------------------------------------
+
+        /* Media Query for Mobile Devices */ 
+        @media (max-width: 480px) { 
+            .register-title { 
+                font-size: x-large; 
+            } 
+        } 
+          

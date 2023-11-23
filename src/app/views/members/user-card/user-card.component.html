@@ -1,0 +1,81 @@
+<div class="patternBG">
+    <div class="bg-soft" style="
+                  padding-right: 0px!important;
+                  padding-left: 0px!important;">
+      <div class="row">
+        <div class="col-1">
+          <a href="#/profile/{{user.uid}}">
+            <img src="{{user.url}}" class="w-100 image" 
+              [ngClass]="{'profile-user': user.role === 'USUARIO',
+              'profile-admin': user.role === 'ADMIN',
+              'profile-student': user.role === 'ESTUDIANTE',
+              'profile-doctor' : user.role === 'DOCENTE' 
+            }" style="border:3px solid #fff;" alt="Profile Image">
+          </a>
+          <p class="text-center role-sticker" 
+          [ngClass]="{'profile-user': user.role === 'USUARIO',
+              'profile-admin': user.role === 'ADMIN',
+              'profile-student': user.role === 'ESTUDIANTE',
+              'profile-doctor' : user.role === 'DOCENTE' 
+            }">{{user.role}}</p>
+        </div>
+
+        <div class="text col-3">
+          <div class="row">
+            <div class="col-12 p-3">
+              <p class="name text-center">{{user.fullname}}</p>
+            </div>
+            <div class="px-3 row">
+              <div class="col-6">
+                <p class="job_title">@{{user.username}}</p>
+              </div>
+              <div class="col-6">
+                <p class="job_title">{{user.proffesion}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- <div *ngIf="user.description">
+            <p class="about">Sobre mí</p>
+            <p class="job_discription">{{user.description}}</p>
+          </div> -->
+        </div>
+
+        <div class="row col-3">
+          
+          <div class="post col-4 text-center">
+            <p>Posts</p>
+            <h5>{{user.posts}}</h5>
+          </div>
+          <div class="followers col-4 text-center">
+            <p>Followers</p>
+            <h5>{{user.followers}}</h5>
+          </div>
+          <div class="following col-4 text-center">
+            <p>Following</p>
+            <h5>{{user.following}}</h5>
+          </div>
+        </div> 
+        <div class="row col-3">
+          <div class="col-3"></div>
+          <div class="col-6">
+            <div class="button my-0">
+              <div *ngIf="user.uid !== userLogged.uid">
+                <button *ngIf="followed" class="message" style="margin-right: .75rem;" type="button" (click)="unfollowUser()">Dejar de seguir</button>
+                <button *ngIf="!followed" class="message" style="margin-right: .75rem;" type="button" (click)="followUser()">Seguir</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3"></div>
+  
+          <!-- <div class="col-6">
+            <div class="button my-0">
+              <div>
+                <button class="message" style="margin-right: .75rem;" type="button">Abrir chat</button>
+              </div>
+            </div>
+          </div> -->
+        </div>             
+      </div>
+
+    </div>
+</div>

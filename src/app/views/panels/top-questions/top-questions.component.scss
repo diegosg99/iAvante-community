@@ -1,0 +1,140 @@
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  section {
+    margin-bottom: 10px;
+  }
+  section h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul li {
+    margin-bottom: 10px;
+  }
+  ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+  }
+  ul li:hover {
+    background-color: #ccc;
+  }
+
+  .logo{ 
+    margin: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    background-color: #edededa1;
+  //font-family: 'Sacramento', cursive;
+  }
+
+.portada {
+
+}
+
+.portada-img {
+
+}
+
+.content {
+  //background-color: white;
+}
+
+.post-title {
+  color: #555555;
+  font-size: 28px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+// .card p {
+//   color: #434c5e;
+// }
+
+p {
+  font-family: Lato,Arial,Helvetica,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  color: #555555;
+}
+
+.post-content {
+  font-size: 16px;
+}
+
+.post:hover {
+    transform: scale(1.03);
+    transition: all 0.3s ease-in-out;
+}
+
+.post {
+  border-radius: 10px;
+  border: solid 1px #c1c1c1b5;
+  background-color: rgba(193, 193, 193, 0.7098039216);
+}
+
+.post-image {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+}
+nav a:hover {
+  background-color: #efefef;
+}
+.delete-button:hover{
+  color: red;
+}
+
+.topQuestion {
+  font-size: 15px;
+}
+
+.details {
+  font-size: 14px;
+}
+
+.details span{
+  font-size: 12px;
+}
+
+.topQuestions {
+  background-color: #f8f8f8;
+}
+
+.green-bomba {
+  background-color: #198754;
+  color: white;
+}
+
+.topQuestionsList li {
+  border-bottom: solid 1px #aaaaaa95;
+}
+
+.topQuestionsList li:last-child {
+  border-bottom: none;
+}

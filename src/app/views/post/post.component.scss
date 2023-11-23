@@ -1,0 +1,120 @@
+.logo{ 
+    margin: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    background-color: #edededa1;
+}
+
+.post-title {
+  color: #555555;
+  font-size: 28px !important;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+p {
+  font-family: Lato,Arial,Helvetica,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px !important;
+  color: #555555;
+}
+
+.post-content {
+  font-size: 14px;
+}
+
+.post {
+  // border-radius: 10px;
+  background-color: #f8f8f8;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+.post-image {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+
+//-------------------------CODEPEN---------------------------------
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // font-family: Roboto;
+  // text-decoration: none;
+}
+
+.slider-container {
+  height: 300px;
+  position: relative;
+}
+
+.slide {
+  width: 100%;
+  display: none;
+}
+.slide-btn {
+  color: black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  text-transform: capitalize;
+  transition: ease 0.3s;
+}
+.slide-btn:hover {
+  gap: 1rem;
+}
+
+
+.slider-nav {
+  position: absolute;
+  bottom: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.slider-nav-btn {
+  cursor: pointer;
+  background-color: rgba(211, 211, 211, 0.226);
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease 0.3s;
+}
+.slider-nav-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.slider-photo {
+  width: fit-content;
+  margin: 0 auto;
+}

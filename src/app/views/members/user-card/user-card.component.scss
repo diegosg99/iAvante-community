@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+:root {
+  --green: #58a497;
+  --yellow: #e09449;
+  --lightgreen1: #a4bdb7;
+  --brown: #8b4448;
+  --gray: gray;
+  --lightgreen2: rgb(164, 189, 183, 0.5);
+  --box: #ededed;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  background: #a4bdb7;
+}
+
+/* Content-1:Start */
+.box {
+  width: 320px;
+  height: fit-content;
+  border-radius: 20px;
+  padding: 10px;
+  text-align: center;
+  background: #ededed;
+}
+
+.box1 {
+  margin-top: 10px;
+}
+
+.content {
+  margin: 15px 2px;
+}
+
+.image {
+  // height: auto;
+  // width: 120px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;  /* defining the aspect ratio of the image */
+  object-fit: cover;  
+
+  // display: block;
+  // margin-left: auto;
+  // margin-right: auto;
+  // margin-bottom: 5px;
+}
+
+.level {
+  font-size: 0.7em;
+  background-color: rgb(164, 189, 183, 0.5);
+  width: 50px;
+  padding: 3px;
+  border-radius: 5px;
+  font-weight: bolder;
+  letter-spacing: 1px;
+
+  display: block;
+  margin: 0px auto 10px;
+}
+
+.name {
+  font-size: 12px;
+  font-weight: bolder;
+  letter-spacing: 1px;
+}
+
+.job_title {
+  font-size: 13px !important;
+  font-weight: bolder;
+  color: gray;
+}
+
+.job_discription {
+  font-size: 0.7em;
+  color: gray;
+  margin: 10px 30px 20px;
+}
+
+.icons {
+  margin: 0px 30px;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.icons button {
+  width: fit-content;
+  height: fit-content;
+  border: none;
+  font-size: 1em;
+}
+
+ion-icon:hover {
+  color: #58a497;
+  transition: 0.5s;
+}
+
+button {
+  width: 130px;
+  height: 40px;
+  border-radius: 10px;
+  font-weight: bolder;
+}
+
+.button {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin: 20px 30px 0px;
+}
+
+.button .message {
+  background: #ededed;
+  border: 2px solid #000;
+  font-size: 14px;
+}
+
+.button .connect {
+  background-color: #000;
+  color: #ededed;
+  border: none;
+}
+button.connect:hover {
+  letter-spacing: 1px;
+  transition: 0.5s;
+}
+button.message:hover {
+  letter-spacing: 1px;
+  transition: 0.5s;
+  background: rgba(88, 164, 151, 0.5);
+}
+/* Content-1:End */
+
+/* Content-2:Start */
+.box2 {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.box2 img {
+  width: 100px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 0px 10px;
+}
+
+h5 {
+  font-weight: bolder;
+  font-size: 1em;
+}
+
+.row p {
+  font-size: 0.8em;
+}
+
+.box2 .text {
+  text-align: left;
+}
+
+.box2 .text .name {
+  font-size: 1.1em;
+}
+
+.box2 .text .job_title {
+  font-size: 0.6em;
+  margin-bottom: 10px;
+}
+
+.box2 .text .job_discription {
+  margin: 0px;
+}
+
+.box2 .text .about {
+  font-size: 0.9em;
+  font-weight: bolder;
+}
+/* Content-2:End */
+
+/* Responsiveness:Start */
+@media screen and (max-width: 480px) {
+    .box{
+        width: 100vw;
+        border-radius: 0px;
+    }
+    .button{
+        display: flex;
+        flex-direction: column;
+    }
+    .button button{
+        width: 250px;
+    }
+    button.connect{
+        margin-top: 10px;
+    }
+    .content2{
+        padding: 0px 20px;
+    }
+    .content2 img{
+        width: 60px;
+        height: 60px;
+    }
+}
+
+input {
+  padding: .5rem;
+  font-size: 14px;
+}
+
+.patternBG {
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='29' height='50.115' patternTransform='scale(1) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/><path d='M14.5 6.628L8.886 3.372v-6.515L14.502-6.4l5.612 3.257-.001 6.514zm0 50.06l-5.613-3.256v-6.515l5.614-3.258 5.612 3.257-.001 6.515zm14.497-25.117l-5.612-3.257v-6.515L29 18.541l5.612 3.257-.001 6.515zm-29 0l-5.612-3.257v-6.515L0 18.541l5.612 3.257v6.515zM14.5 11.82L4.36 5.967l.002-11.706 10.14-5.855L24.638-5.74l-.001 11.707zm0 50.06L4.36 56.028l.002-11.706 10.14-5.855 10.137 5.852-.001 11.707zm14.498-25.118L18.858 30.91l.002-11.707L29 13.349l10.137 5.853-.001 11.706zm-29 0l-10.139-5.852.002-11.707L0 13.349l10.138 5.853-.002 11.706zm14.501-19.905L0 8.488.002-8.257l14.5-8.374L29-8.26l-.002 16.745zm0 50.06L0 58.548l.002-16.745 14.5-8.373L29 41.8l-.002 16.744zM28.996 41.8l-14.498-8.37.002-16.744L29 8.312l14.498 8.37-.002 16.745zm-29 0l-14.498-8.37.002-16.744L0 8.312l14.498 8.37-.002 16.745z'  stroke-linecap='square' stroke-width='1' stroke='hsla(0, 0%, 87%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+}
+
+.bg-soft {
+  background-color: rgba(249, 245, 245, 0.62);
+  border-radius: 16px;
+}
+
+/* Responsiveness:End */
+
+
+//----------------------------------------ROLES------------------------------------------------
+
+.role-sticker {
+  font-weight: 700;
+}
+
+.profile-user {
+  border-color: rgba(111, 111, 111, 0.58) !important;
+  background-color: rgba(111, 111, 111, 0.58) !important;
+  color: white;
+}
+
+.profile-admin {
+  border-color: #f44336ee !important;
+  background-color: #f44336ee !important;
+  color: white;
+}
+
+.profile-student {
+  border-color: #4caf4fbe !important;
+  background-color: #4caf4fbe !important;
+  color: white;
+}
+
+.profile-doctor {
+  border-color: #3f51b5a2 !important;
+  background-color: #3f51b5a2 !important;
+  color: white;
+}

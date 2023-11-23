@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-1"></div>
+    <div class="search-box col-10">
+        <input *ngIf="!selectStatus" #filter type="text" class="w-100 search" placeholder="¿Qué buscas?" (keyup)="filterItems(filter.value,cat)"  style="vertical-align: 4px; width: 255px;">
+        
+        <select *ngIf="selectStatus" #statusSelect class="w-100 search form-control" style="color:#4f4f4f;border: none;padding: 0px;" (change)="filterItems(statusSelect.value,cat)">
+            <option value="1">Abierto</option>
+            <option value="0">Cerrado</option>
+            <option value="2">Resuelto</option>
+        </select>
+        
+        <i class="fa-solid fa-filter my-auto px-2" style="font-size:13px;color: #4f4f4f;"></i>
+        <select (change)="isStatus(selectCats.value)" style="background: none; border: none; padding: 0;color: #4f4f4f;" class="material-symbols-outline" #selectCats *ngIf="cats[cat] as categories">
+            <option *ngFor="let category of categories | keyvalue" value="{{category.key}}">
+                {{category.value}}
+            </option>
+        </select>
+    </div>
+    <div class="col-1"></div>
+</div>

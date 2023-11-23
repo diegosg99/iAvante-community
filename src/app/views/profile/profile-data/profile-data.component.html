@@ -1,0 +1,175 @@
+<div class="row justify-content-center mb-auto soft-white">
+
+  <div class="box row" *ngIf="userLogged">
+    <form class="col-7"><!-- [formGroup]="userForm" -->
+      <div class="mx-auto row mb-3">
+        <div class="image-upload col-4">
+          <div class="image">
+            <label for="file-input">
+                <img src="{{userLogged.url}}" style="max-height: 120px;border:3px solid #fff;"
+                [ngClass]="{'profile-user': userLogged.role === 'USUARIO',
+                            'profile-admin': userLogged.role === 'ADMIN',
+                            'profile-student': userLogged.role === 'ESTUDIANTE',
+                            'profile-doctor' : userLogged.role === 'DOCENTE' 
+            }">
+            </label>
+          </div>
+          <p class="role-sticker mx-auto w-50" 
+          [ngClass]="{'profile-user': userLogged.role === 'USUARIO',
+              'profile-admin': userLogged.role === 'ADMIN',
+              'profile-student': userLogged.role === 'ESTUDIANTE',
+              'profile-doctor' : userLogged.role === 'DOCENTE' 
+            }">{{userLogged.role}}</p>
+          <input id="file-input" class="imageProfileUpload" type="file" (change)="updateImage()" #photo />
+          <div class="user-rating d-flex justify-content-center p-3" title="Esta es tu reputación, para aumentarla tienes que participar de todas las maneras que puedas en nuestra web. ¿A qué esperas?">
+            <h4 class="rating my-auto" style="color: #353535;">{{userLogged.reputation}}</h4>
+              <div class="rate my-auto p-2">
+                <div class="star-outer">
+                  <div class="star-inner">
+                    <i class="fa fa-star" style="color: #369569;"></i>
+                    <!-- <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> -->
+                    <!-- <i class="fa-regular fa-star"></i> -->
+                  </div>
+                </div>
+                <!-- <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span> -->
+              </div>
+            </div>
+            <div class="mx-auto">
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 100">Iniciado</span>
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 1000 && userLogged.reputation >= 100">Aprendíz</span>
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 10000 && userLogged.reputation >= 1000">Maestro</span>
+              <span class="p-1 mt-1" style="color: #323232;color: #369569;font-size: 15px;" *ngIf="userLogged.reputation < 100000 && userLogged.reputation >= 10000">Sabio</span>
+            </div>
+        </div>
+        
+        <div class="col-4">
+            <div class="d-flex m-3" style="font-size: 20px;">
+              <p>{{userLogged.fullname}}</p>  
+            </div>
+            <div class="d-flex m-3" style="font-size: 16px;">
+              <p>@{{userLogged.username}}</p>
+            </div>
+            <div class="d-flex m-3" style="font-size: 16px;">
+                <p>{{userLogged.email}}</p>
+            </div>
+            <div class="d-flex m-3" style="font-size: 16px; text-align: left;">
+              <p>{{userLogged.description}}</p>
+          </div>            
+        </div>
+        <div class="text col-4">
+            <div class="d-flex m-3" style="font-size: 16px;">
+              <i class="fa fa-user-doctor px-1"></i>
+              <p>{{userLogged.proffesion}}</p>
+            </div>
+          <div class="d-flex m-3" style="font-size: 16px;">
+              <i class="fa-regular fa-building px-1"></i>
+              <p>{{userLogged.jobCentre}}</p>
+          </div>
+          <div class="d-flex m-3" style="font-size: 20px;">
+            <i class="fa fa-location-dot px-1" style="font-size: 16px;"></i>
+            <p>{{userLogged.location}}</p>  
+          </div>
+          <div class="d-flex m-3" style="font-size: 16px;">
+            <p>{{userLogged.age}}</p>
+        </div> 
+        </div>
+        <!-- <div class="button">
+          <div>
+            <button class="message" type="button">Abrir chat</button>
+          </div>
+        </div> -->
+      </div>
+    </form>
+    <div class="container col-5 row">
+      <div class="icons col-12 my-3">
+        <div>
+          <a class="fa fa-instagram" style="text-decoration: none;color: black;" href="{{userLogged.instagram}}"></a>
+        </div>
+        <div>
+          <a class="fa fa-twitter" style="text-decoration: none;color: black;" href="{{userLogged.twitter}}"></a>
+        </div>
+        <div>
+          <a class="fa fa-linkedin" style="text-decoration: none;color: black;" href="{{userLogged.linkedin}}"></a>
+        </div>
+        <div>
+          <a class="fa fa-facebook" style="text-decoration: none;color: black;" href="{{userLogged.facebook}}"></a>
+        </div>
+      </div>
+      <div class="card text-center row">
+          <div class="card-header" (click)="hide()">
+              <h5 class="card-title m-3">Modificar tus datos</h5>
+          </div>
+          <div class="card-body p-4 row" [ngClass]="edit ? 'show' : 'hide'">
+  
+            <div class="col-2"></div>
+  
+            <div class="col-12">
+  
+              <div class="row">
+                <div class="col-6 px-3">
+                  <label style="float: left;;margin-bottom: 1em;">Nombre de usuario:</label>
+                  <input class="form-control my-3" type="text" placeholder="Nombre de usuario" #username  [(ngModel)]="userForm.username">
+                </div>
+                <div class="col-6">
+                  <label style="float: left;;margin-bottom: 1em;">Nombre completo:</label>
+                  <input class="form-control my-3" type="text" placeholder="Nombre completo" #fullName  [(ngModel)]="userForm.fullName">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-4">
+                  <label style="float: left;;margin-bottom: 1em;">Ubicación:</label>
+                  <input class="form-control my-3 w-100" type="text" placeholder="Ubicación" #location  [(ngModel)]="userForm.location">
+                </div>
+                <div class="col-4 p-1">
+                  <label style="float: left;;margin-bottom: 1em;">Profesión:</label>
+                  <input class="form-control my-3" type="text" placeholder="Profesión" #proffesion  [(ngModel)]="userForm.proffesion">
+                </div>
+                <div class="col-4">
+                  <label style="float: left;;margin-bottom: 1em;">Centro de trabajo:</label>
+                  <input class="form-control my-3 w-100" type="text" placeholder="Empresa" #jobCentre  [(ngModel)]="userForm.jobCentre">    
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <label style="float: left;;margin-bottom: 1em;">Sobre mí:</label>
+                  <input class="form-control my-3 w-100" type="text" placeholder="Sobre mí" #description  [(ngModel)]="userForm.description">  
+                </div>
+                <div class="col-4 p-1">
+                  <label style="float: left;;margin-bottom: 1em;">Fecha de nacimiento</label>
+                  <input class="form-control my-3" type="date" #age  [(ngModel)]="userForm.age">
+                </div>
+              </div>
+            </div>
+  
+              <hr>
+            <div class="row">
+              <div class="col-6 p-1">
+                <label style="float: left;;margin-bottom: 1em;">Instagram:</label>
+                <input class="form-control my-3" type="text" placeholder="Instagram" #fullName  [(ngModel)]="userForm.instagram">
+              </div>
+              <div class="col-6 p-1">
+                <label style="float: left;;margin-bottom: 1em;">Twitter:</label>
+                <input class="form-control my-3" type="text" placeholder="Twitter" #fullName  [(ngModel)]="userForm.twitter">
+              </div>
+              <div class="col-6 p-1">
+                <label style="float: left;;margin-bottom: 1em;">Facebook:</label>
+                <input class="form-control my-3" type="text" placeholder="Facebook" #fullName  [(ngModel)]="userForm.facebook">
+              </div>
+              <div class="col-6 p-1">
+                <label style="float: left;;margin-bottom: 1em;">LinkedIn:</label>
+                <input class="form-control my-3" type="text" placeholder="LinkedIn" #fullName  [(ngModel)]="userForm.linkedin">
+              </div>
+            </div>                  
+          <div class="row mx-3">
+              <div class="col-3"></div>
+              <button class="text-white btn btn-primary mb-3 col-6" (click)="updateProfile()">Actualizar perfil</button>
+              <div class="col-3"></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

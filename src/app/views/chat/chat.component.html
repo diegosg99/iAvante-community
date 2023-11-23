@@ -1,0 +1,35 @@
+    <div class="card text-center" style="width: 30%; position: fixed; bottom: 0.5rem; right: 0.5rem;" [ngClass]="mostrar ? 'card w-25 text-center mostrar' : 'ocultar'">
+        <div class="card-header d-inline-flex justify-content-center w-100" (click)="mostrarChat()">
+            <i class="fa-regular fa-message m-2"></i>
+            <h5 class="card-title">CHATS</h5>
+        </div>
+        <div *ngIf="$lobbys | async as lobbys">
+            <div *ngFor="let lobby of lobbys">
+                <div class="lobby-row row p-3">
+                    <div class="col-2">
+                        <img class="w-100" src="{{lobby.userImage}}">
+                    </div>
+                    <div class="col-10" style="font-size: 14px; text-align: left;">
+                        {{lobby.fullname}}
+                    </div>
+                </div>
+                <app-lobby-chat [lobby]="lobby"></app-lobby-chat>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <form class="input-group mb-3" (ngSubmit)="enviarMensaje()">
+                <input type="text" class="form-control" style="font-size: 12px;" placeholder="Escribe un mensaje..." aria-describedby="basic-addon2" [(ngModel)]="mensaje" [ngModelOptions]="{standalone: true}">
+                <div class="input-group-append d-flex">
+                  <button type="submit" class="input-group-text text-secondary" style="font-size: 12px;" id="basic-addon2">
+                    <i class="fa-solid fa-arrow-right send-photo m-2"></i>  
+                  </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div>
+    <i class="fa-solid fa-arrow-right send-photo" [ngClass]="mostrar ? 'ocultar' : 'mostrar chatButton fa-solid fa-comment send-photo'" (click)="mostrarChat()"></i>
+</div>
+

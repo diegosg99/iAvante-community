@@ -1,0 +1,64 @@
+- Hacer view/profile para ver la ficha de un usuario
+- Poder seguir usuarios
+- Hacer la lista de publicaciones solo para los usuarios que sigues?
+- Abrir chat con diferentes usuarios
+- Recortar fotos y subirlas más ligeras
+
+
+- API Youtube
+
+    key: AIzaSyDApSviRT9gGloCgE2tJvonBRGRlu0NHS8
+
+
+- nombre completo, email, profesion, centro de trabajo, provincia
+- separacion alumnos docentes
+- quienes somos
+- rising stars
+
+wenceslao.vereda@juntadeandalucia.es
+
+luz.liebana@juntadeandalucia.es
+
+
+---------------------------------- servidor ----------------------------------------
+
+- Hablar con sistemas para que monte un servidor donde yo pueda acceder mediante ssh y ftp (Importante)
+- El servidor debe tener mysql server
+- En este servidor crear una base de datos (mysql) llamada gestion, que tenga las tablas de alumnos, cursos y valoraciones
+- En este mismo servidor crear otra base de datos llamada iavante-community
+
+
+
+parte publica y privada
+recuperar contraseña
+
+Parte de novedades y parte de tu actividades
+encuestas
+
+Mayor publicador etc
+
+
+Semana que viene:
+
+publicar, separar miembros por rol, poder subir videos??(complicado)
+Parte inicial separada en tu actividad y nuestros eventosgenerales y promociones
+
+
+PROMOCIONES
+
+GRUPOS DE DIFUSION
+
+PARA PROD:
+
+- Hacer un chat funcional
+- Mejorar los estilos básicos
+- Probar funcionalidades y seguridad
+- Aprende con nosotros básico
+- Foto en evento
+- Hacer todo responsive
+- Traer comentarios en profile (Num coments)
+- Mostrar y cambiar estados de preguntas
+
+- Inscribirse a eventos ---- HECHO
+- Eliminar interacciones desde el perfil y hover ---- HECHO
+- Gestion de seguidores en perfil ---- HECHO

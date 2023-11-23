@@ -1,0 +1,42 @@
+<div>
+    <span class="">
+        <span class="msg-header row">
+            <span class="col-1">
+                <a class="navbar-brand me-2" href="#/profile/{{comment.id_user}}">
+                    <img src="{{comment.url}}" class="msg-img" alt="" width="60px" height="60px">
+                </a>
+            </span>
+            <div class="msg-user-data col-11 row justify-content-between pt-3" style="align-items: center;">
+                <span class="msg-username col-3">
+                    <a href="#/profile/{{comment.id_user}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.765);">{{comment.fullname}}</a>
+                </span>
+                <span class="col-3" style="text-align: right;">
+                    <span class="hace" style="font-size: 12px;">{{comment.created_at | date}}</span>
+                    <span class="interactions">
+                    </span>
+                </span>
+            </div>
+        </span>
+        <hr>
+    </span>
+    <div class="msg-content p-3 row">
+        <div class="col-10 my-auto">
+            <p class="my-auto" style="color: #555555;">{{comment.body}}</p>
+        </div>
+        <div class="col-2">
+            <span class="d-flex" style="justify-content: right;" id="usu_votos_2">
+                <span *ngIf="numLikes" class="p my-auto" style="font-size: 14px; color: #6f6f6f;">
+                    <b>{{numLikes}}</b> 
+                </span>
+                <span *ngIf="!numLikes" class="p my-auto" style="font-size: 14px; color: #6f6f6f;">
+                    <b>0</b> 
+                </span>
+
+                <button class="mx-2 btn btn-light" (click)="likeComment()">
+                    <i class="fa-heart" [ngClass]="clickedComment === null||clickedComment===undefined ? 'fa-regular black' : 'fa-solid red-heart'"></i> 
+                </button>
+            </span>
+            <span class="cb db"></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,235 @@
+<div class="row soft-white">
+    <ul class="row" style="list-style: none;">
+      <li class="col p-3 text-center profile-nav" (click)="displayData('posts')">
+        Publicaciones
+      </li>
+      <li class="col p-3 text-center profile-nav" (click)="displayData('questions')">
+        Preguntas
+      </li>
+      <li class="col p-3 text-center profile-nav" (click)="displayData('responses')">
+        Respuestas
+      </li>
+      <li class="col p-3 text-center profile-nav" *ngIf="$userLogged | async" (click)="displayData('following')">
+        Siguiendo
+      </li>
+      <li class="col p-3 text-center profile-nav" *ngIf="$userLogged | async" (click)="displayData('followers')">
+        Seguidores
+      </li>
+    </ul>
+    <div #profilePayload>
+      
+      <div style="list-style: none;" *ngIf="!category">
+      </div>
+
+      <ul style="list-style: none;" *ngIf="category =='posts'">
+        <li>
+          <div class="row profile-nav-small">
+            <div class="col-2 text-center">
+              Imagenes
+            </div>
+            <div class="col-6">
+              <div class="row" style="flex-grow: column;">
+                <p class="mx-auto col-6 text-center" style=" font-size: 1rem;">
+                  Título
+                </p>
+                <p class="col-6 text-center" style=" font-size: 1rem;">
+                  Contenido
+                </p>
+              </div>
+            </div>
+            <div class="col-3 text-center">
+              <span class="mx-3">Fecha de creación</span>
+          </div>
+          <div class="col-1 text-center">
+            <span>
+              Detalles
+            </span>
+        </div>
+          </div>
+        </li>
+        <li *ngFor="let item of ($posts | async)">
+          <div class="row profile-nav-small">
+            <div class="col-2 row p-4">
+              <img src="{{item.url}}">
+            </div>
+            <div class="col-6">
+              <div class="row" style="flex-grow: column;">
+                <a href="#/post/{{item.uid}}" style="color: #2a2e32;text-decoration: none;" class="mx-auto col-6 text-center">{{item.title}}</a>
+                <p class="col-6 text-center" style="font-size: 1rem;">{{item.body | slice:0:60}}...</p>
+              </div>
+            </div>
+            <div class="col-3 text-center">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
+          </div>
+          <div class="col-1 text-center">
+            <span class="mx-3">
+              <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
+            <span>
+              <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'posts')"></i>
+            </span>
+        </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul style="list-style: none;" *ngIf="category =='questions'">
+        <li>
+          <div class="row profile-nav-small mb-3">
+            <div class="col-1 text-center">
+              Estado
+            </div>
+            <div class="col-4 text-center px-2" style="font-size: .9em;">
+              Título
+            </div>
+            <div class="col-3 text-center px-2" style="font-size: .9em;">
+              Contenido
+            </div>
+            <div class="col-2 text-center" style="font-size: .9em;">
+              Fecha de creación
+            </div>
+            <div class="col-2 text-center">
+              Detalles
+            </div>
+          </div>
+        </li>
+        <li *ngFor="let item of ($questions | async)">
+          <div class="row profile-nav-small my-3">
+            <div class="col-1 text-center">
+              <div style="font-size: 13px;" *ngIf="item.status===1">
+                <span class="px-2">Abierta</span>
+                <!-- <i class="fas fa-lock-open" style="color: rgb(118, 118, 118);"></i> -->
+              </div>
+              
+              <div style="font-size: 13px;" *ngIf="item.status===0">
+                <span class="px-2 red">Cerrada</span>
+                <!-- <i class="fas fa-lock red"></i> -->
+              </div>
+              
+              <div style="font-size: 13px;" *ngIf="item.status===2">
+                <span class="px-2 green">Resuelta</span>
+                <!-- <i class="fas fa-circle-check green"></i> -->
+              </div>
+            
+              <!-- <i class="fa-solid" 
+                [ngClass]="{
+                            'fa-lock red': item.status === 0,
+                            'fa-lock-open green': item.status === 1,
+                            'fa-circle-check green': item.status === 2,
+                            }"
+                style="font-size: 13px;"></i> -->
+              <!-- <img src="{{item.url}}" class="w-100"> -->
+            </div>
+            <div class="col-4 text-center px-2" style="font-size: .9em;">
+              {{item.title}}
+            </div>
+            <div class="col-3 text-center px-2" style="font-size: .9em;">
+              {{item.body | slice:0:40}}
+            </div>
+            <div class="col-2 text-center" style="font-size: .9em;">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
+            </div>
+            <div class="col-2 text-center">
+              <span class="mx-1">
+                <i class="fa fa-eye" style="font-size: 14px;" aria-hidden="true"></i> {{item.views}}</span>
+              <span class="mx-1">
+                <i class="fa fa-commenting-o" style="font-size: 14px;" aria-hidden="true"></i> {{item.comments}}</span>
+              <span class="mx-1">
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'questions')"></i>
+              </span>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <ul style="list-style: none;" *ngIf="category =='responses'">
+        <li>
+          <div class="row profile-nav-small">
+            <div class="col-5 text-center">
+              Respuesta
+            </div>
+            <div class="col-4 text-center">
+              Publicación
+            </div>
+            <div class="col-3">
+              <div class="row justify-content-center" style="flex-grow: column;">
+                <p class="mx-auto col-6 text-center" style=" font-size: 1rem;">
+                  Fecha
+                </p>
+                <p class="col-6 text-center" style=" font-size: 1rem;">
+                  Detalles
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li *ngFor="let item of ($responses | async)?.questions | paginate: { itemsPerPage: 10, currentPage: p}">
+          <div class="row profile-nav-small mb-0">
+            <div class="col-5 text-left px-3" style="font-size: 14px;">
+              {{item.body}}
+            </div>
+            <a href="#/foro/{{item.q_id}}"  class="col-4 text-left px-3" style="font-size: 14px;text-decoration: none; color: #2a2e32;">
+              {{item.title}}
+            </a>
+            <!-- <div class="col-1">
+              <p style="font-size: 11px;">{{item.likes.integerValue}}<i class="fa fa-heart"></i></p>
+            </div> -->
+            <div class="col-2">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
+            </div>
+            <div class="col-1">
+              <span class="mx-3">
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'responses')"></i>
+              </span>
+          </div>
+          </div>
+        </li>
+        <li *ngFor="let item of ($responses | async)?.posts | paginate: { itemsPerPage: 10, currentPage: p}">
+          <div class="row profile-nav-small mb-0">
+            <div class="col-5 text-left px-3" style="font-size: 14px;">
+              {{item.body}}
+            </div>
+            <a href="#/post/{{item.p_id}}" class="col-4 text-left px-3" style="font-size: 14px;text-decoration: none; color: #2a2e32;">
+              {{item.title}}
+            </a>
+            <!-- <div class="col-1">
+              <p style="font-size: 11px;">{{item.likes.integerValue}}<i class="fa fa-heart"></i></p>
+            </div> -->
+            <div class="col-2">
+              <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
+            </div>
+            <div class="col-1">
+              <span class="mx-3">
+                <i *ngIf="$userLogged | async" class="fa fa-trash-o trash-hover" aria-hidden="true" (click)="removeItem(item.uid,'responses')"></i>
+              </span>
+          </div>
+          </div>
+        </li>
+      </ul>
+
+      <div  *ngIf="$userLogged | async as userLogged">
+        
+        <ul style="list-style: none;" *ngIf="category =='following'">
+          <li *ngFor="let item of ($followed | async) | paginate: { itemsPerPage: 10, currentPage: p}">
+            <app-mini-user [user]="item" [userLogged]="userLogged"></app-mini-user>
+          </li>
+        </ul>
+  
+        <ul style="list-style: none;" *ngIf="category =='followers'">
+          <li *ngFor="let item of ($followers | async) | paginate: { itemsPerPage: 10, currentPage: p}">
+            <app-mini-user [user]="item" [userLogged]="userLogged"></app-mini-user>
+          </li>
+        
+        </ul>
+      </div>
+
+      <pagination-controls class="mt-3 w-100 text-center" previousLabel="Atrás"
+                            nextLabel="Siguiente"
+                            screenReaderPaginationLabel="Paginación"
+                            screenReaderPageLabel="Página"
+                            screenReaderCurrentLabel="Estás en la página"
+                            (pageChange)="p = $event">
+      </pagination-controls>
+
+    </div>
+  </div>

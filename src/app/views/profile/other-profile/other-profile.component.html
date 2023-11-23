@@ -1,0 +1,140 @@
+<div class="soft-white" *ngIf="$user | async as user">
+    <div class="profile-header">
+      <div class="profile-img">
+        <img src="{{user.url}}" width="200" alt="Profile Image"
+        [ngClass]="{'profile-user': user.role === 'USUARIO',
+              'profile-admin': user.role === 'ADMIN',
+              'profile-student': user.role === 'ESTUDIANTE',
+              'profile-doctor' : user.role === 'DOCENTE' 
+            }">
+      </div>
+
+      <div class="d-flex w-100 px-5" style="justify-content: space-between;">
+        <div class="profile-nav-info">
+          <div>
+            <h3 class="user-name mb-1">{{user.fullname}}</h3>
+            <p class="text-center role-sticker" 
+              [ngClass]="{'profile-user': user.role === 'USUARIO',
+                  'profile-admin': user.role === 'ADMIN',
+                  'profile-student': user.role === 'ESTUDIANTE',
+                  'profile-doctor' : user.role === 'DOCENTE' 
+                }">{{user.role}}</p>
+            <div class="address">
+              <p id="state" class="state">{{user.proffesion}}</p>
+            </div>
+            <div class="addres">
+              <p id="country" class="country">{{user.jobCentre}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-3" style="flex-direction: column;align-self: center;width: 20%;">
+          <div class="user-rating mx-auto" title="Esta es tu reputación, para aumentarla tienes que participar de todas las maneras que puedas en nuestra web. ¿A qué esperas?">
+          <h3 class="rating">{{user.reputation}}</h3>
+            <div class="rate">
+              <div class="star-outer">
+                <div class="star-inner">
+                  <i class="fa fa-star"></i>
+                  <!-- <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i> -->
+                  <!-- <i class="fa-regular fa-star"></i> -->
+                </div>
+              </div>
+              <!-- <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span> -->
+            </div>
+          </div>
+          <div class="mx-auto">
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 100">Iniciado</span>
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 1000 && user.reputation >= 100">Aprendíz</span>
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 10000 && user.reputation >= 1000">Maestro</span>
+            <span class="p-1 mt-2" style="color: #323232;color: #369569;font-size: 14px;" *ngIf="user.reputation < 100000 && user.reputation >= 10000">Sabio</span>
+          </div>
+          
+          <div class="icons d-flex col-12 my-3 p-3" style="justify-content: space-between;">
+            <div>
+              <a class="fa fa-instagram" style="text-decoration: none;color: #555555;" href="{{user.instagram}}"></a>
+            </div>
+            <div>
+              <a class="fa fa-twitter" style="text-decoration: none;color: #555555;" href="{{user.twitter}}"></a>
+            </div>
+            <div>
+              <a class="fa fa-linkedin" style="text-decoration: none;color: #555555;" href="{{user.linkedin}}"></a>
+            </div>
+            <div>
+              <a class="fa fa-facebook" style="text-decoration: none;color: #555555;" href="{{user.facebook}}"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="profile-option">
+        <div class="notification">
+          <i class="fa fa-bell"></i>
+          <span class="alert-message">3</span>
+        </div>
+      </div> -->
+    </div>
+  
+    <div class="main-bd">
+      <div class="left-side">
+        <div class="profile-side">
+          <p class="mobile-no" style="color: #555555;"><i class="fa fa-user"></i>{{user.username}}</p>
+          <p *ngIf="user.phone" style="color: #555555;" class="mobile-no"><i class="fa fa-phone"></i>{{user.phone}}</p>
+          <p class="user-mail" style="font-size: 12px;color: #555555;"><i class="fa fa-envelope"></i>{{user.email}}</p>
+          <div class="user-bio">
+            <h4 style="color: #323232;">Sobre mí</h4>
+            <p class="bio" style="color: #555555;">
+                {{user.description}}
+            </p>
+          </div>
+          <div class="profile-btn">
+            <button *ngIf="followed" class="createbtn" (click)="unfollowUser()" style="font-size: 14px;"><i class="fa fa-plus"></i>Dejar de seguir</button>
+            <button *ngIf="!followed" class="createbtn" (click)="followUser()"><i class="fa fa-plus"></i>Seguir</button>
+            <button class="chatbtn" id="chatBtn" (click)="openChat(userId)"><i class="fa fa-comment"></i>Chat</button>
+          </div>
+        </div>
+  
+      </div>
+      <div class="right-side w-100">
+        <app-profile-table [$userLogged]="null" [$userSelected]="user"></app-profile-table>
+      </div>
+      <!-- <div class="right-side">
+  
+        <div class="nav">
+          <ul>
+            <li onclick="tabs(0)" class="user-post active">Publicaciones</li>
+            <li onclick="tabs(1)" class="user-review">Preguntas</li>
+          </ul>
+        </div>
+        <div class="profile-body">
+          <div class="profile-posts tab">
+            <ul *ngIf="$posts | async as postsData">
+              <li *ngFor="let post of postsData">
+                <div>
+                  <p>{{post.title}}</p>
+                  <p>{{post.body | slice:0:20}}...</p>
+                  <p>{{post.category}}</p>
+                  <p *ngIf="post.status === 1">Abierta</p>
+                  <p *ngIf="post.status === 0">Cerrada</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="profile-reviews tab">
+            <ul *ngIf="$posts | async as postsData">
+              <li *ngFor="let post of postsData">
+                <div class="d-flex">
+                  <p>{{post.title}}</p>
+                  <p>{{post.body | slice:0:20}}...</p>
+                  <p>{{post.category}}</p>
+                  <p *ngIf="post.status === 1">Abierta</p>
+                  <p *ngIf="post.status === 0">Cerrada</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div> -->
+    </div>
+</div>
+
+<app-chat *ngIf="$userLogged | async as userLogged" [userLogged]="userLogged" [$lobbys]="$lobbys"></app-chat>

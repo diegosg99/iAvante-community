@@ -1,0 +1,64 @@
+<div class="row">
+  
+  <div class="col-lg-12">
+    <h1 class="logo p-5">Hacer una pregunta</h1>
+  </div>
+
+  <div class="col-1 soft-white"></div>
+  <div class="col-10 row soft-white">
+    <header class="header mt-5">
+
+      <p id="description" class="description text-center">
+        ¡Gracias por contar con nosotros!
+      </p>
+    </header>
+    <form [formGroup]="form" class="row">
+      <div class="col-8">
+        <label id="name-label" for="name">¿Qué duda tienes?</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="¿Como puedo...?"
+          required
+          formControlName="title"
+        />
+      </div>
+
+      <div class="col-4">
+        <label id="name-label" for="name">¿Que tipo de pregunta tienes?</label>
+        <select type="text" name="name" id="name" class="form-control" formControlName="category" required>
+          <option value="general">
+            Dudas generales
+          </option>
+          <option value="experience">
+            Mi experiencia
+          </option>
+          <option value="learn">
+            Donde aprender sobre...
+          </option>
+        </select>
+      </div>
+  
+      <div class="form-group col-12">
+        <p>Desarrolla la pregunta</p>
+        <textarea
+          id="comments"
+          class="input-textarea form-control"
+          name="comment"
+          placeholder="Enrollate lo que quieras..."
+          formControlName="description"
+        ></textarea>
+      </div>
+  
+      <div class="form-group text-align-center">
+        <button type="submit" id="submit" class="submit-button btn green-bomba" (click)="uploadNewForum()"  [disabled]="this.form.invalid">
+          Preguntar
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-1 soft-white"></div>
+
+</div>

@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+
+<app-chat></app-chat>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="logo mb-5 p-5">Publicar</h1>
+        </div>
+        <div *ngIf="loading" class="col-12 align-content-center m-3">
+            <div class="spinner-border text-primary float-right" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        <div class="col-1"></div>
+
+        <div class="col-10 m-3 mb-5" id="posts">
+            <form [formGroup]="form">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="">
+                                    <i class="fa-solid fa-quote-left form-control" style="font-weight: bold;"
+                                    [class.green-icon]="this.form.get('titulo')?.valid"
+                                    [class.red-icon]="this.form.get('titulo')?.invalid && this.form.get('titulo')?.touched"></i>
+                                </span>
+                                </div>
+                            <input type="text" class="form-control" placeholder="Título" formControlName="titulo">
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="">
+                                    <i class="fa-solid fa-filter form-control" style="font-weight: bold;"
+                                    [class.green-icon]="this.form.get('categoria')?.valid"
+                                    [class.red-icon]="this.form.get('categoria')?.invalid && this.form.get('categoria')?.touched"></i>
+                                </span>
+                                </div>
+                            <select type="text" class="form-control" placeholder="Categoría" formControlName="categoria">
+                                <option disabled selected hidden value="">Seleccionar categoría...</option>
+                                <option value="Simulación">Simulación</option>
+                                <option value="Medicina">Medicína</option>
+                                <option value="Tecnología">Tecnología</option>
+                                <option value="Curiosidades">Curiosidades</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-2">
+                        <div class="row">
+                            <div class="upload__btn-box col-12 row">
+                              <label class="col-2 upload__btn" style="color: #fff;">
+                                <p>Subir imagenes</p>
+                                <input type="file" multiple="multiple" name="files" data-max_length="20" class="upload__inputfile" #uploadFile (change)="imgUpload($event)">
+                              </label>
+                            </div>
+                          </div>
+                    </div>
+                </div>    
+                
+                
+
+                <div class="containerWrapper w-100" #imgWrap>
+                    <div *ngIf="$base64">
+                        <div
+                        *ngFor="images as image"
+                        class="slide"
+                        style="background-image: url('{{image}}');">
+                        </div>
+                    </div>
+                  </div>
+                  
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="">
+                        <i class="fa-solid fa-comment form-control"
+                        [class.green-icon]="this.form.get('descripcion')?.valid"
+                        [class.red-icon]="this.form.get('descripcion')?.invalid && this.form.get('descripcion')?.touched"></i>
+                      </span>
+                    </div>
+                    <textarea
+                        id="comments"
+                        class="input-textarea"
+                        name="comment"
+                        placeholder="Contenido" formControlName="descripcion">
+                    </textarea>
+
+
+                    <!-- <input type="textarea" rows="3" class="form-control" placeholder="Contenido"> -->
+                </div>
+    
+                <div (click)="postArticle()" class="row d-grip gap-2">
+                    <button class="btn green-bomba" type="submit" [disabled]="this.form.invalid">
+                        <i class="fa-solid fa-database"></i>&nbsp;Aceptar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-1"></div>
+
+    </div>
+</div>

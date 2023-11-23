@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.card-header {
+    color: white;
+    background-color: #198754;//rgb(75, 135, 255);
+    font-weight: 700;
+}
+
+.send-photo:active {
+    transform: scale(0.9);
+}
+
+.mostrar {
+    display: block;
+}
+
+.ocultar {
+    display: none;
+}
+
+.chatButton {
+    padding: 1em;
+    border-radius: 100%;
+    background-color: #198754;//rgb(75, 135, 255);
+    color: white;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    font-size: 16px;
+}
+
+.enviado {
+    display: block;
+    float: right;
+    background-color: #198754;
+    //min-width: 50.01%;
+    max-width: 70.01%;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 13px;
+    color: white;
+}
+
+.recibido {
+    display: block;
+    float: left;
+    background-color: rgb(158, 158, 158);
+    //min-width: 50.01%;
+    max-width: 80.01%;
+    border-radius: 10px;
+    text-align: left;
+    color: white;
+    font-size: 13px;
+}
+
+.chatPhoto {
+    min-width: none !important;
+}
+
+.photoRight {
+    float: right;
+}
+
+.photoLeft {
+    float: left;
+}
+
+.mensajesChat::-webkit-scrollbar {
+    display: none;
+}

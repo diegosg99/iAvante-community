@@ -1,0 +1,99 @@
+.quienes-somos {
+    display: flex;
+    justify-content: center;
+    padding-top: 4%;
+    margin-top: 0;
+    padding-right: 30px;
+    padding-bottom: 4%;
+    margin-bottom: 0;
+    padding-left: 30px;
+
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.quienes-somos-text {
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.open-sans {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.quienes-somos-text p,h1,span{
+    font-family: 'Nixie One', cursive;
+}
+
+.weight-600 {
+    font-weight: 600;
+}
+.weight-500 {
+    font-weight: 500;
+}
+.weight-300 {
+    font-weight: 300;
+}
+
+.ap-2 {
+    background-position: left top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(63,72,100,0);
+  border-width: 0 0 0 0;
+  border-color: rgba(96,125,139,0.2);
+  border-style: solid;
+  flex-direction: column;
+  display: flex;
+}
+
+.section-4 {
+    color: white;
+}
+
+.hidden {
+    display: none;
+    transition: .2s;
+}
+.visible {
+    display: inherit;
+    transition: .2s;
+}
+
+.collapse-icon {
+    background-color: #212934 !important;
+    border-color: #212934 !important;
+    color: #ffffff;
+    padding: .3rem;
+    margin-right: 1rem;
+}
+
+.collapse-row:hover > .collapse-icon{
+    background-color: #99cc00 !important;
+    border-color: #99cc00 !important;
+    color: #ffffff;
+    transition: .2s;
+}
+
+.collapse-row:hover > .collapse-title {
+    color: #99cc00;
+    transition: .2s;
+}
+
+.collapse-title {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: -1px;
+    color: rgba(19, 22, 24, 0.701);
+}
+
+.panel-body {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

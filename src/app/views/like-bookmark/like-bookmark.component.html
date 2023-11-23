@@ -1,0 +1,17 @@
+<div class="row justify-content-end">
+    <div class="col-9"></div>
+    <div class="col-2 row">
+        <div class="col-4"></div>
+        <div (click)="likePost()" style="text-align: center;">
+            <i class="fa-heart col-4" [ngClass]="liked?'fa-solid red':'fa-regular black'"></i>
+        </div>
+        <div (click)="bookmarkPost()" style="text-align: center;"><i class="fa-bookmark col-4"
+            [ngClass]="bookmarked?'fa-solid black':'fa-regular black'"></i>
+        </div>
+    </div>
+    
+    <div class="col-1" style="text-align: center;">
+        <img *ngIf="user.photoURL" src="{{user.photoURL}}" style="border-radius: 60px;" class="d-inline-block align-top" width="30px" height="30px">
+        <!-- <span class="m-3 text-secondary" style="font-size: medium;">{{user.displayName?user.displayName:user.email}}</span> -->
+    </div>
+</div>

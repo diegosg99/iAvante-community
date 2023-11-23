@@ -1,0 +1,23 @@
+<div class="row">
+    <span class="col-1">
+      <a class="navbar-brand me-2 col-3" href="#/profile/{{user.uid}}">
+          <img src="{{user.userImage}}" class="msg-img" alt="" width="60px" height="60px">
+      </a>
+    </span>
+    <div class=" col-9 row justify-content-between pt-3" style="align-items: center;">
+        <span class="msg-username col-4">
+            <a href="#/profile/{{user.uid}}" class="" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);">{{user.fullname}}</a>
+        </span>
+        <span class="col-4 text-center" style="text-align: right;">
+            <span class="hace" style="font-size: 12px;">{{user.role}}</span>
+            <span class="interactions">
+            </span>
+        </span>
+        <span class="msg-username col-4 text-center" *ngIf="user.uid !== userLogged.uid">
+                <button *ngIf="followed" class="btn follows" style="margin-right: .75rem;" type="button" (click)="unfollowUser()">Dejar de seguir</button>
+                <button *ngIf="!followed" class="btn follows" style="margin-right: .75rem;" type="button" (click)="followUser()">Seguir</button>
+          <!-- <button class="btn follows" style="text-decoration: none;font-size: 16px; color: rgba(0, 0, 0, 0.627);" (click)="manageFollow(user.uid,'unfollow')">Dejar de seguir</button> -->
+      </span>
+      
+    </div>
+  </div>
