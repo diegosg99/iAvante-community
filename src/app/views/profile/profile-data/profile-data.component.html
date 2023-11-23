@@ -21,6 +21,21 @@
               'profile-doctor' : userLogged.role === 'DOCENTE' 
             }">{{userLogged.role}}</p>
           <input id="file-input" class="imageProfileUpload" type="file" (change)="updateImage()" #photo />
+          <div class="user-rating d-flex justify-content-center p-3" title="Esta es tu reputación, para aumentarla tienes que participar de todas las maneras que puedas en nuestra web. ¿A qué esperas?">
+            <h4 class="rating my-auto" style="color: #353535;">{{userLogged.reputation}}</h4>
+              <div class="rate my-auto p-2">
+                <div class="star-outer">
+                  <div class="star-inner">
+                    <i class="fa fa-star" style="color: #369569;"></i>
+                    <!-- <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> -->
+                    <!-- <i class="fa-regular fa-star"></i> -->
+                  </div>
+                </div>
+                <!-- <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span> -->
+              </div>
+            </div>
         </div>
         
         <div class="col-4">

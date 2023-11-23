@@ -191,7 +191,7 @@ button.createbtn i {
 }
 
 .user-rating h3 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 200;
   margin-right: 5px;
   letter-spacing: 1px;
@@ -405,4 +405,18 @@ button.createbtn i {
   border-color: #3f51b5a2 !important;
   background-color: #3f51b5a2 !important;
   color: white;
+}
+
+
+.user-rating[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: solid 2px #159b038b;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  width: 300px;
+  font-size: 14px;
 }

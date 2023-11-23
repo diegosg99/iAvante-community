@@ -1,5 +1,6 @@
 const connection = require('../database');
 const toolService = require("../services/tools.service");
+const reputationService = require("../services/reputation.service");
 const path = require('path');
 
 
@@ -103,16 +104,25 @@ exports.subscribeEvent = (req, res) => {
 
     try {
         let sql = `INSERT INTO event_users 
-                    (uid,user,event) 
-                VALUES 
-                    ('${data.uid+'&&'+data.event}','${data.uid}','${data.event}');`;
+                        (uid,user,event) 
+                    VALUES 
+                        ('${data.uid+'&&'+data.event}','${data.uid}','${data.event}');`;
 
         
         connection.query(sql, function(err, rows, fields) {
 
             if (err) throw err;
 
-            res.status(201).json(rows);
+            let reputation = reputationService.setReputation('asistencia');
+
+            sql = `UPDATE users set reputation=reputation+${reputation} WHERE uid = '${data.uid}';`;
+
+            connection.query(sql, function(err, rows, fields) {
+
+                if (err) throw err;
+
+                res.status(201).json(rows);  
+            })
         });
         
     } catch (error) {

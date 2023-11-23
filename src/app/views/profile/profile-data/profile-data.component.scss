@@ -288,3 +288,17 @@ input {
   background-color: #3f51b5a2 !important;
   color: white;
 }
+
+
+.user-rating[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: 40%;
+  left: 2rem;
+  border: solid 2px #159b038b;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  width: 300px;
+  font-size: 14px;
+}
