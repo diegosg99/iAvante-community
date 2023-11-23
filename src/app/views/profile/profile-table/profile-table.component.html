@@ -95,19 +95,19 @@
         <li *ngFor="let item of ($questions | async)">
           <div class="row profile-nav-small my-3">
             <div class="col-1 text-center">
-              <div style="font-size: 14px;" *ngIf="item.status===1">
+              <div style="font-size: 13px;" *ngIf="item.status===1">
                 <span class="px-2">Abierta</span>
-                <i class="fa-solid fa-lock-open" style="color: rgb(118, 118, 118);"></i>
+                <!-- <i class="fas fa-lock-open" style="color: rgb(118, 118, 118);"></i> -->
               </div>
               
-              <div style="font-size: 14px;" *ngIf="item.status===0">
-                <span class="px-2">Cerrada</span>
-                <i class="fa-solid fa-lock red"></i>
+              <div style="font-size: 13px;" *ngIf="item.status===0">
+                <span class="px-2 red">Cerrada</span>
+                <!-- <i class="fas fa-lock red"></i> -->
               </div>
               
-              <div style="font-size: 14px;" *ngIf="item.status===2">
-                <span class="px-2">Resuelta</span>
-                <i class="fa-solid fa-circle-check green"></i>
+              <div style="font-size: 13px;" *ngIf="item.status===2">
+                <span class="px-2 green">Resuelta</span>
+                <!-- <i class="fas fa-circle-check green"></i> -->
               </div>
             
               <!-- <i class="fa-solid" 

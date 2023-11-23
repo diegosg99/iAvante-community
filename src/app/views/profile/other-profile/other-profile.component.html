@@ -8,49 +8,28 @@
               'profile-doctor' : user.role === 'DOCENTE' 
             }">
       </div>
-      <div class="profile-nav-info">
-        <h3 class="user-name mb-1">{{user.fullname}}</h3>
-        <p class="text-center role-sticker" 
-          [ngClass]="{'profile-user': user.role === 'USUARIO',
-              'profile-admin': user.role === 'ADMIN',
-              'profile-student': user.role === 'ESTUDIANTE',
-              'profile-doctor' : user.role === 'DOCENTE' 
-            }">{{user.role}}</p>
-        <div class="address">
-          <p id="state" class="state">{{user.proffesion}}</p>
-        </div>
-        <div class="addres">
-          <p id="country" class="country">{{user.jobCentre}}</p>
-        </div>
-  
-      </div>
-      <!-- <div class="profile-option">
-        <div class="notification">
-          <i class="fa fa-bell"></i>
-          <span class="alert-message">3</span>
-        </div>
-      </div> -->
-    </div>
-  
-    <div class="main-bd">
-      <div class="left-side">
-        <div class="profile-side">
-          <p class="mobile-no"><i class="fa fa-user"></i>{{user.username}}</p>
-          <p *ngIf="user.phone" class="mobile-no"><i class="fa fa-phone"></i>{{user.phone}}</p>
-          <p class="user-mail" style="font-size: 12px;"><i class="fa fa-envelope"></i>{{user.email}}</p>
-          <div class="user-bio">
-            <h3>Sobre mí</h3>
-            <p class="bio">
-                {{user.description}}
-            </p>
+
+      <div class="d-flex w-100 px-5" style="justify-content: space-between;">
+        <div class="profile-nav-info">
+          <div>
+            <h3 class="user-name mb-1">{{user.fullname}}</h3>
+            <p class="text-center role-sticker" 
+              [ngClass]="{'profile-user': user.role === 'USUARIO',
+                  'profile-admin': user.role === 'ADMIN',
+                  'profile-student': user.role === 'ESTUDIANTE',
+                  'profile-doctor' : user.role === 'DOCENTE' 
+                }">{{user.role}}</p>
+            <div class="address">
+              <p id="state" class="state">{{user.proffesion}}</p>
+            </div>
+            <div class="addres">
+              <p id="country" class="country">{{user.jobCentre}}</p>
+            </div>
           </div>
-          <div class="profile-btn">
-            <button *ngIf="followed" class="createbtn" (click)="unfollowUser()" style="font-size: 14px;"><i class="fa fa-plus"></i>Dejar de seguir</button>
-            <button *ngIf="!followed" class="createbtn" (click)="followUser()"><i class="fa fa-plus"></i>Seguir</button>
-            <button class="chatbtn" id="chatBtn" (click)="openChat(userId)"><i class="fa fa-comment"></i>Chat</button>
-          </div>
-          <!-- <div class="user-rating">
-            <h3 class="rating">4.5</h3>
+        </div>
+        <div class="d-flex mt-3" style="flex-direction: column;align-self: center;">
+          <div class="user-rating">
+          <h3 class="rating">4.5</h3>
             <div class="rate">
               <div class="star-outer">
                 <div class="star-inner">
@@ -63,8 +42,48 @@
               </div>
               <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span>
             </div>
+          </div>
+          <div class="icons d-flex col-12 my-3 p-3" style="justify-content: space-between;">
+            <div>
+              <a class="fa fa-instagram" style="text-decoration: none;color: #555555;" href="{{user.instagram}}"></a>
+            </div>
+            <div>
+              <a class="fa fa-twitter" style="text-decoration: none;color: #555555;" href="{{user.twitter}}"></a>
+            </div>
+            <div>
+              <a class="fa fa-linkedin" style="text-decoration: none;color: #555555;" href="{{user.linkedin}}"></a>
+            </div>
+            <div>
+              <a class="fa fa-facebook" style="text-decoration: none;color: #555555;" href="{{user.facebook}}"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="profile-option">
+        <div class="notification">
+          <i class="fa fa-bell"></i>
+          <span class="alert-message">3</span>
+        </div>
+      </div> -->
+    </div>
   
-          </div> -->
+    <div class="main-bd">
+      <div class="left-side">
+        <div class="profile-side">
+          <p class="mobile-no" style="color: #555555;"><i class="fa fa-user"></i>{{user.username}}</p>
+          <p *ngIf="user.phone" style="color: #555555;" class="mobile-no"><i class="fa fa-phone"></i>{{user.phone}}</p>
+          <p class="user-mail" style="font-size: 12px;color: #555555;"><i class="fa fa-envelope"></i>{{user.email}}</p>
+          <div class="user-bio">
+            <h4 style="color: #323232;">Sobre mí</h4>
+            <p class="bio" style="color: #555555;">
+                {{user.description}}
+            </p>
+          </div>
+          <div class="profile-btn">
+            <button *ngIf="followed" class="createbtn" (click)="unfollowUser()" style="font-size: 14px;"><i class="fa fa-plus"></i>Dejar de seguir</button>
+            <button *ngIf="!followed" class="createbtn" (click)="followUser()"><i class="fa fa-plus"></i>Seguir</button>
+            <button class="chatbtn" id="chatBtn" (click)="openChat(userId)"><i class="fa fa-comment"></i>Chat</button>
+          </div>
         </div>
   
       </div>
