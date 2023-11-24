@@ -51,14 +51,24 @@ GRUPOS DE DIFUSION
 PARA PROD:
 
 - Hacer un chat funcional
-- Mejorar los estilos básicos
+- Mejorar los estilos básicos ---- HECHO
 - Probar funcionalidades y seguridad
 - Aprende con nosotros básico
-- Foto en evento
-- Hacer todo responsive
-- Traer comentarios en profile (Num coments)
-- Mostrar y cambiar estados de preguntas
+- Foto en evento ---- HECHO
+- Hacer todo responsive ---- HECHO
+- Traer comentarios en profile (Num coments) ---- HECHO
+- Mostrar y cambiar estados de preguntas ---- HECHO
 
 - Inscribirse a eventos ---- HECHO
 - Eliminar interacciones desde el perfil y hover ---- HECHO
 - Gestion de seguidores en perfil ---- HECHO
+
+
+
+
+COMUNIDAD V2:
+
+- Mostrar asistentes ordenados por rep debajo de asistir a evento
+- Mostrar todos los eventos en un componente bomba
+- Poner leaflet en cada evento con su ubicacion
+- Chat con los integrantes

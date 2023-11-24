@@ -89,7 +89,7 @@
           <div class="profile-btn">
             <button *ngIf="followed" class="createbtn" (click)="unfollowUser()" style="font-size: 14px;"><i class="fa fa-plus"></i>Dejar de seguir</button>
             <button *ngIf="!followed" class="createbtn" (click)="followUser()"><i class="fa fa-plus"></i>Seguir</button>
-            <button class="chatbtn" id="chatBtn" (click)="openChat(userId)"><i class="fa fa-comment"></i>Chat</button>
+            <!-- <button class="chatbtn" id="chatBtn" (click)="openChat(userId)"><i class="fa fa-comment"></i>Chat</button> -->
           </div>
         </div>
   
@@ -137,4 +137,4 @@
     </div>
 </div>
 
-<app-chat *ngIf="$userLogged | async as userLogged" [userLogged]="userLogged" [$lobbys]="$lobbys"></app-chat>
+<!-- <app-chat *ngIf="$userLogged | async as userLogged" [userLogged]="userLogged" [$lobbys]="$lobbys"></app-chat> -->

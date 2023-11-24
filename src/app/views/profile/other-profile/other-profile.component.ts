@@ -15,7 +15,7 @@ export class OtherProfileComponent implements OnInit{
 @Input() $user:Observable<any>;
 @Input() $userLogged: Observable<any>;
 
-$lobbys:Observable<any>;
+//$lobbys:Observable<any>;
 
 userData:any;
 userLoggedData:any;
@@ -36,7 +36,8 @@ ngOnInit(): void {
   });
   this.$userLogged.subscribe(res=> {
     this.userLoggedData = res;
-    this.$lobbys = this.chatService.getUserLobbys(this.userLoggedData.uid);
+    this.$followed = this.checkFollowed();
+    //this.$lobbys = this.chatService.getUserLobbys(this.userLoggedData.uid);
   })
 }
 
