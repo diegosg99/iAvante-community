@@ -22,7 +22,7 @@
     </nav>
         
     <div class="row">
-        <div class="col-8 soft-white" style="padding: 0px;" *ngIf="searchedData as questions">
+        <div class="col-xl-8 col-md-12 soft-white" style="padding: 0px;" *ngIf="searchedData as questions">
             <div class="row">
                 <section class="col-12">
                     <div class="d-flex">
@@ -44,7 +44,7 @@
                 </section>
             </div>
         </div>
-        <div class="col-4" *ngIf="$questionSubscription | async as questions">
+        <div class="col-xl-4" *ngIf="$questionSubscription | async as questions">
             <app-top-questions [questions]="questions"></app-top-questions>
         </div>
     </div>

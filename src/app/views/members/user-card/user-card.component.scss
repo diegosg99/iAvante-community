@@ -193,29 +193,29 @@ h5 {
 /* Content-2:End */
 
 /* Responsiveness:Start */
-@media screen and (max-width: 480px) {
-    .box{
-        width: 100vw;
-        border-radius: 0px;
-    }
-    .button{
-        display: flex;
-        flex-direction: column;
-    }
-    .button button{
-        width: 250px;
-    }
-    button.connect{
-        margin-top: 10px;
-    }
-    .content2{
-        padding: 0px 20px;
-    }
-    .content2 img{
-        width: 60px;
-        height: 60px;
-    }
-}
+// @media screen and (max-width: 480px) {
+//     .box{
+//         width: 100vw;
+//         border-radius: 0px;
+//     }
+//     .button{
+//         display: flex;
+//         flex-direction: column;
+//     }
+//     // .button button{
+//     //     width: 250px;
+//     // }
+//     button.connect{
+//         margin-top: 10px;
+//     }
+//     .content2{
+//         padding: 0px 20px;
+//     }
+//     .content2 img{
+//         width: 60px;
+//         height: 60px;
+//     }
+// }
 
 input {
   padding: .5rem;

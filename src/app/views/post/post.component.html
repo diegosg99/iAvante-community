@@ -1,6 +1,6 @@
 <div class="">   
     <div class="mb-1 row d-flex post w-100 mx-auto">
-        <div class="col-xl-4 col-sm-12" style="padding-left: 0px;" *ngIf="$mediaSub | async as media">
+        <div class="col-xl-4 col-md-4 col-sm-12" style="padding-left: 0px;" *ngIf="$mediaSub | async as media">
             <div class="slider-container w-100">
                 <div class="slider-nav d-flex w-100" style="justify-content: space-between;">
                     <a class="slider-nav-btn" style="text-decoration: none;" (click)="slidePhoto('back')">
@@ -23,21 +23,21 @@
         </div>
         <div class="post-content col p-3 row">
             <!-- <app-like-bookmark></app-like-bookmark> -->
-            <div class="col-12 row">
-                <h1 class="col-xl-8 col-sm-12">
-                    <a href="#/post/{{post.uid}}" style="font-size: 26px;text-decoration: none;color: black;">
-                        {{post.title}} <i class="fa fa-link" style="font-size:14px;" aria-hidden="true"></i>
+            <div class="col-12 row p-3">
+                <h1 class="col-xl-8 col-md-8 col-sm-12">
+                    <a href="#/post/{{post.uid}}" style="font-size: 26px;text-decoration: none;color: rgb(55, 55, 55);">
+                        {{post.title}}
                     </a>
                 </h1>
-                <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
-                    <a href="#/profile/{{post.user_id}}" style="text-decoration: none; color: #505051;" class="px-1">{{post.fullname}}</a>
+                <span class="col-xl-4 col-md-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
+                    <a href="#/profile/{{post.user_id}}" style="text-decoration: none; color: #505051;" class="px-3">{{post.fullname}}</a>
                     <a class="navbar-brand me-2">
                         <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="60px" height="60px">
                     </a>
                 </span>
             </div>
 
-            <div class="row col-12">
+            <div class="row col-12 p-3">
                 <div class="col-3">
                     {{post.category}}
                 </div>
@@ -49,7 +49,7 @@
 
             
             <hr class="mb-1">
-            <div class="col-12">
+            <div class="col-12 p-3">
                 <p>{{ (post.body.length>6)? (post.body | slice:0:200)+'...':(post.body)}}</p>
             </div>
         </div>
