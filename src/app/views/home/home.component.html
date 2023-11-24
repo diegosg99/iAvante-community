@@ -17,19 +17,11 @@
 
         <div class="row mt-3">
             
-<<<<<<< HEAD
             <app-post-news class="col-xl-9 col-md-12" *ngIf="dir==='news'"></app-post-news>
 
             <app-follows class="col-xl-9 col-md-12" *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
                     
             <app-calendar [$user]="userLogged" class="col-xl-3 col-md-12"></app-calendar>
-=======
-            <app-post-news class="col-9" *ngIf="dir==='news'"></app-post-news>
-
-            <app-follows class="col-9" *ngIf="dir==='posts'" [posts]='followedPosts'></app-follows>
-                    
-            <app-calendar [$user]="userLogged" class="col-3"></app-calendar>
->>>>>>> 02470a41a39c7d7a8e6f1701a387bad1dda5d7e2
         </div>
     </div>
 </div>
