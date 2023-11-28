@@ -60,6 +60,7 @@ import { CreateEventComponent } from './views/events/create-event/create-event.c
 import { EventComponent } from './views/events/event/event.component';
 import { LobbyChatComponent } from './views/chat/lobby-chat/lobby-chat.component';
 import { MiniUserComponent } from './views/profile/mini-user/mini-user.component';
+import { EventListComponent } from './views/events/event-list/event-list.component';
 
 
 @NgModule({
@@ -105,7 +106,8 @@ import { MiniUserComponent } from './views/profile/mini-user/mini-user.component
     CreateEventComponent,
     EventComponent,
     LobbyChatComponent,
-    MiniUserComponent
+    MiniUserComponent,
+    EventListComponent
     ],
   imports: [
     BrowserModule,

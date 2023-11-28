@@ -16,6 +16,7 @@ import { AboutUsComponent } from './views/about-us/about-us.component';
 import { LandingComponent } from './views/landing/landing.component';
 import { EventComponent } from './views/events/event/event.component';
 import { CreateEventComponent } from './views/events/create-event/create-event.component';
+import { EventListComponent } from './views/events/event-list/event-list.component';
 
 const routes: Routes = [
   {
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: "event/create",
     component: CreateEventComponent
+  },
+  {
+    path: "event/list",
+    component: EventListComponent
   }
 ];
 
