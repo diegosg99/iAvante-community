@@ -3,8 +3,6 @@ const authService = require('../services/auth.service');
 const toolService = require('../services/tools.service');
 const jwt = require("jsonwebtoken");
 const path = require("path");
-const mime = require('mime');
-var fs = require("fs");
 
 const secret = "Bearer";
 

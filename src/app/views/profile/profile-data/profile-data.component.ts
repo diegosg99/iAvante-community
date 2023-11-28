@@ -71,7 +71,6 @@ export class ProfileDataComponent implements OnInit{
       proffesion: this.userForm.proffesion,
       jobCentre: this.userForm.jobCentre,
       description: this.userForm.description,
-      role: 'USUARIO',
       age: this.userForm.age,
       instagram: this.userForm.instagram,
       facebook: this.userForm.facebook,
