@@ -192,8 +192,9 @@ exports.getUserPosts = (req,res) => {
                         data.push(newPost);
                     }
                     if (row.vurl) {
-                        console.log(row);
-                        newPost = {...row,url:row.vurl};
+                        const filepath = path.resolve(row.vurl);
+                        base64video = toolService.convertImageToBase64(filepath);
+                        newPost = {...row,vurl:base64video};
                         data.push(newPost);
                     }                    
                 })

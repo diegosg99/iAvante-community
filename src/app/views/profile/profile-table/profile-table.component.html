@@ -50,7 +50,12 @@
         <li *ngFor="let item of ($posts | async)">
           <div class="row profile-nav-small">
             <div class="col-2 row p-4">
-              <img src="{{item.url}}">
+              <video *ngIf="item.vurl" class="w-100" controls width="auto">
+                <source src="{{item.vurl}}" type="video/mp4">
+                <source src="{{item.vurl}}" type="video/ogg">
+                Tu navegador no soporta la carga de videos.
+              </video>
+              <img *ngIf="item.url" class="w-100" src="{{item.url}}" width="auto">
             </div>
             <div class="col-6">
               <div class="row" style="flex-grow: column;">

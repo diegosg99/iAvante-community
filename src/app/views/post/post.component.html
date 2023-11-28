@@ -11,14 +11,26 @@
                     </a>
                 </div>
                 <div *ngIf="$mediaSub | async as media" class="slider-photo">
-                    <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px">
-                </div>
+                    <video *ngIf="media.type ==='video'" class="w-100 post-image-{{post.uid}} show" controls width="auto" height="300px">
+                        <source src="{{media.url}}" type="video/mp4">
+                        <source src="{{media.url}}" type="video/ogg">
+                        Tu navegador no soporta la carga de videos.
+                    </video>
+                    <img *ngIf="media.type ==='img'" class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px">                </div>
                 <div *ngIf="$mediaSub2 | async as media2" class="slider-photo">
-                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="auto" height="300px">
-                </div>
+                    <video *ngIf="media2.type ==='video'" class="w-100 post-image-{{post.uid}} hide" controls width="auto" height="300px">
+                        <source src="{{media2.url}}" type="video/mp4">
+                        <source src="{{media2.url}}" type="video/ogg">
+                        Tu navegador no soporta la carga de videos.
+                    </video>
+                    <img *ngIf="media.type ==='img'" class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="auto" height="300px">                </div>
                 <div *ngIf="$mediaSub3 | async as media3" class="slider-photo">
-                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="auto" height="300px">
-                </div>
+                    <video *ngIf="media3.type ==='video'" class="w-100 post-image-{{post.uid}} hide" controls width="auto" height="300px">
+                        <source src="{{media3.url}}" type="video/mp4">
+                        <source src="{{media3.url}}" type="video/ogg">
+                        Tu navegador no soporta la carga de videos.
+                    </video>
+                    <img *ngIf="media.type ==='img'" class="w-100 post-image-{{post.uid}} hide" src="{{media.url}}" width="auto" height="300px">                </div>
             </div>
         </div>
         <div class="post-content col p-3 row">
