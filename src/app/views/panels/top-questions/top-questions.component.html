@@ -5,7 +5,21 @@
             </div>
             <ul class="px-3 topQuestionsList">
                 <li *ngFor="let question of (questions | sort: 'views' | slice:0:5)" class="p-1 row topQuestion">
-                    <a class="col-12" (click)="updateViews(question)">{{question.title}}</a>
+                    <a class="col-12 d-flex justify-content-between" (click)="updateViews(question)" style="font-size: 13px;">
+                        <span>{{question.title}}</span>
+                        <div class="text-right" style="width: 45%;text-align: right;">
+                            <span *ngIf="question.status==0" class="px-3" style="font-size: 12px;">Pregunta cerrada</span>
+                            <span *ngIf="question.status==1" class="px-3" style="font-size: 12px;">Pregunta abierta</span>
+                            <span *ngIf="question.status==2" class="px-3" style="font-size: 12px;">Pregunta resuelta</span>
+                            <i class="fa-solid" 
+                            [ngClass]="{
+                                        'fa-lock red': question.status === 0,
+                                        'fa-lock-open green': question.status === 1,
+                                        'fa-circle-check green': question.status === 2,
+                                        }"
+                            style="font-size: 12px;"></i>
+                        </div>
+                    </a>
                     <div class="row pb-1 pt-1 col-12 details">
                         <span class="col-2"><i class="fa-regular fa-eye"></i> {{question.views}}</span>
                         <span class="col-2"><i class="fa-regular fa-comment"></i> {{question.comments}}</span>
