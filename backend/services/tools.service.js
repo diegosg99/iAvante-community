@@ -37,6 +37,18 @@ exports.convertImageToBase64 = (filepath) => {
   return `data:${filemime};base64,${base64}`;
 }
 
+exports.convertVideoToBase64 = (filepath) => {
+
+  const filemime = mime.getType(filepath);
+
+  let base64 = fs.readFileSync(filepath,{encoding: 'base64'},(err, data) => {
+      if (err) {
+          throw err;
+      }
+  });
+  return `data:${filemime};base64,${base64}`;
+}
+
 exports.mediaManager = (file) => {
 
   let mime = file.mimetype.split('/')[0];

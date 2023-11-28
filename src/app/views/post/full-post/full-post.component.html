@@ -13,6 +13,7 @@
             <span class="col-xl-4 col-sm-12 d-flex" style="padding: 0px; justify-content: right;">
                 <p class="px-3">{{post.fullname}}</p>
                 <a class="navbar-brand me-2" href="#/profile/{{post.user_id}}">
+
                     <img *ngIf="$profileSub | async as data" src="{{data.url}}" class="msg-img" style="border-radius: 100%;" alt="" data-loaded="true" width="40px" height="40px">
                 </a>
             </span>
@@ -34,14 +35,15 @@
                     </a>
                 </div>
                 <div *ngIf="$mediaSub | async as media" class="slider-photo">
-                    <img class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px">
+                    <video *ngIf="media.type ==='video'" class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px"></video>
+                    <img *ngIf="media.type ==='img'" class="w-100 post-image-{{post.uid}} show" src="{{media.url}}" width="auto" height="300px">
                 </div>
                 <div *ngIf="$mediaSub2 | async as media2" class="slider-photo">
-                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media2.url}}" width="auto" height="300px">
-                </div>
+                    <video *ngIf="media2.type ==='video'" class="w-100 post-image-{{post.uid}} show" src="{{media2.url}}" width="auto" height="300px"></video>
+                    <img *ngIf="media2.type ==='img'" class="w-100 post-image-{{post.uid}} show" src="{{media2.url}}" width="auto" height="300px">                </div>
                 <div *ngIf="$mediaSub3 | async as media3" class="slider-photo">
-                    <img class="w-100 post-image-{{post.uid}} hide" src="{{media3.url}}" width="auto" height="300px">
-                </div>
+                    <video *ngIf="media3.type ==='video'" class="w-100 post-image-{{post.uid}} show" src="{{media3.url}}" width="auto" height="300px"></video>
+                    <img *ngIf="media3.type ==='img'" class="w-100 post-image-{{post.uid}} show" src="{{media3.url}}" width="auto" height="300px">                </div>
             </div>
 
             <div class="row d-flex">

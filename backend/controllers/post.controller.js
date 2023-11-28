@@ -163,12 +163,16 @@ exports.getUserPosts = (req,res) => {
         //         WHERE user_id = '${uid}';`;
 
         const sql = `
-            SELECT p.*, i.url AS url, COUNT(cc.uid) AS comments
+            SELECT p.*, i.url AS url,v.url AS vurl, COUNT(cc.uid) AS comments
                 FROM posts AS p 
                     INNER JOIN media_users AS m 
                         ON p.media1 = m.uid 
-                    INNER JOIN images AS i 
-                        ON i.id = m.id_media
+                        LEFT JOIN images AS i
+                        ON
+                            i.id = m.id_media 
+                        LEFT JOIN videos AS v
+                        ON
+                            v.id = m.id_media  
                     LEFT JOIN comments_cat AS cc 
                         ON cc.id_cat = p.uid
                 WHERE p.user_id = '${uid}'
@@ -179,15 +183,20 @@ exports.getUserPosts = (req,res) => {
                 console.error('Error fetching posts:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }else{
-
                 rows.forEach(row=> {
-                    console.log(row);
-                    const filepath = path.resolve(row.url);
-                    base64img = toolService.convertImageToBase64(filepath);
-                    newPost = {...row,url:base64img};
-                    data.push(newPost);
-                })
 
+                    if (row.url) {
+                        const filepath = path.resolve(row.url);
+                        base64img = toolService.convertImageToBase64(filepath);
+                        newPost = {...row,url:base64img};
+                        data.push(newPost);
+                    }
+                    if (row.vurl) {
+                        console.log(row);
+                        newPost = {...row,url:row.vurl};
+                        data.push(newPost);
+                    }                    
+                })
                 res.status(200).json(data);
             }
         });

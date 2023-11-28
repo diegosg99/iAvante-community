@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const mime = require('mime');
 var fs = require("fs");
+const { base64 } = require('@firebase/util');
 
 exports.getProfilePicture = async (req, res) => {
     let data = req.body;
@@ -42,8 +43,6 @@ exports.getMediaPost = async (req, res) => {
     let data = req.body;
     let id = data.id;
 
-    console.log(data);
-
     if (id===undefined){
         res.status(300).json({ err: 'foto nula'});
     }
@@ -51,21 +50,39 @@ exports.getMediaPost = async (req, res) => {
     try {
 
         let sql;
+        let data;
 
-            sql = `SELECT i.url
+            sql = `SELECT i.url,v.url as vurl
             FROM media_users as m 
-                INNER JOIN images as i 
+                LEFT JOIN images as i 
                     ON m.id_media = i.id
+                LEFT JOIN videos as v 
+                    ON m.id_media = v.id
             WHERE m.uid = '${id}';`;
 
             connection.query(sql, function(err, rows, fields) {
-                const filepath = path.resolve(rows[0].url);
-                let base64img = toolService.convertImageToBase64(filepath);
+
                 if(err){
-                res.status(300).json({ err:err });
+                    res.status(300).json({ err:err });
                 }
 
-                res.status(200).json({ url: base64img });
+                if (rows[0].url) {
+                    const filepath = path.resolve(rows[0].url);
+                    base64img = toolService.convertImageToBase64(filepath);
+                    data = base64img;
+                    type = 'img';
+                }
+                if (rows[0].vurl) {
+                    const filepath = path.resolve(rows[0].vurl);
+                    base64video = toolService.convertVideoToBase64(filepath);
+                    data = base64video;
+                    type = 'video';
+                }       
+
+                // const filepath = path.resolve(rows[0].url);
+                // let base64img = toolService.convertImageToBase64(filepath);
+
+                res.status(200).json({ url: data,type: type });
             });
     } catch (error) {
         console.error('Error:', error);
