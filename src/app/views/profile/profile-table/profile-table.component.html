@@ -66,7 +66,7 @@
             <div class="col-3 text-center">
               <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
           </div>
-          <div class="col-1 text-center">
+          <div class="col-1 d-flex justify-content-around">
             <span class="mx-3">
               <i class="fa fa-commenting-o" aria-hidden="true"></i> {{item.comments}}</span>
             <span>
@@ -101,7 +101,7 @@
           <div class="row profile-nav-small my-3">
             <div class="col-1 text-center">
               <div style="font-size: 13px;" *ngIf="item.status===1">
-                <span class="px-2">Abierta</span>
+                <span class="px-2 orange">Abierta</span>
                 <!-- <i class="fas fa-lock-open" style="color: rgb(118, 118, 118);"></i> -->
               </div>
               
@@ -133,7 +133,7 @@
             <div class="col-2 text-center" style="font-size: .9em;">
               <p style="font-size: 12px;color: rgb(84, 84, 84);">{{item.created_at | date:'dd/MM/yyyy hh:mm:ss'}}</p> <!--BOMBA-->
             </div>
-            <div class="col-2 text-center">
+            <div class="col-2 d-flex justify-content-around">
               <span class="mx-1">
                 <i class="fa fa-eye" style="font-size: 14px;" aria-hidden="true"></i> {{item.views}}</span>
               <span class="mx-1">
