@@ -35,13 +35,13 @@
             <a class="nav-link p-3" href="news">¿Qué está pasando?</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link p-3" *ngIf="user" href="#/miembros">Integrantes</a>
+            <a class="nav-link p-3" *ngIf="$userSubscription | async" href="#/miembros">Integrantes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link p-3" href="#/learn">Aprende con nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" *ngIf="user" href="#/publicar" tabindex="-1" aria-disabled="true">Publicar</a>
+            <a class="nav-link p-3" *ngIf="$userSubscription | async" href="#/publicar" tabindex="-1" aria-disabled="true">Publicar</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link p-3" href="#/about-us" tabindex="-1" aria-disabled="true">¿Quienes somos?</a>

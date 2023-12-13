@@ -20,7 +20,7 @@ export class LockService implements OnInit{
         
         const token = this.getToken();
 
-        return this.httpService.post("http://217.160.232.46:3000/api/user/verifyToken",{token:token});   
+        return this.httpService.post("http://localhost:3003/api/user/verifyToken",{token:token});   
     }
 
     getToken = () => {

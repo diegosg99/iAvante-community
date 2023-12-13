@@ -10,7 +10,7 @@ import { LockService } from './lock.service';
 })
 export class OauthService {
 
-  private baseUrl = 'http://217.160.232.46:3000/api'; // TODO IP : 10.111.249.108
+  private baseUrl = 'http://localhost:3003/api'; // TODO IP : 10.111.249.108
 
   constructor(private auth: AngularFireAuth,private http: HttpClient,private router:Router, private lockService: LockService) { }
 
