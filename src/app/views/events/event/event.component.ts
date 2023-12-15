@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { DateService } from 'src/app/services/date.service';
 import { EventsService } from 'src/app/services/events.service';
 import { ImageService } from 'src/app/services/image.service.service';
 import { LockService } from 'src/app/services/lock.service';
@@ -32,7 +33,22 @@ export class EventComponent implements OnInit{
   $mediaSub2: Observable<any>;
   $mediaSub3: Observable<any>;
 
-  constructor(private eventService:EventsService,private _activatedroute:ActivatedRoute,private lockService:LockService, private toastr: ToastrService,private imageService: ImageService){}
+  months: any = [
+    {name:'Enero'},
+    {name:'Febrero'},
+    {name:'Marzo'},
+    {name:'Abril'},
+    {name:'Mayo'},
+    {name:'Junio'},
+    {name:'Julio'},
+    {name:'Agosto'},
+    {name:'Septiembre'},
+    {name:'Octubre'},
+    {name:'Noviembre'},
+    {name:'Diciembre'}
+  ]
+
+  constructor(private eventService:EventsService,private _activatedroute:ActivatedRoute,private lockService:LockService, private toastr: ToastrService,private imageService: ImageService, private dateService: DateService){}
 
   ngOnInit(): void {
 
