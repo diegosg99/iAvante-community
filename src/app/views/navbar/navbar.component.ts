@@ -17,7 +17,7 @@ export class NavbarComponent {
   email;
   $userSubscription: Observable<any> = this.lockService.checkToken();
 
-  constructor(private cdr: ChangeDetectorRef, private router:Router,private userService: UserService,private oauth: OauthService,private lockService: LockService) {
+  constructor(private oauth: OauthService,private lockService: LockService) {
   }
 
   logout = () => {
