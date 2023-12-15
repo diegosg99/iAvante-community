@@ -75,23 +75,22 @@ export class EventListComponent {
    events: any = []
  
    month:any = this.viewDate.getMonth;
-
-  tableCells = Array(7).fill(0);
  
-  week = ['L','M','X','J','V','S','D'];
+  week = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sábado','Domingo'];
+
    months: any = [
-     {name:'Enero',days:this.range(31),code:0},
-     {name:'Febrero',days:this.range(28),code:1},
-     {name:'Marzo',days:this.range(31),code:2},
-     {name:'Abril',days:this.range(30),code:3},
-     {name:'Mayo',days:this.range(31),code:4},
-     {name:'Junio',days:this.range(30),code:5},
-     {name:'Julio',days:this.range(31),code:6},
-     {name:'Agosto',days:this.range(30),code:7},
-     {name:'Septiembre',days:this.range(31),code:8},
-     {name:'Octubre',days:this.range(30),code:9},
-     {name:'Noviembre',days:this.range(31),code:10},
-     {name:'Diciembre',days:this.range(30),code:11}
+     {name:'Enero',days:this.range(31),code:'01'},
+     {name:'Febrero',days:this.range(28),code:'02'},
+     {name:'Marzo',days:this.range(31),code:'03'},
+     {name:'Abril',days:this.range(30),code:'04'},
+     {name:'Mayo',days:this.range(31),code:'05'},
+     {name:'Junio',days:this.range(30),code:'06'},
+     {name:'Julio',days:this.range(31),code:'07'},
+     {name:'Agosto',days:this.range(30),code:'08'},
+     {name:'Septiembre',days:this.range(31),code:'09'},
+     {name:'Octubre',days:this.range(30),code:'10'},
+     {name:'Noviembre',days:this.range(31),code:'11'},
+     {name:'Diciembre',days:this.range(30),code:'12'}
    ]
  
    provinces: any = [
@@ -100,10 +99,6 @@ export class EventListComponent {
      {name: "Sevilla",code:2},
      {name: "Jaén",code:3},
      {name: "Almería",code:4},
-     {name: "Huelva",code:5},
-     {name: "Cordoba",code:6},
-     {name: "Cádiz",code:7},
-     {name: "Rutas",code:8}
    ]
  
    constructor(
@@ -131,36 +126,7 @@ export class EventListComponent {
  
        this.events = events;
        this.printEvents();
- 
      });
-   }
- 
-   showForm(form: string) {
- 
-     const forms: any = {
-       'bring': {status:0,id:'content1'},
-       'event': {status:0,id:'content2'}
-     }
-     forms[form].status===0?forms[form].status=1:forms[form].status=0;
- 
-     if (forms[form].status === 1)
-     {
-       let item = document.getElementById(forms[form].id);
-       item?.classList.remove('none');
-       item?.classList.add('block');
-       
-     }else{
-       let item = document.getElementById(forms[form].id);
-       item?.classList.remove('block')
-       item?.classList.add('none')
-     }
- 
-     let formsNames = Object.keys(forms);
- 
-     let antiform: any = formsNames.find(name => name!==form);
- 
-     document.getElementById(forms[antiform].id)?.classList.remove('block');
-     document.getElementById(forms[antiform].id)?.classList.add('none');
    }
  
    cleanCalendar = () => {
@@ -190,71 +156,35 @@ export class EventListComponent {
    }
  
    printEvents = () => {
-     this.cleanCalendar();
+     //this.cleanCalendar();
  
-     this.events.forEach((e: { province: string;start_date:string;name:string;code: string;room:any;schedule:any;color:any; }) => {
+    //  this.events.forEach((e: { province: string;start_date:string;name:string;code: string;room:any;schedule:any;color:any; }) => {
  
-       e.code = (e.code===null ||e.code === "")?'Sin código':e.code;
-       let day = e.start_date.trim().substring(0,2);
-       let province = e.province.trim() //Habrá que quitarlo si quieres añadir la provincia Virtual
+    //    e.code = (e.code===null ||e.code === "")?'Sin código':e.code;
+    //    let day = e.start_date.trim().substring(0,2);
+    //    let province = e.province.trim() //Habrá que quitarlo si quieres añadir la provincia Virtual
  
-       let id:string = province+'-'+parseInt(day,10);
-       let td = document.getElementById(id);
+    //    let id:string = province+'-'+parseInt(day,10);
+    //    let td = document.getElementById(id);
  
-       if (td !== null) {
-         td.innerHTML+=`
-         <div style='font-size:10px;border-bottom: 1px solid #dee2e6;background-color:${e.color};
-         padding-bottom: 1em;margin-bottom: 1em;'>
-           <p class='eventSelector' style='color:#2274A5;'>${e.code}</p>${e.name}<p style='margin-bottom: 0px;'>
-             Aulas: ${e.room}
-           </p><p style='margin-bottom: 0px;'>
-             Horario: ${e.schedule}
-           </p>
-         </div>`;
-       }
-     });
- 
-     this.bindEvents();
-   }
- 
-   bindEvents = () => {
-     let classEvents = document.getElementsByClassName('eventSelector');
- 
-     let classKeys = Object.keys(classEvents);
-     classKeys.forEach((key:any)=>{
- 
-       classEvents[key].addEventListener("click",()=> {
- 
-        //  this.eventService.getEventByCode(classEvents[key].innerHTML).subscribe(evento => {
-        //    this.event = evento[0];
-     
-        //    this.event.start_date = this.event.start_date.trim();
-     
-        //    let month = parseInt(this.event.start_date.substring(3,5))-1;
- 
-        //        let province = this.provinces.find((prov: {
-        //          name: string; code: number; 
-        //        }) => {
-        //        return prov.name === this.event.province.trim()? prov:null;
-        //      })
-     
-        //      this.eventForm.setValue({
-        //        'id': this.event.id,
-        //        'code': this.event.code.trim(),
-        //        'name': this.event.name.trim(),
-        //        'color': this.event.color?this.event.color:'white',
-        //        'rooms': this.event.room?this.event.room:null,
-        //        'workshops': this.event.workshops?this.event.workshops:null,
-        //        'location': this.event.location.trim()?this.event.location:null,
-        //        'hours': this.event.schedule?this.event.schedule.trim():"",
-        //        'breakfast': this.event.breakfast?this.event.breakfast.trim():"",
-        //        'snack': this.event.snack?this.event.snack.trim():"",
-        //        'lunch': this.event.lunch?this.event.lunch.trim():"",
-        //        'details': this.event.details?this.event.details.trim():""
-        //      });
-        //      this.showDialog();
-        //  });
-       });
-     })
-   }
+    //    if (td !== null) {
+    //      td.innerHTML+=`
+    //      <div style='font-size:10px;border-bottom: 1px solid #dee2e6;background-color:${e.color};
+    //      padding-bottom: 1em;margin-bottom: 1em;'>
+    //        <p class='eventSelector' style='color:#2274A5;'>${e.code}</p>${e.name}<p style='margin-bottom: 0px;'>
+    //          Aulas: ${e.room}
+    //        </p><p style='margin-bottom: 0px;'>
+    //          Horario: ${e.schedule}
+    //        </p>
+    //      </div>`;
+    //    }
+    //  });
+    }
+
+    filterEventsByMonth = (events,selectedMonth) => {
+      return events.filter(e => {
+        let month = e.date.toString().substring(5,7);
+        return month == selectedMonth;
+      });
+  }
 }

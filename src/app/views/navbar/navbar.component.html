@@ -35,13 +35,13 @@
             <a class="nav-link p-3" href="news">¿Qué está pasando?</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link p-3" *ngIf="user" href="#/miembros">Integrantes</a>
+            <a class="nav-link p-3" *ngIf="$userSubscription | async" href="#/miembros">Integrantes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link p-3" href="#/learn">Aprende con nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link p-3" *ngIf="user" href="#/publicar" tabindex="-1" aria-disabled="true">Publicar</a>
+            <a class="nav-link p-3" *ngIf="$userSubscription | async" href="#/publicar" tabindex="-1" aria-disabled="true">Publicar</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link p-3" href="#/about-us" tabindex="-1" aria-disabled="true">¿Quienes somos?</a>
@@ -60,14 +60,10 @@
           <p>Usuario</p>
         </a> -->
         
-        <div *ngIf="user" class=" col-6">
+        <div class=" col-6">
           <button class="btn btn-outline-success" (click)="logout()">
             <i width="20px" class="fa-solid fa-right-from-bracket"></i>
-        </button>
-        </div>
-        <div *ngIf="!user" class=" col-6">
-          <button class="btn btn-outline-success" (click)="logout()">
-            <i width="20px" class="fa-solid fa-user" style="border-radius: 100%;"></i>
+            <!-- <i *ngIf="!userData.uid" width="20px" class="fa-solid fa-user" style="border-radius: 100%;"></i> -->
         </button>
         </div>
       </div>

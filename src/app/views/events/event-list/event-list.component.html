@@ -1,44 +1,6 @@
 <app-navbar></app-navbar>
 
-<app-chat></app-chat>
-<!-- 
-<div class="">
-    <div class="col-lg-12">
-        <h1 class="logo p-5">Todos los eventos</h1>
-    </div>
-
-    <div class="col-10 mx-auto soft-white my-3" *ngIf="$eventSubscription | async as events">
-      <div class="w-100 text-center p-3 green-bomba">
-        {{months[today.getMonth()]}}
-      </div>  
-      <table id="calendar" class="p-3 w-100 table table-striped" style="table-layout:fixed;display: table;">
-        <thead class="w-100">
-          <tr>
-            <th scope="col" class="text-center">Lunes</th>
-            <th scope="col" class="text-center">Martes</th>
-            <th scope="col" class="text-center">Miercoles</th>
-            <th scope="col" class="text-center">Jueves</th>
-            <th scope="col" class="text-center">Viernes</th>
-            <th scope="col" class="text-center">Sabado</th>
-            <th scope="col" class="text-center">Domingo</th>
-          </tr>
-        </thead>  
-        
-          
-          <tbody id="calendar-days" class="w-100">
-            <tr>
-              <td scope="col" class="text-center">Larry</td>
-              <td scope="col" class="text-center">the Bird</td>
-              <td scope="col" class="text-center">@twitter</td>
-              <td scope="col" class="text-center">@twitter</td>
-              <td scope="col" class="text-center">@twitter</td>
-              <td scope="col" class="text-center">@twitter</td>
-              <td scope="col" class="text-center">@twitter</td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-</div> -->
+<!-- <app-chat></app-chat> -->
 
 <div class="row text-center">
   <div class="col-md-4">
@@ -56,7 +18,13 @@
       <div class="row d-flex justify-content-space-between align-items-center" style="margin-left: .5em;
       margin-right: .5em;">
           <div class="col-md-12">
-
+            <!-- <div class="form">
+              <i class="fa fa-search" (click)="this.getEvents(monthSearch.value)"></i>
+              <select class="form-select form-control form-input" #monthSearch>
+                  <option class="form-control input-field" *ngFor="let month of months" value={{month.code}}>{{month.name}}</option>
+              </select>
+              <span class="left-pan"><i class="fa fa-arrow"></i></span>
+            </div> -->
             <ul class="list-group d-flex row" style="flex-direction: row;">
               <li class="list-group-item col-1" style="font-size:12px;text-align:center;"  (click)="this.getEvents(0)">Enero</li>
               <li class="list-group-item col-1" style="font-size:12px;text-align:center;"  (click)="this.getEvents(1)">Febrero</li>
@@ -75,47 +43,243 @@
         </div>
 </div>
 
+  <!-- <div class="col-md-1 d-flex justify-content-center" style="position: fixed; right: 25px; bottom: 25px;">
+      <button class="btn btn-light" style="color:white;font-size:12px;padding:1em;border-radius: 6px;background-color: rgba(63, 119, 7, 0.912);" (click)="showDialog2()">
+          Crear evento
+      </button>
+  </div> -->
+
+      <!------------------------------------ FORMULARIO UPDATE--------------------------------------------->
+
+      <!-- <modal  id='modal_1' class="hhidden w-75">
+          <form  [formGroup]="eventForm" class="row">
+              <div class="col-11">
+                      <h3>Información del evento</h3>
+              </div>
+              <div class="col-1">
+                      <button class="btn btn-danger" (click)="closeDialog('modal_1')"><i class="fa fa-times" aria-hidden="true"></i>
+                      </button>
+              </div>
+              <div class="row col-12 mb-1">
+                  <div class="" style="display: none;">
+                      <input type="text" class="form-control m-1 input-field w-100" id="id" placeholder="id de curso" formControlName="id">
+                  </div>
+                  <div class="input-box col-3">
+                      <label for="cprovince">Código del curso:</label>
+                      <input type="text" class="form-control m-1 input-field w-100" id="code" placeholder="Código de curso" required formControlName="code">
+                  </div>
+                  <div class="input-box col-7">
+                      <label for="cprovince">Nombre del curso:</label>
+                      <input type="text" id="name" class="form-control m-1 w-100 input-field" placeholder="Nombre del curso"  formControlName="name">
+                  </div>
+                  <div class="input-box col-2">
+                      <label for="cprovince">Color:</label>
+                      <input type="color" id="color" class="form-control m-1 w-100 input-field" placeholder="Color"  formControlName="color">
+                  </div>
+              </div>
+              <div class="row col-12 mb-1">
+                  <div class="input-box col-6">
+                      <input type="text" id="rooms" class="form-control mb-1  input-field" placeholder="Aulas"  formControlName="rooms">
+                  </div>
+                  <div class="input-box col-6">
+                      <input type="text" id="talleres" class="form-control mb-1  input-field" placeholder="Talleres"  formControlName="workshops">
+                  </div>
+              </div>
+              <div class="row col-12 mb-1">
+                  <div class="input-box col-6">
+                      <input type="text" id="location" class="form-control mb-1  input-field" placeholder="Ubicación" formControlName="location">
+                  </div>
+                  <div class="input-box col-6">
+                      <input type="text" id="hours" class="form-control mb-1  input-field" placeholder="Horario" formControlName="hours">
+                  </div>
+              </div>
+              <div class="row col-12 mb-1">
+                  <div class="input-box col-4">
+                      <input type="text" id="breakfast" class="form-control mb-1  input-field" placeholder="Desayuno" formControlName="breakfast">
+                  </div>
+                  <div class="input-box col-4">
+                      <input type="text" id="snack" class="form-control mb-1  input-field" placeholder="Merienda" formControlName="snack">
+                  </div>
+                  <div class="input-box col-4">
+                      <input type="text" id="lunch" class="form-control mb-1  input-field" placeholder="Almuerzo" formControlName="lunch">
+                  </div>
+              </div>
+              <div class="row col-12 mb-1">
+                  <div class="input-box col-12">
+                      <textarea id="details" class="form-control mb-1  input-field" placeholder="Detalles del curso" formControlName="details"></textarea>
+                  </div>
+              </div>
+              <div class="row col-12" style="margin-left: 1em;display: flex; align-items: center;justify-content: space-between;">
+                  <button class="col-2 btn btn-danger mt-3" (click)="this.removeEvent()">Eliminar evento</button>
+                  <div class="col-2"></div>
+                  <button class="col-4 btn btn-primary mt-3" (click)="this.updateEvent()">Modificar evento</button>
+                  <div class="col-4"></div>
+              </div>
+          </form>
+    </modal> -->
+
+      <!------------------------------------ FORMULARIO CREATE--------------------------------------------->
+
+    <!-- <modal  id='modal_2' class="hhidden w-75">
+      <form  [formGroup]="eventFormCreate" class="row">
+          <div class="col-11">
+                  <h3>Información del evento</h3>
+          </div>
+          <div class="col-1">
+                  <button class="btn btn-danger" (click)="closeDialog('modal_2')"><i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+          </div>
+          <div class="row col-12 mb-1">
+              <div class="input-box col-3">
+                  <label for="date_start">Fecha de inicio:</label>
+                  <input #date_start type="date" class="form-control" formControlName="date_start">
+              </div>
+              <div class="input-box col-3">
+                  <label for="date_end">Fecha de finalización:</label>
+                  <input #date_end type="date" class="form-control" formControlName="date_end">
+              </div>
+              <div class="input-box col-6">
+                  <label for="cprovince">Provincia:</label>
+                  <select style="height: calc(2.25rem + 2px)!important;text-indent: 0px !important;" class="form-select form-control form-input" id="cprovince" formControlName="province">
+                      <option class="form-control input-field" *ngFor="let provincia of provinces" value={{provincia.code}}>{{provincia.name}}</option>
+                  </select>
+                      <span class="left-pan"><i class="fa fa-arrow"></i></span>
+              </div>
+          </div>
+          <div class="row col-12 mb-1">
+              <div class="input-box col-3">
+                  <label for="ccode">Código del curso:</label>
+                  <input type="text" class="form-control m-1 input-field w-100" id="ccode" required placeholder="Código de curso"  formControlName="code">
+              </div>
+              <div class="input-box col-7">
+                  <label for="cname">Nombre del curso:</label>
+                  <input type="text" id="cname" class="form-control m-1 w-100 input-field" placeholder="Nombre del curso"  formControlName="name">
+              </div>
+              <div class="input-box col-2">
+                  <label for="ccolor">Color del evento:</label>
+                  <input type="color" id="ccolor" class="form-control m-1 w-100 input-field" placeholder="Color"  formControlName="color">
+              </div>
+          </div>
+          <div class="row col-12 mb-1">
+              <div class="input-box col-6">
+                  <input type="text" id="crooms" class="form-control mb-1 input-field" placeholder="Aulas"  formControlName="rooms">
+              </div>
+              <div class="input-box col-6">
+                  <input type="text" id="ctalleres" class="form-control mb-1 input-field" placeholder="Talleres"  formControlName="workshops">
+              </div>
+          </div>
+          <div class="row col-12 mb-1">
+              <div class="input-box col-6">
+                  <input type="text" id="clocation" class="form-control mb-1 input-field" placeholder="Ubicación" formControlName="location">
+              </div>
+              <div class="input-box col-6">
+                  <input type="text" id="chours" class="form-control mb-1 input-field" placeholder="Horario" formControlName="hours">
+              </div>
+          </div>
+          <div class="row col-12 mb-1">
+              <div class="input-box col-4">
+                  <input type="text" id="cbreakfast" class="form-control mb-1 input-field" placeholder="Desayuno" formControlName="breakfast">
+              </div>
+              <div class="input-box col-4">
+                  <input type="text" id="csnack" class="form-control mb-1 input-field" placeholder="Merienda" formControlName="snack">
+              </div>
+              <div class="input-box col-4">
+                  <input type="text" id="clunch" class="form-control mb-1 input-field" placeholder="Almuerzo" formControlName="lunch">
+              </div>
+          </div>
+          <div class="row col-12 mb-1">
+              <div class="input-box col-12">
+                  <textarea type="textarea" id="cdetails" class="form-control mb-1 input-field" placeholder="Detalles del curso" formControlName="details"></textarea>
+              </div>
+          </div>
+          <div class="row col-12" style="display: flex; align-items: center;justify-content: center;">
+                  <button class="col-4 btn btn-primary mt-3" (click)="this.createEvent()">Publicar evento</button>
+          </div>
+      </form>
+</modal> -->
+
 
       <!------------------------------------ TABLA --------------------------------------------->
 
-<div class="col-8 m-auto">
-    <div class="w-100">
-        <table class="table">
+<div class="row w-100">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="w-100 green-bomba p-3 text-center" style="font-size: 20px;">
+          {{months[month].name}}
+        </div>
+        <table class="table table-striped">
             <thead class="thead-light">
                 <tr>
-                    <!-- <td style="border-right: 1px solid #dee2e6;" class="dayCol">{{months[month].name}}</td> -->
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Lunes</td>
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Martes</td>
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Miercoles</td>
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Jueves</td>
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Viernes</td>
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Sábado</td>
-                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Domingo</td>                    
+                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Evento</td>
+                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Descripción</td>
+                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Ubicación</td>
+                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Fecha</td>
+                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Hora</td>
+                    <td style="border-right: 1px solid #dee2e6;" class="text-center">Ver</td>
                 </tr>
             </thead>
             <tbody>
-
-                <tr *ngFor="let weeks of [1,2,3,4,5]">
-                  <td *ngFor="let day of tableCells; index as i">
-                    <p 
-                    class="text-center"
-                    style="border-right: 1px solid #dee2e6;"
-                    *ngIf="dateService.getDayName(((i+1)*weeks)+'/'+(month+1)+'/2023') === week[i]">
-                      {{(i+1)*weeks}}
-                    </p>
-                    <p
-                    class="text-center"
-                    style="border-right: 1px solid #dee2e6;"
-                    *ngIf="dateService.getDayName(((i+1)*weeks)+'/'+(month+1)+'/2023') !== week[i]">
-                      {{dateService.getDayName(((i+1)*weeks)+'/'+(month+1)+'/2023')}}
-                    </p>
+                <tr *ngFor="let event of (filterEventsByMonth(events,month+1) | sortDesc: 'date')">  <!-- Hacer una condición específica -->
+                  
+                  <td style="font-size: 13px;
+                      color: rgba(49, 49, 49, 0.901);
+                      vertical-align: middle;
+                      border-right: 1px solid #dee2e6;padding: 0px !important;
+                      min-width: 10%;border-right: solid,1px,grey;"
+                      class="text-center">
+                      {{event.name}}
                   </td>
+
+                  <td style="font-size: 12px;
+                      color: rgba(49, 49, 49, 0.901);
+                      vertical-align: middle;
+                      border-right: 1px solid #dee2e6;padding: 0px !important;
+                      min-width: 10%;border-right: solid,1px,grey;"
+                      class="text-center p-1">
+                      {{(event.description | slice:0:50) + '...'}}
+                  </td>
+
+                  <td style="font-size: 13px;
+                      color: rgba(49, 49, 49, 0.901);
+                      vertical-align: middle;
+                      border-right: 1px solid #dee2e6;padding: 0px !important;
+                      min-width: 10%;border-right: solid,1px,grey;"
+                      class="text-center">
+                      {{event.province + ', '+ event.street }}
+                  </td>
+
+                  <td style="font-size: 13px;
+                      color: rgba(49, 49, 49, 0.901);
+                      vertical-align: middle;
+                      border-right: 1px solid #dee2e6;padding: 0px !important;
+                      min-width: 10%;border-right: solid,1px,grey;"
+                      class="text-center">
+                      {{(event.date | date:'d') + ' de ' + months[month].name + ' de ' + (event.date | date:'y')}}
+                  </td>
+
+                  <td style="font-size: 13px;
+                      color: rgba(49, 49, 49, 0.901);
+                      vertical-align: middle;
+                      border-right: 1px solid #dee2e6;padding: 0px !important;
+                      min-width: 10%;border-right: solid,1px,grey;"
+                      class="text-center">
+                      {{(event.start | slice:0:5) + ' - '+ (event.end | slice:0:5)}}
+                  </td>
+
+                  <td style="font-size: 16px;
+                      color: rgba(49, 49, 49, 0.901);
+                      vertical-align: middle;
+                      border-right: 1px solid #dee2e6;padding: 0px !important;
+                      min-width: 10%;border-right: solid,1px,grey;"
+                      class="text-center">
+                      <a href="#/event/show/{{event.uid}}">
+                        <i class="fa fa-eye"></i>
+                      </a>
+                  </td>
+
+                  <!-- dateService.getDayName(day+'/'+(month+1)+'/2023') -->
+
                 </tr>
-
-                <!-- <div *ngFor="let month.days of months">
-
-                </div> -->
-
             </tbody>
         </table>
     </div>

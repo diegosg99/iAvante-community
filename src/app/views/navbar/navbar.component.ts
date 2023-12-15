@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable, concat, concatMap } from 'rxjs';
 import { LockService } from 'src/app/services/lock.service';
 import { OauthService } from 'src/app/services/oauth.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NavbarComponent {
 
-  userID;
-  user;
-  email;
   $userSubscription: Observable<any> = this.lockService.checkToken();
 
   constructor(private oauth: OauthService,private lockService: LockService) {

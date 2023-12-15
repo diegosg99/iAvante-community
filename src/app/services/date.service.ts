@@ -7,13 +7,13 @@ import * as moment from "moment";
 export class DateService {
 
     spanishDays:any = {
-        Monday: 'L',
-        Tuesday: 'M',
-        Wednesday: 'X',
-        Thursday: 'J',
-        Friday: 'V',
-        Saturday: 'S',
-        Sunday: 'D',
+        Monday: 'Lunes',
+        Tuesday: 'Martes',
+        Wednesday: 'Miercoles',
+        Thursday: 'Jueves',
+        Friday: 'Viernes',
+        Saturday: 'Sábado',
+        Sunday: 'Domingo',
     }
 
     festives2023:any = [
