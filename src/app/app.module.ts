@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -53,7 +52,7 @@ import { SearchComponent } from './views/search/search.component';
 import { TopQuestionsComponent } from './views/panels/top-questions/top-questions.component';
 import { CalendarComponent } from './views/panels/calendar/calendar.component';
 import { SortDescPipe } from './pipes/sort-desc.pipe';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
+// import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EventsService } from './services/events.service';
 import { CreateEventComponent } from './views/events/create-event/create-event.component';
@@ -61,7 +60,8 @@ import { EventComponent } from './views/events/event/event.component';
 import { LobbyChatComponent } from './views/chat/lobby-chat/lobby-chat.component';
 import { MiniUserComponent } from './views/profile/mini-user/mini-user.component';
 import { EventListComponent } from './views/events/event-list/event-list.component';
-
+import { DateService } from './services/date.service';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
 @NgModule({
   declarations: [
@@ -112,10 +112,11 @@ import { EventListComponent } from './views/events/event-list/event-list.compone
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+    // CalendarModule.forRoot({
+    //   provide: DateAdapter,
+    //   useFactory: adapterFactory,
+    // }),
+    CalendarModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule,
@@ -131,7 +132,8 @@ import { EventListComponent } from './views/events/event-list/event-list.compone
     ToastrService,
     LockService,
     PostService,
-    EventsService  
+    EventsService,
+    DateService
   ],
   bootstrap: [AppComponent]
 })
